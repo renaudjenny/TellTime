@@ -3,11 +3,6 @@ import SwiftUI
 struct ContentView: View {
   @EnvironmentObject var store: Store
 
-  var digitalTime: String {
-    let minute = self.store.minute > 9 ? "\(self.store.minute)" : "0\(self.store.minute)"
-    return "\(self.store.hour):\(minute)"
-  }
-
   var body: some View {
     let clock = Clock()
     let button = Button(action: {
@@ -18,7 +13,7 @@ struct ContentView: View {
 
     return VStack {
       Spacer()
-      Text(self.digitalTime)
+      TTS()
       clock
       DatePicker(self.$store.date)
       button

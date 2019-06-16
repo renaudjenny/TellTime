@@ -17,6 +17,7 @@
 		4CB1D4C822A7293500786385 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C622A7293500786385 /* LaunchScreen.storyboard */; };
 		4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4D222A7293500786385 /* telltimeTests.swift */; };
 		4CB1D4DE22A7293500786385 /* telltimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4DD22A7293500786385 /* telltimeUITests.swift */; };
+		4CC0406722B530EC0001AA50 /* TTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0406622B530EC0001AA50 /* TTS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		4CB1D4D922A7293500786385 /* telltimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = telltimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4DD22A7293500786385 /* telltimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = telltimeUITests.swift; sourceTree = "<group>"; };
 		4CB1D4DF22A7293500786385 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CC0406622B530EC0001AA50 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				4CB1D4C322A7293500786385 /* Preview Content */,
 				4CB1D4BD22A7293300786385 /* SceneDelegate.swift */,
 				4C6AE08622B50602008D7B3E /* Store.swift */,
+				4CC0406622B530EC0001AA50 /* TTS.swift */,
 			);
 			path = telltime;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C6AE08722B50602008D7B3E /* Store.swift in Sources */,
+				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */,
 				4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */,
 				4C9309B522B0C8B80073BE0B /* Clock.swift in Sources */,
