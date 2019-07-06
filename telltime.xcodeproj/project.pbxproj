@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C25E63C22D0997100E64612 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C25E63B22D0997100E64612 /* SwiftPastTen */; };
+		4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */; };
+		4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */; };
 		4C6AE08722B50602008D7B3E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AE08622B50602008D7B3E /* Store.swift */; };
 		4C9309B522B0C8B80073BE0B /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9309B422B0C8B80073BE0B /* Clock.swift */; };
 		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
@@ -38,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngine.swift; sourceTree = "<group>"; };
+		4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngineSwiftPastTen.swift; sourceTree = "<group>"; };
 		4C6AE08622B50602008D7B3E /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		4C9309B422B0C8B80073BE0B /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* telltime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = telltime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C25E63C22D0997100E64612 /* SwiftPastTen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +121,8 @@
 				4CB1D4BD22A7293300786385 /* SceneDelegate.swift */,
 				4C6AE08622B50602008D7B3E /* Store.swift */,
 				4CC0406622B530EC0001AA50 /* TTS.swift */,
+				4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */,
+				4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */,
 			);
 			path = telltime;
 			sourceTree = "<group>";
@@ -161,6 +169,9 @@
 			dependencies = (
 			);
 			name = telltime;
+			packageProductDependencies = (
+				4C25E63B22D0997100E64612 /* SwiftPastTen */,
+			);
 			productName = telltime;
 			productReference = 4CB1D4B822A7293300786385 /* telltime.app */;
 			productType = "com.apple.product-type.application";
@@ -233,6 +244,9 @@
 				Base,
 			);
 			mainGroup = 4CB1D4AF22A7293300786385;
+			packageReferences = (
+				4C25E63A22D0997100E64612 /* XCRemoteSwiftPackageReference "SwiftPastTen" */,
+			);
 			productRefGroup = 4CB1D4B922A7293300786385 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -276,7 +290,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */,
 				4C6AE08722B50602008D7B3E /* Store.swift in Sources */,
+				4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */,
 				4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */,
@@ -604,6 +620,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C25E63A22D0997100E64612 /* XCRemoteSwiftPackageReference "SwiftPastTen" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/renaudjenny/SwiftPastTen";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C25E63B22D0997100E64612 /* SwiftPastTen */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C25E63A22D0997100E64612 /* XCRemoteSwiftPackageReference "SwiftPastTen" */;
+			productName = SwiftPastTen;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4CB1D4B022A7293300786385 /* Project object */;
 }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftPastTen",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftPastTen",
+        "state": {
+          "branch": null,
+          "revision": "2c5d32f6d4f00ca89a630b3a1c73735b629e7013",
+          "version": "0.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
