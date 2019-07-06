@@ -12,11 +12,11 @@ struct TTS: View {
   }
 
   var body: some View {
-    speach(text: self.digitalTime)
+    speech(text: self.digitalTime)
     return Text(self.digitalTime)
   }
 
-  private func speach(text: String) {
+  private func speech(text: String) {
     let tellTimeText = try? self.tellTimeEngine.tell(time: text)
     let speechSynthesizer = AVSpeechSynthesizer()
     let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText ?? text)
