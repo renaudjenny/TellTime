@@ -1,26 +1,28 @@
-import SwiftUI
 import AVFoundation
 import SwiftPastTen
+import Combine
 
-struct TTS: View {
-  @EnvironmentObject var store: Store
+struct TTS {
   var tellTimeEngine: TellTimeEngine = SwiftPastTen()
 
+  let hour: Int
+  let minute: Int
+
   var digitalTime: String {
-    let minute = self.store.minute > 9 ? "\(self.store.minute)" : "0\(self.store.minute)"
-    return "\(self.store.hour):\(minute)"
+    let minute = self.minute > 9 ? "\(self.minute)" : "0\(self.minute)"
+    let hour = self.hour > 9 ? "\(self.hour)" : "0\(self.hour)"
+    return "\(hour):\(minute)"
   }
 
-  var body: some View {
-    speech(text: self.digitalTime)
-    return Text(self.digitalTime)
-  }
-
-  private func speech(text: String) {
+  func speech(text: String) {
     let tellTimeText = try? self.tellTimeEngine.tell(time: text)
     let speechSynthesizer = AVSpeechSynthesizer()
     let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText ?? text)
     speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
     speechSynthesizer.speak(speechUtterance)
+  }
+
+  func speechTime() {
+    self.speech(text: self.digitalTime)
   }
 }

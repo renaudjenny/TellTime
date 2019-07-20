@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 final class Store: BindableObject  {
-  let didChange = PassthroughSubject<Store, Never>()
+  let willChange = PassthroughSubject<Void, Never>()
 
   var hour: Int {
     get { Calendar.current.component(.hour, from: self.date) }
@@ -19,8 +19,8 @@ final class Store: BindableObject  {
   }
 
   var date: Date = Date() {
-    didSet {
-      self.didChange.send(self)
+    willSet {
+      self.willChange.send()
     }
   }
 }
