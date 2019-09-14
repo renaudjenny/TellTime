@@ -47,7 +47,7 @@ struct WatchPointer: View {
         let top = geometry.localTop
         path.move(to: center)
         path.addLine(to: CGPoint(x: center.x, y: top + self.margin))
-      }.stroke(Color.black, lineWidth: 2)
+      }.stroke(Color.black, lineWidth: self.lineWidth)
     }
   }
 }
