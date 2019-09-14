@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 
 final class Store: ObservableObject  {
+  @Published var deviceOrientation = UIDevice.current.orientation
   @Published var date: Date = Date() {
     didSet {
       TTS(hour: self.hour, minute: self.minute)

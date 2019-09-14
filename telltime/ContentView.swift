@@ -5,24 +5,25 @@ struct ContentView: View {
   @EnvironmentObject var store: Store
 
   var body: some View {
-//    if UIDevice.current.orientation.isLandscape {
-      return self.landscapeBody
-//    } else {
-//      return self.portraitBody
-//    }
+    Group {
+      if store.deviceOrientation.isLandscape {
+        self.landscapeBody
+      } else {
+        self.portraitBody
+      }
+    }
   }
 
   var portraitBody: some View {
     VStack {
       Clock()
-        .padding()
       DatePicker("Time", selection: self.$store.date, displayedComponents: [.hourAndMinute])
       Button(action: {
         self.changeClockRandomly()
       }) {
         Text("Change time")
       }
-    }
+    }.padding()
   }
 
   var landscapeBody: some View {
