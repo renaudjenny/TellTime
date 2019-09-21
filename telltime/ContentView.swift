@@ -17,7 +17,9 @@ struct ContentView: View {
   var portraitBody: some View {
     VStack {
       Clock()
-      DatePicker("Time", selection: self.$store.date, displayedComponents: [.hourAndMinute])
+      DatePicker(selection: self.$store.date, displayedComponents: [.hourAndMinute]) {
+        Text("Time")
+      }.fixedSize()
       Button(action: {
         self.changeClockRandomly()
       }) {
@@ -31,7 +33,11 @@ struct ContentView: View {
       Clock()
         .padding()
       VStack {
-        DatePicker("Time", selection: self.$store.date, displayedComponents: [.hourAndMinute])
+        Spacer()
+        DatePicker(selection: self.$store.date, displayedComponents: [.hourAndMinute]) {
+          Text("Time")
+        }.fixedSize()
+        Spacer()
         Button(action: {
           self.changeClockRandomly()
         }) {
