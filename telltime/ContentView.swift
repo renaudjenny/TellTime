@@ -15,33 +15,55 @@ struct ContentView: View {
   }
 
   var portraitBody: some View {
-    VStack {
-      Clock()
-      DatePicker(selection: self.$store.date, displayedComponents: [.hourAndMinute]) {
-        Text("Time")
-      }.fixedSize()
-      Button(action: {
-        self.changeClockRandomly()
-      }) {
-        Text("Change time")
+    NavigationView {
+      VStack {
+        Clock()
+        DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
+          .fixedSize()
+        self.buttons
       }
-    }.padding()
+      .padding()
+      .navigationBarTitle("Tell Time")
+    }
   }
 
   var landscapeBody: some View {
-    HStack {
-      Clock()
-        .padding()
-      VStack {
+    NavigationView {
+      HStack {
+        Clock()
+          .padding()
+        VStack {
+          Spacer()
+          DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
+            .fixedSize()
+          Spacer()
+          self.buttons
+        }
+      }
+      .padding()
+      .navigationBarTitle("Tell Time")
+    }
+  }
+
+  var buttons: some View {
+    ZStack {
+      HStack {
         Spacer()
-        DatePicker(selection: self.$store.date, displayedComponents: [.hourAndMinute]) {
-          Text("Time")
-        }.fixedSize()
+        Button(action: { self.changeClockRandomly() }) {
+          Image(systemName: "shuffle")
+            .padding()
+            .accentColor(.white)
+            .background(Color.red)
+            .cornerRadius(8)
+        }
         Spacer()
-        Button(action: {
-          self.changeClockRandomly()
-        }) {
-          Text("Change time")
+      }
+      HStack {
+        Spacer()
+        NavigationLink(destination: About()) {
+          Image(systemName: "questionmark.circle")
+            .padding()
+            .accentColor(.red)
         }
       }
     }
