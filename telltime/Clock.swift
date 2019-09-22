@@ -7,7 +7,7 @@ struct Clock: View {
     GeometryReader { geometry in
       ZStack {
         Circle()
-          .stroke(Color.black, lineWidth: 4)
+          .stroke(lineWidth: 4)
         Indicators()
         WatchPointer(lineWidth: 6.0, margin: 40.0)
           .rotationEffect(self.hourIntoAngle(hour: self.store.hour, minute: self.store.minute))
@@ -19,8 +19,8 @@ struct Clock: View {
           .fill()
           .frame(width: 20.0, height: 20.0, alignment: .center)
       }
-        .frame(width: geometry.localDiameter, height: geometry.localDiameter)
-        .fixedSize()
+      .frame(width: geometry.localDiameter, height: geometry.localDiameter)
+      .fixedSize()
     }
   }
 
@@ -47,7 +47,8 @@ struct WatchPointer: View {
         let top = geometry.localTop
         path.move(to: center)
         path.addLine(to: CGPoint(x: center.x, y: top + self.margin))
-      }.stroke(Color.black, lineWidth: self.lineWidth)
+      }
+      .stroke(lineWidth: self.lineWidth)
     }
   }
 }
