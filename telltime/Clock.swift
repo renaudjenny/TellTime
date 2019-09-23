@@ -22,6 +22,7 @@ struct Clock: View {
       .frame(width: geometry.localDiameter, height: geometry.localDiameter)
       .fixedSize()
     }
+    .frame(maxWidth: 500, maxHeight: 500)
   }
 
   private func hourIntoAngle(hour: Int, minute: Int) -> Angle {

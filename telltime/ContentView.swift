@@ -2,29 +2,38 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-  @EnvironmentObject var store: Store
+  @EnvironmentObject private var store: Store
+  @State private var deviceOrientation = UIDevice.current.orientation
 
   var body: some View {
     Group {
-      if store.deviceOrientation.isLandscape {
+      if self.deviceOrientation.isLandscape {
         self.landscapeBody
       } else {
         self.portraitBody
       }
+    }
+    .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { notification in
+      guard let device = notification.object as? UIDevice else { return }
+      self.deviceOrientation = device.orientation
     }
   }
 
   var portraitBody: some View {
     NavigationView {
       VStack {
+        Spacer()
         Clock()
+        Spacer()
         DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
           .fixedSize()
+        Spacer()
         self.buttons
       }
       .padding()
       .navigationBarTitle("Tell Time")
     }
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 
   var landscapeBody: some View {
@@ -43,6 +52,7 @@ struct ContentView: View {
       .padding()
       .navigationBarTitle("Tell Time")
     }
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 
   var buttons: some View {
