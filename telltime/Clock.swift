@@ -39,23 +39,6 @@ struct WatchPointers: View {
         endedRotationAngle: self.minuteRotationAngle
       )
     }
-//    .onReceive(self.hourRotationAngle.$angle.dropFirst().removeDuplicates()) { angle in
-//      let hourRelationship: Double = 360/12
-//      let hour = angle.degrees/hourRelationship
-//      let minute = hour.truncatingRemainder(dividingBy: 1) * 60
-//
-//      let dateComponents = DateComponents(calendar: Calendar.current, hour: Int(hour), minute: Int(minute))
-//      self.store.date = Calendar.current.date(from: dateComponents) ?? self.store.date
-//    }
-//    .onReceive(self.minuteRotationAngle.$angle.dropFirst().removeDuplicates()) { angle in
-//      let hour = Double(self.store.hour) + angle.degrees/360
-//
-//      let relationship: Double = 360/60
-//      let minute = angle.degrees/relationship
-//
-//      let dateComponents = DateComponents(calendar: Calendar.current, hour: Int(hour), minute: Int(minute))
-//      self.store.date = Calendar.current.date(from: dateComponents) ?? self.store.date
-//    }
   }
 
   private func hourIntoAngle(date: Date) -> Angle {
@@ -79,6 +62,7 @@ struct WatchPointer: View {
   let margin: CGFloat
   @ObservedObject var rotationAngle: RotationAngle
   @ObservedObject var endedRotationAngle: RotationAngle
+  @State var animate: Bool = true
 
   var body: some View {
     GeometryReader { geometry in
@@ -91,10 +75,13 @@ struct WatchPointer: View {
       .stroke(lineWidth: self.lineWidth)
       .gesture(DragGesture(coordinateSpace: .global)
         .onChanged({ self.changePointerGesture($0, frame: geometry.frame(in: .global)) })
-        .onEnded({ _ in self.endedRotationAngle.angle = self.rotationAngle.angle })
+        .onEnded({ _ in
+          self.endedRotationAngle.angle = self.rotationAngle.angle
+          self.animate = true
+        })
       )
       .rotationEffect(self.rotationAngle.angle)
-      .animation(.easeOut)
+      .animation(self.animate ? .easeInOut : nil)
     }
   }
 
@@ -105,6 +92,7 @@ struct WatchPointer: View {
       y: -(value.location.y - radius - frame.origin.y)
     )
     let arctan = atan2(location.x, location.y)
+    self.animate = false
     self.rotationAngle.angle = Angle(radians: Double(arctan))
   }
 }
