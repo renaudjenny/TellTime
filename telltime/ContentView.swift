@@ -15,6 +15,9 @@ struct ContentView: View {
     }
     .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { notification in
       guard let device = notification.object as? UIDevice else { return }
+
+      guard device.orientation.isValidInterfaceOrientation else { return }
+
       self.deviceOrientation = device.orientation
     }
   }
