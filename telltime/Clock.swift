@@ -21,35 +21,56 @@ struct Clock: View {
 
 struct WatchPointers: View {
   @EnvironmentObject var store: Store
+  @ObservedObject var hourRotationAngle = RotationAngle(angle: Angle())
+  @ObservedObject var minuteRotationAngle = RotationAngle(angle: Angle())
 
   var body: some View {
     ZStack {
       WatchPointer(
         lineWidth: 6.0,
         margin: 40.0,
-        rotationAngle: RotationAngle(angle: self.hourIntoAngle(date: self.store.date))
+        rotationAngle: RotationAngle(angle: self.hourIntoAngle(date: self.store.date)),
+        endedRotationAngle: self.hourRotationAngle
       )
       WatchPointer(
         lineWidth: 4.0,
         margin: 20.0,
-        rotationAngle: RotationAngle(angle: self.minuteIntoAngle(date: self.store.date))
+        rotationAngle: RotationAngle(angle: self.minuteIntoAngle(date: self.store.date)),
+        endedRotationAngle: self.minuteRotationAngle
       )
     }
+//    .onReceive(self.hourRotationAngle.$angle.dropFirst().removeDuplicates()) { angle in
+//      let hourRelationship: Double = 360/12
+//      let hour = angle.degrees/hourRelationship
+//      let minute = hour.truncatingRemainder(dividingBy: 1) * 60
+//
+//      let dateComponents = DateComponents(calendar: Calendar.current, hour: Int(hour), minute: Int(minute))
+//      self.store.date = Calendar.current.date(from: dateComponents) ?? self.store.date
+//    }
+//    .onReceive(self.minuteRotationAngle.$angle.dropFirst().removeDuplicates()) { angle in
+//      let hour = Double(self.store.hour) + angle.degrees/360
+//
+//      let relationship: Double = 360/60
+//      let minute = angle.degrees/relationship
+//
+//      let dateComponents = DateComponents(calendar: Calendar.current, hour: Int(hour), minute: Int(minute))
+//      self.store.date = Calendar.current.date(from: dateComponents) ?? self.store.date
+//    }
   }
 
   private func hourIntoAngle(date: Date) -> Angle {
-    let minutes = Double(Calendar.current.component(.minute, from: date))
-    let minutesInHour = minutes > 0 ? minutes/60 : 0
-    let hour = Double(Calendar.current.component(.hour, from: date)) + minutesInHour
+    let minute = Double(Calendar.current.component(.minute, from: date))
+    let minuteInHour = minute > 0 ? minute/60 : 0
+    let hour = Double(Calendar.current.component(.hour, from: date)) + minuteInHour
 
-    let relationship: Double = 360 / 12
+    let relationship: Double = 360/12
     return Angle(degrees: hour * relationship)
   }
 
   private func minuteIntoAngle(date: Date) -> Angle {
-    let minutes = Double(Calendar.current.component(.minute, from: date))
-    let relationship: Double = 360 / 60
-    return Angle(degrees: Double(minutes) * relationship)
+    let minute = Double(Calendar.current.component(.minute, from: date))
+    let relationship: Double = 360/60
+    return Angle(degrees: Double(minute) * relationship)
   }
 }
 
@@ -57,6 +78,7 @@ struct WatchPointer: View {
   let lineWidth: CGFloat
   let margin: CGFloat
   @ObservedObject var rotationAngle: RotationAngle
+  @ObservedObject var endedRotationAngle: RotationAngle
 
   var body: some View {
     GeometryReader { geometry in
@@ -69,6 +91,7 @@ struct WatchPointer: View {
       .stroke(lineWidth: self.lineWidth)
       .gesture(DragGesture(coordinateSpace: .global)
         .onChanged({ self.changePointerGesture($0, frame: geometry.frame(in: .global)) })
+        .onEnded({ _ in self.endedRotationAngle.angle = self.rotationAngle.angle })
       )
       .rotationEffect(self.rotationAngle.angle)
       .animation(.easeOut)
