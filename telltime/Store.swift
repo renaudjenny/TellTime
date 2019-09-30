@@ -12,12 +12,21 @@ final class Store: ObservableObject  {
     Calendar.current.component(.minute, from: self.date)
   }
 
+  @Published var showClockFace: Bool = false
+
   init() {
-    _ = self.objectWillChange
-    .debounce(for: 0.4, scheduler: RunLoop.main)
-    .sink(receiveValue: {
-      TTS(hour: self.hour, minute: self.minute)
-        .speechTime()
-    })
+    _ = self.$date
+      .debounce(for: 0.4, scheduler: RunLoop.main)
+      .sink(receiveValue: { _ in
+        TTS(hour: self.hour, minute: self.minute)
+          .speechTime()
+      })
+
+    _ = self.$showClockFace
+      .filter({ $0 == true })
+      .delay(for: 2.0, scheduler: RunLoop.main)
+      .sink(receiveValue: { _ in
+        self.showClockFace = false
+      })
   }
 }

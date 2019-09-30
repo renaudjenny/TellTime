@@ -20,6 +20,9 @@ struct ContentView: View {
 
       self.deviceOrientation = device.orientation
     }
+    .onTapGesture(count: 3) {
+      self.store.showClockFace = true
+    }
   }
 
   var portraitBody: some View {

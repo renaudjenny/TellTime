@@ -11,6 +11,7 @@ struct Clock: View {
         Circle()
           .fill()
           .frame(width: 20.0, height: 20.0, alignment: .center)
+        ClockFace()
       }
       .frame(width: geometry.localDiameter, height: geometry.localDiameter)
       .fixedSize()
