@@ -1,0 +1,6 @@
+opt_in_rules:
+  - explicit_self
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - implicit_return
+  - unused_import

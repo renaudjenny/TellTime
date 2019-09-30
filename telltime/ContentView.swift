@@ -65,7 +65,7 @@ struct ContentView: View {
     ZStack {
       HStack {
         Spacer()
-        Button(action: { self.changeClockRandomly() }) {
+        Button(action: self.changeClockRandomly) {
           Image(systemName: "shuffle")
             .padding()
             .accentColor(.white)
@@ -98,7 +98,7 @@ struct ContentView: View {
 }
 
 #if DEBUG
-struct ContentView_Previews : PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }

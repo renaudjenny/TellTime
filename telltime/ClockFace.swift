@@ -55,14 +55,14 @@ struct Mouth: Shape {
 
     var path = Path()
 
-    let y = height/2 * (1 - CGFloat(self.mouthAnimationShape))
-    path.move(to: CGPoint(x: .zero, y: y))
+    let newY = height/2 * (1 - CGFloat(self.mouthAnimationShape))
+    path.move(to: CGPoint(x: .zero, y: newY))
 
     let leftTo = CGPoint(x: width/2, y: height/2 * (1 + CGFloat(self.mouthAnimationShape)))
     let leftControl = CGPoint(x: .zero + margin, y: leftTo.y)
     path.addQuadCurve(to: leftTo, control: leftControl)
 
-    let rightTo = CGPoint(x: width, y: y)
+    let rightTo = CGPoint(x: width, y: newY)
     let rightControl = CGPoint(x: width - margin, y: leftTo.y)
     path.addQuadCurve(to: rightTo, control: rightControl)
 

@@ -168,7 +168,7 @@ fileprivate extension Double {
 }
 
 #if DEBUG
-struct Clock_Previews : PreviewProvider {
+struct Clock_Previews: PreviewProvider {
     static var previews: some View {
         Clock()
     }

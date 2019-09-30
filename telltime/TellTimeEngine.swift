@@ -1,3 +1,3 @@
 protocol TellTimeEngine {
-  func tell(time: String) throws -> String;
+  func tell(time: String) throws -> String
 }

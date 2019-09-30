@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-final class Store: ObservableObject  {
+final class Store: ObservableObject {
   @Published var date: Date = Date()
 
   var hour: Int {
