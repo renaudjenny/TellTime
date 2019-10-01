@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-struct ContentView: View {
+struct TellTime: View {
   @EnvironmentObject private var store: Store
   @State private var deviceOrientation = UIDevice.current.orientation
 
@@ -100,7 +100,7 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        TellTime()
     }
 }
 #endif
