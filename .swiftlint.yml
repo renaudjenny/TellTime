@@ -1,3 +1,5 @@
+disabled_rules:
+  - identifier_name
 opt_in_rules:
   - explicit_self
   - force_unwrapping

@@ -5,16 +5,14 @@ struct ClockFace: View {
 
   var body: some View {
     GeometryReader { geometry in
-      Circle()
-        .fill()
-        .frame(width: 15.0, height: 15.0)
+      Eye(position: .left)
+        .frame(width: geometry.frame(in: .local).height/6, height: geometry.frame(in: .local).height/6)
         .position(
           x: geometry.frame(in: .local).width/3,
           y: geometry.frame(in: .local).width/3
         )
-      Circle()
-        .fill()
-        .frame(width: 15.0, height: 15.0)
+      Eye(position: .right)
+        .frame(width: geometry.frame(in: .local).height/6, height: geometry.frame(in: .local).height/6)
         .position(
           x: geometry.frame(in: .local).width/1.5,
           y: geometry.frame(in: .local).width/3
@@ -25,7 +23,7 @@ struct ClockFace: View {
           x: geometry.frame(in: .local).width/2,
           y: geometry.frame(in: .local).width/1.3
         )
-        .frame(width: 150.0, height: 40.0)
+        .frame(width: geometry.frame(in: .local).width/3, height: geometry.frame(in: .local).height/6)
     }
     .opacity(self.store.showClockFace ? .opac : .transparent)
     .animation(.easeInOut)
