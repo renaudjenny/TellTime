@@ -2,21 +2,29 @@ import AVFoundation
 import SwiftPastTen
 import Combine
 
-struct TTS {
+final class TTS: NSObject, AVSpeechSynthesizerDelegate {
   var tellTimeEngine: TellTimeEngine = SwiftPastTen()
 
-  let hour: Int
-  let minute: Int
+  var isSpeaking = PassthroughSubject<Bool, Never>()
+  let speechSynthesizer = AVSpeechSynthesizer()
+
+  override init() {
+    super.init()
+    self.speechSynthesizer.delegate = self
+  }
 
   func speech(text: String) {
     let tellTimeText = try? self.tellTimeEngine.tell(time: text)
-    let speechSynthesizer = AVSpeechSynthesizer()
     let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText ?? text)
     speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-    speechSynthesizer.speak(speechUtterance)
+    self.speechSynthesizer.speak(speechUtterance)
+    self.isSpeaking.send(true)
   }
 
-  func speechTime() {
-    self.speech(text: DigitalTime.from(hour: self.hour, minute: self.minute))
+  func speechSynthesizer(
+    _ synthesizer: AVSpeechSynthesizer,
+    didFinish utterance: AVSpeechUtterance
+  ) {
+    self.isSpeaking.send(false)
   }
 }

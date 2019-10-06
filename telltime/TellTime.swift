@@ -71,25 +71,28 @@ struct TellTime: View {
   }
 
   var buttons: some View {
-    ZStack {
-      HStack {
-        Spacer()
-        Button(action: self.changeClockRandomly) {
-          Image(systemName: "shuffle")
-            .padding()
-            .accentColor(.white)
-            .background(Color.red)
-            .cornerRadius(8)
-        }
-        Spacer()
+    HStack {
+      Button(action: self.tellTime) {
+        Image(systemName: "speaker.2")
+          .padding()
+          .accentColor(.white)
+          .background(self.store.isSpeaking ? Color.gray : Color.red)
+          .cornerRadius(8)
       }
-      HStack {
-        Spacer()
-        NavigationLink(destination: About()) {
-          Image(systemName: "questionmark.circle")
-            .padding()
-            .accentColor(.red)
-        }
+        .disabled(self.store.isSpeaking)
+      Spacer()
+      Button(action: self.changeClockRandomly) {
+        Image(systemName: "shuffle")
+          .padding()
+          .accentColor(.white)
+          .background(Color.red)
+          .cornerRadius(8)
+      }
+      Spacer()
+      NavigationLink(destination: About()) {
+        Image(systemName: "questionmark.circle")
+          .padding()
+          .accentColor(.red)
       }
     }
   }
@@ -110,6 +113,10 @@ struct TellTime: View {
       to: self.store.date
     )
     self.store.date = newDate ?? self.store.date
+  }
+
+  func tellTime() {
+    self.store.tts.speech(text: DigitalTime.from(date: self.store.date))
   }
 }
 

@@ -2,7 +2,7 @@ import SwiftUI
 
 extension ClockFace {
   struct Eye: View {
-    @EnvironmentObject var store: Store
+    @EnvironmentObject private var store: Store
     let position: Position
 
     var body: some View {

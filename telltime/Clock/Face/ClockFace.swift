@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ClockFace: View {
-  @EnvironmentObject var store: Store
+  @EnvironmentObject private var store: Store
 
   var body: some View {
     GeometryReader { geometry in

@@ -21,7 +21,7 @@ struct Clock: View {
 }
 
 struct WatchPointers: View {
-  @EnvironmentObject var store: Store
+  @EnvironmentObject private var store: Store
   @ObservedObject var hourDragEndedRotationAngle = RotationAngle(angle: .zero)
   @ObservedObject var minuteDragEndedRotationAngle = RotationAngle(angle: .zero)
 
