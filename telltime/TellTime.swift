@@ -97,7 +97,7 @@ struct TellTime: View {
   var time: some View {
     let time = try? tellTimeEngine.tell(time: DigitalTime.from(date: self.store.date))
     return Text(time ?? "")
-      .font(.title)
+      .font(.headline)
       .foregroundColor(.red)
   }
 
