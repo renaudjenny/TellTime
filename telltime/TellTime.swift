@@ -17,8 +17,10 @@ struct TellTime: View {
     }
     .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { notification in
       guard let device = notification.object as? UIDevice else { return }
-
       guard device.orientation.isValidInterfaceOrientation else { return }
+
+      let isPhoneUpsideDown = device.orientation == .portraitUpsideDown && device.userInterfaceIdiom == .phone
+      guard !isPhoneUpsideDown else { return }
 
       self.deviceOrientation = device.orientation
     }
