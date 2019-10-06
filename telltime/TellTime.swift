@@ -1,9 +1,11 @@
 import SwiftUI
 import Combine
+import SwiftPastTen
 
 struct TellTime: View {
   @EnvironmentObject private var store: Store
   @State private var deviceOrientation = UIDevice.current.orientation
+  var tellTimeEngine: TellTimeEngine = SwiftPastTen()
 
   var body: some View {
     Group {
@@ -30,6 +32,10 @@ struct TellTime: View {
       VStack {
         Spacer()
         Clock()
+        Spacer()
+        Text((try? tellTimeEngine.tell(time: DigitalTime.from(date: self.store.date))) ?? "")
+          .font(.title)
+          .foregroundColor(.red)
         Spacer()
         DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
           .fixedSize()

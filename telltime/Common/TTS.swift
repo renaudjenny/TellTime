@@ -8,12 +8,6 @@ struct TTS {
   let hour: Int
   let minute: Int
 
-  var digitalTime: String {
-    let minute = self.minute > 9 ? "\(self.minute)" : "0\(self.minute)"
-    let hour = self.hour > 9 ? "\(self.hour)" : "0\(self.hour)"
-    return "\(hour):\(minute)"
-  }
-
   func speech(text: String) {
     let tellTimeText = try? self.tellTimeEngine.tell(time: text)
     let speechSynthesizer = AVSpeechSynthesizer()
@@ -23,6 +17,6 @@ struct TTS {
   }
 
   func speechTime() {
-    self.speech(text: self.digitalTime)
+    self.speech(text: DigitalTime.from(hour: self.hour, minute: self.minute))
   }
 }

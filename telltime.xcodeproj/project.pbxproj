@@ -13,6 +13,7 @@
 		4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */; };
 		4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */; };
 		4C6AE08722B50602008D7B3E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6AE08622B50602008D7B3E /* Store.swift */; };
+		4C87A8912348CADF00E6503C /* DigitalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87A8902348CADF00E6503C /* DigitalTime.swift */; };
 		4C9309B522B0C8B80073BE0B /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9309B422B0C8B80073BE0B /* Clock.swift */; };
 		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
 		4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BD22A7293300786385 /* SceneDelegate.swift */; };
@@ -50,6 +51,7 @@
 		4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngine.swift; sourceTree = "<group>"; };
 		4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngineSwiftPastTen.swift; sourceTree = "<group>"; };
 		4C6AE08622B50602008D7B3E /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		4C87A8902348CADF00E6503C /* DigitalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalTime.swift; sourceTree = "<group>"; };
 		4C9309B422B0C8B80073BE0B /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* telltime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = telltime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4BB22A7293300786385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		4C05AB5F2343FC2700970036 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4C87A8902348CADF00E6503C /* DigitalTime.swift */,
 				4C6AE08622B50602008D7B3E /* Store.swift */,
 				4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */,
 				4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */,
@@ -374,6 +377,7 @@
 				4C9309B522B0C8B80073BE0B /* Clock.swift in Sources */,
 				4CDD4A802336E64E004BE734 /* About.swift in Sources */,
 				4CB1D4C022A7293300786385 /* TellTime.swift in Sources */,
+				4C87A8912348CADF00E6503C /* DigitalTime.swift in Sources */,
 				4C05AB632343FE6C00970036 /* Eye.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
