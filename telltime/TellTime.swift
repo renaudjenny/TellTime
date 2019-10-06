@@ -33,9 +33,7 @@ struct TellTime: View {
         Spacer()
         Clock()
         Spacer()
-        Text((try? tellTimeEngine.tell(time: DigitalTime.from(date: self.store.date))) ?? "")
-          .font(.title)
-          .foregroundColor(.red)
+        self.time
         Spacer()
         DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
           .fixedSize()
@@ -51,8 +49,11 @@ struct TellTime: View {
   var landscapeBody: some View {
     NavigationView {
       HStack {
-        Clock()
-          .padding()
+        VStack {
+          Clock()
+            .padding()
+          self.time
+        }
         VStack {
           Spacer()
           DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
@@ -89,6 +90,13 @@ struct TellTime: View {
         }
       }
     }
+  }
+
+  var time: some View {
+    let time = try? tellTimeEngine.tell(time: DigitalTime.from(date: self.store.date))
+    return Text(time ?? "")
+      .font(.title)
+      .foregroundColor(.red)
   }
 
   func changeClockRandomly() {
