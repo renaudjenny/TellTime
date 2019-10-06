@@ -6,11 +6,11 @@ A tiny iOS Swift project with SwiftUI.
 
 ## Minimum required
 
-Works with Xcode 11 Beta 7.
+Works with Xcode 11.
 
 ## TODO
 
-* 🛠 Test on a real device
+* ✅ Test on a real device
 * 🛠 Test on MacOS Catalina
 * 🛠 Add an icon
 * 🛠 Improve UI
