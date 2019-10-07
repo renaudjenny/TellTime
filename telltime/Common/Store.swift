@@ -22,9 +22,9 @@ final class Store: ObservableObject {
 
   init() {
     self.subscribers.append(self.$date
-      .debounce(for: 0.4, scheduler: RunLoop.main)
-      .sink(receiveValue: { _ in
-        self.tts.speech(text: DigitalTime.from(hour: self.hour, minute: self.minute))
+      .sink(receiveValue: { date in
+        guard !self.isSpeaking else { return }
+        self.tts.speech(text: DigitalTime.from(date: date))
       })
     )
 
@@ -37,9 +37,7 @@ final class Store: ObservableObject {
     )
 
     self.subscribers.append(self.tts.isSpeaking
-      .sink(receiveValue: { isSpeaking in
-        self.isSpeaking = isSpeaking
-      })
+      .assign(to: \.isSpeaking, on: self)
     )
   }
 }
