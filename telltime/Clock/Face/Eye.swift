@@ -35,19 +35,21 @@ extension ClockFace {
     func path(in rect: CGRect) -> Path {
       let origin = CGPoint(x: rect.width/2, y: rect.height/2)
       let size = CGSize(width: Self.width, height: Self.width)
+      let animationStep = CGFloat(self.animationStep)
 
-      let xTranslation: CGFloat
+      let rotationAngle: CGFloat
       switch self.position {
-      case .left: xTranslation = rect.width/2 - Self.width
-      case .right: xTranslation = -(rect.width/2 - Self.width)
+      case .left: rotationAngle = CGFloat.pi/4
+      case .right: rotationAngle = -CGFloat.pi/4
       }
-      let yTranslation = rect.height/2 - Self.width
+      let xTranslation = (rect.width/2 - Self.width/2) * sin(rotationAngle)
+      let yTranslation = (rect.height/2 - Self.width/2) * cos(rotationAngle)
 
       let iris = CGRect(origin: origin, size: size)
         .offsetBy(dx: -Self.width/2, dy: -Self.width/2)
         .applying(.init(
-          translationX: xTranslation * CGFloat(self.animationStep),
-          y: yTranslation * CGFloat(self.animationStep)
+          translationX: xTranslation  * animationStep,
+          y: yTranslation * animationStep
         ))
 
       var path = Path()
