@@ -1,17 +1,21 @@
 import SwiftUI
 
 struct Clock: View {
+  @Binding var date: Date
+  let showClockFace: Bool
+
   var body: some View {
     GeometryReader { geometry in
       ZStack {
         Circle()
           .stroke(lineWidth: 4)
         Indicators()
-        WatchPointers()
+        WatchPointers(date: self.$date)
         Circle()
           .fill()
           .frame(width: 20.0, height: 20.0, alignment: .center)
-        ClockFace()
+        ClockFace(animate: self.showClockFace)
+          .opacity(self.showClockFace ? 1 : 0)
       }
       .frame(width: geometry.localDiameter, height: geometry.localDiameter)
       .fixedSize()
@@ -21,7 +25,7 @@ struct Clock: View {
 }
 
 struct WatchPointers: View {
-  @EnvironmentObject private var store: Store
+  @Binding var date: Date
   @ObservedObject var hourDragEndedRotationAngle = RotationAngle(angle: .zero)
   @ObservedObject var minuteDragEndedRotationAngle = RotationAngle(angle: .zero)
 
@@ -30,33 +34,35 @@ struct WatchPointers: View {
       WatchPointer(
         lineWidth: 6.0,
         margin: 40.0,
-        rotationAngle: RotationAngle(angle: self.hourIntoAngle(date: self.store.date)),
+        rotationAngle: RotationAngle(angle: self.hourIntoAngle(date: self.date)),
         dragEndedRotationAngle: self.hourDragEndedRotationAngle
       )
       WatchPointer(
         lineWidth: 4.0,
         margin: 20.0,
-        rotationAngle: RotationAngle(angle: self.minuteIntoAngle(date: self.store.date)),
+        rotationAngle: RotationAngle(angle: self.minuteIntoAngle(date: self.date)),
         dragEndedRotationAngle: self.minuteDragEndedRotationAngle
       )
     }
     .onReceive(self.hourDragEndedRotationAngle.$angle.dropFirst()) { angle in
       let hourRelationship: Double = 360/12
       let hour = angle.degrees.positiveDegrees/hourRelationship
+      let minute = Calendar.current.component(.minute, from: self.date)
 
-      self.store.date = Calendar.current.date(
-        bySettingHour: Int(hour.rounded()), minute: self.store.minute, second: 0,
-        of: self.store.date
-      ) ?? self.store.date
+      self.date = Calendar.current.date(
+        bySettingHour: Int(hour.rounded()), minute: minute, second: 0,
+        of: self.date
+      ) ?? self.date
     }
     .onReceive(self.minuteDragEndedRotationAngle.$angle.dropFirst()) { angle in
       let relationship: Double = 360/60
       let minute = angle.degrees.positiveDegrees/relationship
+      let hour = Calendar.current.component(.hour, from: self.date)
 
-      self.store.date = Calendar.current.date(
-        bySettingHour: self.store.hour, minute: Int(minute.rounded()), second: 0,
-        of: self.store.date
-      ) ?? self.store.date
+      self.date = Calendar.current.date(
+        bySettingHour: hour, minute: Int(minute.rounded()), second: 0,
+        of: self.date
+      ) ?? self.date
     }
   }
 
@@ -170,7 +176,7 @@ fileprivate extension Double {
 #if DEBUG
 struct Clock_Previews: PreviewProvider {
     static var previews: some View {
-        Clock()
+      Clock(date: .constant(Date()), showClockFace: true)
     }
 }
 #endif

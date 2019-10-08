@@ -33,7 +33,7 @@ struct TellTime: View {
     NavigationView {
       VStack {
         Spacer()
-        Clock()
+        Clock(date: self.$store.date, showClockFace: self.store.showClockFace)
         Spacer()
         self.time
         Spacer()
@@ -52,7 +52,7 @@ struct TellTime: View {
     NavigationView {
       HStack {
         VStack {
-          Clock()
+          Clock(date: self.$store.date, showClockFace: self.store.showClockFace)
             .padding()
           self.time
         }
@@ -123,7 +123,7 @@ struct TellTime: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TellTime()
+      TellTime()
     }
 }
 #endif

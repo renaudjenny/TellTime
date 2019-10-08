@@ -2,21 +2,21 @@ import SwiftUI
 
 extension ClockFace {
   struct Eye: View {
-    @EnvironmentObject private var store: Store
+    let move: Bool
     let position: Position
 
     var body: some View {
       ZStack {
         Circle()
           .stroke(lineWidth: 4)
-        Iris(clockIsShown: self.store.showClockFace, position: self.position)
+        Iris(move: self.move, position: self.position)
           .fill()
       }
     }
   }
 
   private struct Iris: Shape {
-    let clockIsShown: Bool
+    let move: Bool
     let position: Position
     private var animationStep: Double
     static let width: CGFloat = 15
@@ -26,9 +26,9 @@ extension ClockFace {
       set { self.animationStep = newValue }
     }
 
-    init(clockIsShown: Bool, position: Position) {
-      self.clockIsShown = clockIsShown
-      self.animationStep = clockIsShown ? 1 : 0
+    init(move: Bool, position: Position) {
+      self.move = move
+      self.animationStep = move ? 1 : 0
       self.position = position
     }
 
@@ -63,3 +63,11 @@ extension ClockFace {
     case right
   }
 }
+
+#if DEBUG
+struct Eye_Previews: PreviewProvider {
+    static var previews: some View {
+      ClockFace.Eye(move: true, position: .left)
+    }
+}
+#endif
