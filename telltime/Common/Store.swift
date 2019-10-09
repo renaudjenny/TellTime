@@ -4,7 +4,7 @@ import Combine
 final class Store: ObservableObject {
   private(set) var tts = TTS()
 
-  private var subscribers: [Cancellable] = []
+  private(set) var subscribers: [Cancellable] = []
 
   @Published var isSpeaking = false
 
