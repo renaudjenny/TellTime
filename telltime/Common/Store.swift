@@ -4,7 +4,7 @@ import Combine
 final class Store: ObservableObject {
   private(set) var tts = TTS()
 
-  private(set) var subscribers: [Cancellable] = []
+  private(set) var disposables = Set<AnyCancellable>()
 
   @Published var isSpeaking = false
 
@@ -21,23 +21,23 @@ final class Store: ObservableObject {
   @Published var showClockFace: Bool = false
 
   init() {
-    self.subscribers.append(self.$date
+    self.$date
       .sink(receiveValue: { date in
         guard !self.isSpeaking else { return }
         self.tts.speech(text: DigitalTime.from(date: date))
       })
-    )
+      .store(in: &self.disposables)
 
-    self.subscribers.append(self.$showClockFace
+    self.$showClockFace
       .filter({ $0 == true })
       .delay(for: 2.0, scheduler: RunLoop.main)
       .sink(receiveValue: { _ in
         self.showClockFace = false
       })
-    )
+      .store(in: &self.disposables)
 
-    self.subscribers.append(self.tts.isSpeaking
+    self.tts.isSpeaking
       .assign(to: \.isSpeaking, on: self)
-    )
+      .store(in: &self.disposables)
   }
 }

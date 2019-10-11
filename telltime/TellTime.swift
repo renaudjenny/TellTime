@@ -124,7 +124,7 @@ struct TellTime: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
       let store = Store()
-      store.subscribers.forEach({ $0.cancel() })
+      store.disposables.forEach({ $0.cancel() })
       return TellTime().environmentObject(store)
     }
 }
