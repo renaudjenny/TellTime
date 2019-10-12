@@ -33,7 +33,10 @@ struct TellTime: View {
     NavigationView {
       VStack {
         Spacer()
-        Clock(date: self.$store.date, showClockFace: self.store.showClockFace)
+        Clock(viewModel: ClockViewModel(
+          date: self.$store.date,
+          showClockFace: self.store.showClockFace
+        ))
         Spacer()
         self.time
         Spacer()
@@ -52,7 +55,10 @@ struct TellTime: View {
     NavigationView {
       HStack {
         VStack {
-          Clock(date: self.$store.date, showClockFace: self.store.showClockFace)
+          Clock(viewModel: ClockViewModel(
+            date: self.$store.date,
+            showClockFace: self.store.showClockFace
+          ))
             .padding()
           self.time
         }

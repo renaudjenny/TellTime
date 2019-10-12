@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct Clock: View {
-  @Binding var date: Date
-  let showClockFace: Bool
+  @ObservedObject var viewModel: ClockViewModel
 
   var body: some View {
     GeometryReader { geometry in
@@ -10,12 +9,14 @@ struct Clock: View {
         Circle()
           .stroke(lineWidth: 4)
         Indicators()
-        WatchPointers(date: self.$date)
+        WatchPointers(
+          viewModel: WatchPointersViewModel(date: self.viewModel.date)
+        )
         Circle()
           .fill()
           .frame(width: 20.0, height: 20.0, alignment: .center)
-        ClockFace(animate: self.showClockFace)
-          .opacity(self.showClockFace ? 1 : 0)
+        ClockFace(animate: self.viewModel.showClockFace)
+          .opacity(self.viewModel.showClockFace ? 1 : 0)
       }
       .frame(width: geometry.localDiameter, height: geometry.localDiameter)
       .fixedSize()
@@ -27,7 +28,8 @@ struct Clock: View {
 #if DEBUG
 struct Clock_Previews: PreviewProvider {
   static var previews: some View {
-    Clock(date: .constant(Date()), showClockFace: true)
+    let viewModel = ClockViewModel(date: .constant(Date()), showClockFace: true)
+    return Clock(viewModel: viewModel)
   }
 }
 #endif
