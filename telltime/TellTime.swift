@@ -3,30 +3,17 @@ import Combine
 import SwiftPastTen
 
 struct TellTime: View {
-  @EnvironmentObject private var store: Store
-  @State private var deviceOrientation = UIDevice.current.orientation
-  var tellTimeEngine: TellTimeEngine = SwiftPastTen()
+  @ObservedObject var viewModel = TellTimeViewModel()
 
   var body: some View {
     Group {
-      if self.deviceOrientation.isLandscape {
+      if self.viewModel.deviceOrientation.isLandscape {
         self.landscapeBody
       } else {
         self.portraitBody
       }
     }
-    .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { notification in
-      guard let device = notification.object as? UIDevice else { return }
-      guard device.orientation.isValidInterfaceOrientation else { return }
-
-      let isPhoneUpsideDown = device.orientation == .portraitUpsideDown && device.userInterfaceIdiom == .phone
-      guard !isPhoneUpsideDown else { return }
-
-      self.deviceOrientation = device.orientation
-    }
-    .onTapGesture(count: 3) {
-      self.store.showClockFace = true
-    }
+    .onTapGesture(count: 3, perform: self.viewModel.showClockFace)
   }
 
   var portraitBody: some View {
@@ -34,13 +21,13 @@ struct TellTime: View {
       VStack {
         Spacer()
         Clock(viewModel: ClockViewModel(
-          date: self.$store.date,
-          showClockFace: self.store.showClockFace
+          date: self.$viewModel.date,
+          showClockFace: self.viewModel.isClockFaceShown
         ))
         Spacer()
         self.time
         Spacer()
-        DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
+        DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
           .fixedSize()
         Spacer()
         self.buttons
@@ -56,15 +43,15 @@ struct TellTime: View {
       HStack {
         VStack {
           Clock(viewModel: ClockViewModel(
-            date: self.$store.date,
-            showClockFace: self.store.showClockFace
+            date: self.$viewModel.date,
+            showClockFace: self.viewModel.isClockFaceShown
           ))
             .padding()
           self.time
         }
         VStack {
           Spacer()
-          DatePicker("", selection: self.$store.date, displayedComponents: [.hourAndMinute])
+          DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
             .fixedSize()
           Spacer()
           self.buttons
@@ -78,16 +65,16 @@ struct TellTime: View {
 
   var buttons: some View {
     HStack {
-      Button(action: self.tellTime) {
+      Button(action: self.viewModel.tellTime) {
         Image(systemName: "speaker.2")
           .padding()
           .accentColor(.white)
-          .background(self.store.isSpeaking ? Color.gray : Color.red)
+          .background(self.viewModel.isSpeaking ? Color.gray : Color.red)
           .cornerRadius(8)
       }
-        .disabled(self.store.isSpeaking)
+        .disabled(self.viewModel.isSpeaking)
       Spacer()
-      Button(action: self.changeClockRandomly) {
+      Button(action: self.viewModel.changeClockRandomly) {
         Image(systemName: "shuffle")
           .padding()
           .accentColor(.white)
@@ -104,34 +91,16 @@ struct TellTime: View {
   }
 
   var time: some View {
-    let time = try? tellTimeEngine.tell(time: DigitalTime.from(date: self.store.date))
-    return Text(time ?? "")
+    return Text(self.viewModel.time)
       .font(.headline)
       .foregroundColor(.red)
-  }
-
-  func changeClockRandomly() {
-    let hour = [Int](1...12).randomElement() ?? 0
-    let minute = [Int](0...59).randomElement() ?? 0
-
-    let newDate = Calendar.current.date(
-      byAdding: DateComponents(hour: hour, minute: minute),
-      to: self.store.date
-    )
-    self.store.date = newDate ?? self.store.date
-  }
-
-  func tellTime() {
-    self.store.tts.speech(text: DigitalTime.from(date: self.store.date))
   }
 }
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-      let store = Store()
-      store.disposables.forEach({ $0.cancel() })
-      return TellTime().environmentObject(store)
+      return TellTime()
     }
 }
 #endif
