@@ -42,30 +42,31 @@ final class WatchPointersViewModel: ObservableObject, Identifiable {
     self.hourWatchPointerViewModel.$dragEndedRotationAngle
       .dropFirst()
       .sink { angle in
+        let date = self.date.wrappedValue
         let hourRelationship: Double = 360/12
         let hour = angle.degrees.positiveDegrees/hourRelationship
-        let minute = Calendar.current.component(.minute, from: self.date.wrappedValue)
+        let minute = Calendar.current.component(.minute, from: date)
 
         guard let newDate = Calendar.current.date(
           bySettingHour: Int(hour.rounded()), minute: minute, second: 0,
-          of: self.date.wrappedValue
+          of: date
         ) else { return }
 
         self.date.wrappedValue = newDate
-        print(self.date.wrappedValue)
       }
       .store(in: &self.disposables)
 
     self.minuteWatchPointerViewModel.$dragEndedRotationAngle
       .dropFirst()
       .sink { angle in
+        let date = self.date.wrappedValue
         let relationship: Double = 360/60
         let minute = angle.degrees.positiveDegrees/relationship
-        let hour = Calendar.current.component(.hour, from: self.date.wrappedValue)
+        let hour = Calendar.current.component(.hour, from: date)
 
         guard let newDate = Calendar.current.date(
           bySettingHour: hour, minute: Int(minute.rounded()), second: 0,
-          of: self.date.wrappedValue
+          of: date
         ) else { return }
 
         self.date.wrappedValue = newDate
