@@ -34,6 +34,11 @@ struct TellTime: View {
       }
       .padding()
       .navigationBarTitle("Tell Time")
+      .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
+        Image(systemName: "gear")
+          .padding()
+          .accentColor(.red)
+      })
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }
@@ -59,6 +64,11 @@ struct TellTime: View {
       }
       .padding()
       .navigationBarTitle("Tell Time")
+      .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
+        Image(systemName: "gear")
+          .padding()
+          .accentColor(.red)
+      })
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }
@@ -72,7 +82,7 @@ struct TellTime: View {
           .background(self.viewModel.isSpeaking ? Color.gray : Color.red)
           .cornerRadius(8)
       }
-        .disabled(self.viewModel.isSpeaking)
+      .disabled(self.viewModel.isSpeaking)
       Spacer()
       Button(action: self.viewModel.changeClockRandomly) {
         Image(systemName: "shuffle")
@@ -99,8 +109,8 @@ struct TellTime: View {
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-      return TellTime()
-    }
+  static var previews: some View {
+    return TellTime()
+  }
 }
 #endif

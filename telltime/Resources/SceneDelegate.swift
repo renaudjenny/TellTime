@@ -11,9 +11,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   ) {
     if let windowScene = scene as? UIWindowScene {
       let window = UIWindow(windowScene: windowScene)
-      window.rootViewController = UIHostingController(rootView: TellTime())
+      let configurationStore = ConfigurationStore()
+      window.rootViewController = UIHostingController(
+        rootView: TellTime()
+          .environmentObject(configurationStore)
+      )
       self.window = window
       window.makeKeyAndVisible()
     }
+    self.customizeAppearance()
+  }
+
+  private func customizeAppearance() {
+    UINavigationBar.appearance().tintColor = UIColor.red
   }
 }
