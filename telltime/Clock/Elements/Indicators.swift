@@ -3,15 +3,16 @@ import SwiftUI
 struct Indicators: View {
   private static let hourInDegree: Double = 30
   private static let limitedHourInDegree: Double = 90
-  private static let hourDotSize: CGFloat = 10
+  private static let hourDotRatio: CGFloat = 1/35
   private static let minuteInDegree: Double = 6
-  private static let minuteDotSize: CGFloat = 5
-  private static let margin: CGFloat = 40.0
+  private static let minuteDotRatio: CGFloat = 1/70
+  private static let marginRatio: CGFloat = 1/7
   @ObservedObject var viewModel = IndicatorsViewModel()
   @EnvironmentObject var configuration: ConfigurationStore
 
-  var textMargin: CGFloat {
-    self.configuration.showMinuteIndicators || self.configuration.showHourIndicators ? Self.margin : Self.margin/3
+  func textMargin(width: CGFloat) -> CGFloat {
+    let showDotIndicators = self.configuration.showMinuteIndicators || self.configuration.showHourIndicators
+    return showDotIndicators ? width * Self.marginRatio : width * Self.marginRatio/2
   }
 
   var body: some View {
@@ -38,7 +39,7 @@ struct Indicators: View {
           .position(self.viewModel.positionInCircle(
             from: Angle(degrees: Double(hour) * Self.hourInDegree),
             frame: geometry.localFrame,
-            margin: self.textMargin
+            margin: self.textMargin(width: geometry.localWidth)
           ))
       }
     }
@@ -51,7 +52,7 @@ struct Indicators: View {
           .position(self.viewModel.positionInCircle(
             from: Angle(degrees: Double(hour) * Self.limitedHourInDegree),
             frame: geometry.localFrame,
-            margin: self.textMargin
+            margin: self.textMargin(width: geometry.localWidth)
           ))
       }
     }
@@ -61,11 +62,11 @@ struct Indicators: View {
     GeometryReader { geometry in
       ForEach(1..<13) { hour in
         Circle()
-          .frame(width: Self.hourDotSize)
+          .frame(width: geometry.localWidth * Self.hourDotRatio)
           .position(self.viewModel.positionInCircle(
             from: Angle(degrees: Double(hour) * Self.hourInDegree),
             frame: geometry.localFrame,
-            margin: Self.margin/3
+            margin: geometry.localWidth * Self.marginRatio/3
           ))
       }
     }
@@ -75,11 +76,11 @@ struct Indicators: View {
     GeometryReader { geometry in
       ForEach(1..<61) { minute in
         Circle()
-          .frame(width: Self.minuteDotSize)
+          .frame(width: geometry.localWidth * Self.minuteDotRatio)
           .position(self.viewModel.positionInCircle(
             from: Angle(degrees: Double(minute) * Self.minuteInDegree),
             frame: geometry.localFrame,
-            margin: Self.margin/3
+            margin: geometry.localWidth * Self.marginRatio/3
           ))
       }
     }
