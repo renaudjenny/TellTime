@@ -47,15 +47,19 @@ struct Indicators: View {
 
   var limitedHourTexts: some View {
     GeometryReader { geometry in
-      ForEach(1..<5) { hour in
-        Text("\(hour * 3)")
+      ForEach(1..<13) { hour in
+        Text(self.limitedHourText(hour: hour))
           .position(self.viewModel.positionInCircle(
-            from: Angle(degrees: Double(hour) * Self.limitedHourInDegree),
+            from: Angle(degrees: Double(hour/3) * Self.limitedHourInDegree),
             frame: geometry.localFrame,
             margin: self.textMargin(width: geometry.localWidth)
           ))
       }
     }
+  }
+
+  private func limitedHourText(hour: Int) -> String {
+    hour % 3 == 0 ? "\(hour)" : ""
   }
 
   var hourIndicators: some View {
