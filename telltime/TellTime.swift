@@ -75,14 +75,11 @@ struct TellTime: View {
 
   var buttons: some View {
     HStack {
-      Button(action: self.viewModel.tellTime) {
-        Image(systemName: "speaker.2")
-          .padding()
-          .accentColor(.white)
-          .background(self.viewModel.isSpeaking ? Color.gray : Color.red)
-          .cornerRadius(8)
-      }
-      .disabled(self.viewModel.isSpeaking)
+      SpeakButton(
+        action: self.viewModel.tellTime,
+        progress: self.viewModel.speakingProgress,
+        isSpeaking: self.viewModel.isSpeaking
+      )
       Spacer()
       Button(action: self.viewModel.changeClockRandomly) {
         Image(systemName: "shuffle")

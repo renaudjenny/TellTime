@@ -7,6 +7,7 @@ final class TellTimeViewModel: ObservableObject, Identifiable {
   @Published var deviceOrientation = UIDevice.current.orientation
   @Published var isClockFaceShown: Bool = false
   @Published var isSpeaking: Bool = false
+  @Published var speakingProgress: Double = 1.0
   var tellTimeEngine: TellTimeEngine = SwiftPastTen()
   var tts = TTS()
 
@@ -39,6 +40,10 @@ final class TellTimeViewModel: ObservableObject, Identifiable {
 
     self.tts.isSpeaking
       .assign(to: \.isSpeaking, on: self)
+      .store(in: &self.disposables)
+
+    self.tts.speakingProgress
+      .assign(to: \.speakingProgress, on: self)
       .store(in: &self.disposables)
 
     self.$date
