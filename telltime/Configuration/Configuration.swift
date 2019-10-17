@@ -19,7 +19,7 @@ struct Configuration: View {
         Text("Hour indicators")
       }
       Toggle(isOn: self.$configuration.showLimitedHourIndicators) {
-        Text("Limited Hour texts")
+        Text("Limited hour texts")
       }
       Spacer()
     }
