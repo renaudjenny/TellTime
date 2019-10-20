@@ -3,7 +3,7 @@ import Combine
 import SwiftPastTen
 
 struct TellTime: View {
-  @ObservedObject var viewModel = TellTimeViewModel()
+  @ObservedObject var viewModel: TellTimeViewModel
 
   var body: some View {
     Group {
@@ -107,7 +107,9 @@ struct TellTime: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    return TellTime()
+    TellTime(viewModel: TellTimeViewModel(
+      configuration: ConfigurationStore()
+    ))
   }
 }
 #endif

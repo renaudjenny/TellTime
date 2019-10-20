@@ -12,6 +12,11 @@ struct Configuration: View {
       ))
         .frame(width: 300)
       Spacer()
+      HStack {
+        Text("Speech rate: \(self.speechRateRatioPourcentage)%")
+        Slider(value: self.$configuration.speechRateRatio, in: 0.5...1.0)
+          .accentColor(.red)
+      }
       Toggle(isOn: self.$configuration.showMinuteIndicators) {
         Text("Minute indicators")
       }
@@ -24,6 +29,13 @@ struct Configuration: View {
       Spacer()
     }
     .padding()
+  }
+
+  private var speechRateRatioPourcentage: Int {
+    Int(
+      (self.configuration.speechRateRatio * 100)
+        .rounded()
+    )
   }
 }
 

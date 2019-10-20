@@ -9,6 +9,8 @@ final class TTS: NSObject, AVSpeechSynthesizerDelegate {
   var speakingProgress = PassthroughSubject<Double, Never>()
   let speechSynthesizer = AVSpeechSynthesizer()
 
+  var rateRatio: Float = 1.0
+
   override init() {
     super.init()
     self.speechSynthesizer.delegate = self
@@ -18,6 +20,7 @@ final class TTS: NSObject, AVSpeechSynthesizerDelegate {
     let tellTimeText = try? self.tellTimeEngine.tell(time: text)
     let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText ?? text)
     speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+    speechUtterance.rate *= self.rateRatio
     self.speechSynthesizer.speak(speechUtterance)
     self.isSpeaking.send(true)
   }

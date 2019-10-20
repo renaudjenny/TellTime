@@ -13,7 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let window = UIWindow(windowScene: windowScene)
       let configurationStore = ConfigurationStore()
       window.rootViewController = UIHostingController(
-        rootView: TellTime()
+        rootView: TellTime(viewModel: TellTimeViewModel(
+          configuration: configurationStore
+        ))
           .environmentObject(configurationStore)
       )
       self.window = window

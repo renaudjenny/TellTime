@@ -8,6 +8,7 @@ final class TellTimeViewModel: ObservableObject, Identifiable {
   @Published var isClockFaceShown: Bool = false
   @Published var isSpeaking: Bool = false
   @Published var speakingProgress: Double = 1.0
+  var configuration: ConfigurationStore
   var tellTimeEngine: TellTimeEngine = SwiftPastTen()
   var tts = TTS()
 
@@ -20,12 +21,13 @@ final class TellTimeViewModel: ObservableObject, Identifiable {
     return time
   }
 
-  init(date: Date = Date()) {
+  init(date: Date = Date(), configuration: ConfigurationStore) {
     self.date = date
+    self.configuration = configuration
     self.subscribe()
   }
 
-  func subscribe() {
+  private func subscribe() {
     NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
       .sink(receiveValue: { notification in
         guard let device = notification.object as? UIDevice else { return }
@@ -59,6 +61,10 @@ final class TellTimeViewModel: ObservableObject, Identifiable {
       .sink(receiveValue: { _ in
         self.isClockFaceShown = false
       })
+      .store(in: &self.disposables)
+
+    self.configuration.speechRateRatioSubject
+      .assign(to: \.tts.rateRatio, on: self)
       .store(in: &self.disposables)
   }
 
