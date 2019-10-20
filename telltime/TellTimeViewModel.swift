@@ -63,7 +63,7 @@ final class TellTimeViewModel: ObservableObject, Identifiable {
       })
       .store(in: &self.disposables)
 
-    self.configuration.speechRateRatioSubject
+    self.configuration.$speechRateRatio
       .assign(to: \.tts.rateRatio, on: self)
       .store(in: &self.disposables)
   }

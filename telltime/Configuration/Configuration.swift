@@ -2,16 +2,47 @@ import SwiftUI
 
 struct Configuration: View {
   static let timestampFor10to2: TimeInterval = 3000
+  @ObservedObject var viewModel = ConfigurationViewModel()
   @EnvironmentObject var configuration: ConfigurationStore
 
   var body: some View {
-    VStack(spacing: 25.0) {
+    Group {
+      if self.viewModel.deviceOrientation.isLandscape {
+        self.landscapeBody
+      } else {
+        self.portraitBody
+      }
+    }
+    .padding()
+  }
+
+  private var portraitBody: some View {
+    VStack {
       Clock(viewModel: ClockViewModel(
         date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
         showClockFace: false
       ))
         .frame(width: 300)
       Spacer()
+      self.controls
+      Spacer()
+    }
+  }
+
+  private var landscapeBody: some View {
+    HStack {
+      Clock(viewModel: ClockViewModel(
+        date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
+        showClockFace: false
+      ))
+        .frame(width: 300)
+        .padding()
+      self.controls
+    }
+  }
+
+  private var controls: some View {
+    VStack(spacing: 30.0) {
       HStack {
         Text("Speech rate: \(self.speechRateRatioPourcentage)%")
         Slider(value: self.$configuration.speechRateRatio, in: 0.5...1.0)
@@ -26,9 +57,7 @@ struct Configuration: View {
       Toggle(isOn: self.$configuration.showLimitedHourIndicators) {
         Text("Limited hour texts")
       }
-      Spacer()
     }
-    .padding()
   }
 
   private var speechRateRatioPourcentage: Int {
