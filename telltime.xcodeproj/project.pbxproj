@@ -30,7 +30,6 @@
 		4CB1D4C522A7293500786385 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C422A7293500786385 /* Preview Assets.xcassets */; };
 		4CB1D4C822A7293500786385 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C622A7293500786385 /* LaunchScreen.storyboard */; };
 		4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4D222A7293500786385 /* telltimeTests.swift */; };
-		4CB1D4DE22A7293500786385 /* telltimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4DD22A7293500786385 /* telltimeUITests.swift */; };
 		4CC0406722B530EC0001AA50 /* TTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0406622B530EC0001AA50 /* TTS.swift */; };
 		4CC35E0A233F4D9400D9C8D6 /* ClockFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */; };
 		4CCF192F234E6433002E6D46 /* WatchPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF192E234E6433002E6D46 /* WatchPointer.swift */; };
@@ -42,13 +41,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		4CB1D4CF22A7293500786385 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4CB1D4B722A7293300786385;
-			remoteInfo = telltime;
-		};
-		4CB1D4DA22A7293500786385 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
 			proxyType = 1;
@@ -84,9 +76,6 @@
 		4CB1D4CE22A7293500786385 /* telltimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = telltimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4D222A7293500786385 /* telltimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = telltimeTests.swift; sourceTree = "<group>"; };
 		4CB1D4D422A7293500786385 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4CB1D4D922A7293500786385 /* telltimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = telltimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CB1D4DD22A7293500786385 /* telltimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = telltimeUITests.swift; sourceTree = "<group>"; };
-		4CB1D4DF22A7293500786385 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CC0406622B530EC0001AA50 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
 		4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFace.swift; sourceTree = "<group>"; };
 		4CCF192E234E6433002E6D46 /* WatchPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPointer.swift; sourceTree = "<group>"; };
@@ -106,13 +95,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4CB1D4CB22A7293500786385 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CB1D4D622A7293500786385 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -217,7 +199,6 @@
 				4CB1D4B922A7293300786385 /* Products */,
 				4CB1D4BA22A7293300786385 /* telltime */,
 				4CB1D4D122A7293500786385 /* telltimeTests */,
-				4CB1D4DC22A7293500786385 /* telltimeUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -226,7 +207,6 @@
 			children = (
 				4CB1D4B822A7293300786385 /* telltime.app */,
 				4CB1D4CE22A7293500786385 /* telltimeTests.xctest */,
-				4CB1D4D922A7293500786385 /* telltimeUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -263,15 +243,6 @@
 				4CB1D4D422A7293500786385 /* Info.plist */,
 			);
 			path = telltimeTests;
-			sourceTree = "<group>";
-		};
-		4CB1D4DC22A7293500786385 /* telltimeUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4CB1D4DD22A7293500786385 /* telltimeUITests.swift */,
-				4CB1D4DF22A7293500786385 /* Info.plist */,
-			);
-			path = telltimeUITests;
 			sourceTree = "<group>";
 		};
 		4CCF1932234E6488002E6D46 /* Elements */ = {
@@ -326,24 +297,6 @@
 			productReference = 4CB1D4CE22A7293500786385 /* telltimeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4CB1D4D822A7293500786385 /* telltimeUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4CB1D4E822A7293500786385 /* Build configuration list for PBXNativeTarget "telltimeUITests" */;
-			buildPhases = (
-				4CB1D4D522A7293500786385 /* Sources */,
-				4CB1D4D622A7293500786385 /* Frameworks */,
-				4CB1D4D722A7293500786385 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4CB1D4DB22A7293500786385 /* PBXTargetDependency */,
-			);
-			name = telltimeUITests;
-			productName = telltimeUITests;
-			productReference = 4CB1D4D922A7293500786385 /* telltimeUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -358,10 +311,6 @@
 						CreatedOnToolsVersion = 11.0;
 					};
 					4CB1D4CD22A7293500786385 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = 4CB1D4B722A7293300786385;
-					};
-					4CB1D4D822A7293500786385 = {
 						CreatedOnToolsVersion = 11.0;
 						TestTargetID = 4CB1D4B722A7293300786385;
 					};
@@ -385,7 +334,6 @@
 			targets = (
 				4CB1D4B722A7293300786385 /* telltime */,
 				4CB1D4CD22A7293500786385 /* telltimeTests */,
-				4CB1D4D822A7293500786385 /* telltimeUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -402,13 +350,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4CB1D4CC22A7293500786385 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CB1D4D722A7293500786385 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,14 +419,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4CB1D4D522A7293500786385 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CB1D4DE22A7293500786385 /* telltimeUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -493,11 +426,6 @@
 			isa = PBXTargetDependency;
 			target = 4CB1D4B722A7293300786385 /* telltime */;
 			targetProxy = 4CB1D4CF22A7293500786385 /* PBXContainerItemProxy */;
-		};
-		4CB1D4DB22A7293500786385 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4CB1D4B722A7293300786385 /* telltime */;
-			targetProxy = 4CB1D4DA22A7293500786385 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -715,46 +643,6 @@
 			};
 			name = Release;
 		};
-		4CB1D4E922A7293500786385 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBQ98GC8JT;
-				INFOPLIST_FILE = telltimeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltimeUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = telltime;
-			};
-			name = Debug;
-		};
-		4CB1D4EA22A7293500786385 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MBQ98GC8JT;
-				INFOPLIST_FILE = telltimeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltimeUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = telltime;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -781,15 +669,6 @@
 			buildConfigurations = (
 				4CB1D4E622A7293500786385 /* Debug */,
 				4CB1D4E722A7293500786385 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4CB1D4E822A7293500786385 /* Build configuration list for PBXNativeTarget "telltimeUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4CB1D4E922A7293500786385 /* Debug */,
-				4CB1D4EA22A7293500786385 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
