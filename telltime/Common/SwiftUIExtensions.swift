@@ -22,3 +22,10 @@ extension Double {
     return self + Double.pi * 2
   }
 }
+
+extension Path {
+  mutating func addTest(point: CGPoint) {
+    let origin = point.applying(.init(translationX: -5, y: -5))
+    self.addEllipse(in: CGRect(origin: origin, size: CGSize(width: 10, height: 10)))
+  }
+}

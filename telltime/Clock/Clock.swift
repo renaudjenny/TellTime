@@ -12,9 +12,6 @@ struct Clock: View {
         WatchPointers(
           viewModel: WatchPointersViewModel(date: self.viewModel.date)
         )
-        Circle()
-          .fill()
-          .frame(width: 20.0, height: 20.0, alignment: .center)
         ClockFace(animate: self.viewModel.showClockFace)
           .opacity(self.viewModel.showClockFace ? 1 : 0)
       }

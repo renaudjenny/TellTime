@@ -6,13 +6,13 @@ struct WatchPointers: View {
   var body: some View {
     ZStack {
       WatchPointer(
-        lineWidth: 6.0,
-        margin: 40.0,
+        lineWidthRatio: 1,
+        marginRatio: 1/7,
         viewModel: self.viewModel.hourWatchPointerViewModel
       )
       WatchPointer(
-        lineWidth: 4.0,
-        margin: 20.0,
+        lineWidthRatio: 2/3,
+        marginRatio: 1/10,
         viewModel: self.viewModel.minuteWatchPointerViewModel
       )
     }
