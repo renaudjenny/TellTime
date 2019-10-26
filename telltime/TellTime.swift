@@ -95,6 +95,7 @@ struct TellTime: View {
           .accentColor(.red)
       }
     }
+    .padding(Edge.Set.horizontal)
   }
 
   var time: some View {
