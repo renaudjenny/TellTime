@@ -3,7 +3,7 @@ import SwiftUI
 struct WatchPointer: View {
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
-  private static let widthRatio: CGFloat = 1/80
+  private static let widthRatio: CGFloat = 1/50
   @ObservedObject var viewModel: WatchPointerViewModel
 
   var body: some View {

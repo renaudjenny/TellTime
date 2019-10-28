@@ -7,7 +7,7 @@ struct WatchPointers: View {
     ZStack {
       WatchPointer(
         lineWidthRatio: 1,
-        marginRatio: 1/7,
+        marginRatio: 1/3,
         viewModel: self.viewModel.hourWatchPointerViewModel
       )
       WatchPointer(
