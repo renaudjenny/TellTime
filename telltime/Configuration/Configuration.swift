@@ -57,6 +57,13 @@ struct Configuration: View {
       Toggle(isOn: self.$configuration.showLimitedHourIndicators) {
         Text("Limited hour texts")
       }
+      Picker("Style", selection: self.$configuration.clockStyle) {
+        ForEach(ClockStyle.allCases) { style in
+          Text(style.description)
+            .tag(style)
+        }
+      }
+      .pickerStyle(SegmentedPickerStyle())
     }
   }
 

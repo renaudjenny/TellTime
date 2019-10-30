@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WatchPointer: View {
+struct ArtNouveauWatchPointer: View {
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
   private static let widthRatio: CGFloat = 1/50
@@ -52,17 +52,16 @@ struct WatchPointer: View {
           control2: arrivalControl2
         )
       }
-        .gesture(self.viewModel.dragGesture(globalFrame: geometry.frame(in: .global)))
-        .rotationEffect(self.viewModel.rotationAngle)
-        .animation(self.viewModel.animate ? .easeInOut : nil)
+      .gesture(self.viewModel.dragGesture(globalFrame: geometry.frame(in: .global)))
+      .rotationEffect(self.viewModel.rotationAngle)
+      .animation(self.viewModel.animate ? .easeInOut : nil)
     }
   }
 }
 
-#if DEBUG
-struct WatchPointer_Previews: PreviewProvider {
+struct ArtNouveauWatchPointer_Previews: PreviewProvider {
   static var previews: some View {
-    WatchPointer(
+    ArtNouveauWatchPointer(
       lineWidthRatio: 1,
       marginRatio: 1/8,
       viewModel: WatchPointerViewModel(
@@ -72,4 +71,3 @@ struct WatchPointer_Previews: PreviewProvider {
     )
   }
 }
-#endif
