@@ -6,71 +6,66 @@ struct TellTime: View {
   @ObservedObject var viewModel: TellTimeViewModel
 
   var body: some View {
-    Group {
+    NavigationView {
       if self.viewModel.deviceOrientation.isLandscape {
         self.landscapeBody
       } else {
         self.portraitBody
       }
     }
+    .navigationViewStyle(StackNavigationViewStyle())
     .onTapGesture(count: 3, perform: self.viewModel.showClockFace)
   }
 
   var portraitBody: some View {
-    NavigationView {
+    VStack {
+      Spacer()
+      Clock(viewModel: ClockViewModel(
+        date: self.$viewModel.date,
+        showClockFace: self.viewModel.isClockFaceShown
+      ))
+      Spacer()
+      self.time
+      Spacer()
+      DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
+        .fixedSize()
+      Spacer()
+      self.buttons
+    }
+    .padding()
+    .navigationBarTitle("Tell Time")
+    .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
+      Image(systemName: "gear")
+        .padding()
+        .accentColor(.red)
+    })
+  }
+
+  var landscapeBody: some View {
+    HStack {
       VStack {
-        Spacer()
         Clock(viewModel: ClockViewModel(
           date: self.$viewModel.date,
           showClockFace: self.viewModel.isClockFaceShown
         ))
-        Spacer()
+          .padding()
         self.time
+      }
+      VStack {
         Spacer()
         DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
           .fixedSize()
         Spacer()
         self.buttons
       }
-      .padding()
-      .navigationBarTitle("Tell Time")
-      .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
-        Image(systemName: "gear")
-          .padding()
-          .accentColor(.red)
-      })
     }
-    .navigationViewStyle(StackNavigationViewStyle())
-  }
-
-  var landscapeBody: some View {
-    NavigationView {
-      HStack {
-        VStack {
-          Clock(viewModel: ClockViewModel(
-            date: self.$viewModel.date,
-            showClockFace: self.viewModel.isClockFaceShown
-          ))
-            .padding()
-          self.time
-        }
-        VStack {
-          Spacer()
-          DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
-            .fixedSize()
-          Spacer()
-          self.buttons
-        }
-      }
-      .padding()
-      .navigationBarTitle("Tell Time")
-      .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
-        Image(systemName: "gear")
-          .padding()
-          .accentColor(.red)
-      })
-    }
-    .navigationViewStyle(StackNavigationViewStyle())
+    .padding()
+    .navigationBarTitle("Tell Time")
+    .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
+      Image(systemName: "gear")
+        .padding()
+        .accentColor(.red)
+    })
   }
 
   var buttons: some View {
