@@ -7,11 +7,16 @@ struct TellTime: View {
 
   var body: some View {
     NavigationView {
-      if self.viewModel.deviceOrientation.isLandscape {
-        self.landscapeBody
-      } else {
-        self.portraitBody
+      Group {
+        if self.viewModel.deviceOrientation.isLandscape {
+          self.landscapeBody
+        } else {
+          self.portraitBody
+        }
       }
+      .padding()
+      .navigationBarTitle("Tell Time")
+      .navigationBarItems(trailing: self.configurationGearButton)
     }
     .navigationViewStyle(StackNavigationViewStyle())
     .onTapGesture(count: 3, perform: self.viewModel.showClockFace)
@@ -32,13 +37,6 @@ struct TellTime: View {
       Spacer()
       self.buttons
     }
-    .padding()
-    .navigationBarTitle("Tell Time")
-    .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
-      Image(systemName: "gear")
-        .padding()
-        .accentColor(.red)
-    })
   }
 
   var landscapeBody: some View {
@@ -59,16 +57,9 @@ struct TellTime: View {
         self.buttons
       }
     }
-    .padding()
-    .navigationBarTitle("Tell Time")
-    .navigationBarItems(trailing: NavigationLink(destination: Configuration()) {
-      Image(systemName: "gear")
-        .padding()
-        .accentColor(.red)
-    })
   }
 
-  var buttons: some View {
+  private var buttons: some View {
     HStack {
       SpeakButton(
         action: self.viewModel.tellTime,
@@ -93,10 +84,18 @@ struct TellTime: View {
     .padding(Edge.Set.horizontal)
   }
 
-  var time: some View {
-    return Text(self.viewModel.time)
+  private var time: some View {
+    Text(self.viewModel.time)
       .font(.headline)
       .foregroundColor(.red)
+  }
+
+  private var configurationGearButton: some View {
+    NavigationLink(destination: Configuration()) {
+      Image(systemName: "gear")
+        .padding()
+        .accentColor(.red)
+    }
   }
 }
 
