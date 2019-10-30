@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct Clock: View {
+  static let borderWidthRatio: CGFloat = 1/70
   @ObservedObject var viewModel: ClockViewModel
 
   var body: some View {
     GeometryReader { geometry in
       ZStack {
-        Circle()
-          .stroke(lineWidth: 4)
+        ClassicClockBorder(localWidth: geometry.localWidth)
         Indicators()
         WatchPointers(
           viewModel: WatchPointersViewModel(date: self.viewModel.date)

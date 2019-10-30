@@ -2,37 +2,19 @@ import SwiftUI
 
 struct WatchPointers: View {
   @ObservedObject var viewModel: WatchPointersViewModel
-  @EnvironmentObject var configurationStore: ConfigurationStore
 
   var body: some View {
-    Group {
-      if configurationStore.clockStyle == .classic {
-        ZStack {
-          ClassicWatchPointer(
-            lineWidthRatio: 1/2,
-            marginRatio: 2/5,
-            viewModel: self.viewModel.hourWatchPointerViewModel
-          )
-          ClassicWatchPointer(
-            lineWidthRatio: 1/3,
-            marginRatio: 1/8,
-            viewModel: self.viewModel.minuteWatchPointerViewModel
-          )
-        }
-      } else {
-        ZStack {
-          ArtNouveauWatchPointer(
-            lineWidthRatio: 1/2,
-            marginRatio: 2/5,
-            viewModel: self.viewModel.hourWatchPointerViewModel
-          )
-          ArtNouveauWatchPointer(
-            lineWidthRatio: 1/3,
-            marginRatio: 1/8,
-            viewModel: self.viewModel.minuteWatchPointerViewModel
-          )
-        }
-      }
+    ZStack {
+      WatchPointer(
+        lineWidthRatio: 1/2,
+        marginRatio: 2/5,
+        viewModel: self.viewModel.hourWatchPointerViewModel
+      )
+      WatchPointer(
+        lineWidthRatio: 1/3,
+        marginRatio: 1/8,
+        viewModel: self.viewModel.minuteWatchPointerViewModel
+      )
     }
   }
 }

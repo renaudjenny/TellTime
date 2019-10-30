@@ -4,7 +4,6 @@ struct ArtNouveauWatchPointer: View {
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
   private static let widthRatio: CGFloat = 1/50
-  @ObservedObject var viewModel: WatchPointerViewModel
 
   var body: some View {
     GeometryReader { geometry in
@@ -52,9 +51,6 @@ struct ArtNouveauWatchPointer: View {
           control2: arrivalControl2
         )
       }
-      .gesture(self.viewModel.dragGesture(globalFrame: geometry.frame(in: .global)))
-      .rotationEffect(self.viewModel.rotationAngle)
-      .animation(self.viewModel.animate ? .easeInOut : nil)
     }
   }
 }
@@ -63,11 +59,7 @@ struct ArtNouveauWatchPointer_Previews: PreviewProvider {
   static var previews: some View {
     ArtNouveauWatchPointer(
       lineWidthRatio: 1,
-      marginRatio: 1/8,
-      viewModel: WatchPointerViewModel(
-        rotationAngle: Angle(degrees: 8),
-        dragEndedRotationAngle: Angle(degrees: 0)
-      )
+      marginRatio: 1/8
     )
   }
 }

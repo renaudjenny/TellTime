@@ -21,6 +21,8 @@
 		4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */; };
 		4C572751236781B00028348F /* ArtNouveauWatchPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572750236781B00028348F /* ArtNouveauWatchPointer.swift */; };
 		4C572754236786FC0028348F /* ClockStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572753236786FC0028348F /* ClockStyle.swift */; };
+		4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572756236A399B0028348F /* ClassicClockBorder.swift */; };
+		4C572759236A3B1F0028348F /* WatchPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572758236A3B1F0028348F /* WatchPointer.swift */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
 		4C6C9CE4235C9978004EF6A5 /* ConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE3235C9978004EF6A5 /* ConfigurationViewModel.swift */; };
 		4C87A8912348CADF00E6503C /* DigitalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87A8902348CADF00E6503C /* DigitalTime.swift */; };
@@ -65,6 +67,8 @@
 		4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngineSwiftPastTen.swift; sourceTree = "<group>"; };
 		4C572750236781B00028348F /* ArtNouveauWatchPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauWatchPointer.swift; sourceTree = "<group>"; };
 		4C572753236786FC0028348F /* ClockStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockStyle.swift; sourceTree = "<group>"; };
+		4C572756236A399B0028348F /* ClassicClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicClockBorder.swift; sourceTree = "<group>"; };
+		4C572758236A3B1F0028348F /* WatchPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPointer.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4C6C9CE3235C9978004EF6A5 /* ConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewModel.swift; sourceTree = "<group>"; };
 		4C87A8902348CADF00E6503C /* DigitalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalTime.swift; sourceTree = "<group>"; };
@@ -171,11 +175,20 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		4C572755236A397D0028348F /* Borders */ = {
+			isa = PBXGroup;
+			children = (
+				4C572756236A399B0028348F /* ClassicClockBorder.swift */,
+			);
+			path = Borders;
+			sourceTree = "<group>";
+		};
 		4C6C9CE5235FA215004EF6A5 /* WatchPointer */ = {
 			isa = PBXGroup;
 			children = (
 				4C572750236781B00028348F /* ArtNouveauWatchPointer.swift */,
 				4CCF192E234E6433002E6D46 /* ClassicWatchPointer.swift */,
+				4C572758236A3B1F0028348F /* WatchPointer.swift */,
 				4C03BC782351245100442B11 /* WatchPointerViewModel.swift */,
 			);
 			path = WatchPointer;
@@ -254,6 +267,7 @@
 		4CCF1932234E6488002E6D46 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
+				4C572755236A397D0028348F /* Borders */,
 				4C6C9CE7235FA24A004EF6A5 /* Indicators */,
 				4C6C9CE6235FA233004EF6A5 /* WatchPointers */,
 				4C6C9CE5235FA215004EF6A5 /* WatchPointer */,
@@ -396,8 +410,10 @@
 				4C03BC77235119DA00442B11 /* ClockViewModel.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,
 				4C03BC7B23512DB300442B11 /* WatchPointersViewModel.swift in Sources */,
+				4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */,
 				4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */,
 				4CC35E0A233F4D9400D9C8D6 /* ClockFace.swift in Sources */,
+				4C572759236A3B1F0028348F /* WatchPointer.swift in Sources */,
 				4CCF1936234E6579002E6D46 /* Indicators.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4C03BC792351245200442B11 /* WatchPointerViewModel.swift in Sources */,
