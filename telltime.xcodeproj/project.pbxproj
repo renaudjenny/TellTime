@@ -41,6 +41,8 @@
 		4CCF1936234E6579002E6D46 /* Indicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1935234E6579002E6D46 /* Indicators.swift */; };
 		4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */; };
 		4CDD4A802336E64E004BE734 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD4A7F2336E64E004BE734 /* About.swift */; };
+		4CF2DE86236BA01400C352F6 /* ArtNouveauClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */; };
+		4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		4CCF1935234E6579002E6D46 /* Indicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicators.swift; sourceTree = "<group>"; };
 		4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
 		4CDD4A7F2336E64E004BE734 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauClockBorder.swift; sourceTree = "<group>"; };
+		4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockBorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				4C572756236A399B0028348F /* ClassicClockBorder.swift */,
+				4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */,
+				4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */,
 			);
 			path = Borders;
 			sourceTree = "<group>";
@@ -407,6 +413,7 @@
 				4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */,
 				4CCF192F234E6433002E6D46 /* ClassicWatchPointer.swift in Sources */,
 				4C6C9CE4235C9978004EF6A5 /* ConfigurationViewModel.swift in Sources */,
+				4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */,
 				4C03BC77235119DA00442B11 /* ClockViewModel.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,
 				4C03BC7B23512DB300442B11 /* WatchPointersViewModel.swift in Sources */,
@@ -429,6 +436,7 @@
 				4C87A8912348CADF00E6503C /* DigitalTime.swift in Sources */,
 				4CCF1931234E6467002E6D46 /* WatchPointers.swift in Sources */,
 				4C03BC7D23520F1900442B11 /* TellTimeViewModel.swift in Sources */,
+				4CF2DE86236BA01400C352F6 /* ArtNouveauClockBorder.swift in Sources */,
 				4C572754236786FC0028348F /* ClockStyle.swift in Sources */,
 				4C03BC7F23537FEB00442B11 /* IndicatorsViewModel.swift in Sources */,
 				4C05AB632343FE6C00970036 /* Eye.swift in Sources */,

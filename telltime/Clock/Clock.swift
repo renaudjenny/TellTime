@@ -7,7 +7,7 @@ struct Clock: View {
   var body: some View {
     GeometryReader { geometry in
       ZStack {
-        ClassicClockBorder(localWidth: geometry.localWidth)
+        ClockBorder(localWidth: geometry.localWidth)
         Indicators()
         WatchPointers(
           viewModel: WatchPointersViewModel(date: self.viewModel.date)
