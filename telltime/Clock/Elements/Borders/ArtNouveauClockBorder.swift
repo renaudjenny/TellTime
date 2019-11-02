@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ArtNouveauClockBorder: View {
   static let borderWidthRatio: CGFloat = 1/100
+  static let innerCircleScale: CGFloat = 9/10
   let localWidth: CGFloat
 
   var body: some View {
@@ -10,10 +11,10 @@ struct ArtNouveauClockBorder: View {
         Circle()
           .stroke(lineWidth: self.localWidth * Self.borderWidthRatio)
         Circle()
-          .scale(0.90)
+          .scale(Self.innerCircleScale)
           .transform(.init(
             translationX: 0,
-            y: geometry.localWidth/2 * (1 - 0.90)
+            y: geometry.localWidth/2 * (1 - Self.innerCircleScale)
           ))
           .stroke(lineWidth: self.localWidth * Self.borderWidthRatio/4)
       }

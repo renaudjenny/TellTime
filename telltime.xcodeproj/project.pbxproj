@@ -11,7 +11,6 @@
 		4C03BC792351245200442B11 /* WatchPointerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC782351245100442B11 /* WatchPointerViewModel.swift */; };
 		4C03BC7B23512DB300442B11 /* WatchPointersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC7A23512DB300442B11 /* WatchPointersViewModel.swift */; };
 		4C03BC7D23520F1900442B11 /* TellTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC7C23520F1900442B11 /* TellTimeViewModel.swift */; };
-		4C03BC7F23537FEB00442B11 /* IndicatorsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC7E23537FEB00442B11 /* IndicatorsViewModel.swift */; };
 		4C03BC8223550A0C00442B11 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC8123550A0C00442B11 /* Configuration.swift */; };
 		4C03BC862355102E00442B11 /* ConfigurationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC852355102E00442B11 /* ConfigurationStore.swift */; };
 		4C05AB612343FD7200970036 /* Mouth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05AB602343FD7200970036 /* Mouth.swift */; };
@@ -27,6 +26,8 @@
 		4C6C9CE4235C9978004EF6A5 /* ConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE3235C9978004EF6A5 /* ConfigurationViewModel.swift */; };
 		4C87A8912348CADF00E6503C /* DigitalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87A8902348CADF00E6503C /* DigitalTime.swift */; };
 		4C9309B522B0C8B80073BE0B /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9309B422B0C8B80073BE0B /* Clock.swift */; };
+		4CA4F649236D125F007088BA /* ClassicIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA4F648236D125F007088BA /* ClassicIndicators.swift */; };
+		4CA4F64B236D1272007088BA /* ArtNouveauIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA4F64A236D1272007088BA /* ArtNouveauIndicators.swift */; };
 		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
 		4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BD22A7293300786385 /* SceneDelegate.swift */; };
 		4CB1D4C022A7293300786385 /* TellTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BF22A7293300786385 /* TellTime.swift */; };
@@ -60,7 +61,6 @@
 		4C03BC782351245100442B11 /* WatchPointerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPointerViewModel.swift; sourceTree = "<group>"; };
 		4C03BC7A23512DB300442B11 /* WatchPointersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPointersViewModel.swift; sourceTree = "<group>"; };
 		4C03BC7C23520F1900442B11 /* TellTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeViewModel.swift; sourceTree = "<group>"; };
-		4C03BC7E23537FEB00442B11 /* IndicatorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsViewModel.swift; sourceTree = "<group>"; };
 		4C03BC8123550A0C00442B11 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		4C03BC852355102E00442B11 /* ConfigurationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationStore.swift; sourceTree = "<group>"; };
 		4C05AB602343FD7200970036 /* Mouth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mouth.swift; sourceTree = "<group>"; };
@@ -75,6 +75,8 @@
 		4C6C9CE3235C9978004EF6A5 /* ConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewModel.swift; sourceTree = "<group>"; };
 		4C87A8902348CADF00E6503C /* DigitalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalTime.swift; sourceTree = "<group>"; };
 		4C9309B422B0C8B80073BE0B /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		4CA4F648236D125F007088BA /* ClassicIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicIndicators.swift; sourceTree = "<group>"; };
+		4CA4F64A236D1272007088BA /* ArtNouveauIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauIndicators.swift; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* telltime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = telltime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4BB22A7293300786385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CB1D4BD22A7293300786385 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -213,7 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				4CCF1935234E6579002E6D46 /* Indicators.swift */,
-				4C03BC7E23537FEB00442B11 /* IndicatorsViewModel.swift */,
+				4CA4F648236D125F007088BA /* ClassicIndicators.swift */,
+				4CA4F64A236D1272007088BA /* ArtNouveauIndicators.swift */,
 			);
 			path = Indicators;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */,
 				4CCF192F234E6433002E6D46 /* ClassicWatchPointer.swift in Sources */,
 				4C6C9CE4235C9978004EF6A5 /* ConfigurationViewModel.swift in Sources */,
+				4CA4F649236D125F007088BA /* ClassicIndicators.swift in Sources */,
 				4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */,
 				4C03BC77235119DA00442B11 /* ClockViewModel.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,
@@ -438,7 +442,7 @@
 				4C03BC7D23520F1900442B11 /* TellTimeViewModel.swift in Sources */,
 				4CF2DE86236BA01400C352F6 /* ArtNouveauClockBorder.swift in Sources */,
 				4C572754236786FC0028348F /* ClockStyle.swift in Sources */,
-				4C03BC7F23537FEB00442B11 /* IndicatorsViewModel.swift in Sources */,
+				4CA4F64B236D1272007088BA /* ArtNouveauIndicators.swift in Sources */,
 				4C05AB632343FE6C00970036 /* Eye.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

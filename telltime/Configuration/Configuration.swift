@@ -18,6 +18,7 @@ struct Configuration: View {
 
   private var portraitBody: some View {
     VStack {
+      self.stylePicker
       Clock(viewModel: ClockViewModel(
         date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
         showClockFace: false
@@ -31,12 +32,15 @@ struct Configuration: View {
 
   private var landscapeBody: some View {
     HStack {
-      Clock(viewModel: ClockViewModel(
-        date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
-        showClockFace: false
-      ))
-        .frame(width: 300)
-        .padding()
+      VStack {
+        Clock(viewModel: ClockViewModel(
+          date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
+          showClockFace: false
+        ))
+          .frame(width: 300)
+          .padding()
+        self.stylePicker
+      }
       self.controls
     }
   }
@@ -57,14 +61,17 @@ struct Configuration: View {
       Toggle(isOn: self.$configuration.showLimitedHourIndicators) {
         Text("Limited hour texts")
       }
-      Picker("Style", selection: self.$configuration.clockStyle) {
-        ForEach(ClockStyle.allCases) { style in
-          Text(style.description)
-            .tag(style)
-        }
-      }
-      .pickerStyle(SegmentedPickerStyle())
     }
+  }
+
+  private var stylePicker: some View {
+    Picker("Style", selection: self.$configuration.clockStyle) {
+      ForEach(ClockStyle.allCases) { style in
+        Text(style.description)
+          .tag(style)
+      }
+    }
+    .pickerStyle(SegmentedPickerStyle())
   }
 
   private var speechRateRatioPourcentage: Int {
