@@ -25,6 +25,9 @@ struct Clock: View {
 struct Clock_Previews: PreviewProvider {
   static var previews: some View {
     return Clock()
+      .environmentObject(ConfigurationStore())
+      .environmentObject(ClockStore())
+      .environmentObject(TTS())
   }
 }
 #endif

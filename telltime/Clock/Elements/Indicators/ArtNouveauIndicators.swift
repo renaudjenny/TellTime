@@ -9,14 +9,20 @@ struct ArtNouveauIndicators: View {
 
   var body: some View {
     GeometryReader { geometry in
-      ForEach(self.configurationRomanNumbers, id: \.self) { romanNumber in
-        Text("\(romanNumber)")
-          .modifier(NumberCircle(width: geometry.localWidth * 1.5 * Self.marginRatio))
-          .position(.pointInCircle(
-            from: self.angle(for: romanNumber),
-            frame: geometry.localFrame,
-            margin: geometry.localWidth * Self.marginRatio
-          ))
+      ZStack {
+        ForEach(self.configurationRomanNumbers, id: \.self) { romanNumber in
+          Text("\(romanNumber)")
+            .modifier(NumberCircle(width: geometry.localWidth * 3/2 * Self.marginRatio))
+            .position(.pointInCircle(
+              from: self.angle(for: romanNumber),
+              frame: geometry.localFrame,
+              margin: geometry.localWidth * Self.marginRatio
+            ))
+        }
+      }
+      if self.configuration.showMinuteIndicators {
+        Sun()
+          .stroke()
       }
     }
   }
@@ -46,6 +52,36 @@ struct ArtNouveauIndicators: View {
   private func angle(for romanNumber: String) -> Angle {
     guard let index = Self.romanNumbers.firstIndex(of: romanNumber) else { return .zero }
     return Angle(degrees: Double(index) * Self.hourInDegree)
+  }
+}
+
+struct Sun: Shape {
+  func path(in rect: CGRect) -> Path {
+    var path = Path()
+
+    path.move(to: .pointInCircle(
+      from: .zero,
+      frame: rect,
+      margin: rect.width/6
+    ))
+
+    for minute in 1..<61 {
+      let point: CGPoint = .pointInCircle(
+        from: Angle(degrees: Double(minute) * 6),
+        frame: rect,
+        margin: rect.width/6
+      )
+
+      let control: CGPoint = .pointInCircle(
+        from: Angle(degrees: Double(minute) * 6 - 3),
+        frame: rect,
+        margin: rect.width/4
+      )
+
+      path.addQuadCurve(to: point, control: control)
+    }
+
+    return path
   }
 }
 

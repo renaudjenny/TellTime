@@ -55,6 +55,7 @@ struct Configuration: View {
       Toggle(isOn: self.$configuration.showHourIndicators) {
         Text("Hour indicators")
       }
+      .disabled(self.configuration.clockStyle == .artNouveau)
       Toggle(isOn: self.$configuration.showLimitedHourIndicators) {
         Text("Limited hour texts")
       }
