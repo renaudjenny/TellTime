@@ -2,18 +2,17 @@ import SwiftUI
 
 struct Clock: View {
   static let borderWidthRatio: CGFloat = 1/70
-  @ObservedObject var viewModel: ClockViewModel
+  @EnvironmentObject var clock: ClockStore
 
   var body: some View {
     GeometryReader { geometry in
       ZStack {
         ClockBorder(localWidth: geometry.localWidth)
         Indicators()
-        WatchPointers(
-          viewModel: WatchPointersViewModel(date: self.viewModel.date)
-        )
-        ClockFace(animate: self.viewModel.showClockFace)
-          .opacity(self.viewModel.showClockFace ? 1 : 0)
+        WatchPointers()
+        ClockFace()
+          .opacity(self.clock.showClockFace ? 1 : 0)
+          .animation(.easeInOut)
       }
       .frame(width: geometry.localDiameter, height: geometry.localDiameter)
       .fixedSize()
@@ -25,8 +24,7 @@ struct Clock: View {
 #if DEBUG
 struct Clock_Previews: PreviewProvider {
   static var previews: some View {
-    let viewModel = ClockViewModel(date: .constant(Date()), showClockFace: true)
-    return Clock(viewModel: viewModel)
+    return Clock()
   }
 }
 #endif

@@ -1,11 +1,26 @@
 import SwiftUI
 
 struct WatchPointer: View {
+  private static let widthRatio: CGFloat = 1/50
+  @EnvironmentObject var configuration: ConfigurationStore
+  @EnvironmentObject var clock: ClockStore
+  @State private var angle: Angle = .zero
+  @State private var animate: Bool = true
+  let type: ArmType
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
-  private static let widthRatio: CGFloat = 1/50
-  @ObservedObject var viewModel: WatchPointerViewModel
-  @EnvironmentObject var configuration: ConfigurationStore
+
+  init(type: ArmType) {
+    self.type = type
+    switch type {
+    case .hour:
+      self.lineWidthRatio = 1/2
+      self.marginRatio = 2/5
+    case .minute:
+      self.lineWidthRatio = 1/3
+      self.marginRatio = 1/8
+    }
+  }
 
   var body: some View {
     GeometryReader { geometry in
@@ -22,24 +37,70 @@ struct WatchPointer: View {
           )
         }
       }
-      .gesture(self.viewModel.dragGesture(globalFrame: geometry.frame(in: .global)))
-      .rotationEffect(self.viewModel.rotationAngle)
-      .animation(self.viewModel.animate ? .easeInOut : nil)
+      .gesture(self.dragGesture(globalFrame: geometry.frame(in: .global)))
+      .rotationEffect(self.angle)
+      .animation(self.animate ? .easeInOut : nil)
+    }
+    .onReceive(self.clock.$date, perform: self.setupAngle)
+  }
+}
+
+// MARK: - Drag Gesture
+extension WatchPointer {
+  func dragGesture(globalFrame: CGRect) -> AnyGesture<DragGesture.Value> {
+    return AnyGesture<DragGesture.Value>(
+      DragGesture(coordinateSpace: .global)
+        .onChanged({ self.changePointerGesture($0, frame: globalFrame) })
+        .onEnded({
+          let angle = self.angle(dragGestureValue: $0, frame: globalFrame)
+          switch self.type {
+          case .hour: self.clock.hourAngle = angle
+          case .minute: self.clock.minuteAngle = angle
+          }
+          self.animate = true
+        })
+    )
+  }
+
+  private func angle(dragGestureValue: DragGesture.Value, frame: CGRect) -> Angle {
+    let radius = frame.size.width/2
+    let location = (
+      x: dragGestureValue.location.x - radius - frame.origin.x,
+      y: -(dragGestureValue.location.y - radius - frame.origin.y)
+    )
+    let arctan = atan2(location.x, location.y)
+    return Angle(radians: Double(arctan).positiveRadians)
+  }
+
+  private func changePointerGesture(_ value: DragGesture.Value, frame: CGRect) {
+    self.animate = false
+    let angle = self.angle(dragGestureValue: value, frame: frame)
+    switch self.type {
+    case .hour: self.angle = angle
+    case .minute: self.angle = angle
     }
   }
+}
+
+// MARK: Angle
+extension WatchPointer {
+  func setupAngle(_ date: Date) {
+    switch self.type {
+    case .hour: self.angle = .fromHour(date: date)
+    case .minute: self.angle = .fromMinute(date: date)
+    }
+  }
+}
+
+enum ArmType {
+  case hour
+  case minute
 }
 
 #if DEBUG
 struct WatchPointer_Previews: PreviewProvider {
   static var previews: some View {
-    WatchPointer(
-      lineWidthRatio: 1,
-      marginRatio: 1/8,
-      viewModel: WatchPointerViewModel(
-        rotationAngle: Angle(degrees: 8),
-        dragEndedRotationAngle: Angle(degrees: 0)
-      )
-    )
+    WatchPointer(type: .hour)
   }
 }
 #endif

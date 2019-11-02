@@ -3,12 +3,14 @@ import Combine
 import SwiftPastTen
 
 struct TellTime: View {
-  @ObservedObject var viewModel: TellTimeViewModel
+  @EnvironmentObject var configuration: ConfigurationStore
+  @EnvironmentObject var clock: ClockStore
+  @EnvironmentObject var tts: TTS
 
   var body: some View {
     NavigationView {
       Group {
-        if self.viewModel.deviceOrientation.isLandscape {
+        if self.configuration.deviceOrientation.isLandscape {
           self.landscapeBody
         } else {
           self.portraitBody
@@ -19,20 +21,18 @@ struct TellTime: View {
       .navigationBarItems(trailing: self.configurationGearButton)
     }
     .navigationViewStyle(StackNavigationViewStyle())
-    .onTapGesture(count: 3, perform: self.viewModel.showClockFace)
+    .onTapGesture(count: 3, perform: { self.clock.showClockFace = true })
+    .onReceive(self.clock.$date, perform: self.tts.speech)
   }
 
   var portraitBody: some View {
     VStack {
       Spacer()
-      Clock(viewModel: ClockViewModel(
-        date: self.$viewModel.date,
-        showClockFace: self.viewModel.isClockFaceShown
-      ))
+      Clock()
       Spacer()
       self.time
       Spacer()
-      DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
+      DatePicker("", selection: self.$clock.date, displayedComponents: [.hourAndMinute])
         .fixedSize()
       Spacer()
       self.buttons
@@ -42,16 +42,13 @@ struct TellTime: View {
   var landscapeBody: some View {
     HStack {
       VStack {
-        Clock(viewModel: ClockViewModel(
-          date: self.$viewModel.date,
-          showClockFace: self.viewModel.isClockFaceShown
-        ))
+        Clock()
           .padding()
         self.time
       }
       VStack {
         Spacer()
-        DatePicker("", selection: self.$viewModel.date, displayedComponents: [.hourAndMinute])
+        DatePicker("", selection: self.$clock.date, displayedComponents: [.hourAndMinute])
           .fixedSize()
         Spacer()
         self.buttons
@@ -61,13 +58,9 @@ struct TellTime: View {
 
   private var buttons: some View {
     HStack {
-      SpeakButton(
-        action: self.viewModel.tellTime,
-        progress: self.viewModel.speakingProgress,
-        isSpeaking: self.viewModel.isSpeaking
-      )
+      SpeakButton()
       Spacer()
-      Button(action: self.viewModel.changeClockRandomly) {
+      Button(action: self.clock.changeClockRandomly) {
         Image(systemName: "shuffle")
           .padding()
           .accentColor(.white)
@@ -85,7 +78,7 @@ struct TellTime: View {
   }
 
   private var time: some View {
-    Text(self.viewModel.time)
+    Text(self.tts.time(date: self.clock.date))
       .font(.headline)
       .foregroundColor(.red)
   }
@@ -102,9 +95,7 @@ struct TellTime: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    TellTime(viewModel: TellTimeViewModel(
-      configuration: ConfigurationStore()
-    ))
+    TellTime()
   }
 }
 #endif

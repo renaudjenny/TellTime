@@ -11,12 +11,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   ) {
     if let windowScene = scene as? UIWindowScene {
       let window = UIWindow(windowScene: windowScene)
-      let configurationStore = ConfigurationStore()
       window.rootViewController = UIHostingController(
-        rootView: TellTime(viewModel: TellTimeViewModel(
-          configuration: configurationStore
-        ))
-          .environmentObject(configurationStore)
+        rootView: TellTime()
+          .environmentObject(ConfigurationStore())
+          .environmentObject(ClockStore())
+          .environmentObject(TTS())
       )
       self.window = window
       window.makeKeyAndVisible()

@@ -1,28 +1,28 @@
 import SwiftUI
+import Combine
 
 struct Configuration: View {
   static let timestampFor10to2: TimeInterval = 3000
-  @ObservedObject var viewModel = ConfigurationViewModel()
   @EnvironmentObject var configuration: ConfigurationStore
+  @EnvironmentObject var tts: TTS
+  @State var deviceOrientation = UIDevice.current.orientation
 
   var body: some View {
     Group {
-      if self.viewModel.deviceOrientation.isLandscape {
+      if self.configuration.deviceOrientation.isLandscape {
         self.landscapeBody
       } else {
         self.portraitBody
       }
     }
     .padding()
+    .onReceive(self.configuration.$speechRateRatio, perform: { self.tts.rateRatio = $0 })
   }
 
   private var portraitBody: some View {
     VStack {
       self.stylePicker
-      Clock(viewModel: ClockViewModel(
-        date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
-        showClockFace: false
-      ))
+      Clock()
         .frame(width: 300)
       Spacer()
       self.controls
@@ -33,10 +33,7 @@ struct Configuration: View {
   private var landscapeBody: some View {
     HStack {
       VStack {
-        Clock(viewModel: ClockViewModel(
-          date: .constant(Date(timeIntervalSince1970: Self.timestampFor10to2)),
-          showClockFace: false
-        ))
+        Clock()
           .frame(width: 300)
           .padding()
         self.stylePicker

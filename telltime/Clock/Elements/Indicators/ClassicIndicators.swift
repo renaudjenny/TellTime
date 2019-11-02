@@ -25,7 +25,6 @@ struct ClassicIndicators: View {
         self.minuteIndicators
       }
     }
-    .animation(.easeInOut)
   }
 
   var texts: some View {

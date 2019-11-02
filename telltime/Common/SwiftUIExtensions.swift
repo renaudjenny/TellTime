@@ -49,3 +49,21 @@ extension Color {
     Self(UIColor.systemBackground)
   }
 }
+
+extension Angle {
+  static func fromHour(date: Date) -> Angle {
+    let minute = Double(Calendar.current.component(.minute, from: date))
+    let minuteInHour = minute > 0 ? minute/60 : 0
+    let hour = Double(Calendar.current.component(.hour, from: date)) + minuteInHour
+
+    let relationship: Double = 360/12
+    let degrees = hour * relationship
+    return Angle(degrees: degrees)
+  }
+
+  static func fromMinute(date: Date) -> Angle {
+    let minute = Double(Calendar.current.component(.minute, from: date))
+    let relationship: Double = 360/60
+    return Angle(degrees: Double(minute) * relationship)
+  }
+}

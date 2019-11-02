@@ -11,7 +11,6 @@ struct Indicators: View {
         ClassicIndicators()
       }
     }
-    .animation(.easeInOut)
   }
 }
 
