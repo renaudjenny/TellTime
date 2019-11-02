@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ArtNouveauWatchPointer: View {
+struct ArtNouveauArm: View {
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
   private static let widthRatio: CGFloat = 1/50
@@ -55,9 +55,9 @@ struct ArtNouveauWatchPointer: View {
   }
 }
 
-struct ArtNouveauWatchPointer_Previews: PreviewProvider {
+struct ArtNouveauArm_Previews: PreviewProvider {
   static var previews: some View {
-    ArtNouveauWatchPointer(
+    ArtNouveauArm(
       lineWidthRatio: 1,
       marginRatio: 1/8
     )

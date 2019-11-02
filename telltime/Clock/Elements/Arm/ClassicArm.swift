@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ClassicWatchPointer: View {
+struct ClassicArm: View {
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
   private static let widthRatio: CGFloat = 1/50
@@ -30,9 +30,9 @@ struct ClassicWatchPointer: View {
 }
 
 #if DEBUG
-struct ClassicWatchPointer_Previews: PreviewProvider {
+struct ClassicArm_Previews: PreviewProvider {
   static var previews: some View {
-    ClassicWatchPointer(
+    ClassicArm(
       lineWidthRatio: 1,
       marginRatio: 1/8
     )

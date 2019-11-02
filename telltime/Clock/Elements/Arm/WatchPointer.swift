@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WatchPointer: View {
+struct Arm: View {
   private static let widthRatio: CGFloat = 1/50
   @EnvironmentObject var configuration: ConfigurationStore
   @EnvironmentObject var clock: ClockStore
@@ -26,12 +26,12 @@ struct WatchPointer: View {
     GeometryReader { geometry in
       Group {
         if self.configuration.clockStyle == .artNouveau {
-          ArtNouveauWatchPointer(
+          ArtNouveauArm(
             lineWidthRatio: self.lineWidthRatio,
             marginRatio: self.marginRatio
           )
         } else {
-          ClassicWatchPointer(
+          ClassicArm(
             lineWidthRatio: self.lineWidthRatio,
             marginRatio: self.marginRatio
           )
@@ -46,7 +46,7 @@ struct WatchPointer: View {
 }
 
 // MARK: - Drag Gesture
-extension WatchPointer {
+extension Arm {
   func dragGesture(globalFrame: CGRect) -> AnyGesture<DragGesture.Value> {
     return AnyGesture<DragGesture.Value>(
       DragGesture(coordinateSpace: .global)
@@ -83,7 +83,7 @@ extension WatchPointer {
 }
 
 // MARK: Angle
-extension WatchPointer {
+extension Arm {
   func setupAngle(_ date: Date) {
     switch self.type {
     case .hour: self.angle = .fromHour(date: date)
@@ -98,9 +98,9 @@ enum ArmType {
 }
 
 #if DEBUG
-struct WatchPointer_Previews: PreviewProvider {
+struct Arm_Previews: PreviewProvider {
   static var previews: some View {
-    WatchPointer(type: .hour)
+    Arm(type: .hour)
   }
 }
 #endif

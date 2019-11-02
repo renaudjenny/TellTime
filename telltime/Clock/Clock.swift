@@ -9,7 +9,7 @@ struct Clock: View {
       ZStack {
         ClockBorder(localWidth: geometry.localWidth)
         Indicators()
-        WatchPointers()
+        Arms()
         ClockFace()
           .opacity(self.clock.showClockFace ? 1 : 0)
           .animation(.easeInOut)
