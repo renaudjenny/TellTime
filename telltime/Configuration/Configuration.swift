@@ -23,8 +23,7 @@ struct Configuration: View {
     VStack {
       self.stylePicker
       Clock()
-        .frame(width: 300)
-      Spacer()
+        .padding()
       self.controls
       Spacer()
     }
@@ -34,7 +33,6 @@ struct Configuration: View {
     HStack {
       VStack {
         Clock()
-          .frame(width: 300)
           .padding()
         self.stylePicker
       }
@@ -83,5 +81,8 @@ struct Configuration: View {
 struct Configuration_Previews: PreviewProvider {
   static var previews: some View {
     Configuration()
+      .environmentObject(ConfigurationStore())
+      .environmentObject(ClockStore())
+      .environmentObject(TTS())
   }
 }
