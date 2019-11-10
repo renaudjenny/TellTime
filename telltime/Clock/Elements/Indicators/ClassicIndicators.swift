@@ -25,6 +25,7 @@ struct ClassicIndicators: View {
         self.minuteIndicators
       }
     }
+    .modifier(ScaleUpOnAppear())
   }
 
   var texts: some View {

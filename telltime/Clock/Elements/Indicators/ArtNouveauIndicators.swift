@@ -13,6 +13,7 @@ struct ArtNouveauIndicators: View {
         ForEach(self.configurationRomanNumbers, id: \.self) { romanNumber in
           Text("\(romanNumber)")
             .modifier(NumberCircle(width: geometry.localWidth * 3/2 * Self.marginRatio))
+            .modifier(ScaleUpOnAppear())
             .position(.pointInCircle(
               from: self.angle(for: romanNumber),
               frame: geometry.localFrame,
@@ -23,6 +24,7 @@ struct ArtNouveauIndicators: View {
       if self.configuration.showMinuteIndicators {
         Sun()
           .stroke()
+          .modifier(ScaleUpOnAppear())
       }
     }
   }
@@ -90,8 +92,9 @@ struct ArtNouveauIndicators_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
       ArtNouveauIndicators()
-      Circle()
-        .stroke()
+        .environmentObject(ConfigurationStore())
+        .environmentObject(ClockStore())
+        .environmentObject(TTS())
     }
   }
 }
