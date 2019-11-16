@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct ClassicIndicators: View {
-  private static let hourInDegree: Double = 30
   private static let hourDotRatio: CGFloat = 1/35
-  private static let minuteInDegree: Double = 6
   private static let minuteDotRatio: CGFloat = 1/70
   private static let marginRatio: CGFloat = 1/7
   private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -33,7 +31,7 @@ struct ClassicIndicators: View {
       ForEach(self.configurationHours, id: \.self) { hour in
         Text("\(hour)")
           .position(.pointInCircle(
-            from: Angle(degrees: Double(hour) * Self.hourInDegree),
+            from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
             margin: self.textMargin(width: geometry.localWidth)
           ))
@@ -51,7 +49,7 @@ struct ClassicIndicators: View {
         Circle()
           .frame(width: geometry.localWidth * Self.hourDotRatio)
           .position(.pointInCircle(
-            from: Angle(degrees: Double(hour) * Self.hourInDegree),
+            from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
             margin: geometry.localWidth * Self.marginRatio/3
           ))
@@ -65,7 +63,7 @@ struct ClassicIndicators: View {
         Circle()
           .frame(width: geometry.localWidth * Self.minuteDotRatio)
           .position(.pointInCircle(
-            from: Angle(degrees: Double(minute) * Self.minuteInDegree),
+            from: Angle(degrees: Double(minute) * .minuteInDegree),
             frame: geometry.localFrame,
             margin: geometry.localWidth * Self.marginRatio/3
           ))

@@ -7,6 +7,8 @@ struct Indicators: View {
     Group {
       if self.configuration.clockStyle == .artNouveau {
         ArtNouveauIndicators()
+      } else if self.configuration.clockStyle == .drawing {
+        DrawnIndicators()
       } else {
         ClassicIndicators()
       }

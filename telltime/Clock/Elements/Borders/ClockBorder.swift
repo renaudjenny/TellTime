@@ -8,6 +8,8 @@ struct ClockBorder: View {
     Group {
       if self.configuration.clockStyle == .artNouveau {
         ArtNouveauClockBorder(localWidth: self.localWidth)
+      } else if self.configuration.clockStyle == .drawing {
+        DrawnClockBorder(localWidth: self.localWidth)
       } else {
         ClassicClockBorder(localWidth: self.localWidth)
       }

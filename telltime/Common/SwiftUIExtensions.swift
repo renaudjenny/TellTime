@@ -12,6 +12,9 @@ extension GeometryProxy {
 }
 
 extension Double {
+  static let hourInDegree: Double = 30
+  static let minuteInDegree = 6.0
+
   var positiveDegrees: Double {
     guard self < 0 else { return self }
     return self + 360
@@ -31,7 +34,7 @@ extension Path {
 }
 
 extension CGPoint {
-  static func pointInCircle(from angle: Angle, frame: CGRect, margin: CGFloat) -> Self {
+  static func pointInCircle(from angle: Angle, frame: CGRect, margin: CGFloat = 0.0) -> Self {
     let radius = (min(frame.width, frame.height) / 2) - margin
 
     let radians = CGFloat(angle.radians) - CGFloat.pi/2

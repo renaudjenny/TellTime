@@ -67,7 +67,7 @@ struct Sun: Shape {
       margin: rect.width/6
     ))
 
-    for minute in 1..<61 {
+    for minute in 1...60 {
       let point: CGPoint = .pointInCircle(
         from: Angle(degrees: Double(minute) * 6),
         frame: rect,
