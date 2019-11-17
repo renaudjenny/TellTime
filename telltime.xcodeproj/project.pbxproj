@@ -17,7 +17,7 @@
 		4C572751236781B00028348F /* ArtNouveauArm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572750236781B00028348F /* ArtNouveauArm.swift */; };
 		4C572754236786FC0028348F /* ClockStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572753236786FC0028348F /* ClockStyle.swift */; };
 		4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572756236A399B0028348F /* ClassicClockBorder.swift */; };
-		4C572759236A3B1F0028348F /* WatchPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572758236A3B1F0028348F /* WatchPointer.swift */; };
+		4C572759236A3B1F0028348F /* Arm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572758236A3B1F0028348F /* Arm.swift */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
 		4C87A8912348CADF00E6503C /* DigitalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C87A8902348CADF00E6503C /* DigitalTime.swift */; };
 		4C9309B522B0C8B80073BE0B /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9309B422B0C8B80073BE0B /* Clock.swift */; };
@@ -65,7 +65,7 @@
 		4C572750236781B00028348F /* ArtNouveauArm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauArm.swift; sourceTree = "<group>"; };
 		4C572753236786FC0028348F /* ClockStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockStyle.swift; sourceTree = "<group>"; };
 		4C572756236A399B0028348F /* ClassicClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicClockBorder.swift; sourceTree = "<group>"; };
-		4C572758236A3B1F0028348F /* WatchPointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPointer.swift; sourceTree = "<group>"; };
+		4C572758236A3B1F0028348F /* Arm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arm.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4C87A8902348CADF00E6503C /* DigitalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalTime.swift; sourceTree = "<group>"; };
 		4C9309B422B0C8B80073BE0B /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 			children = (
 				4C572750236781B00028348F /* ArtNouveauArm.swift */,
 				4CCF192E234E6433002E6D46 /* ClassicArm.swift */,
-				4C572758236A3B1F0028348F /* WatchPointer.swift */,
+				4C572758236A3B1F0028348F /* Arm.swift */,
 			);
 			path = Arm;
 			sourceTree = "<group>";
@@ -411,7 +411,7 @@
 				4CBC5B91236DED890000DCB5 /* ClockStore.swift in Sources */,
 				4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */,
 				4CC35E0A233F4D9400D9C8D6 /* ClockFace.swift in Sources */,
-				4C572759236A3B1F0028348F /* WatchPointer.swift in Sources */,
+				4C572759236A3B1F0028348F /* Arm.swift in Sources */,
 				4CCF1936234E6579002E6D46 /* Indicators.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4C03BC8223550A0C00442B11 /* Configuration.swift in Sources */,
