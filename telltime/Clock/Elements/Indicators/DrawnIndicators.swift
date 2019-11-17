@@ -1,8 +1,42 @@
 import SwiftUI
 
 struct DrawnIndicators: View {
+  @EnvironmentObject var configuration: ConfigurationStore
+
   var body: some View {
-    Minutes()
+    ZStack {
+      if self.configuration.showHourIndicators {
+        Hours()
+      }
+      if self.configuration.showMinuteIndicators {
+        Minutes()
+      }
+    }
+  }
+}
+
+private struct Hours: View {
+  private static let widthRatio: CGFloat = 1/40
+  private static let heightRatio: CGFloat = 1/20
+  private static let marginRatio: CGFloat = 1/20
+
+  var body: some View {
+    GeometryReader { geometry in
+      ForEach(1...12, id: \.self) { hour in
+        DrawnIndicator()
+          .rotation(Angle(degrees: Double(hour) * .hourInDegree))
+          .fill()
+          .frame(
+            width: geometry.localWidth * Self.widthRatio,
+            height: geometry.localHeight * Self.heightRatio
+          )
+          .position(.pointInCircle(
+            from: Angle(degrees: Double(hour) * .hourInDegree),
+            frame: geometry.localFrame,
+            margin: geometry.localWidth * Self.marginRatio
+          ))
+      }
+    }
   }
 }
 
@@ -10,24 +44,36 @@ private struct Minutes: View {
   private static let widthRatio: CGFloat = 1/50
   private static let heightRatio: CGFloat = 1/30
   private static let marginRatio: CGFloat = 1/30
+  @EnvironmentObject var configuration: ConfigurationStore
 
   var body: some View {
     GeometryReader { geometry in
       ForEach(1...60, id: \.self) { minute in
-        DrawnIndicator()
-          .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
-          .fill()
-          .frame(
-            width: geometry.localWidth * Self.widthRatio,
-            height: geometry.localHeight * Self.heightRatio
-          )
-          .position(.pointInCircle(
-            from: Angle(degrees: Double(minute) * .minuteInDegree),
-            frame: geometry.localFrame,
-            margin: geometry.localWidth * Self.marginRatio
-          ))
+        Group {
+          if self.isOverlapingHour(minute: minute) {
+            EmptyView()
+          } else {
+          DrawnIndicator()
+            .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
+            .fill()
+            .frame(
+              width: geometry.localWidth * Self.widthRatio,
+              height: geometry.localHeight * Self.heightRatio
+            )
+            .position(.pointInCircle(
+              from: Angle(degrees: Double(minute) * .minuteInDegree),
+              frame: geometry.localFrame,
+              margin: geometry.localWidth * Self.marginRatio
+            ))
+          }
+        }
       }
     }
+  }
+
+  private func isOverlapingHour(minute: Int) -> Bool {
+    guard self.configuration.showHourIndicators else { return false }
+    return minute == 0 || minute % 5 == 0
   }
 }
 
