@@ -16,7 +16,6 @@ extension ClockFace {
   }
 
   private struct Iris: Shape {
-    let move: Bool
     let position: Position
     private var animationStep: Double
     static let width: CGFloat = 15
@@ -27,7 +26,6 @@ extension ClockFace {
     }
 
     init(move: Bool, position: Position) {
-      self.move = move
       self.animationStep = move ? 1 : 0
       self.position = position
     }

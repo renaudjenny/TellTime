@@ -12,6 +12,7 @@ struct DrawnIndicators: View {
         Minutes()
       }
     }
+    .animation(.easeOut)
   }
 }
 
@@ -19,11 +20,12 @@ private struct Hours: View {
   private static let widthRatio: CGFloat = 1/40
   private static let heightRatio: CGFloat = 1/20
   private static let marginRatio: CGFloat = 1/20
+  @State private var animate: Bool = false
 
   var body: some View {
     GeometryReader { geometry in
       ForEach(1...12, id: \.self) { hour in
-        DrawnIndicator()
+        DrawnIndicator(draw: self.animate)
           .rotation(Angle(degrees: Double(hour) * .hourInDegree))
           .fill()
           .frame(
@@ -35,6 +37,7 @@ private struct Hours: View {
             frame: geometry.localFrame,
             margin: geometry.localWidth * Self.marginRatio
           ))
+          .onAppear(perform: { self.animate = true })
       }
     }
   }
@@ -45,6 +48,7 @@ private struct Minutes: View {
   private static let heightRatio: CGFloat = 1/30
   private static let marginRatio: CGFloat = 1/30
   @EnvironmentObject var configuration: ConfigurationStore
+  @State private var animate: Bool = false
 
   var body: some View {
     GeometryReader { geometry in
@@ -53,18 +57,19 @@ private struct Minutes: View {
           if self.isOverlapingHour(minute: minute) {
             EmptyView()
           } else {
-          DrawnIndicator()
-            .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
-            .fill()
-            .frame(
-              width: geometry.localWidth * Self.widthRatio,
-              height: geometry.localHeight * Self.heightRatio
-            )
-            .position(.pointInCircle(
-              from: Angle(degrees: Double(minute) * .minuteInDegree),
-              frame: geometry.localFrame,
-              margin: geometry.localWidth * Self.marginRatio
-            ))
+            DrawnIndicator(draw: self.animate)
+              .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
+              .fill()
+              .frame(
+                width: geometry.localWidth * Self.widthRatio,
+                height: geometry.localHeight * Self.heightRatio
+              )
+              .position(.pointInCircle(
+                from: Angle(degrees: Double(minute) * .minuteInDegree),
+                frame: geometry.localFrame,
+                margin: geometry.localWidth * Self.marginRatio
+              ))
+              .onAppear(perform: { self.animate = true })
           }
         }
       }
@@ -78,10 +83,25 @@ private struct Minutes: View {
 }
 
 struct DrawnIndicator: Shape {
+  private var drawStep: CGFloat
+  private let randomLeftXControlRatio = CGFloat.random(in: 0.1...1)
+  private let randomLeftYControlRatio = CGFloat.random(in: 0.1...1)
+  private let randomRightXControlRatio = CGFloat.random(in: 0.1...1)
+  private let randomRightYControlRatio = CGFloat.random(in: 0.1...1)
+
+  init(draw: Bool) {
+    self.drawStep = draw ? 1 : 0
+  }
+
+  var animatableData: CGFloat {
+    get { self.drawStep }
+    set { self.drawStep = newValue }
+  }
+
   func path(in rect: CGRect) -> Path {
     var path = Path()
-    let radius = rect.width/2
-    let bottomCenter = CGPoint(x: radius, y: rect.maxY)
+    let radius = rect.width/2 * self.drawStep
+    let bottomCenter = CGPoint(x: radius, y: rect.maxY * self.drawStep)
     let bottomRight = CGPoint(
       x: bottomCenter.x + radius/2,
       y: bottomCenter.y
@@ -102,11 +122,9 @@ struct DrawnIndicator: Shape {
       clockwise: false
     )
 
-    let randomLeftXControl = CGFloat.random(in: rect.minX...rect.maxX)
-    let randomLeftYControl = CGFloat.random(in: rect.minY...rect.maxY)
     let controlLeft = CGPoint(
-      x: randomLeftXControl,
-      y: randomLeftYControl
+      x: rect.maxX * self.randomLeftXControlRatio,
+      y: rect.maxY * self.randomLeftYControlRatio
     )
     path.addQuadCurve(to: topLeft, control: controlLeft)
 
@@ -118,11 +136,9 @@ struct DrawnIndicator: Shape {
       clockwise: false
     )
 
-    let randomRightXControl = CGFloat.random(in: rect.minX...rect.maxX)
-    let randomRightYControl = CGFloat.random(in: rect.minY...rect.maxY)
     let controlRight = CGPoint(
-      x: randomRightXControl,
-      y: randomRightYControl
+      x: rect.maxX * self.randomRightXControlRatio,
+      y: rect.maxY * self.randomRightYControlRatio
     )
     path.addQuadCurve(to: bottomRight, control: controlRight)
 

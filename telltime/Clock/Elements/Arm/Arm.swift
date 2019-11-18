@@ -30,6 +30,11 @@ struct Arm: View {
             lineWidthRatio: self.lineWidthRatio,
             marginRatio: self.marginRatio
           )
+        } else if self.configuration.clockStyle == .drawing {
+          DrawnArm(
+            lineWidthRatio: self.lineWidthRatio,
+            marginRatio: self.marginRatio
+          )
         } else {
           ClassicArm(
             lineWidthRatio: self.lineWidthRatio,

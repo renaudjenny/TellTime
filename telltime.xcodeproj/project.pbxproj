@@ -41,6 +41,7 @@
 		4CCF1936234E6579002E6D46 /* Indicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1935234E6579002E6D46 /* Indicators.swift */; };
 		4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */; };
 		4CDD4A802336E64E004BE734 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD4A7F2336E64E004BE734 /* About.swift */; };
+		4CEB60402381C32B0085B07C /* DrawnArm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB603F2381C32B0085B07C /* DrawnArm.swift */; };
 		4CF2DE86236BA01400C352F6 /* ArtNouveauClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */; };
 		4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,7 @@
 		4CCF1935234E6579002E6D46 /* Indicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicators.swift; sourceTree = "<group>"; };
 		4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
 		4CDD4A7F2336E64E004BE734 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		4CEB603F2381C32B0085B07C /* DrawnArm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnArm.swift; sourceTree = "<group>"; };
 		4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauClockBorder.swift; sourceTree = "<group>"; };
 		4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockBorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,9 +195,10 @@
 		4C6C9CE5235FA215004EF6A5 /* Arm */ = {
 			isa = PBXGroup;
 			children = (
+				4C572758236A3B1F0028348F /* Arm.swift */,
 				4C572750236781B00028348F /* ArtNouveauArm.swift */,
 				4CCF192E234E6433002E6D46 /* ClassicArm.swift */,
-				4C572758236A3B1F0028348F /* Arm.swift */,
+				4CEB603F2381C32B0085B07C /* DrawnArm.swift */,
 			);
 			path = Arm;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				4CCF192F234E6433002E6D46 /* ClassicArm.swift in Sources */,
 				4CA4F649236D125F007088BA /* ClassicIndicators.swift in Sources */,
 				4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */,
+				4CEB60402381C32B0085B07C /* DrawnArm.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,
 				4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */,
 				4CBC5B91236DED890000DCB5 /* ClockStore.swift in Sources */,

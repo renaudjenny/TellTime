@@ -3,10 +3,13 @@ import SwiftUI
 struct DrawnClockBorder: View {
   static let borderWidthRatio: CGFloat = 1/70
   let localWidth: CGFloat
+  @State private var animate: Bool = false
 
   var body: some View {
-    DrawnCircle()
+    DrawnCircle(draw: self.animate)
       .stroke(lineWidth: self.localWidth * Self.borderWidthRatio)
+      .onAppear(perform: { self.animate = true })
+      .animation(.easeInOut(duration: 1))
   }
 }
 
@@ -14,19 +17,30 @@ struct DrawnCircle: Shape {
   private static let marginRatio: CGFloat = 1/80
   private static let numberOfArcs = 26
   private static let angleRatio: Double = 360/Double(Self.numberOfArcs - 1)
+  private let maxMarginRatio = CGFloat.random(in: 0...Self.marginRatio)
+  private var circleStep: CGFloat
+
+  init(draw: Bool) {
+    self.circleStep = draw ? 1 : 0
+  }
+
+  var animatableData: CGFloat {
+    get { self.circleStep }
+    set { self.circleStep = newValue }
+  }
 
   func path(in rect: CGRect) -> Path {
     var path = Path()
 
     path.move(to: .pointInCircle(from: .zero, frame: rect))
 
-    let margin = rect.width * Self.marginRatio
+    let margin = rect.width * self.maxMarginRatio
     for i in 1...Self.numberOfArcs {
       let angle = Angle(degrees: Double(i) * Self.angleRatio)
       let to: CGPoint = .pointInCircle(
         from: angle,
         frame: rect,
-        margin: CGFloat.random(in: 0...margin)
+        margin: margin
       )
 
       let control: CGPoint = .pointInCircle(
@@ -37,7 +51,7 @@ struct DrawnCircle: Shape {
       path.addQuadCurve(to: to, control: control)
     }
 
-    return path
+    return path.trimmedPath(from: 0, to: self.circleStep)
   }
 }
 
