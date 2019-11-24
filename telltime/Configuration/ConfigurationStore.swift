@@ -11,6 +11,10 @@ final class ConfigurationStore: ObservableObject {
 
   private var disposables = Set<AnyCancellable>()
 
+  var showIndicators: Bool {
+    self.showHourIndicators || self.showMinuteIndicators
+  }
+
   init() {
     self.subscribe()
   }

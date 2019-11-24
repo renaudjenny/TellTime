@@ -8,11 +8,6 @@ struct ClassicIndicators: View {
   private static let limitedHours = [12, 3, 6, 9]
   @EnvironmentObject var configuration: ConfigurationStore
 
-  func textMargin(width: CGFloat) -> CGFloat {
-    let showDotIndicators = self.configuration.showMinuteIndicators || self.configuration.showHourIndicators
-    return showDotIndicators ? width * Self.marginRatio : width * Self.marginRatio/2
-  }
-
   var body: some View {
     ZStack(alignment: .center) {
       self.texts
@@ -33,7 +28,7 @@ struct ClassicIndicators: View {
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
-            margin: self.textMargin(width: geometry.localWidth)
+            margin: geometry.localWidth * self.marginRatio
           ))
       }
     }
@@ -41,6 +36,10 @@ struct ClassicIndicators: View {
 
   private var configurationHours: [Int] {
     self.configuration.showLimitedHourIndicators ? Self.limitedHours : Self.hours
+  }
+
+  private var marginRatio: CGFloat {
+    self.configuration.showIndicators ? Self.marginRatio : Self.marginRatio/2
   }
 
   var hourIndicators: some View {

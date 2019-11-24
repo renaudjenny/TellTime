@@ -11,6 +11,7 @@ struct DrawnIndicators: View {
       if self.configuration.showMinuteIndicators {
         Minutes()
       }
+      DrawnNumbers()
     }
     .animation(.easeOut)
   }
@@ -146,13 +147,42 @@ struct DrawnIndicator: Shape {
   }
 }
 
+struct DrawnNumbers: View {
+  private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  private static let limitedHours = [12, 3, 6, 9]
+  private static let marginRatio: CGFloat = 1/7
+  private static let availableRotationAngles: [Angle] = [.zero, .degrees(-5), .degrees(5)]
+  private static let availableScale: [CGFloat] = [1, 1.1, 0.9]
+  @EnvironmentObject var configuration: ConfigurationStore
+
+  var body: some View {
+    GeometryReader { geometry in
+      ForEach(self.configurationHours, id: \.self) { hour in
+        Text("\(hour)")
+          .rotationEffect(Self.availableRotationAngles.randomElement() ?? .zero, anchor: .center)
+          .scaleEffect(Self.availableScale.randomElement() ?? 1, anchor: .center)
+          .position(.pointInCircle(
+            from: Angle(degrees: Double(hour) * .hourInDegree),
+            frame: geometry.localFrame,
+            margin: geometry.localWidth * self.marginRatio
+          ))
+      }
+    }
+  }
+
+  private var marginRatio: CGFloat {
+    self.configuration.showIndicators ? Self.marginRatio : Self.marginRatio/2
+  }
+
+  private var configurationHours: [Int] {
+    self.configuration.showLimitedHourIndicators ? Self.limitedHours : Self.hours
+  }
+}
+
 #if DEBUG
 struct DrawnIndicators_Previews: PreviewProvider {
   static var previews: some View {
-    ZStack {
-      DrawnIndicators()
-        .padding()
-    }
+    DrawnIndicators()
   }
 }
 #endif
