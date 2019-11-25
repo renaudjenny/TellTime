@@ -9,17 +9,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
-    if let windowScene = scene as? UIWindowScene {
-      let window = UIWindow(windowScene: windowScene)
-      window.rootViewController = UIHostingController(
-        rootView: TellTime()
-          .environmentObject(ConfigurationStore())
-          .environmentObject(ClockStore())
-          .environmentObject(TTS())
-      )
-      self.window = window
-      window.makeKeyAndVisible()
-    }
+    guard let windowScene = scene as? UIWindowScene else { return }
+
+    let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+    let window = UIWindow(windowScene: windowScene)
+    window.rootViewController = UIHostingController(
+      rootView: TellTimeContainer()
+        .environmentObject(store)
+        .environmentObject(ConfigurationStore())
+        .environmentObject(ClockStore())
+        .environmentObject(TTS())
+    )
+    self.window = window
+    window.makeKeyAndVisible()
+
     self.customizeAppearance()
   }
 

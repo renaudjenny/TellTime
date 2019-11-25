@@ -1,15 +1,22 @@
 import SwiftUI
 import Combine
 
-struct Configuration: View {
-  static let timestampFor10to2: TimeInterval = 3000
+struct ConfigurationContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+
+  var body: some View {
+    ConfigurationView(deviceOrientation: self.store.state.deviceOrientation)
+  }
+}
+
+struct ConfigurationView: View {
   @EnvironmentObject var configuration: ConfigurationStore
   @EnvironmentObject var tts: TTS
-  @State var deviceOrientation = UIDevice.current.orientation
+  let deviceOrientation: UIDeviceOrientation
 
   var body: some View {
     Group {
-      if self.configuration.deviceOrientation.isLandscape {
+      if self.deviceOrientation.isLandscape {
         self.landscapeBody
       } else {
         self.portraitBody
@@ -80,7 +87,7 @@ struct Configuration: View {
 
 struct Configuration_Previews: PreviewProvider {
   static var previews: some View {
-    Configuration()
+    ConfigurationView(deviceOrientation: .portrait)
       .environmentObject(ConfigurationStore())
       .environmentObject(ClockStore())
       .environmentObject(TTS())

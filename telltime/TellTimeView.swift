@@ -2,15 +2,29 @@ import SwiftUI
 import Combine
 import SwiftPastTen
 
-struct TellTime: View {
+struct TellTimeContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+
+  var body: some View {
+    TellTimeView(deviceOrientation: self.store.state.deviceOrientation)
+      .onAppear(perform: self.subscribe)
+  }
+
+  func subscribe() {
+    self.store.send(App.SideEffect.subscribeToOrientationChanged)
+  }
+}
+
+struct TellTimeView: View {
   @EnvironmentObject var configuration: ConfigurationStore
   @EnvironmentObject var clock: ClockStore
   @EnvironmentObject var tts: TTS
+  let deviceOrientation: UIDeviceOrientation
 
   var body: some View {
     NavigationView {
       Group {
-        if self.configuration.deviceOrientation.isLandscape {
+        if self.deviceOrientation.isLandscape {
           self.landscapeBody
         } else {
           self.portraitBody
@@ -84,7 +98,7 @@ struct TellTime: View {
   }
 
   private var configurationGearButton: some View {
-    NavigationLink(destination: Configuration()) {
+    NavigationLink(destination: ConfigurationView(deviceOrientation: self.deviceOrientation)) {
       Image(systemName: "gear")
         .padding()
         .accentColor(.red)
@@ -95,7 +109,7 @@ struct TellTime: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    TellTime()
+    TellTimeView(deviceOrientation: .portrait)
   }
 }
 #endif
