@@ -12,6 +12,8 @@ enum Clock {
   enum Action {
     case changeClockRandomly
     case showClockFace
+    case changeHourAngle(Angle)
+    case changeMinuteAngle(Angle)
   }
 
   static let reducer: Reducer<Clock.State, Clock.Action> = Reducer { state, action in
@@ -22,6 +24,10 @@ enum Clock {
       state.date = Date() // FIXME: TODO
     case .showClockFace:
       state.isClockFaceShown = true
+    case let .changeHourAngle(angle):
+      state.hourAngle = angle
+    case let .changeMinuteAngle(angle):
+      state.minuteAngle = angle
     }
   }
 }

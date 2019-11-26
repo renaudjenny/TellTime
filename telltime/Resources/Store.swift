@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftUI
 
 protocol Effect {
   associatedtype Action
@@ -43,5 +44,17 @@ final class Store<State, Action>: ObservableObject {
     if !didComplete, let effectCancellable = cancellable {
       cancellables.insert(effectCancellable)
     }
+  }
+}
+
+extension Store {
+  func binding<Value>(
+    for keyPath: KeyPath<State, Value>,
+    _ action: @escaping (Value) -> Action
+  ) -> Binding<Value> {
+    Binding<Value>(
+      get: { self.state[keyPath: keyPath] },
+      set: { self.send(action($0)) }
+    )
   }
 }

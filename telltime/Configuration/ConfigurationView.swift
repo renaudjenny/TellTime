@@ -3,26 +3,21 @@ import Combine
 
 struct ConfigurationContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
-  private var clockStyle: Binding<ClockStyle> { .init(
-    get: { self.store.state.configuration.clockStyle },
-    set: { self.store.send(.configuration(action: .changeClockStyle($0))) }
-  )}
-  private var isMinuteIndicatorsShown: Binding<Bool> { .init(
-    get: { self.store.state.configuration.isMinuteIndicatorsShown },
-    set: { self.store.send(.configuration(action: .shownMinuteIndicators($0) ))}
-  )}
-  private var isHourIndicatorsShown: Binding<Bool> { .init(
-    get: { self.store.state.configuration.isHourIndicatorsShown },
-    set: { self.store.send(.configuration(action: .showHourIndicators($0) ))}
-  )}
-  private var isLimitedHoursShown: Binding<Bool> { .init(
-    get: { self.store.state.configuration.isLimitedHoursShown },
-    set: { self.store.send(.configuration(action: .showLimitedHours($0))) }
-  )}
-  private var speechRateRatio: Binding<Float> { .init(
-    get: { self.store.state.configuration.speechRateRatio },
-    set: { self.store.send(.configuration(action: .changeSpeechRateRatio($0))) }
-  )}
+  private var clockStyle: Binding<ClockStyle> {
+    self.store.binding(for: \.configuration.clockStyle) { .configuration(.changeClockStyle($0)) }
+  }
+  private var isMinuteIndicatorsShown: Binding<Bool> {
+    self.store.binding(for: \.configuration.isMinuteIndicatorsShown) { .configuration(.shownMinuteIndicators($0)) }
+  }
+  private var isHourIndicatorsShown: Binding<Bool> {
+    self.store.binding(for: \.configuration.isHourIndicatorsShown) { .configuration(.showHourIndicators($0)) }
+  }
+  private var isLimitedHoursShown: Binding<Bool> {
+    self.store.binding(for: \.configuration.isLimitedHoursShown) { .configuration(.showLimitedHours($0)) }
+  }
+  private var speechRateRatio: Binding<Float> {
+    self.store.binding(for: \.speechRateRatio) { .changeSpeechRateRatio($0) }
+  }
 
   var body: some View {
     ConfigurationView(

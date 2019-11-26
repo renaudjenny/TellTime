@@ -10,7 +10,7 @@ struct TellTimeContainer: View {
       date: self.$date,
       time: self.time,
       deviceOrientation: self.store.state.deviceOrientation,
-      changeClockRandomly: { self.store.send(.clock(action: .changeClockRandomly)) }
+      changeClockRandomly: { self.store.send(.clock(.changeClockRandomly)) }
     )
       .onTapGesture(count: 3, perform: self.showClockFace)
       .onAppear(perform: self.subscribe)
@@ -32,7 +32,7 @@ struct TellTimeContainer: View {
   }
 
   private func showClockFace() {
-    self.store.send(App.Action.clock(action: .showClockFace))
+    self.store.send(App.Action.clock(.showClockFace))
   }
 }
 

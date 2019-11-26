@@ -4,6 +4,7 @@ import Combine
 enum App {
   struct State {
     var deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation
+    var speechRateRatio: Float = 1.0
     var configuration: Configuration.State = Configuration.State()
     var clock: Clock.State = Clock.State()
     var tts: TTS.State = TTS.State()
@@ -11,9 +12,10 @@ enum App {
 
   enum Action {
     case rotateDevice(UIDeviceOrientation)
-    case configuration(action: Configuration.Action)
-    case clock(action: Clock.Action)
-    case tts(action: TTS.Action)
+    case changeSpeechRateRatio(Float)
+    case configuration(Configuration.Action)
+    case clock(Clock.Action)
+    case tts(TTS.Action)
   }
 
   enum SideEffect: Effect {
@@ -44,10 +46,10 @@ enum App {
     switch action {
     case let .rotateDevice(deviceOrientation):
       state.deviceOrientation = deviceOrientation
+    case let .changeSpeechRateRatio(rateRatio):
+      state.speechRateRatio = rateRatio
+      state.tts.engine.rateRatio = rateRatio
     case let .configuration(action):
-      if case let .changeSpeechRateRatio(rateRatio) = action {
-        state.tts.engine.rateRatio = rateRatio
-      }
       Configuration.reducer.reduce(&state.configuration, action)
     case let .clock(action):
       Clock.reducer.reduce(&state.clock, action)
