@@ -2,6 +2,23 @@ import AVFoundation
 import SwiftPastTen
 import Combine
 
+extension TTS {
+  struct State {
+    var engine = TTS()
+  }
+
+  enum Action {
+    case changeRateRatio(Float)
+  }
+
+  static let reducer: Reducer<TTS.State, TTS.Action> = Reducer { state, action in
+    switch action {
+    case let .changeRateRatio(rateRatio):
+      state.engine.rateRatio = rateRatio
+    }
+  }
+}
+
 final class TTS: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
   @Published private(set) var isSpeaking: Bool = false
   @Published private(set) var speakingProgress: Double = 0.0

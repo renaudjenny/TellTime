@@ -16,9 +16,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window.rootViewController = UIHostingController(
       rootView: TellTimeContainer()
         .environmentObject(store)
-        .environmentObject(ConfigurationStore())
-        .environmentObject(ClockStore())
-        .environmentObject(TTS())
     )
     self.window = window
     window.makeKeyAndVisible()

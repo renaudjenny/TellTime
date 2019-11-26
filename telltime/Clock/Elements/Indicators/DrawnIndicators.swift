@@ -1,17 +1,35 @@
 import SwiftUI
 
+struct DrawnIndicatorsContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+
+  var body: some View {
+    DrawnIndicators(
+      isHourIndicatorsShown: self.store.state.configuration.isHourIndicatorsShown,
+      isMinuteIndicatorsShown: self.store.state.configuration.isMinuteIndicatorsShown,
+      isLimitedHoursShown: self.store.state.configuration.isLimitedHoursShown
+    )
+  }
+}
+
 struct DrawnIndicators: View {
-  @EnvironmentObject var configuration: ConfigurationStore
+  let isHourIndicatorsShown: Bool
+  let isMinuteIndicatorsShown: Bool
+  let isLimitedHoursShown: Bool
 
   var body: some View {
     ZStack {
-      if self.configuration.showHourIndicators {
+      if self.isHourIndicatorsShown {
         Hours()
       }
-      if self.configuration.showMinuteIndicators {
-        Minutes()
+      if self.isMinuteIndicatorsShown {
+        Minutes(isHourIndicatorsShown: self.isHourIndicatorsShown)
       }
-      DrawnNumbers()
+      DrawnNumbers(
+        isHourIndicatorsShown: self.isHourIndicatorsShown,
+        isMinuteIndicatorsShown: self.isMinuteIndicatorsShown,
+        isLimitedHoursShown: self.isLimitedHoursShown
+      )
     }
     .animation(.easeOut)
   }
@@ -48,7 +66,7 @@ private struct Minutes: View {
   private static let widthRatio: CGFloat = 1/50
   private static let heightRatio: CGFloat = 1/30
   private static let marginRatio: CGFloat = 1/30
-  @EnvironmentObject var configuration: ConfigurationStore
+  let isHourIndicatorsShown: Bool
   @State private var animate: Bool = false
 
   var body: some View {
@@ -78,7 +96,7 @@ private struct Minutes: View {
   }
 
   private func isOverlapingHour(minute: Int) -> Bool {
-    guard self.configuration.showHourIndicators else { return false }
+    guard self.isHourIndicatorsShown else { return false }
     return minute == 0 || minute % 5 == 0
   }
 }
@@ -153,7 +171,9 @@ struct DrawnNumbers: View {
   private static let marginRatio: CGFloat = 1/7
   private static let availableRotationAngles: [Angle] = [.zero, .degrees(-5), .degrees(5)]
   private static let availableScale: [CGFloat] = [1, 1.1, 0.9]
-  @EnvironmentObject var configuration: ConfigurationStore
+  let isHourIndicatorsShown: Bool
+  let isMinuteIndicatorsShown: Bool
+  let isLimitedHoursShown: Bool
 
   var body: some View {
     GeometryReader { geometry in
@@ -171,18 +191,24 @@ struct DrawnNumbers: View {
   }
 
   private var marginRatio: CGFloat {
-    self.configuration.showIndicators ? Self.marginRatio : Self.marginRatio/2
+    self.isHourIndicatorsShown || self.isMinuteIndicatorsShown
+      ? Self.marginRatio
+      : Self.marginRatio/2
   }
 
   private var configurationHours: [Int] {
-    self.configuration.showLimitedHourIndicators ? Self.limitedHours : Self.hours
+    self.isLimitedHoursShown ? Self.limitedHours : Self.hours
   }
 }
 
 #if DEBUG
 struct DrawnIndicators_Previews: PreviewProvider {
   static var previews: some View {
-    DrawnIndicators()
+    DrawnIndicators(
+      isHourIndicatorsShown: true,
+      isMinuteIndicatorsShown: true,
+      isLimitedHoursShown: false
+    )
   }
 }
 #endif

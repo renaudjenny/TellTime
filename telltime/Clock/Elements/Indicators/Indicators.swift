@@ -1,16 +1,24 @@
 import SwiftUI
 
+struct IndicatorsContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+
+  var body: some View {
+    Indicators(clockStyle: self.store.state.configuration.clockStyle)
+  }
+}
+
 struct Indicators: View {
-  @EnvironmentObject var configuration: ConfigurationStore
+  let clockStyle: ClockStyle
 
   var body: some View {
     Group {
-      if self.configuration.clockStyle == .artNouveau {
-        ArtNouveauIndicators()
-      } else if self.configuration.clockStyle == .drawing {
-        DrawnIndicators()
+      if self.clockStyle == .artNouveau {
+        ArtNouveauIndicatorsContainer()
+      } else if self.clockStyle == .drawing {
+        DrawnIndicatorsContainer()
       } else {
-        ClassicIndicators()
+        ClassicIndicatorsContainer()
       }
     }
   }
@@ -20,7 +28,7 @@ struct Indicators: View {
 struct Indicators_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
-      Indicators()
+      Indicators(clockStyle: .classic)
       Circle()
         .stroke()
     }

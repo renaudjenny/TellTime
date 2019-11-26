@@ -1,8 +1,30 @@
 import SwiftUI
 
+struct SpeakButtonContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+  private var speakingProgress: Binding<Double> { .init(
+    get: { self.store.state.tts.engine.speakingProgress },
+    set: { _ in }
+  )}
+
+  var body: some View {
+    SpeakButton(
+      isSpeaking: self.store.state.tts.engine.isSpeaking,
+      //speakingProgress: self.store.state.tts.engine.speakingProgress,
+      speakingProgress: self.speakingProgress,
+      tellTime: self.tellTime
+    )
+  }
+
+  private func tellTime() {
+    self.store.state.tts.engine.speech(date: self.store.state.clock.date)
+  }
+}
+
 struct SpeakButton: View {
-  @EnvironmentObject var tts: TTS
-  @EnvironmentObject var clock: ClockStore
+  let isSpeaking: Bool
+  @Binding var speakingProgress: Double
+  let tellTime: () -> Void
 
   var body: some View {
     ZStack {
@@ -12,7 +34,7 @@ struct SpeakButton: View {
           .cornerRadius(8)
         Rectangle()
           .size(
-            width: geometry.size.width * CGFloat(self.tts.speakingProgress),
+            width: geometry.size.width * CGFloat(self.speakingProgress),
             height: geometry.size.height)
           .fill(Color.red)
           .cornerRadius(8)
@@ -25,12 +47,8 @@ struct SpeakButton: View {
           .cornerRadius(8)
           .animation(.easeInOut)
       }
-      .disabled(self.tts.isSpeaking)
+      .disabled(self.isSpeaking)
       .layoutPriority(1)
     }
-  }
-
-  private func tellTime() {
-    self.tts.speech(date: self.clock.date)
   }
 }

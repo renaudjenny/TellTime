@@ -1,11 +1,25 @@
 import SwiftUI
 
+struct ArtNouveauIndicatorsContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+
+  var body: some View {
+    ArtNouveauIndicators(
+      isHourIndicatorsShown: self.store.state.configuration.isHourIndicatorsShown,
+      isMinuteIndicatorsShown: self.store.state.configuration.isMinuteIndicatorsShown,
+      isLimitedHoursShown: self.store.state.configuration.isLimitedHoursShown
+    )
+  }
+}
+
 struct ArtNouveauIndicators: View {
   private static let hourInDegree: Double = 30
   private static let marginRatio: CGFloat = 1/12
   private static let romanNumbers = ["XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"]
   private static let limitedRomanNumbers = ["XII", "III", "VI", "IX"]
-  @EnvironmentObject var configuration: ConfigurationStore
+  let isHourIndicatorsShown: Bool
+  let isMinuteIndicatorsShown: Bool
+  let isLimitedHoursShown: Bool
 
   var body: some View {
     GeometryReader { geometry in
@@ -21,7 +35,7 @@ struct ArtNouveauIndicators: View {
             ))
         }
       }
-      if self.configuration.showMinuteIndicators {
+      if self.isMinuteIndicatorsShown {
         Sun()
           .stroke()
           .modifier(ScaleUpOnAppear())
@@ -30,7 +44,7 @@ struct ArtNouveauIndicators: View {
   }
 
   private var configurationRomanNumbers: [String] {
-    self.configuration.showLimitedHourIndicators ? Self.limitedRomanNumbers : Self.romanNumbers
+    self.isLimitedHoursShown ? Self.limitedRomanNumbers : Self.romanNumbers
   }
 
   private struct NumberCircle: ViewModifier {
@@ -91,10 +105,11 @@ struct Sun: Shape {
 struct ArtNouveauIndicators_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
-      ArtNouveauIndicators()
-        .environmentObject(ConfigurationStore())
-        .environmentObject(ClockStore())
-        .environmentObject(TTS())
+      ArtNouveauIndicators(
+        isHourIndicatorsShown: true,
+        isMinuteIndicatorsShown: true,
+        isLimitedHoursShown: false
+      )
     }
   }
 }

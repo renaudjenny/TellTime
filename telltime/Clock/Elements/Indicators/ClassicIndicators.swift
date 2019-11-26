@@ -1,20 +1,34 @@
 import SwiftUI
 
+struct ClassicIndicatorsContainer: View {
+  @EnvironmentObject var store: Store<App.State, App.Action>
+
+  var body: some View {
+    ClassicIndicators(
+      isHourIndicatorsShown: self.store.state.configuration.isHourIndicatorsShown,
+      isMinuteIndicatorsShown: self.store.state.configuration.isMinuteIndicatorsShown,
+      isLimitedHoursShown: self.store.state.configuration.isLimitedHoursShown
+    )
+  }
+}
+
 struct ClassicIndicators: View {
+  let isHourIndicatorsShown: Bool
+  let isMinuteIndicatorsShown: Bool
+  let isLimitedHoursShown: Bool
   private static let hourDotRatio: CGFloat = 1/35
   private static let minuteDotRatio: CGFloat = 1/70
   private static let marginRatio: CGFloat = 1/7
   private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   private static let limitedHours = [12, 3, 6, 9]
-  @EnvironmentObject var configuration: ConfigurationStore
 
   var body: some View {
     ZStack(alignment: .center) {
       self.texts
-      if self.configuration.showHourIndicators {
+      if self.isHourIndicatorsShown {
         self.hourIndicators
       }
-      if self.configuration.showMinuteIndicators {
+      if self.isMinuteIndicatorsShown {
         self.minuteIndicators
       }
     }
@@ -35,11 +49,13 @@ struct ClassicIndicators: View {
   }
 
   private var configurationHours: [Int] {
-    self.configuration.showLimitedHourIndicators ? Self.limitedHours : Self.hours
+    self.isLimitedHoursShown ? Self.limitedHours : Self.hours
   }
 
   private var marginRatio: CGFloat {
-    self.configuration.showIndicators ? Self.marginRatio : Self.marginRatio/2
+    self.isMinuteIndicatorsShown || self.isHourIndicatorsShown
+      ? Self.marginRatio
+      : Self.marginRatio/2
   }
 
   var hourIndicators: some View {
@@ -75,7 +91,11 @@ struct ClassicIndicators: View {
 struct ClassicIndicators_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
-      ClassicIndicators()
+      ClassicIndicators(
+        isHourIndicatorsShown: true,
+        isMinuteIndicatorsShown: true,
+        isLimitedHoursShown: false
+      )
       Circle()
         .stroke()
     }
