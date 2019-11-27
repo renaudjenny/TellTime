@@ -40,10 +40,7 @@ struct TellTimeView: View {
         }
         .padding()
         .navigationBarTitle("Tell Time")
-
-        self.configurationGearButton
       }
-      .navigationBarItems(trailing: self.configurationGearButton)
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }
@@ -90,6 +87,8 @@ struct TellTimeView: View {
           .background(Color.red)
           .cornerRadius(8)
       }
+      Spacer()
+      self.configurationGearButton
       Spacer()
       NavigationLink(destination: About()) {
         Image(systemName: "questionmark.circle")

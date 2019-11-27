@@ -47,6 +47,7 @@ struct ConfigurationView: View {
         self.portraitBody
       }
     }
+    .navigationBarTitle("Configuration")
     .padding()
   }
 
