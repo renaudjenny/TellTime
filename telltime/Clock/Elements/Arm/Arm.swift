@@ -2,6 +2,14 @@ import SwiftUI
 
 struct ArmContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
+  private var angle: Binding<Angle> {
+    switch type {
+    case .hour:
+      return self.store.binding(for: \.clock.hourAngle) { .clock(.changeHourAngle($0)) }
+    case .minute:
+      return self.store.binding(for: \.clock.minuteAngle) { .clock(.changeMinuteAngle($0)) }
+    }
+  }
   let type: ArmType
 
   var body: some View {
@@ -9,25 +17,16 @@ struct ArmContainer: View {
       clockStyle: self.store.state.configuration.clockStyle,
       lineWidthRatio: self.ratios(for: self.type).lineWidthRatio,
       marginRatio: self.ratios(for: self.type).marginRatio,
-      angle: self.setupAngle(),
-      setAngle: self.setAngle
+      angle: self.angle
     )
+    .onAppear(perform: self.setupAngle)
   }
 
-  private func setupAngle() -> Angle {
+  private func setupAngle() {
     let date = self.store.state.clock.date
     switch self.type {
-    case .hour: return .fromHour(date: date)
-    case .minute: return .fromMinute(date: date)
-    }
-  }
-
-  private func setAngle(_ angle: Angle) {
-    switch type {
-      case .hour:
-        self.store.send(.clock(.changeHourAngle(angle)))
-      case .minute:
-        self.store.send(.clock(.changeMinuteAngle(angle)))
+    case .hour: self.angle.wrappedValue = .fromHour(date: date)
+    case .minute: self.angle.wrappedValue = .fromMinute(date: date)
     }
   }
 
@@ -41,12 +40,12 @@ struct ArmContainer: View {
 
 struct Arm: View {
   private static let widthRatio: CGFloat = 1/50
-  @State private var animate: Bool = true
   let clockStyle: ClockStyle
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
-  let angle: Angle
-  let setAngle: (Angle) -> Void
+  @Binding var angle: Angle
+  @State private var draggingAngle: Angle = .zero
+  @State private var animate = true
 
   var body: some View {
     GeometryReader { geometry in
@@ -69,8 +68,8 @@ struct Arm: View {
         }
       }
       .gesture(self.dragGesture(globalFrame: geometry.frame(in: .global)))
-      .rotationEffect(self.angle)
-      .animation(self.animate ? .easeInOut : nil)
+      .rotationEffect(self.animate ? self.angle : self.draggingAngle)
+      .animation(self.animate ? .spring() : nil)
     }
   }
 }
@@ -80,12 +79,8 @@ extension Arm {
   func dragGesture(globalFrame: CGRect) -> AnyGesture<DragGesture.Value> {
     return AnyGesture<DragGesture.Value>(
       DragGesture(coordinateSpace: .global)
-        .onChanged({ self.changePointerGesture($0, frame: globalFrame) })
-        .onEnded({
-          let angle = self.angle(dragGestureValue: $0, frame: globalFrame)
-          self.setAngle(angle)
-          self.animate = true
-        })
+        .onChanged({ self.moveArmGesture($0, frame: globalFrame) })
+        .onEnded({ self.updateArmAngleGesture($0, frame: globalFrame) })
     )
   }
 
@@ -99,10 +94,14 @@ extension Arm {
     return Angle(radians: Double(arctan).positiveRadians)
   }
 
-  private func changePointerGesture(_ value: DragGesture.Value, frame: CGRect) {
+  private func moveArmGesture(_ value: DragGesture.Value, frame: CGRect) {
     self.animate = false
-    let angle = self.angle(dragGestureValue: value, frame: frame)
-    self.setAngle(angle)
+    self.draggingAngle = self.angle(dragGestureValue: value, frame: frame)
+  }
+
+  private func updateArmAngleGesture(_ value: DragGesture.Value, frame: CGRect) {
+    self.angle = self.angle(dragGestureValue: value, frame: frame)
+    self.animate = true
   }
 }
 
@@ -118,8 +117,7 @@ struct Arm_Previews: PreviewProvider {
       clockStyle: .classic,
       lineWidthRatio: 1/2,
       marginRatio: 2/5,
-      angle: .zero,
-      setAngle: { print("new angle: \($0)") }
+      angle: .constant(.zero)
     )
   }
 }
