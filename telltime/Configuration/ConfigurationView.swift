@@ -16,7 +16,7 @@ struct ConfigurationContainer: View {
     self.store.binding(for: \.configuration.isLimitedHoursShown) { .configuration(.showLimitedHours($0)) }
   }
   private var speechRateRatio: Binding<Float> {
-    self.store.binding(for: \.speechRateRatio) { .changeSpeechRateRatio($0) }
+    self.store.binding(for: \.tts.rateRatio) { .tts(.changeRateRatio($0)) }
   }
 
   var body: some View {

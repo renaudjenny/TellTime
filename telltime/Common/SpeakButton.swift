@@ -2,28 +2,29 @@ import SwiftUI
 
 struct SpeakButtonContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
-  private var speakingProgress: Binding<Double> { .init(
-    get: { self.store.state.tts.engine.speakingProgress },
-    set: { _ in }
-  )}
 
   var body: some View {
     SpeakButton(
-      isSpeaking: self.store.state.tts.engine.isSpeaking,
-      //speakingProgress: self.store.state.tts.engine.speakingProgress,
-      speakingProgress: self.speakingProgress,
+      isSpeaking: self.store.state.tts.isSpeaking,
+      speakingProgress: self.store.state.tts.speakingProgress,
       tellTime: self.tellTime
     )
+      .onAppear(perform: self.subscribeToTTSEngine)
   }
 
   private func tellTime() {
-    self.store.state.tts.engine.speech(date: self.store.state.clock.date)
+    self.store.send(.tts(.tellTime(self.store.state.clock.date)))
+  }
+
+  private func subscribeToTTSEngine() {
+    self.store.send(App.SideEffect.tts(.subscribeToEngineIsSpeaking))
+    self.store.send(App.SideEffect.tts(.subscribeToEngineSpeakingProgress))
   }
 }
 
 struct SpeakButton: View {
   let isSpeaking: Bool
-  @Binding var speakingProgress: Double
+  let speakingProgress: Double
   let tellTime: () -> Void
 
   var body: some View {
@@ -34,7 +35,7 @@ struct SpeakButton: View {
           .cornerRadius(8)
         Rectangle()
           .size(
-            width: geometry.size.width * CGFloat(self.speakingProgress),
+            width: geometry.size.width * self.widthProgressRatio,
             height: geometry.size.height)
           .fill(Color.red)
           .cornerRadius(8)
@@ -50,5 +51,9 @@ struct SpeakButton: View {
       .disabled(self.isSpeaking)
       .layoutPriority(1)
     }
+  }
+
+  private var widthProgressRatio: CGFloat {
+    self.isSpeaking ? CGFloat(self.speakingProgress) : 1.0
   }
 }

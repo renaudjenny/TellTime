@@ -10,7 +10,7 @@ struct TellTimeContainer: View {
   var body: some View {
     TellTimeView(
       date: self.date,
-      time: self.store.state.tts.engine.time(date: self.date.wrappedValue),
+      time: TTS.time(date: self.date.wrappedValue),
       deviceOrientation: self.store.state.deviceOrientation,
       changeClockRandomly: { self.store.send(.clock(.changeClockRandomly)) }
     )
