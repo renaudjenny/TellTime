@@ -5,6 +5,12 @@ struct ClockContainer: View {
 
   var body: some View {
     ClockView(isClockFaceShown: self.store.state.clock.isClockFaceShown)
+      .onTapGesture(count: 3, perform: self.showClockFace)
+  }
+
+  private func showClockFace() {
+    self.store.send(App.Action.clock(.showClockFace))
+    self.store.send(App.SideEffect.clock(Clock.SideEffect.delayClockFaceHidding))
   }
 }
 

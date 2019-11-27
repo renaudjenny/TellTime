@@ -20,6 +20,7 @@ enum App {
 
   enum SideEffect: Effect {
     case subscribeToOrientationChanged
+    case clock(Clock.SideEffect)
 
     func mapToAction() -> AnyPublisher<App.Action, Never> {
       switch self {
@@ -31,6 +32,10 @@ enum App {
           .compactMap { $0 }
           .filter(self.isSupportedOrientationForDevice)
           .map { App.Action.rotateDevice($0.orientation) }
+          .eraseToAnyPublisher()
+      case let .clock(effect):
+        return effect.mapToAction()
+          .map { App.Action.clock($0) }
           .eraseToAnyPublisher()
       }
     }

@@ -6,20 +6,28 @@ struct ArmContainer: View {
 
   var body: some View {
     Arm(
-      type: self.type,
       clockStyle: self.store.state.configuration.clockStyle,
       lineWidthRatio: self.ratios(for: self.type).lineWidthRatio,
       marginRatio: self.ratios(for: self.type).marginRatio,
-      angle: setupAngle(self.store.state.clock.date),
-      setAngle: { print("new angle: \($0)") } // FIXME: TODO
+      angle: self.setupAngle(),
+      setAngle: self.setAngle
     )
-    // FIXME: TODO? .onReceive(self.clock.$date, perform: self.setupAngle)
   }
 
-  private func setupAngle(_ date: Date) -> Angle {
+  private func setupAngle() -> Angle {
+    let date = self.store.state.clock.date
     switch self.type {
     case .hour: return .fromHour(date: date)
     case .minute: return .fromMinute(date: date)
+    }
+  }
+
+  private func setAngle(_ angle: Angle) {
+    switch type {
+      case .hour:
+        self.store.send(.clock(.changeHourAngle(angle)))
+      case .minute:
+        self.store.send(.clock(.changeMinuteAngle(angle)))
     }
   }
 
@@ -34,7 +42,6 @@ struct ArmContainer: View {
 struct Arm: View {
   private static let widthRatio: CGFloat = 1/50
   @State private var animate: Bool = true
-  let type: ArmType
   let clockStyle: ClockStyle
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
@@ -76,10 +83,7 @@ extension Arm {
         .onChanged({ self.changePointerGesture($0, frame: globalFrame) })
         .onEnded({
           let angle = self.angle(dragGestureValue: $0, frame: globalFrame)
-          switch self.type {
-          case .hour: self.setAngle(angle)
-          case .minute: self.setAngle(angle)
-          }
+          self.setAngle(angle)
           self.animate = true
         })
     )
@@ -98,10 +102,7 @@ extension Arm {
   private func changePointerGesture(_ value: DragGesture.Value, frame: CGRect) {
     self.animate = false
     let angle = self.angle(dragGestureValue: value, frame: frame)
-    switch self.type {
-    case .hour: self.setAngle(angle)
-    case .minute: self.setAngle(angle)
-    }
+    self.setAngle(angle)
   }
 }
 
@@ -114,7 +115,6 @@ enum ArmType {
 struct Arm_Previews: PreviewProvider {
   static var previews: some View {
     Arm(
-      type: .hour,
       clockStyle: .classic,
       lineWidthRatio: 1/2,
       marginRatio: 2/5,

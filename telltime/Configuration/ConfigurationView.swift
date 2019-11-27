@@ -28,7 +28,6 @@ struct ConfigurationContainer: View {
       speechRateRatio: self.speechRateRatio,
       deviceOrientation: self.store.state.deviceOrientation
     )
-    // FIXME: TODO .onReceive(self.configuration.$speechRateRatio, perform: { self.tts.rateRatio = $0 })
   }
 }
 

@@ -3,36 +3,22 @@ import Combine
 
 struct TellTimeContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
-  @State private var date: Date = Date()// self.store.state.clock.date
+  private var date: Binding<Date> {
+    self.store.binding(for: \.clock.date) { .clock(.changeDate($0)) }
+  }
 
   var body: some View {
     TellTimeView(
-      date: self.$date,
-      time: self.time,
+      date: self.date,
+      time: self.store.state.tts.engine.time(date: self.date.wrappedValue),
       deviceOrientation: self.store.state.deviceOrientation,
       changeClockRandomly: { self.store.send(.clock(.changeClockRandomly)) }
     )
-      .onTapGesture(count: 3, perform: self.showClockFace)
       .onAppear(perform: self.subscribe)
-      // FIXME .onReceive(self.datePublisher, perform: self.tts.speech)
-  }
-
-  private var time: String {
-    self.store.state.tts.engine.time(date: self.date)
-  }
-
-  private var datePublisher: AnyPublisher<Date, Never> {
-    self.store.$state
-      .map(\.clock.date)
-      .eraseToAnyPublisher()
   }
 
   private func subscribe() {
     self.store.send(App.SideEffect.subscribeToOrientationChanged)
-  }
-
-  private func showClockFace() {
-    self.store.send(App.Action.clock(.showClockFace))
   }
 }
 

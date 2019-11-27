@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Foundation
 
 enum Clock {
   struct State {
@@ -12,8 +13,24 @@ enum Clock {
   enum Action {
     case changeClockRandomly
     case showClockFace
+    case hideClockFace
     case changeHourAngle(Angle)
     case changeMinuteAngle(Angle)
+    case changeDate(Date)
+  }
+
+  enum SideEffect: Effect {
+    case delayClockFaceHidding
+
+    func mapToAction() -> AnyPublisher<Clock.Action, Never> {
+      switch self {
+      case .delayClockFaceHidding:
+        return Just(true)
+          .delay(for: .seconds(2), scheduler: RunLoop.main)
+          .map { _ in Clock.Action.hideClockFace }
+          .eraseToAnyPublisher()
+      }
+    }
   }
 
   static let reducer: Reducer<Clock.State, Clock.Action> = Reducer { state, action in
@@ -22,75 +39,46 @@ enum Clock {
       let hour = [Int](1...12).randomElement() ?? 0
       let minute = [Int](0...59).randomElement() ?? 0
       state.date = Date() // FIXME: TODO
+      // TODO: speech
     case .showClockFace:
       state.isClockFaceShown = true
+    case .hideClockFace:
+      state.isClockFaceShown = false
     case let .changeHourAngle(angle):
       state.hourAngle = angle
+      state.date.setHourAngle(angle)
     case let .changeMinuteAngle(angle):
       state.minuteAngle = angle
+      state.date.setMinuteAngle(angle)
+    case let .changeDate(date):
+      state.date = date
+      // TODO: speech
     }
   }
 }
-// FIXME: TODO
-//final class ClockStore: ObservableObject {
-//  private var disposables = Set<AnyCancellable>()
-//
-//  init() {
-//    self.hourAngle = .fromHour(date: self.date)
-//    self.minuteAngle = .fromMinute(date: self.date)
-//    self.subscribeArmAnglesChanged()
-//    self.subscribeShowClockFaceChanged()
-//  }
-//}
-//
-//// MARK: - Arm Angles
-//extension ClockStore {
-//  private func subscribeArmAnglesChanged() {
-//    self.$hourAngle
-//      .dropFirst()
-//      .sink { angle in
-//        let date = self.date
-//        let hourRelationship: Double = 360/12
-//        let hour = angle.degrees.positiveDegrees/hourRelationship
-//        let minute = Calendar.current.component(.minute, from: date)
-//
-//        guard let newDate = Calendar.current.date(
-//          bySettingHour: Int(hour.rounded()), minute: minute, second: 0,
-//          of: date
-//        ) else { return }
-//
-//        self.date = newDate
-//      }
-//      .store(in: &self.disposables)
-//
-//    self.$minuteAngle
-//      .dropFirst()
-//      .sink { angle in
-//        let date = self.date
-//        let relationship: Double = 360/60
-//        let minute = angle.degrees.positiveDegrees/relationship
-//        let hour = Calendar.current.component(.hour, from: date)
-//
-//        guard let newDate = Calendar.current.date(
-//          bySettingHour: hour, minute: Int(minute.rounded()), second: 0,
-//          of: date
-//        ) else { return }
-//
-//        self.date = newDate
-//      }
-//      .store(in: &self.disposables)
-//  }
-//}
-//
-//// MARK: - Clock Face
-//extension ClockStore {
-//  private func subscribeShowClockFaceChanged() {
-//    self.$showClockFace
-//      .filter({ $0 == true })
-//      .delay(for: 2.0, scheduler: RunLoop.main)
-//      .sink(receiveValue: { _ in
-//        self.showClockFace = false
-//      })
-//      .store(in: &self.disposables)
-//  }
-//}
+
+private extension Date {
+  private static let hourRelationship: Double = 360/12
+  private static let minuteRelationsip: Double = 360/60
+
+  mutating func setHourAngle(_ angle: Angle) {
+    let positiveDegrees = angle.degrees.positiveDegrees
+    let hour = positiveDegrees/Self.hourRelationship
+    let minute = Calendar.current.component(.minute, from: self)
+
+    self = Calendar.current.date(
+      bySettingHour: Int(hour.rounded()), minute: minute, second: 0,
+      of: self
+    ) ?? self
+  }
+
+  mutating func setMinuteAngle(_ angle: Angle) {
+    let minute = angle.degrees.positiveDegrees/Self.minuteRelationsip
+    let hour = Calendar.current.component(.hour, from: self)
+
+    self = Calendar.current.date(
+      bySettingHour: hour, minute: Int(minute.rounded()), second: 0,
+      of: self
+    ) ?? self
+  }
+}
