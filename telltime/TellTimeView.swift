@@ -1,6 +1,12 @@
 import SwiftUI
 import Combine
 
+extension App.State {
+  var time: String {
+    TTS.time(date: self.clock.date)
+  }
+}
+
 struct TellTimeContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
   private var date: Binding<Date> {
@@ -10,7 +16,7 @@ struct TellTimeContainer: View {
   var body: some View {
     TellTimeView(
       date: self.date,
-      time: TTS.time(date: self.date.wrappedValue),
+      time: self.store.state.time,
       deviceOrientation: self.store.state.deviceOrientation,
       changeClockRandomly: { self.store.send(.clock(.changeClockRandomly)) }
     )
