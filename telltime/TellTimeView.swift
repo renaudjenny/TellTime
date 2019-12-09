@@ -1,12 +1,6 @@
 import SwiftUI
 import Combine
 
-extension App.State {
-  var time: String {
-    TTS.time(date: self.clock.date)
-  }
-}
-
 struct TellTimeContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
   private var date: Binding<Date> {
@@ -18,9 +12,13 @@ struct TellTimeContainer: View {
       date: self.date,
       time: self.store.state.time,
       deviceOrientation: self.store.state.deviceOrientation,
-      changeClockRandomly: { self.store.send(.clock(.changeClockRandomly)) }
+      changeClockRandomly: self.changeClockRandomly
     )
       .onAppear(perform: self.subscribe)
+  }
+
+  private func changeClockRandomly() {
+    self.store.send(.clock(.changeClockRandomly))
   }
 
   private func subscribe() {
@@ -39,9 +37,9 @@ struct TellTimeView: View {
       VStack {
         Group {
           if self.deviceOrientation.isLandscape {
-            self.landscapeBody
+            LandscapeView(time: self.time, changeClockRandomly: self.changeClockRandomly, date: self.$date)
           } else {
-            self.portraitBody
+            PortraitView(time: self.time, changeClockRandomly: self.changeClockRandomly, date: self.$date)
           }
         }
         .padding()
@@ -50,39 +48,55 @@ struct TellTimeView: View {
     }
     .navigationViewStyle(StackNavigationViewStyle())
   }
+}
 
-  var portraitBody: some View {
+private struct PortraitView: View {
+  let time: String
+  let changeClockRandomly: () -> Void
+  @Binding var date: Date
+
+  var body: some View {
     VStack {
       Spacer()
       ClockContainer()
       Spacer()
-      self.timeText
+      TimeText(time: self.time)
       Spacer()
       DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
         .fixedSize()
       Spacer()
-      self.buttons
+      TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
     }
   }
+}
 
-  var landscapeBody: some View {
+private struct LandscapeView: View {
+  let time: String
+  let changeClockRandomly: () -> Void
+  @Binding var date: Date
+
+  var body: some View {
     HStack {
       VStack {
         ClockContainer()
           .padding()
-        self.timeText
+        TimeText(time: self.time)
       }
       VStack {
         Spacer()
         DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
           .fixedSize()
         Spacer()
-        self.buttons
+        TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
       }
     }
   }
+}
 
-  private var buttons: some View {
+private struct TellTimeButtons: View {
+  let changeClockRandomly: () -> Void
+
+  var body: some View {
     HStack {
       SpeakButtonContainer()
       Spacer()
@@ -94,7 +108,7 @@ struct TellTimeView: View {
           .cornerRadius(8)
       }
       Spacer()
-      self.configurationGearButton
+      ConfigurationGearButton()
       Spacer()
       NavigationLink(destination: About()) {
         Image(systemName: "questionmark.circle")
@@ -104,19 +118,31 @@ struct TellTimeView: View {
     }
     .padding(Edge.Set.horizontal)
   }
+}
 
-  private var timeText: some View {
+private struct TimeText: View {
+  let time: String
+
+  var body: some View {
     Text(self.time)
       .font(.headline)
       .foregroundColor(.red)
   }
+}
 
-  private var configurationGearButton: some View {
+private struct ConfigurationGearButton: View {
+  var body: some View {
     NavigationLink(destination: ConfigurationContainer()) {
       Image(systemName: "gear")
         .padding()
         .accentColor(.red)
     }
+  }
+}
+
+extension App.State {
+  var time: String {
+    TTS.time(date: self.clock.date)
   }
 }
 
@@ -129,6 +155,7 @@ struct ContentView_Previews: PreviewProvider {
       deviceOrientation: .portrait,
       changeClockRandomly: { print("Change Clock Randomly") }
     )
+      .environmentObject(App.fakeStore)
   }
 }
 #endif

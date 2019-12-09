@@ -62,4 +62,8 @@ enum App {
       TTS.reducer.reduce(&state.tts, action)
     }
   }
+
+  #if DEBUG
+  static let fakeStore = Store<App.State, App.Action>(initialState: App.State(), reducer: Reducer { _, _ in })
+  #endif
 }
