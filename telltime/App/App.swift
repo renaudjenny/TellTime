@@ -64,6 +64,6 @@ enum App {
   }
 
   #if DEBUG
-  static let fakeStore = Store<App.State, App.Action>(initialState: App.State(), reducer: Reducer { _, _ in })
+  static let previewStore = Store<App.State, App.Action>(initialState: App.State(), reducer: Reducer { _, _ in })
   #endif
 }

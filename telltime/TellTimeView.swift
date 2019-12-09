@@ -155,7 +155,7 @@ struct ContentView_Previews: PreviewProvider {
       deviceOrientation: .portrait,
       changeClockRandomly: { print("Change Clock Randomly") }
     )
-      .environmentObject(App.fakeStore)
+      .environmentObject(App.previewStore)
   }
 }
 #endif

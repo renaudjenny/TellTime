@@ -42,38 +42,100 @@ struct ConfigurationView: View {
   var body: some View {
     Group {
       if self.deviceOrientation.isLandscape {
-        self.landscapeBody
+        LandscapeView(
+          clockStyle: self.$clockStyle,
+          isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
+          isHourIndicatorsShown: self.$isHourIndicatorsShown,
+          isLimitedHoursShown: self.$isLimitedHoursShown,
+          speechRateRatio: self.$speechRateRatio,
+          speechRateRatioPourcentage: self.speechRateRatioPourcentage
+        )
       } else {
-        self.portraitBody
+        PortraitView(
+          clockStyle: self.$clockStyle,
+          isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
+          isHourIndicatorsShown: self.$isHourIndicatorsShown,
+          isLimitedHoursShown: self.$isLimitedHoursShown,
+          speechRateRatio: self.$speechRateRatio,
+          speechRateRatioPourcentage: self.speechRateRatioPourcentage
+        )
       }
     }
     .navigationBarTitle("Configuration")
     .padding()
   }
 
-  private var portraitBody: some View {
+  private var speechRateRatioPourcentage: Int {
+    Int(
+      (self.speechRateRatio * 100)
+        .rounded()
+    )
+  }
+}
+
+private struct PortraitView: View {
+  @Binding var clockStyle: ClockStyle
+  @Binding var isMinuteIndicatorsShown: Bool
+  @Binding var isHourIndicatorsShown: Bool
+  @Binding var isLimitedHoursShown: Bool
+  @Binding var speechRateRatio: Float
+  let speechRateRatioPourcentage: Int
+
+  var body: some View {
     VStack {
-      self.stylePicker
+      StylePicker(clockStyle: self.$clockStyle)
       ClockContainer()
         .padding()
-      self.controls
+      Controls(
+        isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
+        isHourIndicatorsShown: self.$isHourIndicatorsShown,
+        isLimitedHoursShown: self.$isLimitedHoursShown,
+        speechRateRatio: self.$speechRateRatio,
+        isHourIndicatorsToggleEnabled: self.clockStyle != .artNouveau,
+        speechRateRatioPourcentage: self.speechRateRatioPourcentage
+      )
       Spacer()
     }
   }
+}
 
-  private var landscapeBody: some View {
+private struct LandscapeView: View {
+  @Binding var clockStyle: ClockStyle
+  @Binding var isMinuteIndicatorsShown: Bool
+  @Binding var isHourIndicatorsShown: Bool
+  @Binding var isLimitedHoursShown: Bool
+  @Binding var speechRateRatio: Float
+  let speechRateRatioPourcentage: Int
+
+  var body: some View {
     HStack {
       VStack {
         ClockContainer()
           .padding()
-        self.stylePicker
+        StylePicker(clockStyle: self.$clockStyle)
       }
-      self.controls
+      Controls(
+        isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
+        isHourIndicatorsShown: self.$isHourIndicatorsShown,
+        isLimitedHoursShown: self.$isLimitedHoursShown,
+        speechRateRatio: self.$speechRateRatio,
+        isHourIndicatorsToggleEnabled: self.clockStyle == .artNouveau,
+        speechRateRatioPourcentage: self.speechRateRatioPourcentage
+      )
     }
   }
+}
 
-  private var controls: some View {
-    VStack(spacing: 30.0) {
+private struct Controls: View {
+  @Binding var isMinuteIndicatorsShown: Bool
+  @Binding var isHourIndicatorsShown: Bool
+  @Binding var isLimitedHoursShown: Bool
+  @Binding var speechRateRatio: Float
+  let isHourIndicatorsToggleEnabled: Bool
+  let speechRateRatioPourcentage: Int
+
+  var body: some View {
+    VStack {
       HStack {
         Text("Speech rate: \(self.speechRateRatioPourcentage)%")
         Slider(value: self.$speechRateRatio, in: 0.5...1.0)
@@ -85,14 +147,18 @@ struct ConfigurationView: View {
       Toggle(isOn: self.$isHourIndicatorsShown) {
         Text("Hour indicators")
       }
-      .disabled(self.clockStyle == .artNouveau)
+      .disabled(!self.isHourIndicatorsToggleEnabled)
       Toggle(isOn: self.$isLimitedHoursShown) {
         Text("Limited hour texts")
       }
     }
   }
+}
 
-  private var stylePicker: some View {
+private struct StylePicker: View {
+  @Binding var clockStyle: ClockStyle
+
+  var body: some View {
     Picker("Style", selection: self.$clockStyle) {
       ForEach(ClockStyle.allCases) { style in
         Text(style.description)
@@ -101,24 +167,21 @@ struct ConfigurationView: View {
     }
     .pickerStyle(SegmentedPickerStyle())
   }
-
-  private var speechRateRatioPourcentage: Int {
-    Int(
-      (self.speechRateRatio * 100)
-        .rounded()
-    )
-  }
 }
 
 struct Configuration_Previews: PreviewProvider {
   static var previews: some View {
-    ConfigurationView(
-      clockStyle: .constant(.classic),
-      isMinuteIndicatorsShown: .constant(true),
-      isHourIndicatorsShown: .constant(true),
-      isLimitedHoursShown: .constant(false),
-      speechRateRatio: .constant(1.0),
-      deviceOrientation: .portrait
-    )
+    NavigationView {
+      ConfigurationView(
+        clockStyle: .constant(.classic),
+        isMinuteIndicatorsShown: .constant(true),
+        isHourIndicatorsShown: .constant(true),
+        isLimitedHoursShown: .constant(false),
+        speechRateRatio: .constant(1.0),
+        deviceOrientation: .portrait
+      )
+        .navigationBarTitle("Configuration")
+    }
+    .environmentObject(App.previewStore)
   }
 }
