@@ -14,6 +14,7 @@ struct Arms: View {
 struct Arms_Previews: PreviewProvider {
   static var previews: some View {
     Arms()
+      .environmentObject(App.previewStore)
   }
 }
 #endif

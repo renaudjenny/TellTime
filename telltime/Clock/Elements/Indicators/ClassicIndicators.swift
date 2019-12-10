@@ -16,33 +16,43 @@ struct ClassicIndicators: View {
   let isHourIndicatorsShown: Bool
   let isMinuteIndicatorsShown: Bool
   let isLimitedHoursShown: Bool
-  private static let hourDotRatio: CGFloat = 1/35
-  private static let minuteDotRatio: CGFloat = 1/70
   private static let marginRatio: CGFloat = 1/7
-  private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-  private static let limitedHours = [12, 3, 6, 9]
 
   var body: some View {
     ZStack(alignment: .center) {
-      self.texts
+      HourTexts(
+        marginRatio: Self.marginRatio,
+        isLimitedHoursShown: self.isLimitedHoursShown,
+        isMinuteIndicatorsShown: self.isMinuteIndicatorsShown,
+        isHourIndicatorsShown: self.isHourIndicatorsShown
+      )
       if self.isHourIndicatorsShown {
-        self.hourIndicators
+        HourIndicators(marginRatio: Self.marginRatio)
       }
       if self.isMinuteIndicatorsShown {
-        self.minuteIndicators
+        MinuteIndicators(marginRatio: Self.marginRatio)
       }
     }
     .modifier(ScaleUpOnAppear())
   }
+}
 
-  var texts: some View {
+private struct HourTexts: View {
+  private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  private static let limitedHours = [12, 3, 6, 9]
+  let marginRatio: CGFloat
+  let isLimitedHoursShown: Bool
+  let isMinuteIndicatorsShown: Bool
+  let isHourIndicatorsShown: Bool
+
+  var body: some View {
     GeometryReader { geometry in
       ForEach(self.configurationHours, id: \.self) { hour in
         Text("\(hour)")
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * self.marginRatio
+            margin: geometry.localWidth * self.dynamicMarginRatio
           ))
       }
     }
@@ -52,13 +62,18 @@ struct ClassicIndicators: View {
     self.isLimitedHoursShown ? Self.limitedHours : Self.hours
   }
 
-  private var marginRatio: CGFloat {
+  private var dynamicMarginRatio: CGFloat {
     self.isMinuteIndicatorsShown || self.isHourIndicatorsShown
-      ? Self.marginRatio
-      : Self.marginRatio/2
+      ? self.marginRatio
+      : self.marginRatio/2
   }
+}
 
-  var hourIndicators: some View {
+private struct HourIndicators: View {
+  private static let hourDotRatio: CGFloat = 1/35
+  let marginRatio: CGFloat
+
+  var body: some View {
     GeometryReader { geometry in
       ForEach(1..<13) { hour in
         Circle()
@@ -66,13 +81,18 @@ struct ClassicIndicators: View {
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * Self.marginRatio/3
+            margin: geometry.localWidth * self.marginRatio/3
           ))
       }
     }
   }
+}
 
-  var minuteIndicators: some View {
+private struct MinuteIndicators: View {
+  private static let minuteDotRatio: CGFloat = 1/70
+  let marginRatio: CGFloat
+
+  var body: some View {
     GeometryReader { geometry in
       ForEach(1..<61) { minute in
         Circle()
@@ -80,7 +100,7 @@ struct ClassicIndicators: View {
           .position(.pointInCircle(
             from: Angle(degrees: Double(minute) * .minuteInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * Self.marginRatio/3
+            margin: geometry.localWidth * self.marginRatio/3
           ))
       }
     }

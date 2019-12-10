@@ -28,7 +28,8 @@ struct Indicators: View {
 struct Indicators_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
-      Indicators(clockStyle: .classic)
+      Indicators(clockStyle: .artNouveau)
+        .environmentObject(App.previewStore)
       Circle()
         .stroke()
     }

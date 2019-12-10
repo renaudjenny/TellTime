@@ -39,6 +39,6 @@ struct ClockFace: View {
 
 struct ClockFace_Previews: PreviewProvider {
   static var previews: some View {
-    return ClockFace(isClockFaceShown: true)
+    ClockFace(isClockFaceShown: true)
   }
 }
