@@ -22,6 +22,7 @@
 		4C9309B522B0C8B80073BE0B /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9309B422B0C8B80073BE0B /* ClockView.swift */; };
 		4C99D44B23747C3100F38E55 /* ScaleUpOnAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C99D44A23747C3100F38E55 /* ScaleUpOnAppear.swift */; };
 		4CA2ECB32393C11F0098B2FF /* ReadLiteralTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB22393C11F0098B2FF /* ReadLiteralTimeTests.swift */; };
+		4CA2ECB723A057C30098B2FF /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB623A057C30098B2FF /* World.swift */; };
 		4CA4F649236D125F007088BA /* ClassicIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA4F648236D125F007088BA /* ClassicIndicators.swift */; };
 		4CA4F64B236D1272007088BA /* ArtNouveauIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA4F64A236D1272007088BA /* ArtNouveauIndicators.swift */; };
 		4CA5F622237C8D49007F058A /* DrawnClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5F621237C8D49007F058A /* DrawnClockBorder.swift */; };
@@ -74,6 +75,7 @@
 		4C9309B422B0C8B80073BE0B /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		4C99D44A23747C3100F38E55 /* ScaleUpOnAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleUpOnAppear.swift; sourceTree = "<group>"; };
 		4CA2ECB22393C11F0098B2FF /* ReadLiteralTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadLiteralTimeTests.swift; sourceTree = "<group>"; };
+		4CA2ECB623A057C30098B2FF /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		4CA4F648236D125F007088BA /* ClassicIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicIndicators.swift; sourceTree = "<group>"; };
 		4CA4F64A236D1272007088BA /* ArtNouveauIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauIndicators.swift; sourceTree = "<group>"; };
 		4CA5F621237C8D49007F058A /* DrawnClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnClockBorder.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				4CB1D4BB22A7293300786385 /* AppDelegate.swift */,
 				4CB1D4C622A7293500786385 /* LaunchScreen.storyboard */,
 				4CB1D4BD22A7293300786385 /* SceneDelegate.swift */,
+				4CA2ECB623A057C30098B2FF /* World.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */,
 				4C05AB612343FD7200970036 /* Mouth.swift in Sources */,
 				4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */,
+				4CA2ECB723A057C30098B2FF /* World.swift in Sources */,
 				4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */,
 				4C99D44B23747C3100F38E55 /* ScaleUpOnAppear.swift in Sources */,
 				4C572751236781B00028348F /* ArtNouveauArm.swift in Sources */,

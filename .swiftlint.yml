@@ -6,3 +6,10 @@ opt_in_rules:
   - implicitly_unwrapped_optional
   - implicit_return
   - unused_import
+custom_rules:
+  no_current_mutation:
+    included: ".*\\.swift"
+    excluded: ".*Tests\\.swift"
+    name: "Current Mutation"
+    regex: "(Current\\.\\S+\\s+=)"
+    message: "Don't mutate the current world!"

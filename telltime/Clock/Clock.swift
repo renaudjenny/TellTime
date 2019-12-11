@@ -4,7 +4,7 @@ import Foundation
 
 enum Clock {
   struct State {
-    var date: Date = Date()
+    var date: Date = Current.date()
     var hourAngle: Angle = .zero
     var minuteAngle: Angle = .zero
     var isClockFaceShown: Bool = false
@@ -85,6 +85,6 @@ private extension Date {
   }
 
   static func from(hour: Int, minute: Int) -> Date {
-    return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) ?? Date()
+    return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
   }
 }

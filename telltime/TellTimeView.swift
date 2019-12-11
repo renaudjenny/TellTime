@@ -150,7 +150,7 @@ extension App.State {
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     TellTimeView(
-      date: .constant(Date()),
+      date: .constant(.init(timeIntervalSince1970: 4300)),
       time: "It's time to test!",
       deviceOrientation: .portrait,
       changeClockRandomly: { print("Change Clock Randomly") }
