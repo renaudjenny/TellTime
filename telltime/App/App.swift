@@ -3,10 +3,10 @@ import Combine
 
 enum App {
   struct State {
-    var deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation
-    var configuration: Configuration.State = Configuration.State()
-    var clock: Clock.State = Clock.State()
-    var tts: TTS.State = TTS.State()
+    var deviceOrientation = Current.deviceOrientation
+    var configuration = Configuration.State()
+    var clock = Clock.State()
+    var tts = TTS.State()
   }
 
   enum Action {
@@ -24,7 +24,7 @@ enum App {
     func mapToAction() -> AnyPublisher<App.Action, Never> {
       switch self {
       case .subscribeToOrientationChanged:
-        return NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+        return Current.orientationDidChangePublisher
           .map({ notification -> UIDevice? in
             notification.object as? UIDevice
           })

@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 import Combine
 
 // For more information check "How To Control The World" - Stephen Celis
@@ -6,6 +6,10 @@ import Combine
 
 struct World {
   var date = { Date() }
+  var calendar = Calendar.autoupdatingCurrent
+  var deviceOrientation = UIDevice.current.orientation
+  var orientationDidChangePublisher = NotificationCenter.default
+    .publisher(for: UIDevice.orientationDidChangeNotification)
 }
 
 var Current = World()

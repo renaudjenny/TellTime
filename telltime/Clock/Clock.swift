@@ -66,9 +66,9 @@ private extension Date {
   func with(hourAngle angle: Angle) -> Date {
     let positiveDegrees = angle.degrees.positiveDegrees
     let hour = positiveDegrees/Self.hourRelationship
-    let minute = Calendar.current.component(.minute, from: self)
+    let minute = Current.calendar.component(.minute, from: self)
 
-    return Calendar.current.date(
+    return Current.calendar.date(
       bySettingHour: Int(hour.rounded()), minute: minute, second: 0,
       of: self
     ) ?? self
@@ -76,15 +76,15 @@ private extension Date {
 
   func with(minuteAngle angle: Angle) -> Date {
     let minute = angle.degrees.positiveDegrees/Self.minuteRelationsip
-    let hour = Calendar.current.component(.hour, from: self)
+    let hour = Current.calendar.component(.hour, from: self)
 
-    return Calendar.current.date(
+    return Current.calendar.date(
       bySettingHour: hour, minute: Int(minute.rounded()), second: 0,
       of: self
     ) ?? self
   }
 
   static func from(hour: Int, minute: Int) -> Date {
-    return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
+    return Current.calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
   }
 }

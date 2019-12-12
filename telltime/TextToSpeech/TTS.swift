@@ -124,8 +124,8 @@ extension TTS {
 
 private extension String {
   static func fromDate(_ date: Date) -> String {
-    let minute = Calendar.current.component(.minute, from: date)
-    let hour = Calendar.current.component(.hour, from: date)
+    let minute = Current.calendar.component(.minute, from: date)
+    let hour = Current.calendar.component(.hour, from: date)
     return Self.fromHour(hour, minute: minute)
   }
 
