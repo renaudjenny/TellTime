@@ -14,4 +14,15 @@ struct World {
   var tts = TTS.World()
 }
 
+extension TTS {
+  struct World {
+    var isSpeaking =  Engine.default.isSpeaking
+    var isSpeakingPublisher = Engine.default.$isSpeaking
+    var speakingProgressPublisher = Engine.default.$speakingProgress
+    var setRateRatio = { Engine.default.rateRatio = $0 }
+    var speech = { Engine.default.speech(date: $0) }
+    var time = { Engine.default.time(date: $0) }
+  }
+}
+
 var Current = World()
