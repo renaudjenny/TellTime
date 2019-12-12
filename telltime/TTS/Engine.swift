@@ -2,66 +2,10 @@ import AVFoundation
 import SwiftPastTen
 import Combine
 
-enum TTS {
-  struct State {
-    var isSpeaking = false
-    var speakingProgress = 0.0
-    var rateRatio: Float = 1.0
-  }
-
-  enum Action {
-    case changeRateRatio(Float)
-    case tellTime(Date)
-    case startSpeaking
-    case stopSpeaking
-    case changeSpeakingProgress(Double)
-  }
-
-  enum SideEffect: Effect {
-    case subscribeToEngineIsSpeaking
-    case subscribeToEngineSpeakingProgress
-
-    func mapToAction() -> AnyPublisher<TTS.Action, Never> {
-      switch self {
-      case .subscribeToEngineIsSpeaking:
-        return engine.$isSpeaking
-          .map { $0 ? .startSpeaking : .stopSpeaking }
-          .eraseToAnyPublisher()
-      case .subscribeToEngineSpeakingProgress:
-        return engine.$speakingProgress
-          .map { .changeSpeakingProgress($0) }
-          .eraseToAnyPublisher()
-      }
-    }
-  }
-
-  static let reducer: Reducer<TTS.State, TTS.Action> = Reducer { state, action in
-    switch action {
-    case let .changeRateRatio(rateRatio):
-      state.rateRatio = rateRatio
-      engine.rateRatio = rateRatio
-    case let .tellTime(date):
-      engine.speech(date: date)
-    case .startSpeaking:
-      state.isSpeaking = true
-    case .stopSpeaking:
-      state.isSpeaking = false
-    case let .changeSpeakingProgress(speakingProgress):
-      state.speakingProgress = speakingProgress
-    }
-  }
-}
-
 extension TTS {
-  static func time(date: Date) -> String {
-    engine.time(date: date)
-  }
-}
+  final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
+    static let `default` = Engine()
 
-extension TTS {
-  private static let engine = Engine()
-
-  private final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     @Published private(set) var isSpeaking: Bool = false
     @Published private(set) var speakingProgress: Double = 0.0
 

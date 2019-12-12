@@ -10,6 +10,8 @@ struct World {
   var deviceOrientation = UIDevice.current.orientation
   var orientationDidChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)
+
+  var tts = TTS.World()
 }
 
 var Current = World()
