@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct About: View {
+struct AboutView: View {
   var body: some View {
     VStack {
       Spacer()
@@ -32,6 +32,6 @@ fileprivate extension Double {
 
 struct About_Previews: PreviewProvider {
   static var previews: some View {
-    About()
+    AboutView()
   }
 }

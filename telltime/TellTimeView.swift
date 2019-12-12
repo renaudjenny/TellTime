@@ -110,7 +110,7 @@ private struct TellTimeButtons: View {
       Spacer()
       ConfigurationGearButton()
       Spacer()
-      NavigationLink(destination: About()) {
+      NavigationLink(destination: AboutView()) {
         Image(systemName: "questionmark.circle")
           .padding()
           .accentColor(.red)
