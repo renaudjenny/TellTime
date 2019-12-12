@@ -3,8 +3,6 @@ import SwiftPastTen
 import Combine
 
 enum TTS {
-  private static let engine = Engine()
-
   struct State {
     var isSpeaking = false
     var speakingProgress = 0.0
@@ -61,6 +59,8 @@ extension TTS {
 }
 
 extension TTS {
+  private static let engine = Engine()
+
   private final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     @Published private(set) var isSpeaking: Bool = false
     @Published private(set) var speakingProgress: Double = 0.0
@@ -79,7 +79,7 @@ extension TTS {
     }
 
     func time(date: Date) -> String {
-      guard let time = try? self.tellTimeEngine.tell(time: DigitalTime.from(date: date)) else {
+      guard let time = try? self.tellTimeEngine.tell(time: .fromDate(date)) else {
         return ""
       }
       return time
@@ -119,5 +119,19 @@ extension TTS {
         .reduce(0, +)/2
       self.speakingProgress = averageBound/total
     }
+  }
+}
+
+private extension String {
+  static func fromDate(_ date: Date) -> String {
+    let minute = Calendar.current.component(.minute, from: date)
+    let hour = Calendar.current.component(.hour, from: date)
+    return Self.fromHour(hour, minute: minute)
+  }
+
+  private static func fromHour(_ hour: Int, minute: Int) -> String {
+    let minute = minute > 9 ? "\(minute)" : "0\(minute)"
+    let hour = hour > 9 ? "\(hour)" : "0\(hour)"
+    return "\(hour):\(minute)"
   }
 }
