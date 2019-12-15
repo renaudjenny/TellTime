@@ -7,7 +7,7 @@ struct ConfigurationContainer: View {
     self.store.binding(for: \.configuration.clockStyle) { .configuration(.changeClockStyle($0)) }
   }
   private var isMinuteIndicatorsShown: Binding<Bool> {
-    self.store.binding(for: \.configuration.isMinuteIndicatorsShown) { .configuration(.shownMinuteIndicators($0)) }
+    self.store.binding(for: \.configuration.isMinuteIndicatorsShown) { .configuration(.showMinuteIndicators($0)) }
   }
   private var isHourIndicatorsShown: Binding<Bool> {
     self.store.binding(for: \.configuration.isHourIndicatorsShown) { .configuration(.showHourIndicators($0)) }

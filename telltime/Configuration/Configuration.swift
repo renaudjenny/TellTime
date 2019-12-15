@@ -7,7 +7,7 @@ enum Configuration {
   }
 
   enum Action {
-    case shownMinuteIndicators(Bool)
+    case showMinuteIndicators(Bool)
     case showHourIndicators(Bool)
     case showLimitedHours(Bool)
     case changeClockStyle(ClockStyle)
@@ -15,7 +15,7 @@ enum Configuration {
 
   static let reducer: Reducer<Configuration.State, Configuration.Action> = Reducer { state, action in
     switch action {
-    case let .shownMinuteIndicators(isShown):
+    case let .showMinuteIndicators(isShown):
       state.isMinuteIndicatorsShown = isShown
     case let .showHourIndicators(isShown):
       state.isHourIndicatorsShown = isShown
