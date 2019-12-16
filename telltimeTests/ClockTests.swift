@@ -23,4 +23,13 @@ class ClockTests: XCTestCase {
     XCTAssertEqual(store.state.clock.hourAngle, .degrees(335))
     XCTAssertEqual(store.state.clock.minuteAngle, .degrees(60))
   }
+
+  func testWhenIShowTheClockThenTheClockFaceIsShown() {
+    let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+    XCTAssertEqual(store.state.clock.isClockFaceShown, false)
+    store.send(.clock(.showClockFace))
+    XCTAssertEqual(store.state.clock.isClockFaceShown, true)
+    store.send(.clock(.hideClockFace))
+    XCTAssertEqual(store.state.clock.isClockFaceShown, false)
+  }
 }
