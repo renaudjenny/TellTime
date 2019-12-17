@@ -35,6 +35,7 @@ enum Clock {
 
   static let reducer: Reducer<Clock.State, Clock.Action> = Reducer { state, action in
     func changeDateAndAngles(date: Date) {
+      print(date)
       state.date = date
       state.hourAngle = .fromHour(date: state.date)
       state.minuteAngle = .fromMinute(date: state.date)
@@ -52,6 +53,7 @@ enum Clock {
     case let .changeHourAngle(angle):
       changeDateAndAngles(date: state.date.with(hourAngle: angle))
     case let .changeMinuteAngle(angle):
+      print(angle)
       changeDateAndAngles(date: state.date.with(minuteAngle: angle))
     case let .changeDate(date):
       changeDateAndAngles(date: date)
