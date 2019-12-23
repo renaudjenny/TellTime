@@ -40,10 +40,30 @@ class ClockTests: XCTestCase {
 
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     XCTAssertEqual(store.state.clock.hourAngle, .zero)
-    let oneHourAngle = Angle(degrees: 30)
+    let oneHourAngle = Angle(degrees: 360/12 * 1)
     store.send(.clock(.changeHourAngle(oneHourAngle)))
     let oneHourInSeconds: TimeInterval = 60 * 60
     XCTAssertEqual(store.state.clock.date, Date(timeIntervalSince1970: oneHourInSeconds))
     XCTAssertEqual(store.state.clock.hourAngle, oneHourAngle)
+  }
+
+  func testWhenIChangeTheMinuteAngleThenTheDateAndAnglesHaveChanged() {
+    let fakeCurrentDate = Date(timeIntervalSince1970: 0)
+    Current.date = { fakeCurrentDate }
+    Current.calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+
+    let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+    XCTAssertEqual(store.state.clock.hourAngle, .zero)
+    XCTAssertEqual(store.state.clock.minuteAngle, .zero)
+
+    let fiveteenMinutesAngles: (hour: Angle, minute: Angle) = (
+      hour: .degrees(360/12 * 1/4),
+      minute: .degrees(360/60 * 15)
+    )
+    store.send(.clock(.changeMinuteAngle(fiveteenMinutesAngles.minute)))
+    let fiveteenMinutesInSeconds: TimeInterval = 15 * 60
+    XCTAssertEqual(store.state.clock.date, Date(timeIntervalSince1970: fiveteenMinutesInSeconds))
+    XCTAssertEqual(store.state.clock.hourAngle, fiveteenMinutesAngles.hour)
+    XCTAssertEqual(store.state.clock.minuteAngle, fiveteenMinutesAngles.minute)
   }
 }
