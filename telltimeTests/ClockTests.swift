@@ -15,13 +15,19 @@ class ClockTests: XCTestCase {
   }
 
   func testWhenIChangeTheDateThenTheHourAngleAndMinuteAngleChangedAsWell() {
-    let date10past10 = Date(timeIntervalSince1970: 36600)
+    let tenHourInSecond: TimeInterval = 10 * 60 * 60
+    let tenMinutesInSecond: TimeInterval = 10 * 60
+    let date10past10 = Date(timeIntervalSince1970: tenHourInSecond + tenMinutesInSecond)
+    let tenHourTenMinuteAngles: (hour: Angle, minute: Angle) = (
+      hour: .degrees(360/12 * (10 + 1/6)),
+      minute: .degrees(360/60 * 10)
+    )
 
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     store.send(.clock(.changeDate(date10past10)))
     XCTAssertEqual(store.state.clock.date, date10past10)
-    XCTAssertEqual(store.state.clock.hourAngle, .degrees(335))
-    XCTAssertEqual(store.state.clock.minuteAngle, .degrees(60))
+    XCTAssertEqual(store.state.clock.hourAngle, tenHourTenMinuteAngles.hour)
+    XCTAssertEqual(store.state.clock.minuteAngle, tenHourTenMinuteAngles.minute)
   }
 
   func testWhenIShowTheClockThenTheClockFaceIsShown() {
@@ -40,7 +46,7 @@ class ClockTests: XCTestCase {
 
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     XCTAssertEqual(store.state.clock.hourAngle, .zero)
-    let oneHourAngle = Angle(degrees: 360/12 * 1)
+    let oneHourAngle = Angle(degrees: 360/12)
     store.send(.clock(.changeHourAngle(oneHourAngle)))
     let oneHourInSeconds: TimeInterval = 60 * 60
     XCTAssertEqual(store.state.clock.date, Date(timeIntervalSince1970: oneHourInSeconds))
@@ -65,5 +71,30 @@ class ClockTests: XCTestCase {
     XCTAssertEqual(store.state.clock.date, Date(timeIntervalSince1970: fiveteenMinutesInSeconds))
     XCTAssertEqual(store.state.clock.hourAngle, fiveteenMinutesAngles.hour)
     XCTAssertEqual(store.state.clock.minuteAngle, fiveteenMinutesAngles.minute)
+  }
+
+  func testWhenIChangeTheDateRandomlyThenTheDateAndAnglesAreChanhedRandomly() {
+    let fakeCurrentDate = Date(timeIntervalSince1970: 0)
+    Current.date = { fakeCurrentDate }
+    Current.calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+    let oneHourInSecond: TimeInterval = 60 * 60
+    let twentyMinutesInSecond: TimeInterval = 20 * 60
+    let randomDate = Date(timeIntervalSince1970: oneHourInSecond + twentyMinutesInSecond)
+    let oneHourTwentyMinutesAngles: (hour: Angle, minute: Angle) = (
+      hour: .degrees(360/12 * (1 + 1/3)),
+      minute: .degrees(360/60 * 20)
+    )
+
+    let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+    XCTAssertEqual(store.state.clock.date, fakeCurrentDate)
+    XCTAssertEqual(store.state.clock.hourAngle, .zero)
+    XCTAssertEqual(store.state.clock.minuteAngle, .zero)
+
+    Current.randomDate = { randomDate }
+
+    store.send(.clock(.changeClockRandomly))
+    XCTAssertEqual(store.state.clock.date, randomDate)
+    XCTAssertEqual(store.state.clock.hourAngle, oneHourTwentyMinutesAngles.hour)
+    XCTAssertEqual(store.state.clock.minuteAngle, oneHourTwentyMinutesAngles.minute)
   }
 }

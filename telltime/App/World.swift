@@ -7,6 +7,11 @@ import Combine
 struct World {
   var date = { Date() }
   var calendar = Calendar.autoupdatingCurrent
+  var randomDate: () -> Date = {
+    let hour = [Int](1...12).randomElement() ?? 0
+    let minute = [Int](0...59).randomElement() ?? 0
+    return Current.calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
+  }
   var deviceOrientation = UIDevice.current.orientation
   var orientationDidChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)

@@ -35,7 +35,6 @@ enum Clock {
 
   static let reducer: Reducer<Clock.State, Clock.Action> = Reducer { state, action in
     func changeDateAndAngles(date: Date) {
-      print(date)
       state.date = date
       state.hourAngle = .fromHour(date: state.date)
       state.minuteAngle = .fromMinute(date: state.date)
@@ -43,9 +42,7 @@ enum Clock {
 
     switch action {
     case .changeClockRandomly:
-      let hour = [Int](1...12).randomElement() ?? 0
-      let minute = [Int](0...59).randomElement() ?? 0
-      changeDateAndAngles(date: .from(hour: hour, minute: minute))
+      changeDateAndAngles(date: Current.randomDate())
     case .showClockFace:
       state.isClockFaceShown = true
     case .hideClockFace:
@@ -53,7 +50,6 @@ enum Clock {
     case let .changeHourAngle(angle):
       changeDateAndAngles(date: state.date.with(hourAngle: angle))
     case let .changeMinuteAngle(angle):
-      print(angle)
       changeDateAndAngles(date: state.date.with(minuteAngle: angle))
     case let .changeDate(date):
       changeDateAndAngles(date: date)
@@ -84,9 +80,5 @@ private extension Date {
       bySettingHour: hour, minute: Int(minute.rounded()), second: 0,
       of: self
     ) ?? self
-  }
-
-  static func from(hour: Int, minute: Int) -> Date {
-    return Current.calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
   }
 }
