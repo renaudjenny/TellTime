@@ -1,6 +1,7 @@
 import XCTest
 @testable import telltime
 import SwiftUI
+import Combine
 
 class ClockTests: XCTestCase {
   func testClockDefaultValues() {
@@ -36,6 +37,21 @@ class ClockTests: XCTestCase {
     store.send(.clock(.showClockFace))
     XCTAssertEqual(store.state.clock.isClockFaceShown, true)
     store.send(.clock(.hideClockFace))
+    XCTAssertEqual(store.state.clock.isClockFaceShown, false)
+  }
+
+  func testWhenIShowTheClockFaceAndDelayTheClockFaceHiddingThenTwoSecondsLaterTheFaceIsHidden() {
+    Current.clockFaceShownTimeInterval = 0.01
+    let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+    XCTAssertEqual(store.state.clock.isClockFaceShown, false)
+    store.send(.clock(.showClockFace))
+    store.send(App.SideEffect.clock(Clock.SideEffect.delayClockFaceHidding))
+    XCTAssertEqual(store.state.clock.isClockFaceShown, true)
+    let waitForFewSecondsExpectation = self.expectation(description: "Delay for the Face to be shown")
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+      waitForFewSecondsExpectation.fulfill()
+    }
+    self.wait(for: [waitForFewSecondsExpectation], timeout: 0.5)
     XCTAssertEqual(store.state.clock.isClockFaceShown, false)
   }
 

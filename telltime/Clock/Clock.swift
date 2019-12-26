@@ -26,7 +26,7 @@ enum Clock {
       switch self {
       case .delayClockFaceHidding:
         return Just(true)
-          .delay(for: .seconds(2), scheduler: RunLoop.main)
+          .delay(for: .seconds(Current.clockFaceShownTimeInterval), scheduler: RunLoop.main)
           .map { _ in Clock.Action.hideClockFace }
           .eraseToAnyPublisher()
       }
