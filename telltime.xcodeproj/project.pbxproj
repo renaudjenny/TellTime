@@ -49,6 +49,7 @@
 		4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */; };
 		4CFD817023A2EA5A00A97C77 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD816F23A2EA5A00A97C77 /* Engine.swift */; };
 		4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */; };
+		4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockBorder.swift; sourceTree = "<group>"; };
 		4CFD816F23A2EA5A00A97C77 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensionsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 		4CB1D4D122A7293500786385 /* telltimeTests */ = {
 			isa = PBXGroup;
 			children = (
+				4CFD817623B688CF00A97C77 /* Common */,
 				4CB1D4D222A7293500786385 /* telltimeTests.swift */,
 				4CB1D4D422A7293500786385 /* Info.plist */,
 				4CA2ECB22393C11F0098B2FF /* ClockTests.swift */,
@@ -297,6 +300,14 @@
 				4CFD816F23A2EA5A00A97C77 /* Engine.swift */,
 			);
 			path = TTS;
+			sourceTree = "<group>";
+		};
+		4CFD817623B688CF00A97C77 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */,
+				4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */,
 				4CA2ECB32393C11F0098B2FF /* ClockTests.swift in Sources */,
 				4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */,
 			);
