@@ -67,4 +67,8 @@ class SwiftUIExtensionsTests: XCTestCase {
     XCTAssertEqual(expectedPoint.x, pointInCircleFromAngle.x, accuracy: 0.01)
     XCTAssertEqual(expectedPoint.y, pointInCircleFromAngle.y, accuracy: 0.01)
   }
+
+  func testColorExtensionBackground() {
+    XCTAssertEqual(Color(UIColor.systemBackground), Color.background)
+  }
 }
