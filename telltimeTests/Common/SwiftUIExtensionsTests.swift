@@ -68,6 +68,34 @@ class SwiftUIExtensionsTests: XCTestCase {
     XCTAssertEqual(expectedPoint.y, pointInCircleFromAngle.y, accuracy: 0.01)
   }
 
+  func testCGPointExtensionPointInCircleFromAngleFortyFiveDegreesWithMargin() {
+    let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    let margin: CGFloat = 15.0
+    let angle = Angle(degrees: 45)
+
+    // https://stackoverflow.com/questions/839899/how-do-i-calculate-a-point-on-a-circle-s-circumference
+    // The parametric equation for a circle is
+    // https://en.wikipedia.org/wiki/Circle#Equations
+    // x = originX + radius * cos(angle)
+    // y = originY + radius * sin(angle)
+    let originX = 50.0
+    let originY = 50.0
+
+    let radius = 50.0 - Double(margin)
+
+    let cosAngle = cos(angle.radians - Double.pi/2)
+    let sinAngle = sin(angle.radians - Double.pi/2)
+
+    let expectedPoint = CGPoint(
+      x: originX + radius * cosAngle,
+      y: originY + radius * sinAngle
+    )
+
+    let pointInCircleFromAngle: CGPoint = .pointInCircle(from: angle, frame: frame, margin: margin)
+    XCTAssertEqual(expectedPoint.x, pointInCircleFromAngle.x, accuracy: 0.01)
+    XCTAssertEqual(expectedPoint.y, pointInCircleFromAngle.y, accuracy: 0.01)
+  }
+
   func testColorExtensionBackground() {
     XCTAssertEqual(Color(UIColor.systemBackground), Color.background)
   }
