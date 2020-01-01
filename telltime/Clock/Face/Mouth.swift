@@ -45,3 +45,32 @@ extension ClockFace {
     case sad = -1.0
   }
 }
+
+#if DEBUG
+struct Mouth_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+      ClockFace.Mouth(shape: .smile)
+        .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
+        .padding()
+        .frame(width: 100, height: 50)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Smile")
+
+      ClockFace.Mouth(shape: .neutral)
+        .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
+        .padding()
+        .frame(width: 100, height: 50)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Neutral")
+
+      ClockFace.Mouth(shape: .sad)
+        .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
+        .padding()
+        .frame(width: 100, height: 50)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Sad")
+    }
+  }
+}
+#endif
