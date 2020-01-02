@@ -12,5 +12,5 @@ Works with Xcode 11.
 
 * ✅ Test on a real device
 * 🛠 Test on MacOS Catalina
-* 🛠 Add an icon
+* ✅ Add an icon
 * 🛠 Improve UI
