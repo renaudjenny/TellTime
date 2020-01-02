@@ -9,7 +9,7 @@ extension ClockFace {
       ZStack {
         Circle()
           .stroke(lineWidth: 4)
-        Iris(move: self.move, position: self.position)
+        ClockFace.Iris(move: self.move, position: self.position)
           .fill()
       }
     }
@@ -48,7 +48,7 @@ extension ClockFace {
         .applying(.init(
           translationX: xTranslation  * animationStep,
           y: yTranslation * animationStep
-        ))
+          ))
 
       var path = Path()
       path.addEllipse(in: iris)
@@ -64,8 +64,26 @@ extension ClockFace {
 
 #if DEBUG
 struct Eye_Previews: PreviewProvider {
-    static var previews: some View {
+  static var previews: some View {
+    Group {
+      ClockFace.Eye(move: false, position: .left)
+        .padding()
+        .frame(width: 150, height: 150)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Eye (not moved)")
+
       ClockFace.Eye(move: true, position: .left)
+        .padding()
+        .frame(width: 150, height: 150)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Left eye")
+
+      ClockFace.Eye(move: true, position: .right)
+        .padding()
+        .frame(width: 150, height: 150)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Right eye")
     }
+  }
 }
 #endif

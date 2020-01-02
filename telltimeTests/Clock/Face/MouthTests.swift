@@ -4,7 +4,7 @@ import SnapshotTesting
 import SwiftUI
 
 class MouthTests: XCTestCase {
-  func testMouthNeutral() {
+  func testMouths() {
     let mouths = Mouth_Previews.previews
     let hostingController = UIHostingController(rootView: mouths)
     assertSnapshot(matching: hostingController, as: .image)
