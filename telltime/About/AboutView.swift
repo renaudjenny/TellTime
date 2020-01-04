@@ -30,8 +30,10 @@ fileprivate extension Double {
   static let high: Double = 100
 }
 
+#if DEBUG
 struct About_Previews: PreviewProvider {
   static var previews: some View {
     AboutView()
   }
 }
+#endif

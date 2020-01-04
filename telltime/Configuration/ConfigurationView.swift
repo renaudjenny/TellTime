@@ -169,6 +169,7 @@ private struct StylePicker: View {
   }
 }
 
+#if DEBUG
 struct Configuration_Previews: PreviewProvider {
   static var previews: some View {
     NavigationView {
@@ -185,3 +186,4 @@ struct Configuration_Previews: PreviewProvider {
     .environmentObject(App.previewStore)
   }
 }
+#endif

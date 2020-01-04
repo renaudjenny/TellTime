@@ -55,6 +55,7 @@ struct ArtNouveauArm: View {
   }
 }
 
+#if DEBUG
 struct ArtNouveauArm_Previews: PreviewProvider {
   static var previews: some View {
     ArtNouveauArm(
@@ -63,3 +64,4 @@ struct ArtNouveauArm_Previews: PreviewProvider {
     )
   }
 }
+#endif

@@ -19,7 +19,7 @@ struct ArmContainer: View {
       marginRatio: self.ratios(for: self.type).marginRatio,
       angle: self.angle
     )
-    .onAppear(perform: self.setupAngle)
+      .onAppear(perform: self.setupAngle)
   }
 
   private func setupAngle() {
@@ -113,12 +113,49 @@ enum ArmType {
 #if DEBUG
 struct Arm_Previews: PreviewProvider {
   static var previews: some View {
-    Arm(
-      clockStyle: .classic,
-      lineWidthRatio: 1/2,
-      marginRatio: 2/5,
-      angle: .constant(.zero)
-    )
+    Group {
+      ZStack {
+        Circle()
+          .stroke()
+        Arm(
+          clockStyle: .classic,
+          lineWidthRatio: 1/2,
+          marginRatio: 1/4,
+          angle: .constant(.zero)
+        )
+      }
+      .frame(width: 300, height: 300)
+      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+      .previewDisplayName("Classic Arm")
+
+      ZStack {
+        Circle()
+          .stroke()
+        Arm(
+          clockStyle: .artNouveau,
+          lineWidthRatio: 1/2,
+          marginRatio: 1/4,
+          angle: .constant(.zero)
+        )
+      }
+      .frame(width: 300, height: 300)
+      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+      .previewDisplayName("Art Nouveau Arm")
+
+      ZStack {
+        Circle()
+          .stroke()
+        Arm(
+          clockStyle: .drawing,
+          lineWidthRatio: 1/2,
+          marginRatio: 1/4,
+          angle: .constant(.zero)
+        )
+      }
+      .frame(width: 300, height: 300)
+      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+      .previewDisplayName("Art Nouveau Arm")
+    }
   }
 }
 #endif

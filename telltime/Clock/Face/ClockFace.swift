@@ -37,6 +37,7 @@ struct ClockFace: View {
   }
 }
 
+#if DEBUG
 struct ClockFace_Previews: PreviewProvider {
   static var previews: some View {
     Group {
@@ -54,3 +55,4 @@ struct ClockFace_Previews: PreviewProvider {
     }
   }
 }
+#endif

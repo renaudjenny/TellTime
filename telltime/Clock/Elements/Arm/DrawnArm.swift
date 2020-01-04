@@ -26,6 +26,7 @@ struct DrawnArm: View {
   }
 }
 
+#if DEBUG
 struct DrawnArm_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
@@ -39,3 +40,4 @@ struct DrawnArm_Previews: PreviewProvider {
     .frame(width: 300, height: 300)
   }
 }
+#endif
