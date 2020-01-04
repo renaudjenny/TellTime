@@ -27,11 +27,11 @@ struct ClockFace: View {
         )
       Mouth(shape: self.isClockFaceShown ? .smile : .neutral)
         .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
+        .frame(width: geometry.frame(in: .local).width/3, height: geometry.frame(in: .local).height/6)
         .position(
           x: geometry.frame(in: .local).width/2,
           y: geometry.frame(in: .local).width/1.3
         )
-        .frame(width: geometry.frame(in: .local).width/3, height: geometry.frame(in: .local).height/6)
     }
     .animation(.easeInOut)
   }
@@ -39,6 +39,18 @@ struct ClockFace: View {
 
 struct ClockFace_Previews: PreviewProvider {
   static var previews: some View {
-    ClockFace(isClockFaceShown: true)
+    Group {
+      ClockFace(isClockFaceShown: true)
+        .padding()
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Clock face shown")
+
+      ClockFace(isClockFaceShown: false)
+        .padding()
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Clock face hidden")
+    }
   }
 }
