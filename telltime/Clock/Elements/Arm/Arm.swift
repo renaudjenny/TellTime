@@ -126,35 +126,35 @@ struct Arm_Previews: PreviewProvider {
       }
       .frame(width: 300, height: 300)
       .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Classic Arm")
+      .previewDisplayName("Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
 
       ZStack {
         Circle()
           .stroke()
         Arm(
-          clockStyle: .artNouveau,
-          lineWidthRatio: 1/2,
-          marginRatio: 1/4,
+          clockStyle: .classic,
+          lineWidthRatio: 2/3,
+          marginRatio: 1/6,
           angle: .constant(.zero)
         )
       }
       .frame(width: 300, height: 300)
       .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Art Nouveau Arm")
+      .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 0deg angle")
 
       ZStack {
         Circle()
           .stroke()
         Arm(
-          clockStyle: .drawing,
-          lineWidthRatio: 1/2,
-          marginRatio: 1/4,
-          angle: .constant(.zero)
+          clockStyle: .classic,
+          lineWidthRatio: 2/3,
+          marginRatio: 1/6,
+          angle: .constant(.degrees(20))
         )
       }
       .frame(width: 300, height: 300)
       .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Art Nouveau Arm")
+      .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 20deg angle")
     }
   }
 }

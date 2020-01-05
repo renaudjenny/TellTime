@@ -45,6 +45,7 @@
 		4CD270CE23BCD6AF004536D6 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD270CD23BCD6AF004536D6 /* SnapshotTesting */; };
 		4CD270D023BE80EC004536D6 /* EyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270CF23BE80EC004536D6 /* EyeTests.swift */; };
 		4CD270D223C0FA89004536D6 /* ClockFaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D123C0FA89004536D6 /* ClockFaceTests.swift */; };
+		4CD270D623C1FAFC004536D6 /* ArmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D523C1FAFC004536D6 /* ArmTests.swift */; };
 		4CDD4A802336E64E004BE734 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD4A7F2336E64E004BE734 /* AboutView.swift */; };
 		4CEB60402381C32B0085B07C /* DrawnArm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB603F2381C32B0085B07C /* DrawnArm.swift */; };
 		4CEB6042238ADEAF0085B07C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6041238ADEAF0085B07C /* App.swift */; };
@@ -108,6 +109,7 @@
 		4CD270C623BCD30B004536D6 /* MouthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouthTests.swift; sourceTree = "<group>"; };
 		4CD270CF23BE80EC004536D6 /* EyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTests.swift; sourceTree = "<group>"; };
 		4CD270D123C0FA89004536D6 /* ClockFaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceTests.swift; sourceTree = "<group>"; };
+		4CD270D523C1FAFC004536D6 /* ArmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmTests.swift; sourceTree = "<group>"; };
 		4CDD4A7F2336E64E004BE734 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		4CEB603F2381C32B0085B07C /* DrawnArm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnArm.swift; sourceTree = "<group>"; };
 		4CEB6041238ADEAF0085B07C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				4CA2ECB22393C11F0098B2FF /* ClockTests.swift */,
+				4CD270D323C1FACF004536D6 /* Elements */,
 				4CD270C523BCD2F4004536D6 /* Face */,
 			);
 			path = Clock;
@@ -338,6 +341,22 @@
 				4CD270D123C0FA89004536D6 /* ClockFaceTests.swift */,
 			);
 			path = Face;
+			sourceTree = "<group>";
+		};
+		4CD270D323C1FACF004536D6 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				4CD270D423C1FADF004536D6 /* Arm */,
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
+		4CD270D423C1FADF004536D6 /* Arm */ = {
+			isa = PBXGroup;
+			children = (
+				4CD270D523C1FAFC004536D6 /* ArmTests.swift */,
+			);
+			path = Arm;
 			sourceTree = "<group>";
 		};
 		4CFD817623B688CF00A97C77 /* Common */ = {
@@ -529,6 +548,7 @@
 				4CD270D023BE80EC004536D6 /* EyeTests.swift in Sources */,
 				4CD270D223C0FA89004536D6 /* ClockFaceTests.swift in Sources */,
 				4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */,
+				4CD270D623C1FAFC004536D6 /* ArmTests.swift in Sources */,
 				4CD270C723BCD30B004536D6 /* MouthTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
