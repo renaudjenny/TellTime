@@ -155,6 +155,20 @@ struct Arm_Previews: PreviewProvider {
       .frame(width: 300, height: 300)
       .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
       .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 20deg angle")
+
+      ZStack {
+        Circle()
+          .stroke()
+        Arm(
+          clockStyle: .artNouveau,
+          lineWidthRatio: 1/2,
+          marginRatio: 1/4,
+          angle: .constant(.zero)
+        )
+      }
+      .frame(width: 300, height: 300)
+      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+      .previewDisplayName("Art Nouveau Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
     }
   }
 }
