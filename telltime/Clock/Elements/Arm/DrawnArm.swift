@@ -4,11 +4,11 @@ struct DrawnArm: View {
   private static let widthRatio: CGFloat = 1/20
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
-  @State private var animate = false
+  @State private var showIndicator = Current.isOnAppearAnimationDisabled
 
   var body: some View {
     GeometryReader { geometry in
-      DrawnIndicator(draw: self.animate)
+      DrawnIndicator(draw: self.showIndicator)
         .frame(
           width: geometry.localWidth * Self.widthRatio * self.lineWidthRatio,
           height: self.computedHeight(geometry.localHeight)
@@ -16,8 +16,7 @@ struct DrawnArm: View {
         .position(geometry.localCenter)
         .transformEffect(.init(translationX: 0, y: self.computedHeight(geometry.localHeight)/2))
         .rotationEffect(Angle(degrees: 180))
-        .onAppear(perform: { self.animate = true })
-        .animation(.easeOut)
+        .onAppear(perform: { self.showIndicator = true })
     }
   }
 

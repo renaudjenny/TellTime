@@ -17,7 +17,8 @@ struct DrawnCircle: Shape {
   private static let marginRatio: CGFloat = 1/80
   private static let numberOfArcs = 26
   private static let angleRatio: Double = 360/Double(Self.numberOfArcs - 1)
-  private let maxMarginRatio = CGFloat.random(in: 0...Self.marginRatio)
+  private let maxMarginRatio = Current.clock.drawnRandomBorderMarginRatio.maxMargin(Self.marginRatio)
+  private let angleMarginRatio = Current.clock.drawnRandomBorderMarginRatio.angleMargin()
   private var circleStep: CGFloat
 
   init(draw: Bool) {
