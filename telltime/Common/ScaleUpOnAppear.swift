@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ScaleUpOnAppear: ViewModifier {
-  @State private var isShown = false
+  @State private var isShown = Current.isOnAppearAnimationDisabled
 
   func body(content: Content) -> some View {
     content

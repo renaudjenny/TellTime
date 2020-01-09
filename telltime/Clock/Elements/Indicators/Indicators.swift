@@ -26,12 +26,24 @@ struct Indicators: View {
 
 #if DEBUG
 struct Indicators_Previews: PreviewProvider {
-  static var previews: some View {
+  private static func indicators(style: ClockStyle) -> some View {
     ZStack {
-      Indicators(clockStyle: .artNouveau)
+      Indicators(clockStyle: style)
         .environmentObject(App.previewStore)
-      Circle()
-        .stroke()
+    }
+  }
+
+  static var previews: some View {
+    Group {
+      Self.indicators(style: .classic)
+        .previewDevice("iPhone SE")
+        .previewDisplayName("Indicators Classic")
+      Self.indicators(style: .artNouveau)
+        .previewDevice("iPhone SE")
+        .previewDisplayName("Indicators Art Nouveau")
+      Self.indicators(style: .drawing)
+        .previewDevice("iPhone SE")
+        .previewDisplayName("Indicators Art Nouveau")
     }
   }
 }

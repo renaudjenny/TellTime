@@ -47,6 +47,11 @@ extension Clock {
       maxMargin: { CGFloat.random(in: 0...$0) },
       angleMargin: { Double.random(in: 0...1/3) }
     )
+
+    private static let angles: [Angle] = [.zero, .degrees(-5), .degrees(5)]
+    var randomAngle: () -> Angle? = Self.angles.randomElement
+    private static let scales: [CGFloat] = [1, 1.1, 0.9]
+    var randomScale: () -> CGFloat? = Self.scales.randomElement
   }
 }
 

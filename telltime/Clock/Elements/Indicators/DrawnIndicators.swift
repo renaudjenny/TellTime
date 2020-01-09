@@ -169,8 +169,6 @@ struct DrawnNumbers: View {
   private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   private static let limitedHours = [12, 3, 6, 9]
   private static let marginRatio: CGFloat = 1/7
-  private static let availableRotationAngles: [Angle] = [.zero, .degrees(-5), .degrees(5)]
-  private static let availableScale: [CGFloat] = [1, 1.1, 0.9]
   let isHourIndicatorsShown: Bool
   let isMinuteIndicatorsShown: Bool
   let isLimitedHoursShown: Bool
@@ -179,8 +177,8 @@ struct DrawnNumbers: View {
     GeometryReader { geometry in
       ForEach(self.configurationHours, id: \.self) { hour in
         Text("\(hour)")
-          .rotationEffect(Self.availableRotationAngles.randomElement() ?? .zero, anchor: .center)
-          .scaleEffect(Self.availableScale.randomElement() ?? 1, anchor: .center)
+          .rotationEffect(Current.clock.randomAngle() ?? .zero, anchor: .center)
+          .scaleEffect(Current.clock.randomScale() ?? 1, anchor: .center)
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
