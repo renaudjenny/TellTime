@@ -112,77 +112,50 @@ enum ArmType {
 
 #if DEBUG
 struct Arm_Previews: PreviewProvider {
+  private static func arm(
+    style: ClockStyle,
+    lineWidthRatio: CGFloat = 1/2,
+    marginRatio: CGFloat = 1/4,
+    angle: Angle = .zero
+  ) -> some View {
+    ZStack {
+      Circle()
+        .stroke()
+      Arm(
+        clockStyle: style,
+        lineWidthRatio: lineWidthRatio,
+        marginRatio: marginRatio,
+        angle: .constant(angle)
+      )
+    }
+  }
+
   static var previews: some View {
     Group {
-      ZStack {
-        Circle()
-          .stroke()
-        Arm(
-          clockStyle: .classic,
-          lineWidthRatio: 1/2,
-          marginRatio: 1/4,
-          angle: .constant(.zero)
-        )
-      }
-      .frame(width: 300, height: 300)
-      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
+      Self.arm(style: .classic)
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
 
-      ZStack {
-        Circle()
-          .stroke()
-        Arm(
-          clockStyle: .classic,
-          lineWidthRatio: 2/3,
-          marginRatio: 1/6,
-          angle: .constant(.zero)
-        )
-      }
-      .frame(width: 300, height: 300)
-      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 0deg angle")
+      Self.arm(style: .classic, lineWidthRatio: 2/3, marginRatio: 1/6)
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 0deg angle")
 
-      ZStack {
-        Circle()
-          .stroke()
-        Arm(
-          clockStyle: .classic,
-          lineWidthRatio: 2/3,
-          marginRatio: 1/6,
-          angle: .constant(.degrees(20))
-        )
-      }
-      .frame(width: 300, height: 300)
-      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 20deg angle")
+      Self.arm(style: .classic, lineWidthRatio: 2/3, marginRatio: 1/6, angle: .degrees(20))
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Arm with 2/3 line with ratio and 1/6 margin ration with 20deg angle")
 
-      ZStack {
-        Circle()
-          .stroke()
-        Arm(
-          clockStyle: .artNouveau,
-          lineWidthRatio: 1/2,
-          marginRatio: 1/4,
-          angle: .constant(.zero)
-        )
-      }
-      .frame(width: 300, height: 300)
-      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Art Nouveau Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
+      Self.arm(style: .artNouveau)
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Art Nouveau Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
 
-      ZStack {
-        Circle()
-          .stroke()
-        Arm(
-          clockStyle: .drawing,
-          lineWidthRatio: 1/2,
-          marginRatio: 1/4,
-          angle: .constant(.zero)
-        )
-      }
-      .frame(width: 300, height: 300)
-      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-      .previewDisplayName("Drawing Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
+      Self.arm(style: .drawing)
+        .frame(width: 300, height: 300)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Drawing Arm with 1/2 line with ratio and 1/4 margin ration with 0deg angle")
     }
   }
 }
