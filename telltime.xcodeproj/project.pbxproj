@@ -48,6 +48,7 @@
 		4CD270D623C1FAFC004536D6 /* ArmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D523C1FAFC004536D6 /* ArmTests.swift */; };
 		4CD270D823C3AC92004536D6 /* BDD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D723C3AC92004536D6 /* BDD.swift */; };
 		4CD270DA23C67832004536D6 /* IndicatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D923C67832004536D6 /* IndicatorsTests.swift */; };
+		4CD270DC23CA387E004536D6 /* BorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270DB23CA387E004536D6 /* BorderTests.swift */; };
 		4CDD4A802336E64E004BE734 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD4A7F2336E64E004BE734 /* AboutView.swift */; };
 		4CEB60402381C32B0085B07C /* DrawnArm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB603F2381C32B0085B07C /* DrawnArm.swift */; };
 		4CEB6042238ADEAF0085B07C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6041238ADEAF0085B07C /* App.swift */; };
@@ -114,6 +115,7 @@
 		4CD270D523C1FAFC004536D6 /* ArmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmTests.swift; sourceTree = "<group>"; };
 		4CD270D723C3AC92004536D6 /* BDD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDD.swift; sourceTree = "<group>"; };
 		4CD270D923C67832004536D6 /* IndicatorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorsTests.swift; sourceTree = "<group>"; };
+		4CD270DB23CA387E004536D6 /* BorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTests.swift; sourceTree = "<group>"; };
 		4CDD4A7F2336E64E004BE734 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		4CEB603F2381C32B0085B07C /* DrawnArm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnArm.swift; sourceTree = "<group>"; };
 		4CEB6041238ADEAF0085B07C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				4CD270D523C1FAFC004536D6 /* ArmTests.swift */,
+				4CD270DB23CA387E004536D6 /* BorderTests.swift */,
 				4CD270D923C67832004536D6 /* IndicatorsTests.swift */,
 			);
 			path = Elements;
@@ -540,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */,
+				4CD270DC23CA387E004536D6 /* BorderTests.swift in Sources */,
 				4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */,
 				4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */,
 				4CD270DA23C67832004536D6 /* IndicatorsTests.swift in Sources */,

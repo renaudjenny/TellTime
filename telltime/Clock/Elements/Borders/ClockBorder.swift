@@ -28,3 +28,25 @@ struct ClockBorder: View {
     }
   }
 }
+
+#if DEBUG
+struct ClockBorder_Previews: PreviewProvider {
+  private static func clockBorder(style: ClockStyle) -> some View {
+    ClockBorder(localWidth: 300, clockStyle: style)
+  }
+
+  static var previews: some View {
+    Group {
+      Self.clockBorder(style: .classic)
+        .previewDevice("iPhone SE")
+        .previewDisplayName("Indicators Classic")
+      Self.clockBorder(style: .artNouveau)
+        .previewDevice("iPhone SE")
+        .previewDisplayName("Indicators Art Nouveau")
+      Self.clockBorder(style: .drawing)
+        .previewDevice("iPhone SE")
+        .previewDisplayName("Indicators Drawing")
+    }
+  }
+}
+#endif

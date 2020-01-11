@@ -14,7 +14,7 @@ struct ArtNouveauClockBorder: View {
           .scale(Self.innerCircleScale)
           .transform(.init(
             translationX: 0,
-            y: geometry.localWidth/2 * (1 - Self.innerCircleScale)
+            y: geometry.localDiameter/2 * (1 - Self.innerCircleScale)
           ))
           .stroke(lineWidth: self.localWidth * Self.borderWidthRatio/4)
       }

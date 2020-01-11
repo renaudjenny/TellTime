@@ -3,7 +3,7 @@ import SwiftUI
 struct DrawnClockBorder: View {
   static let borderWidthRatio: CGFloat = 1/70
   let localWidth: CGFloat
-  @State private var animate: Bool = false
+  @State private var animate: Bool = Current.isOnAppearAnimationDisabled
 
   var body: some View {
     DrawnCircle(draw: self.animate)
@@ -45,7 +45,7 @@ struct DrawnCircle: Shape {
       )
 
       let control: CGPoint = .pointInCircle(
-        from: Angle(degrees: angle.degrees - Double.random(in: 0...1/3) * Self.angleRatio),
+        from: Angle(degrees: angle.degrees - self.angleMarginRatio * Self.angleRatio),
         frame: rect,
         margin: margin
       )
