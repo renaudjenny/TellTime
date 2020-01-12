@@ -1,5 +1,6 @@
 import XCTest
 @testable import telltime
+import SnapshotTesting
 import SwiftUI
 import Combine
 
@@ -112,5 +113,12 @@ class ClockTests: XCTestCase {
     XCTAssertEqual(store.state.clock.date, randomDate)
     XCTAssertEqual(store.state.clock.hourAngle, oneHourTwentyMinutesAngles.hour)
     XCTAssertEqual(store.state.clock.minuteAngle, oneHourTwentyMinutesAngles.minute)
+  }
+
+  func testClockViews() {
+    Current.isOnAppearAnimationDisabled = true
+    let clockViews = ClockView_Previews.previews
+    let hostingController = UIHostingController(rootView: clockViews)
+    assertSnapshot(matching: hostingController, as: .image)
   }
 }

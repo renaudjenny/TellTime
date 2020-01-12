@@ -36,9 +36,20 @@ struct ClockView: View {
 }
 
 #if DEBUG
-struct Clock_Previews: PreviewProvider {
+struct ClockView_Previews: PreviewProvider {
+  private static func clockView(isClockFaceShown: Bool) -> some View {
+    ClockView(isClockFaceShown: isClockFaceShown)
+      .environmentObject(App.previewStore)
+  }
   static var previews: some View {
-    ClockView(isClockFaceShown: false)
+    Group {
+      Self.clockView(isClockFaceShown: false)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Clock without Face")
+      Self.clockView(isClockFaceShown: true)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Clock with Face")
+    }
   }
 }
 #endif
