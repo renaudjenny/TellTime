@@ -170,8 +170,8 @@ private struct StylePicker: View {
 }
 
 #if DEBUG
-struct Configuration_Previews: PreviewProvider {
-  static var previews: some View {
+struct ConfigurationView_Previews: PreviewProvider {
+  static func configurationView(deviceOrientation: UIDeviceOrientation) -> some View {
     NavigationView {
       ConfigurationView(
         clockStyle: .constant(.classic),
@@ -179,11 +179,19 @@ struct Configuration_Previews: PreviewProvider {
         isHourIndicatorsShown: .constant(true),
         isLimitedHoursShown: .constant(false),
         speechRateRatio: .constant(1.0),
-        deviceOrientation: .portrait
+        deviceOrientation: deviceOrientation
       )
         .navigationBarTitle("Configuration")
     }
     .environmentObject(App.previewStore)
+  }
+
+  static var previews: some View {
+    Group {
+      configurationView(deviceOrientation: .portrait)
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Configuration portrait")
+    }
   }
 }
 #endif
