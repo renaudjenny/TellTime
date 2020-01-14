@@ -67,3 +67,9 @@ extension Angle {
     return Angle(degrees: Double(minute) * relationship)
   }
 }
+
+extension View {
+  func animationIfEnabled(_ animation: Animation?) -> some View {
+    self.animation(Current.isAnimationDisabled ? nil : animation)
+  }
+}

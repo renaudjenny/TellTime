@@ -39,14 +39,13 @@ struct SpeakButton: View {
             height: geometry.size.height)
           .fill(Color.red)
           .cornerRadius(8)
-          .animation(.easeInOut)
+          .animationIfEnabled(.easeInOut)
       }
       Button(action: self.tellTime) {
         Image(systemName: "speaker.2")
           .padding()
           .accentColor(.white)
           .cornerRadius(8)
-          .animation(.easeInOut)
       }
       .disabled(self.isSpeaking)
       .layoutPriority(1)
@@ -57,3 +56,30 @@ struct SpeakButton: View {
     self.isSpeaking ? CGFloat(self.speakingProgress) : 1.0
   }
 }
+
+#if DEBUG
+struct SpeakButton_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+      SpeakButton(isSpeaking: false, speakingProgress: 1, tellTime: {})
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Speak Button not speaking, 100% progress")
+      SpeakButton(isSpeaking: true, speakingProgress: 1/4, tellTime: {})
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Speak Button speaking, 25% progress")
+      SpeakButton(isSpeaking: true, speakingProgress: 1/2, tellTime: {})
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Speak Button speaking, 50% progress")
+      SpeakButton(isSpeaking: true, speakingProgress: 3/4, tellTime: {})
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Speak Button speaking, 75% progress")
+      SpeakButton(isSpeaking: true, speakingProgress: 9/10, tellTime: {})
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Speak Button speaking, 90% progress")
+      SpeakButton(isSpeaking: true, speakingProgress: 1, tellTime: {})
+        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewDisplayName("Speak Button speaking, 100% progress")
+    }
+  }
+}
+#endif

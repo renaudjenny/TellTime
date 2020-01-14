@@ -116,7 +116,7 @@ class ClockTests: XCTestCase {
   }
 
   func testClockViews() {
-    Current.isOnAppearAnimationDisabled = true
+    Current.isAnimationDisabled = true
     let clockViews = ClockView_Previews.previews
     let hostingController = UIHostingController(rootView: clockViews)
     assertSnapshot(matching: hostingController, as: .image)

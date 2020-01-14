@@ -5,7 +5,7 @@ import SwiftUI
 
 class IndicatorsTests: XCTestCase {
   func testIndicators() {
-    Current.isOnAppearAnimationDisabled = true
+    Current.isAnimationDisabled = true
     Current.clock.drawnRandomControlRatio = (
       leftX: { 0.5 },
       leftY: { 0.6 },

@@ -4,7 +4,7 @@ struct DrawnArm: View {
   private static let widthRatio: CGFloat = 1/20
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
-  @State private var showIndicator = Current.isOnAppearAnimationDisabled
+  @State private var showIndicator = false
 
   var body: some View {
     GeometryReader { geometry in

@@ -5,7 +5,7 @@ import SwiftUI
 
 class ClockBordersTests: XCTestCase {
   func testClockBorders() {
-    Current.isOnAppearAnimationDisabled = true
+    Current.isAnimationDisabled = true
     Current.clock.drawnRandomBorderMarginRatio = (
       maxMargin: { $0 },
       angleMargin: { 1/3 }

@@ -17,7 +17,7 @@ struct World {
   var orientationDidChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)
 
-  var isOnAppearAnimationDisabled = false
+  var isAnimationDisabled = false
 
   var tts = TTS.World()
   var clock = Clock.World()

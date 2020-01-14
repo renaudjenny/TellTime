@@ -109,7 +109,7 @@ struct DrawnIndicator: Shape {
   private let rightYControlRatio = Current.clock.drawnRandomControlRatio.rightY()
 
   init(draw: Bool) {
-    self.drawStep = draw ? 1 : 0
+    self.drawStep = draw || Current.isAnimationDisabled ? 1 : 0
   }
 
   var animatableData: CGFloat {

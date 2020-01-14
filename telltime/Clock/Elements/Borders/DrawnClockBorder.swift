@@ -3,7 +3,7 @@ import SwiftUI
 struct DrawnClockBorder: View {
   static let borderWidthRatio: CGFloat = 1/70
   let localWidth: CGFloat
-  @State private var animate: Bool = Current.isOnAppearAnimationDisabled
+  @State private var animate = false
 
   var body: some View {
     DrawnCircle(draw: self.animate)
@@ -22,7 +22,7 @@ struct DrawnCircle: Shape {
   private var circleStep: CGFloat
 
   init(draw: Bool) {
-    self.circleStep = draw ? 1 : 0
+    self.circleStep = draw || Current.isAnimationDisabled ? 1 : 0
   }
 
   var animatableData: CGFloat {
