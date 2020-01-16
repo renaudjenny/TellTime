@@ -45,4 +45,35 @@ class TTSTests: XCTestCase {
       }
     }
   }
+
+  func testTTSStartSpeaking() {
+    given("TTS is not currently speaking because I just started the application") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      XCTAssertEqual(false, store.state.tts.isSpeaking)
+
+      when("I trigger the action for speaking") {
+        store.send(.tts(.startSpeaking))
+
+        then("the the TTS state is speaking") {
+          XCTAssertEqual(true, store.state.tts.isSpeaking)
+        }
+      }
+    }
+  }
+
+  func testTTSStopSpeaking() {
+    given("TTS is currently speaking") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      store.send(.tts(.startSpeaking))
+      XCTAssertEqual(true, store.state.tts.isSpeaking)
+
+      when("the utterance ends, an action is triggered") {
+        store.send(.tts(.stopSpeaking))
+
+        then("the the TTS state is not speaking") {
+          XCTAssertEqual(false, store.state.tts.isSpeaking)
+        }
+      }
+    }
+  }
 }
