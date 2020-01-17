@@ -76,4 +76,20 @@ class TTSTests: XCTestCase {
       }
     }
   }
+
+  func testTTSSpeakingProgress() {
+    given("TTS start speaking") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      XCTAssertEqual(0, store.state.tts.speakingProgress)
+
+      when("the utterance progress, 50% for instance") {
+        let progress: Double = 50/100
+        store.send(.tts(.changeSpeakingProgress(progress)))
+
+        then("the the TTS state is not speaking") {
+          XCTAssertEqual(progress, store.state.tts.speakingProgress)
+        }
+      }
+    }
+  }
 }
