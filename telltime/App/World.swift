@@ -26,7 +26,7 @@ struct World {
 extension TTS {
   struct World {
     var isSpeaking =  Engine.default.isSpeaking
-    var isSpeakingPublisher = Engine.default.$isSpeaking
+    var isSpeakingPublisher = Engine.default.$isSpeaking.eraseToAnyPublisher()
     var speakingProgressPublisher = Engine.default.$speakingProgress
     var setRateRatio = { Engine.default.rateRatio = $0 }
     var speech = { Engine.default.speech(date: $0) }

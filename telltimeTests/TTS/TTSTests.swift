@@ -1,6 +1,7 @@
 import XCTest
 @testable import telltime
 import SwiftUI
+import Combine
 
 class TTSTests: XCTestCase {
   func testDefaultTTSValues() {
@@ -88,6 +89,67 @@ class TTSTests: XCTestCase {
 
         then("the the TTS state is not speaking") {
           XCTAssertEqual(progress, store.state.tts.speakingProgress)
+        }
+      }
+    }
+  }
+
+  func testSubscribeToEngineIsSpeaking() {
+    given("the subscription to TTS engine is speaking event is made") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      XCTAssertEqual(false, store.state.tts.isSpeaking)
+
+      Current.tts.isSpeakingPublisher = Just(true).eraseToAnyPublisher()
+      store.send(App.SideEffect.tts(.subscribeToEngineIsSpeaking))
+
+      when("the TTS engine start speaking") {
+        let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
+        let isSpeakingPublisher = Current.tts.isSpeakingPublisher
+          .receive(on: DispatchQueue.main)
+          .sink(
+            receiveCompletion: {
+              switch $0 {
+              case .finished: publisherExpectation.fulfill()
+              case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+              }
+            },
+            receiveValue: { XCTAssertEqual(true, $0) }
+          )
+        XCTAssertNotNil(isSpeakingPublisher)
+
+        then("the start speaking action is triggered") {
+          self.wait(for: [publisherExpectation], timeout: 0.1)
+          XCTAssertEqual(true, store.state.tts.isSpeaking)
+        }
+      }
+    }
+
+    given("the subscription to TTS engine is speaking event is made") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      store.send(.tts(.startSpeaking))
+      XCTAssertEqual(true, store.state.tts.isSpeaking)
+
+      Current.tts.isSpeakingPublisher = Just(false).eraseToAnyPublisher()
+      store.send(App.SideEffect.tts(.subscribeToEngineIsSpeaking))
+
+      when("the TTS engine stop speaking") {
+        let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
+        let isSpeakingPublisher = Current.tts.isSpeakingPublisher
+          .receive(on: DispatchQueue.main)
+          .sink(
+            receiveCompletion: {
+              switch $0 {
+              case .finished: publisherExpectation.fulfill()
+              case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+              }
+            },
+            receiveValue: { XCTAssertEqual(false, $0) }
+          )
+        XCTAssertNotNil(isSpeakingPublisher)
+
+        then("the start speaking action is triggered") {
+          self.wait(for: [publisherExpectation], timeout: 0.1)
+          XCTAssertEqual(false, store.state.tts.isSpeaking)
         }
       }
     }
