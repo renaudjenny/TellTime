@@ -154,4 +154,64 @@ class TTSTests: XCTestCase {
       }
     }
   }
+
+  func testSubscribeToEngineSpeakingProgress() {
+    given("the subscription to TTS engine speaking progress event is made") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      XCTAssertEqual(0, store.state.tts.speakingProgress)
+
+      Current.tts.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
+      store.send(App.SideEffect.tts(.subscribeToEngineSpeakingProgress))
+
+      when("the TTS engine speaking is progressing (1/4)") {
+        let publisherExpectation = self.expectation(description: "Current.tts.speakingProgressPublisher completion")
+        let isSpeakingPublisher = Current.tts.speakingProgressPublisher
+          .receive(on: DispatchQueue.main)
+          .sink(
+            receiveCompletion: {
+              switch $0 {
+              case .finished: publisherExpectation.fulfill()
+              case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+              }
+            },
+            receiveValue: { XCTAssertEqual(1/4, $0) }
+        )
+        XCTAssertNotNil(isSpeakingPublisher)
+
+        then("the speaking progress action is triggered with 1/4") {
+          self.wait(for: [publisherExpectation], timeout: 0.1)
+          XCTAssertEqual(1/4, store.state.tts.speakingProgress)
+        }
+      }
+    }
+
+    given("the subscription to TTS engine speaking progress event is made") {
+      let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
+      XCTAssertEqual(0, store.state.tts.speakingProgress)
+
+      Current.tts.speakingProgressPublisher = Just(3/4).eraseToAnyPublisher()
+      store.send(App.SideEffect.tts(.subscribeToEngineSpeakingProgress))
+
+      when("the TTS engine speaking is progressing (3/4)") {
+        let publisherExpectation = self.expectation(description: "Current.tts.speakingProgressPublisher completion")
+        let isSpeakingPublisher = Current.tts.speakingProgressPublisher
+          .receive(on: DispatchQueue.main)
+          .sink(
+            receiveCompletion: {
+              switch $0 {
+              case .finished: publisherExpectation.fulfill()
+              case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+              }
+            },
+            receiveValue: { XCTAssertEqual(3/4, $0) }
+        )
+        XCTAssertNotNil(isSpeakingPublisher)
+
+        then("the speaking progress action is triggered with 3/4") {
+          self.wait(for: [publisherExpectation], timeout: 0.1)
+          XCTAssertEqual(3/4, store.state.tts.speakingProgress)
+        }
+      }
+    }
+  }
 }
