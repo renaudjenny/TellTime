@@ -35,6 +35,7 @@
 		4CB1D4C822A7293500786385 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C622A7293500786385 /* LaunchScreen.storyboard */; };
 		4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4D222A7293500786385 /* telltimeTests.swift */; };
 		4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB965F523CE3C8A00B40F83 /* SpeakButtonTests.swift */; };
+		4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB965F723D6412800B40F83 /* AboutViewTests.swift */; };
 		4CBC5B91236DED890000DCB5 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBC5B90236DED890000DCB5 /* Clock.swift */; };
 		4CC0406722B530EC0001AA50 /* TTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0406622B530EC0001AA50 /* TTS.swift */; };
 		4CC35E0A233F4D9400D9C8D6 /* ClockFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */; };
@@ -105,6 +106,7 @@
 		4CB1D4D222A7293500786385 /* telltimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = telltimeTests.swift; sourceTree = "<group>"; };
 		4CB1D4D422A7293500786385 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CB965F523CE3C8A00B40F83 /* SpeakButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButtonTests.swift; sourceTree = "<group>"; };
+		4CB965F723D6412800B40F83 /* AboutViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewTests.swift; sourceTree = "<group>"; };
 		4CBC5B90236DED890000DCB5 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		4CC0406622B530EC0001AA50 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
 		4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFace.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		4CB1D4D122A7293500786385 /* telltimeTests */ = {
 			isa = PBXGroup;
 			children = (
+				4CB965F723D6412800B40F83 /* AboutViewTests.swift */,
 				4CD270D723C3AC92004536D6 /* BDD.swift */,
 				4CD270C423BCD2EA004536D6 /* Clock */,
 				4CFD817623B688CF00A97C77 /* Common */,
@@ -560,6 +563,7 @@
 				4CD270DC23CA387E004536D6 /* BorderTests.swift in Sources */,
 				4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */,
 				4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */,
+				4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */,
 				4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */,
 				4CD270DA23C67832004536D6 /* IndicatorsTests.swift in Sources */,
 				4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */,

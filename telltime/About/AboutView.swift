@@ -31,9 +31,10 @@ fileprivate extension Double {
 }
 
 #if DEBUG
-struct About_Previews: PreviewProvider {
+struct AboutView_Previews: PreviewProvider {
   static var previews: some View {
     AboutView()
+      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
   }
 }
 #endif
