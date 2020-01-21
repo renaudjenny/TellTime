@@ -36,14 +36,14 @@ extension TTS {
 
 extension Clock {
   struct World {
-    var drawnRandomControlRatio = (
+    var randomControlRatio = (
       leftX: { CGFloat.random(in: 0.1...1) },
       leftY: { CGFloat.random(in: 0.1...1) },
       rightX: { CGFloat.random(in: 0.1...1) },
       rightY: { CGFloat.random(in: 0.1...1) }
     )
 
-    var drawnRandomBorderMarginRatio = (
+    var randomBorderMarginRatio = (
       maxMargin: { CGFloat.random(in: 0...$0) },
       angleMargin: { Double.random(in: 0...1/3) }
     )

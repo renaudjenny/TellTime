@@ -6,7 +6,7 @@ import SwiftUI
 class ArmTests: XCTestCase {
   func testArms() {
     Current.isAnimationDisabled = true
-    Current.clock.drawnRandomControlRatio = (
+    Current.clock.randomControlRatio = (
       leftX: { 0.5 },
       leftY: { 0.6 },
       rightX: { 0.7 },

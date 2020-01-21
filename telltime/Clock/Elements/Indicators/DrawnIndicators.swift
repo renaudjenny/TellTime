@@ -103,10 +103,10 @@ private struct Minutes: View {
 
 struct DrawnIndicator: Shape {
   private var drawStep: CGFloat
-  private let leftXControlRatio = Current.clock.drawnRandomControlRatio.leftX()
-  private let leftYControlRatio = Current.clock.drawnRandomControlRatio.leftY()
-  private let rightXControlRatio = Current.clock.drawnRandomControlRatio.rightX()
-  private let rightYControlRatio = Current.clock.drawnRandomControlRatio.rightY()
+  private let leftXControlRatio = Current.clock.randomControlRatio.leftX()
+  private let leftYControlRatio = Current.clock.randomControlRatio.leftY()
+  private let rightXControlRatio = Current.clock.randomControlRatio.rightX()
+  private let rightYControlRatio = Current.clock.randomControlRatio.rightY()
 
   init(draw: Bool) {
     self.drawStep = draw || Current.isAnimationDisabled ? 1 : 0
