@@ -103,10 +103,7 @@ private struct Minutes: View {
 
 struct DrawnIndicator: Shape {
   private var drawStep: CGFloat
-  private let leftXControlRatio = Current.clock.randomControlRatio.leftX()
-  private let leftYControlRatio = Current.clock.randomControlRatio.leftY()
-  private let rightXControlRatio = Current.clock.randomControlRatio.rightX()
-  private let rightYControlRatio = Current.clock.randomControlRatio.rightY()
+  private var controlRatios = ControlRatios()
 
   init(draw: Bool) {
     self.drawStep = draw || Current.isAnimationDisabled ? 1 : 0
@@ -142,8 +139,8 @@ struct DrawnIndicator: Shape {
     )
 
     let controlLeft = CGPoint(
-      x: rect.maxX * self.leftXControlRatio,
-      y: rect.maxY * self.leftYControlRatio
+      x: rect.maxX * self.controlRatios.leftX,
+      y: rect.maxY * self.controlRatios.leftY
     )
     path.addQuadCurve(to: topLeft, control: controlLeft)
 
@@ -156,12 +153,19 @@ struct DrawnIndicator: Shape {
     )
 
     let controlRight = CGPoint(
-      x: rect.maxX * self.rightXControlRatio,
-      y: rect.maxY * self.rightYControlRatio
+      x: rect.maxX * self.controlRatios.rightX,
+      y: rect.maxY * self.controlRatios.rightY
     )
     path.addQuadCurve(to: bottomRight, control: controlRight)
 
     return path
+  }
+
+  private struct ControlRatios {
+    let leftX = Current.clock.randomControlRatio.leftX()
+    let leftY = Current.clock.randomControlRatio.leftY()
+    let rightX = Current.clock.randomControlRatio.rightX()
+    let rightY = Current.clock.randomControlRatio.rightY()
   }
 }
 
