@@ -7,21 +7,90 @@ struct DrawnArm: View {
   @State private var showIndicator = false
 
   var body: some View {
-    GeometryReader { geometry in
-      DrawnIndicator(draw: self.showIndicator)
-        .frame(
-          width: geometry.localWidth * Self.widthRatio * self.lineWidthRatio,
-          height: self.computedHeight(geometry.localHeight)
-        )
-        .position(geometry.localCenter)
-        .transformEffect(.init(translationX: 0, y: self.computedHeight(geometry.localHeight)/2))
-        .rotationEffect(Angle(degrees: 180))
-        .onAppear(perform: { self.showIndicator = true })
-    }
+    DrawnArmShape(
+      draw: self.showIndicator,
+      lineWidthRatio: self.lineWidthRatio,
+      marginRatio: self.marginRatio
+    )
+      .onAppear(perform: { self.showIndicator = true })
+  }
+}
+
+private struct DrawnArmShape: Shape {
+  private static let bottomRatio: CGFloat = 1/20
+  private static let topRatio: CGFloat = 1/40
+  let lineWidthRatio: CGFloat
+  let marginRatio: CGFloat
+  private var drawStep: CGFloat
+  private static var controlRatios = DrawnControlRatios()
+
+  init(draw: Bool, lineWidthRatio: CGFloat, marginRatio: CGFloat) {
+    self.drawStep = draw || Current.isAnimationDisabled ? 1 : 0
+    self.lineWidthRatio = lineWidthRatio
+    self.marginRatio = marginRatio
+    self.generateControlRatiosIfNeeded()
   }
 
-  func computedHeight(_ height: CGFloat) -> CGFloat {
-    height/2 - height/2 * self.marginRatio
+  var animatableData: CGFloat {
+    get { self.drawStep }
+    set { self.drawStep = newValue }
+  }
+
+  func path(in rect: CGRect) -> Path {
+    var path = Path()
+    let radius = min(rect.height, rect.width)/2
+    let bottomCenter = CGPoint(x: radius, y: rect.maxY/2)
+    let bottomRadius = radius * self.lineWidthRatio * Self.bottomRatio
+    let bottomRight = CGPoint(
+      x: bottomCenter.x + bottomRadius,
+      y: bottomCenter.y
+    )
+    let topRadius = radius * self.lineWidthRatio * Self.topRatio
+    let topMargin = rect.maxY/2 * self.marginRatio
+    let topY = rect.maxY/2 * (1 - self.drawStep)
+    let topCenter = CGPoint(x: radius, y: topY + topMargin + topRadius)
+    let topLeft = CGPoint(
+      x: topCenter.x - topRadius,
+      y: topCenter.y
+    )
+
+    path.move(to: bottomRight)
+
+    path.addArc(
+      center: bottomCenter,
+      radius: bottomRadius,
+      startAngle: .zero,
+      endAngle: .degrees(180),
+      clockwise: false
+    )
+
+    let controlLeft = CGPoint(
+      x: rect.maxX/2 - bottomRadius * Self.controlRatios.leftX,
+      y: topCenter.y + rect.maxY/16 + rect.maxY/4 * Self.controlRatios.leftY
+    )
+    path.addQuadCurve(to: topLeft, control: controlLeft)
+
+    path.addArc(
+      center: topCenter,
+      radius: topRadius,
+      startAngle: .degrees(180),
+      endAngle: .zero,
+      clockwise: false
+    )
+
+    let controlRight = CGPoint(
+      x: rect.maxX/2 + bottomRadius * Self.controlRatios.rightX,
+      y: topCenter.y + rect.maxY/16 + rect.maxY/4 * Self.controlRatios.rightY
+    )
+    path.addQuadCurve(to: bottomRight, control: controlRight)
+
+    return path
+  }
+
+  func generateControlRatiosIfNeeded() {
+    if self.drawStep <= 0 {
+      Self.controlRatios = DrawnControlRatios()
+    }
   }
 }
 
@@ -37,6 +106,8 @@ struct DrawnArm_Previews: PreviewProvider {
       )
     }
     .frame(width: 300, height: 300)
+    .previewDevice("iPhone SE")
+    .previewDisplayName("Drawn Arm")
   }
 }
 #endif

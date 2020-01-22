@@ -103,7 +103,7 @@ private struct Minutes: View {
 
 struct DrawnIndicator: Shape {
   private var drawStep: CGFloat
-  private var controlRatios = ControlRatios()
+  private var controlRatios = DrawnControlRatios()
 
   init(draw: Bool) {
     self.drawStep = draw || Current.isAnimationDisabled ? 1 : 0
@@ -159,13 +159,6 @@ struct DrawnIndicator: Shape {
     path.addQuadCurve(to: bottomRight, control: controlRight)
 
     return path
-  }
-
-  private struct ControlRatios {
-    let leftX = Current.clock.randomControlRatio.leftX()
-    let leftY = Current.clock.randomControlRatio.leftY()
-    let rightX = Current.clock.randomControlRatio.rightX()
-    let rightY = Current.clock.randomControlRatio.rightY()
   }
 }
 

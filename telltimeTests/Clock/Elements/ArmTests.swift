@@ -16,4 +16,17 @@ class ArmTests: XCTestCase {
     let hostingController = UIHostingController(rootView: arms)
     assertSnapshot(matching: hostingController, as: .image)
   }
+
+  func testDrawnArms() {
+    Current.isAnimationDisabled = true
+    Current.clock.randomControlRatio = (
+      leftX: { 0.5 },
+      leftY: { 0.6 },
+      rightX: { 0.7 },
+      rightY: { 0.8 }
+    )
+    let arms = DrawnArm_Previews.previews
+    let hostingController = UIHostingController(rootView: arms)
+    assertSnapshot(matching: hostingController, as: .image)
+  }
 }
