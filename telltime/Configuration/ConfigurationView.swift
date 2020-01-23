@@ -189,8 +189,33 @@ struct ConfigurationView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       configurationView(deviceOrientation: .portrait)
-        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+        .previewLayout(.fixed(width: 320, height: 568))
         .previewDisplayName("Configuration portrait")
+    }
+  }
+}
+
+struct ConfigurationViewLandscape_Previews: PreviewProvider {
+  static func configurationView(deviceOrientation: UIDeviceOrientation) -> some View {
+    NavigationView {
+      ConfigurationView(
+        clockStyle: .constant(.classic),
+        isMinuteIndicatorsShown: .constant(true),
+        isHourIndicatorsShown: .constant(true),
+        isLimitedHoursShown: .constant(false),
+        speechRateRatio: .constant(1.0),
+        deviceOrientation: deviceOrientation
+      )
+        .navigationBarTitle("Configuration")
+    }
+    .environmentObject(App.previewStore)
+  }
+
+  static var previews: some View {
+    Group {
+      configurationView(deviceOrientation: .landscapeLeft)
+        .previewLayout(.fixed(width: 568, height: 320))
+        .previewDisplayName("Configuration landscape")
     }
   }
 }

@@ -10,4 +10,11 @@ class ConfigurationViewTests: XCTestCase {
     let hostingController = UIHostingController(rootView: configurationViews)
     assertSnapshot(matching: hostingController, as: .image)
   }
+
+  func testConfigurationViewsInLandscape() {
+    Current.isAnimationDisabled = true
+    let configurationViews = ConfigurationViewLandscape_Previews.previews
+    let hostingController = UIHostingController(rootView: configurationViews)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe(.landscape)))
+  }
 }
