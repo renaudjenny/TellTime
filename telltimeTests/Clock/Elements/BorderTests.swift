@@ -12,12 +12,12 @@ class ClockBordersTests: XCTestCase {
     )
     let borders = ClockBorder_Previews.previews
     let hostingController = UIHostingController(rootView: borders)
-    assertSnapshot(matching: hostingController, as: .image)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
 
   func testClassicClockBorders() {
     let borders = ClassicClockBorder_Previews.previews
     let hostingController = UIHostingController(rootView: borders)
-    assertSnapshot(matching: hostingController, as: .image)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
 }

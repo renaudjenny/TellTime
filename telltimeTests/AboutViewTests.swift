@@ -7,6 +7,6 @@ class AboutViewTests: XCTestCase {
   func testAboutViews() {
     let aboutViews = AboutView_Previews.previews
     let hostingController = UIHostingController(rootView: aboutViews)
-    assertSnapshot(matching: hostingController, as: .image)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
 }
