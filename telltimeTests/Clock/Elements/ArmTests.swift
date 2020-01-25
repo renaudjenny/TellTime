@@ -79,6 +79,6 @@ class ArmTests: XCTestCase {
     )
     let arms = DrawnArm_Previews.previews
     let hostingController = UIHostingController(rootView: arms)
-    assertSnapshot(matching: hostingController, as: .image)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
 }
