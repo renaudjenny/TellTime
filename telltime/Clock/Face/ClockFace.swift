@@ -38,21 +38,15 @@ struct ClockFace: View {
 }
 
 #if DEBUG
-struct ClockFace_Previews: PreviewProvider {
+struct ClockFaceSmiling_Previews: PreviewProvider {
   static var previews: some View {
-    Group {
-      ClockFace(isClockFaceShown: true)
-        .padding()
-        .frame(width: 300, height: 300)
-        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-        .previewDisplayName("Clock face shown")
+    ClockFace(isClockFaceShown: true)
+  }
+}
 
-      ClockFace(isClockFaceShown: false)
-        .padding()
-        .frame(width: 300, height: 300)
-        .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-        .previewDisplayName("Clock face hidden")
-    }
+struct ClockFaceNeutral_Previews: PreviewProvider {
+  static var previews: some View {
+    ClockFace(isClockFaceShown: false)
   }
 }
 #endif

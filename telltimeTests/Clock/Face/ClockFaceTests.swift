@@ -4,9 +4,15 @@ import SnapshotTesting
 import SwiftUI
 
 class ClockFaceTests: XCTestCase {
-  func testClockFaces() {
-    let clockFaces = ClockFace_Previews.previews
+  func testClockFaceSmiling() {
+    let clockFaces = ClockFaceSmiling_Previews.previews
     let hostingController = UIHostingController(rootView: clockFaces)
-    assertSnapshot(matching: hostingController, as: .image)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
+  }
+
+  func testClockFaceNeutral() {
+    let clockFaces = ClockFaceNeutral_Previews.previews
+    let hostingController = UIHostingController(rootView: clockFaces)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
 }
