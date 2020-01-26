@@ -96,7 +96,7 @@
 		4CA4F64A236D1272007088BA /* ArtNouveauIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauIndicators.swift; sourceTree = "<group>"; };
 		4CA5F621237C8D49007F058A /* DrawnClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnClockBorder.swift; sourceTree = "<group>"; };
 		4CA5F623237C942F007F058A /* DrawnIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnIndicators.swift; sourceTree = "<group>"; };
-		4CB1D4B822A7293300786385 /* telltime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = telltime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CB1D4B822A7293300786385 /* Tell Time UK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tell Time UK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4BB22A7293300786385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CB1D4BD22A7293300786385 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4CB1D4BF22A7293300786385 /* TellTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeView.swift; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 		4CB1D4B922A7293300786385 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4CB1D4B822A7293300786385 /* telltime.app */,
+				4CB1D4B822A7293300786385 /* Tell Time UK.app */,
 				4CB1D4CE22A7293500786385 /* telltimeTests.xctest */,
 			);
 			name = Products;
@@ -409,7 +409,7 @@
 				4C25E63B22D0997100E64612 /* SwiftPastTen */,
 			);
 			productName = telltime;
-			productReference = 4CB1D4B822A7293300786385 /* telltime.app */;
+			productReference = 4CB1D4B822A7293300786385 /* Tell Time UK.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4CB1D4CD22A7293500786385 /* telltimeTests */ = {
@@ -733,7 +733,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tell Time UK";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -756,7 +756,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Tell Time UK";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
