@@ -4,13 +4,14 @@
 
 A tiny iOS Swift project with SwiftUI.
 
+📲 App Store: https://apps.apple.com/gb/app/tell-time-uk/id1496541173
+
 ## Minimum required
 
 Works with Xcode 11.
 
 ## TODO
 
-* ✅ Test on a real device
-* 🛠 Test on MacOS Catalina
+* ✅ Deploy on real iOS device
 * ✅ Add an icon
-* 🛠 Improve UI
+* 🛠 Improve UI for iPad format
