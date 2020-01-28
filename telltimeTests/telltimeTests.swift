@@ -1,5 +1,5 @@
 import XCTest
-@testable import telltime
+@testable import Tell_Time_UK
 
 class TelltimeTests: XCTestCase {
   func testWhenIStartTheApplicationThenTheStoreDateIsTheCurrentOne() {

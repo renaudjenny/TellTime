@@ -25,12 +25,24 @@ struct World {
 
 extension TTS {
   struct World {
-    var isSpeaking =  Engine.default.isSpeaking
-    var isSpeakingPublisher = Engine.default.$isSpeaking.eraseToAnyPublisher()
-    var speakingProgressPublisher = Engine.default.$speakingProgress.eraseToAnyPublisher()
-    var setRateRatio = { Engine.default.rateRatio = $0 }
-    var speech = { Engine.default.speech(date: $0) }
-    var time = { Engine.default.time(date: $0) }
+    private let engine: Engine
+
+    var isSpeaking: Bool
+    var isSpeakingPublisher: AnyPublisher<Bool, Never>
+    var speakingProgressPublisher: AnyPublisher<Double, Never>
+    var setRateRatio: (Float) -> Void
+    var speech: (Date) -> Void
+    var time: (Date) -> String
+
+    init(engine: Engine = Engine()) {
+      self.engine = engine
+      self.isSpeaking = engine.isSpeaking
+      self.isSpeakingPublisher = engine.$isSpeaking.eraseToAnyPublisher()
+      self.speakingProgressPublisher = engine.$speakingProgress.eraseToAnyPublisher()
+      self.setRateRatio = { engine.rateRatio = $0 }
+      self.speech = { engine.speech(date: $0) }
+      self.time = { engine.time(date: $0) }
+    }
   }
 }
 

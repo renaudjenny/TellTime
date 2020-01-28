@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CB1D4B722A7293300786385"
-               BuildableName = "telltime.app"
+               BuildableName = "Tell Time UK.app"
                BlueprintName = "telltime"
                ReferencedContainer = "container:telltime.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB1D4B722A7293300786385"
-            BuildableName = "telltime.app"
+            BuildableName = "Tell Time UK.app"
             BlueprintName = "telltime"
             ReferencedContainer = "container:telltime.xcodeproj">
          </BuildableReference>
@@ -46,16 +46,6 @@
                BlueprintIdentifier = "4CB1D4CD22A7293500786385"
                BuildableName = "telltimeTests.xctest"
                BlueprintName = "telltimeTests"
-               ReferencedContainer = "container:telltime.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4CB1D4D822A7293500786385"
-               BuildableName = "telltimeUITests.xctest"
-               BlueprintName = "telltimeUITests"
                ReferencedContainer = "container:telltime.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -76,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB1D4B722A7293300786385"
-            BuildableName = "telltime.app"
+            BuildableName = "Tell Time UK.app"
             BlueprintName = "telltime"
             ReferencedContainer = "container:telltime.xcodeproj">
          </BuildableReference>
@@ -93,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB1D4B722A7293300786385"
-            BuildableName = "telltime.app"
+            BuildableName = "Tell Time UK.app"
             BlueprintName = "telltime"
             ReferencedContainer = "container:telltime.xcodeproj">
          </BuildableReference>

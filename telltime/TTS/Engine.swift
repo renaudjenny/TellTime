@@ -4,8 +4,6 @@ import Combine
 
 extension TTS {
   final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
-    static let `default` = Engine()
-
     @Published private(set) var isSpeaking: Bool = false
     @Published private(set) var speakingProgress: Double = 0.0
 
