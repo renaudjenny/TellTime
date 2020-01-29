@@ -10,7 +10,7 @@ struct ClockContainer: View {
 
   private func showClockFace() {
     self.store.send(App.Action.clock(.showClockFace))
-    self.store.send(App.SideEffect.clock(Clock.SideEffect.delayClockFaceHidding))
+    self.store.send(Clock.delayClockFaceHidding())
   }
 }
 

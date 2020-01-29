@@ -16,25 +16,19 @@ enum TTS {
     case changeSpeakingProgress(Double)
   }
 
-  enum SideEffect: Effect {
-    case subscribeToEngineIsSpeaking
-    case subscribeToEngineSpeakingProgress
-
-    func mapToAction() -> AnyPublisher<TTS.Action, Never> {
-      switch self {
-      case .subscribeToEngineIsSpeaking:
-        return Current.tts.isSpeakingPublisher
-          .map { $0 ? .startSpeaking : .stopSpeaking }
-          .eraseToAnyPublisher()
-      case .subscribeToEngineSpeakingProgress:
-        return Current.tts.speakingProgressPublisher
-          .map { .changeSpeakingProgress($0) }
-          .eraseToAnyPublisher()
-      }
-    }
+  static func subscribeToEngineIsSpeaking() -> AnyPublisher<App.Action, Never> {
+    Current.tts.isSpeakingPublisher
+      .map { $0 ? .tts(.startSpeaking) : .tts(.stopSpeaking) }
+      .eraseToAnyPublisher()
   }
 
-  static let reducer: Reducer<TTS.State, TTS.Action> = Reducer { state, action in
+  static func subscribeToEngineSpeakingProgress() -> AnyPublisher<App.Action, Never> {
+    Current.tts.speakingProgressPublisher
+      .map { .tts(.changeSpeakingProgress($0)) }
+      .eraseToAnyPublisher()
+  }
+
+  static func reducer(state: inout TTS.State, action: TTS.Action) {
     switch action {
     case let .changeRateRatio(rateRatio):
       state.rateRatio = rateRatio

@@ -100,7 +100,7 @@ class TTSTests: XCTestCase {
       XCTAssertEqual(false, store.state.tts.isSpeaking)
 
       Current.tts.isSpeakingPublisher = Just(true).eraseToAnyPublisher()
-      store.send(App.SideEffect.tts(.subscribeToEngineIsSpeaking))
+      store.send(TTS.subscribeToEngineIsSpeaking())
 
       when("the TTS engine start speaking") {
         let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
@@ -130,7 +130,7 @@ class TTSTests: XCTestCase {
       XCTAssertEqual(true, store.state.tts.isSpeaking)
 
       Current.tts.isSpeakingPublisher = Just(false).eraseToAnyPublisher()
-      store.send(App.SideEffect.tts(.subscribeToEngineIsSpeaking))
+      store.send(TTS.subscribeToEngineIsSpeaking())
 
       when("the TTS engine stop speaking") {
         let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
@@ -161,7 +161,7 @@ class TTSTests: XCTestCase {
       XCTAssertEqual(0, store.state.tts.speakingProgress)
 
       Current.tts.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
-      store.send(App.SideEffect.tts(.subscribeToEngineSpeakingProgress))
+      store.send(TTS.subscribeToEngineSpeakingProgress())
 
       when("the TTS engine speaking is progressing (1/4)") {
         let publisherExpectation = self.expectation(description: "Current.tts.speakingProgressPublisher completion")
@@ -190,7 +190,7 @@ class TTSTests: XCTestCase {
       XCTAssertEqual(0, store.state.tts.speakingProgress)
 
       Current.tts.speakingProgressPublisher = Just(3/4).eraseToAnyPublisher()
-      store.send(App.SideEffect.tts(.subscribeToEngineSpeakingProgress))
+      store.send(TTS.subscribeToEngineSpeakingProgress())
 
       when("the TTS engine speaking is progressing (3/4)") {
         let publisherExpectation = self.expectation(description: "Current.tts.speakingProgressPublisher completion")

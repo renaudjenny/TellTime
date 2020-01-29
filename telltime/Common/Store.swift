@@ -2,36 +2,30 @@ import Foundation
 import Combine
 import SwiftUI
 
-protocol Effect {
-  associatedtype Action
-  func mapToAction() -> AnyPublisher<Action, Never>
-}
-
-struct Reducer<State, Action> {
-  let reduce: (inout State, Action) -> Void
-}
+typealias Reducer<State, Action> = (inout State, Action) -> Void
 
 final class Store<State, Action>: ObservableObject {
+  typealias Effect = AnyPublisher<Action, Never>
+
   @Published private(set) var state: State
 
   private let reducer: Reducer<State, Action>
   private var cancellables: Set<AnyCancellable> = []
 
-  init(initialState: State, reducer: Reducer<State, Action>) {
+  init(initialState: State, reducer: @escaping Reducer<State, Action>) {
     self.state = initialState
     self.reducer = reducer
   }
 
   func send(_ action: Action) {
-    reducer.reduce(&state, action)
+    reducer(&state, action)
   }
 
-  func send<E: Effect>(_ effect: E) where E.Action == Action {
+  func send(_ effect: Effect) {
     var cancellable: AnyCancellable?
     var didComplete = false
 
     cancellable = effect
-      .mapToAction()
       .receive(on: DispatchQueue.main)
       .sink(
         receiveCompletion: { [weak self] _ in

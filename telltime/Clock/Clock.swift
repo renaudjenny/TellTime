@@ -19,21 +19,14 @@ enum Clock {
     case changeDate(Date)
   }
 
-  enum SideEffect: Effect {
-    case delayClockFaceHidding
-
-    func mapToAction() -> AnyPublisher<Clock.Action, Never> {
-      switch self {
-      case .delayClockFaceHidding:
-        return Just(true)
-          .delay(for: .seconds(Current.clockFaceShownTimeInterval), scheduler: RunLoop.main)
-          .map { _ in Clock.Action.hideClockFace }
-          .eraseToAnyPublisher()
-      }
-    }
+  static func delayClockFaceHidding() -> AnyPublisher<App.Action, Never> {
+    Just(true)
+      .delay(for: .seconds(Current.clockFaceShownTimeInterval), scheduler: RunLoop.main)
+      .map { _ in .clock(.hideClockFace) }
+      .eraseToAnyPublisher()
   }
 
-  static let reducer: Reducer<Clock.State, Clock.Action> = Reducer { state, action in
+  static func reducer(state: inout Clock.State, action: Clock.Action) {
     func changeDateAndAngles(date: Date) {
       state.date = date
       state.hourAngle = .fromHour(date: state.date)

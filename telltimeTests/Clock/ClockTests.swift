@@ -46,7 +46,7 @@ class ClockTests: XCTestCase {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     XCTAssertEqual(store.state.clock.isClockFaceShown, false)
     store.send(.clock(.showClockFace))
-    store.send(App.SideEffect.clock(Clock.SideEffect.delayClockFaceHidding))
+    store.send(Clock.delayClockFaceHidding())
     XCTAssertEqual(store.state.clock.isClockFaceShown, true)
     let waitForFewSecondsExpectation = self.expectation(description: "Delay for the Face to be shown")
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

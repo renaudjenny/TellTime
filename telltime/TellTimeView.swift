@@ -22,7 +22,7 @@ struct TellTimeContainer: View {
   }
 
   private func subscribe() {
-    self.store.send(App.SideEffect.subscribeToOrientationChanged)
+    self.store.send(App.subscribeToOrientationChanged())
   }
 }
 

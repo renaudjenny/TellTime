@@ -17,8 +17,8 @@ struct SpeakButtonContainer: View {
   }
 
   private func subscribeToTTSEngine() {
-    self.store.send(App.SideEffect.tts(.subscribeToEngineIsSpeaking))
-    self.store.send(App.SideEffect.tts(.subscribeToEngineSpeakingProgress))
+    self.store.send(TTS.subscribeToEngineIsSpeaking())
+    self.store.send(TTS.subscribeToEngineSpeakingProgress())
   }
 }
 

@@ -13,7 +13,7 @@ enum Configuration {
     case changeClockStyle(ClockStyle)
   }
 
-  static let reducer: Reducer<Configuration.State, Configuration.Action> = Reducer { state, action in
+  static func reducer(state: inout Configuration.State, action: Configuration.Action) {
     switch action {
     case let .showMinuteIndicators(isShown):
       state.isMinuteIndicatorsShown = isShown

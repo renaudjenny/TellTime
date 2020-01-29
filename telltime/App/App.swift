@@ -16,54 +16,37 @@ enum App {
     case tts(TTS.Action)
   }
 
-  enum SideEffect: Effect {
-    case subscribeToOrientationChanged
-    case clock(Clock.SideEffect)
-    case tts(TTS.SideEffect)
-
-    func mapToAction() -> AnyPublisher<App.Action, Never> {
-      switch self {
-      case .subscribeToOrientationChanged:
-        return Current.orientationDidChangePublisher
-          .map({ notification -> UIDevice? in
-            notification.object as? UIDevice
-          })
-          .compactMap { $0 }
-          .filter(self.isSupportedOrientationForDevice)
-          .map { App.Action.rotateDevice($0.orientation) }
-          .eraseToAnyPublisher()
-      case let .clock(effect):
-        return effect.mapToAction()
-          .map { App.Action.clock($0) }
-          .eraseToAnyPublisher()
-      case let .tts(effect):
-        return effect.mapToAction()
-          .map { App.Action.tts($0) }
-          .eraseToAnyPublisher()
-      }
-    }
-
-    private func isSupportedOrientationForDevice(_ device: UIDevice) -> Bool {
+  static func subscribeToOrientationChanged() -> AnyPublisher<App.Action, Never> {
+    func isSupportedOrientationForDevice(_ device: UIDevice) -> Bool {
       let isValidOrientation = device.orientation.isValidInterfaceOrientation
       let isPhoneUpsideDown = device.orientation == .portraitUpsideDown && device.userInterfaceIdiom == .phone
       return isValidOrientation && !isPhoneUpsideDown
     }
+
+    return Current.orientationDidChangePublisher
+      .map({ notification -> UIDevice? in
+        notification.object as? UIDevice
+      })
+      .compactMap { $0 }
+      .filter(isSupportedOrientationForDevice)
+      .map { App.Action.rotateDevice($0.orientation) }
+      .eraseToAnyPublisher()
   }
 
-  static let reducer: Reducer<App.State, App.Action> = Reducer { state, action in
+  static func reducer(state: inout App.State, action: App.Action) {
     switch action {
     case let .rotateDevice(deviceOrientation):
       state.deviceOrientation = deviceOrientation
     case let .configuration(action):
-      Configuration.reducer.reduce(&state.configuration, action)
+      Configuration.reducer(state: &state.configuration, action: action)
     case let .clock(action):
-      Clock.reducer.reduce(&state.clock, action)
+      Clock.reducer(state: &state.clock, action: action)
     case let.tts(action):
-      TTS.reducer.reduce(&state.tts, action)
+      TTS.reducer(state: &state.tts, action: action)
     }
   }
 
   #if DEBUG
-  static let previewStore = Store<App.State, App.Action>(initialState: App.State(), reducer: Reducer { _, _ in })
+  static let previewStore = Store<App.State, App.Action>(initialState: App.State(), reducer: { _, _ in })
   #endif
 }
