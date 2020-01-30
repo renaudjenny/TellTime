@@ -189,7 +189,7 @@ struct ConfigurationView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       configurationView(deviceOrientation: .portrait)
-        .previewLayout(.fixed(width: 320, height: 568))
+        .previewLayout(.iPhoneSe)
         .previewDisplayName("Configuration portrait")
     }
   }
@@ -214,7 +214,7 @@ struct ConfigurationViewLandscape_Previews: PreviewProvider {
   static var previews: some View {
     Group {
       configurationView(deviceOrientation: .landscapeLeft)
-        .previewLayout(.fixed(width: 568, height: 320))
+        .previewLayout(.iPhoneSe(.landscape))
         .previewDisplayName("Configuration landscape")
     }
   }
