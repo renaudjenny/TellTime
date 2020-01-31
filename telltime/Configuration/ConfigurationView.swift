@@ -26,7 +26,7 @@ struct ConfigurationContainer: View {
       isHourIndicatorsShown: self.isHourIndicatorsShown,
       isLimitedHoursShown: self.isLimitedHoursShown,
       speechRateRatio: self.speechRateRatio,
-      deviceOrientation: self.store.state.deviceOrientation
+      deviceOrientation: .faceUp // TODO change that!
     )
   }
 }

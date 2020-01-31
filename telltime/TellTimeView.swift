@@ -3,6 +3,8 @@ import Combine
 
 struct TellTimeContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
+  @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+  @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
   private var date: Binding<Date> {
     self.store.binding(for: \.clock.date) { .clock(.changeDate($0)) }
   }
@@ -11,32 +13,27 @@ struct TellTimeContainer: View {
     TellTimeView(
       date: self.date,
       time: self.store.state.time,
-      deviceOrientation: self.store.state.deviceOrientation,
+      sizeClasses: (vertical: verticalSizeClass, horizontal: horizontalSizeClass),
       changeClockRandomly: self.changeClockRandomly
     )
-      .onAppear(perform: self.subscribe)
   }
 
   private func changeClockRandomly() {
     self.store.send(.clock(.changeClockRandomly))
-  }
-
-  private func subscribe() {
-    self.store.send(App.subscribeToOrientationChanged())
   }
 }
 
 struct TellTimeView: View {
   @Binding var date: Date
   let time: String
-  let deviceOrientation: UIDeviceOrientation
+  let sizeClasses: (vertical: UserInterfaceSizeClass?, horizontal: UserInterfaceSizeClass?)
   let changeClockRandomly: () -> Void
 
   var body: some View {
     NavigationView {
       VStack {
         Group {
-          if self.deviceOrientation.isLandscape {
+          if sizeClasses.vertical == .compact {
             LandscapeView(time: self.time, changeClockRandomly: self.changeClockRandomly, date: self.$date)
           } else {
             PortraitView(time: self.time, changeClockRandomly: self.changeClockRandomly, date: self.$date)
@@ -152,7 +149,7 @@ struct ContentView_Previews: PreviewProvider {
     TellTimeView(
       date: .constant(.init(timeIntervalSince1970: 4300)),
       time: "It's time to test!",
-      deviceOrientation: .portrait,
+      sizeClasses: (vertical: .compact, horizontal: .regular),
       changeClockRandomly: { print("Change Clock Randomly") }
     )
       .environmentObject(App.previewStore)
