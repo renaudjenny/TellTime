@@ -1,10 +1,17 @@
 import SwiftUI
 import Combine
 
+struct RootView: View {
+  var body: some View {
+    NavigationView {
+      TellTimeContainer()
+    }
+    .navigationViewStyle(StackNavigationViewStyle())
+  }
+}
+
 struct TellTimeContainer: View {
   @EnvironmentObject var store: Store<App.State, App.Action>
-  @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
-  @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
   private var date: Binding<Date> {
     self.store.binding(for: \.clock.date) { .clock(.changeDate($0)) }
   }
@@ -13,7 +20,6 @@ struct TellTimeContainer: View {
     TellTimeView(
       date: self.date,
       time: self.store.state.time,
-      sizeClasses: (vertical: verticalSizeClass, horizontal: horizontalSizeClass),
       changeClockRandomly: self.changeClockRandomly
     )
   }
@@ -24,69 +30,45 @@ struct TellTimeContainer: View {
 }
 
 struct TellTimeView: View {
+  @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+  @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
   @Binding var date: Date
   let time: String
-  let sizeClasses: (vertical: UserInterfaceSizeClass?, horizontal: UserInterfaceSizeClass?)
   let changeClockRandomly: () -> Void
 
   var body: some View {
-    NavigationView {
-      VStack {
-        Group {
-          if sizeClasses.vertical == .compact {
-            LandscapeView(time: self.time, changeClockRandomly: self.changeClockRandomly, date: self.$date)
-          } else {
-            PortraitView(time: self.time, changeClockRandomly: self.changeClockRandomly, date: self.$date)
+    Group {
+      if verticalSizeClass == .compact || horizontalSizeClass == .regular {
+        HStack {
+          VStack {
+            ClockContainer()
+              .padding()
+            TimeText(time: self.time)
+          }
+          VStack {
+            Spacer()
+            DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
+              .fixedSize()
+            Spacer()
+            TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
           }
         }
-        .padding()
-        .navigationBarTitle("Tell Time")
+      } else {
+        VStack {
+          Spacer()
+          ClockContainer()
+          Spacer()
+          TimeText(time: self.time)
+          Spacer()
+          DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
+            .fixedSize()
+          Spacer()
+          TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
+        }
       }
     }
-    .navigationViewStyle(StackNavigationViewStyle())
-  }
-}
-
-private struct PortraitView: View {
-  let time: String
-  let changeClockRandomly: () -> Void
-  @Binding var date: Date
-
-  var body: some View {
-    VStack {
-      Spacer()
-      ClockContainer()
-      Spacer()
-      TimeText(time: self.time)
-      Spacer()
-      DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
-        .fixedSize()
-      Spacer()
-      TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
-    }
-  }
-}
-
-private struct LandscapeView: View {
-  let time: String
-  let changeClockRandomly: () -> Void
-  @Binding var date: Date
-
-  var body: some View {
-    HStack {
-      VStack {
-        ClockContainer()
-          .padding()
-        TimeText(time: self.time)
-      }
-      VStack {
-        Spacer()
-        DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
-          .fixedSize()
-        Spacer()
-        TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
-      }
-    }
+    .navigationBarTitle("Tell Time")
+    .padding()
   }
 }
 
@@ -149,7 +131,6 @@ struct ContentView_Previews: PreviewProvider {
     TellTimeView(
       date: .constant(.init(timeIntervalSince1970: 4300)),
       time: "It's time to test!",
-      sizeClasses: (vertical: .compact, horizontal: .regular),
       changeClockRandomly: { print("Change Clock Randomly") }
     )
       .environmentObject(App.previewStore)

@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     let window = UIWindow(windowScene: windowScene)
     window.rootViewController = UIHostingController(
-      rootView: TellTimeContainer()
+      rootView: RootView()
         .environmentObject(store)
     )
     self.window = window

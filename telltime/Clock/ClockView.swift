@@ -31,7 +31,6 @@ struct ClockView: View {
       .frame(width: geometry.localDiameter, height: geometry.localDiameter)
       .fixedSize()
     }
-    .frame(maxWidth: 500, maxHeight: 500)
   }
 }
 

@@ -25,43 +25,56 @@ struct ConfigurationContainer: View {
       isMinuteIndicatorsShown: self.isMinuteIndicatorsShown,
       isHourIndicatorsShown: self.isHourIndicatorsShown,
       isLimitedHoursShown: self.isLimitedHoursShown,
-      speechRateRatio: self.speechRateRatio,
-      deviceOrientation: .faceUp // TODO change that!
+      speechRateRatio: self.speechRateRatio
     )
+      .navigationBarTitle("Configuration")
   }
 }
 
 struct ConfigurationView: View {
+  @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+  @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
   @Binding var clockStyle: ClockStyle
   @Binding var isMinuteIndicatorsShown: Bool
   @Binding var isHourIndicatorsShown: Bool
   @Binding var isLimitedHoursShown: Bool
   @Binding var speechRateRatio: Float
-  let deviceOrientation: UIDeviceOrientation
 
   var body: some View {
     Group {
-      if self.deviceOrientation.isLandscape {
-        LandscapeView(
-          clockStyle: self.$clockStyle,
-          isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
-          isHourIndicatorsShown: self.$isHourIndicatorsShown,
-          isLimitedHoursShown: self.$isLimitedHoursShown,
-          speechRateRatio: self.$speechRateRatio,
-          speechRateRatioPourcentage: self.speechRateRatioPourcentage
-        )
+      if verticalSizeClass == .compact || horizontalSizeClass == .regular {
+        HStack {
+          VStack {
+            ClockContainer()
+              .padding()
+            StylePicker(clockStyle: self.$clockStyle)
+          }
+          Controls(
+            isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
+            isHourIndicatorsShown: self.$isHourIndicatorsShown,
+            isLimitedHoursShown: self.$isLimitedHoursShown,
+            speechRateRatio: self.$speechRateRatio,
+            isHourIndicatorsToggleEnabled: self.clockStyle != .artNouveau,
+            speechRateRatioPourcentage: self.speechRateRatioPourcentage
+          )
+        }
       } else {
-        PortraitView(
-          clockStyle: self.$clockStyle,
-          isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
-          isHourIndicatorsShown: self.$isHourIndicatorsShown,
-          isLimitedHoursShown: self.$isLimitedHoursShown,
-          speechRateRatio: self.$speechRateRatio,
-          speechRateRatioPourcentage: self.speechRateRatioPourcentage
-        )
+        VStack {
+          StylePicker(clockStyle: self.$clockStyle)
+          ClockContainer()
+            .padding()
+          Controls(
+            isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
+            isHourIndicatorsShown: self.$isHourIndicatorsShown,
+            isLimitedHoursShown: self.$isLimitedHoursShown,
+            speechRateRatio: self.$speechRateRatio,
+            isHourIndicatorsToggleEnabled: self.clockStyle != .artNouveau,
+            speechRateRatioPourcentage: self.speechRateRatioPourcentage
+          )
+          Spacer()
+        }
       }
     }
-    .navigationBarTitle("Configuration")
     .padding()
   }
 
@@ -70,59 +83,6 @@ struct ConfigurationView: View {
       (self.speechRateRatio * 100)
         .rounded()
     )
-  }
-}
-
-private struct PortraitView: View {
-  @Binding var clockStyle: ClockStyle
-  @Binding var isMinuteIndicatorsShown: Bool
-  @Binding var isHourIndicatorsShown: Bool
-  @Binding var isLimitedHoursShown: Bool
-  @Binding var speechRateRatio: Float
-  let speechRateRatioPourcentage: Int
-
-  var body: some View {
-    VStack {
-      StylePicker(clockStyle: self.$clockStyle)
-      ClockContainer()
-        .padding()
-      Controls(
-        isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
-        isHourIndicatorsShown: self.$isHourIndicatorsShown,
-        isLimitedHoursShown: self.$isLimitedHoursShown,
-        speechRateRatio: self.$speechRateRatio,
-        isHourIndicatorsToggleEnabled: self.clockStyle != .artNouveau,
-        speechRateRatioPourcentage: self.speechRateRatioPourcentage
-      )
-      Spacer()
-    }
-  }
-}
-
-private struct LandscapeView: View {
-  @Binding var clockStyle: ClockStyle
-  @Binding var isMinuteIndicatorsShown: Bool
-  @Binding var isHourIndicatorsShown: Bool
-  @Binding var isLimitedHoursShown: Bool
-  @Binding var speechRateRatio: Float
-  let speechRateRatioPourcentage: Int
-
-  var body: some View {
-    HStack {
-      VStack {
-        ClockContainer()
-          .padding()
-        StylePicker(clockStyle: self.$clockStyle)
-      }
-      Controls(
-        isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
-        isHourIndicatorsShown: self.$isHourIndicatorsShown,
-        isLimitedHoursShown: self.$isLimitedHoursShown,
-        speechRateRatio: self.$speechRateRatio,
-        isHourIndicatorsToggleEnabled: self.clockStyle == .artNouveau,
-        speechRateRatioPourcentage: self.speechRateRatioPourcentage
-      )
-    }
   }
 }
 
@@ -171,52 +131,42 @@ private struct StylePicker: View {
 
 #if DEBUG
 struct ConfigurationView_Previews: PreviewProvider {
-  static func configurationView(deviceOrientation: UIDeviceOrientation) -> some View {
+  static var previews: some View {
     NavigationView {
       ConfigurationView(
         clockStyle: .constant(.classic),
         isMinuteIndicatorsShown: .constant(true),
         isHourIndicatorsShown: .constant(true),
         isLimitedHoursShown: .constant(false),
-        speechRateRatio: .constant(1.0),
-        deviceOrientation: deviceOrientation
+        speechRateRatio: .constant(1.0)
       )
         .navigationBarTitle("Configuration")
     }
     .environmentObject(App.previewStore)
-  }
-
-  static var previews: some View {
-    Group {
-      configurationView(deviceOrientation: .portrait)
-        .previewLayout(.iPhoneSe)
-        .previewDisplayName("Configuration portrait")
-    }
+    .environment(\.verticalSizeClass, .regular)
+    .environment(\.horizontalSizeClass, .compact)
+    .previewLayout(.iPhoneSe)
+    .previewDisplayName("Configuration portrait")
   }
 }
 
 struct ConfigurationViewLandscape_Previews: PreviewProvider {
-  static func configurationView(deviceOrientation: UIDeviceOrientation) -> some View {
+  static var previews: some View {
     NavigationView {
       ConfigurationView(
         clockStyle: .constant(.classic),
         isMinuteIndicatorsShown: .constant(true),
         isHourIndicatorsShown: .constant(true),
         isLimitedHoursShown: .constant(false),
-        speechRateRatio: .constant(1.0),
-        deviceOrientation: deviceOrientation
+        speechRateRatio: .constant(1.0)
       )
         .navigationBarTitle("Configuration")
     }
     .environmentObject(App.previewStore)
-  }
-
-  static var previews: some View {
-    Group {
-      configurationView(deviceOrientation: .landscapeLeft)
-        .previewLayout(.iPhoneSe(.landscape))
-        .previewDisplayName("Configuration landscape")
-    }
+    .environment(\.verticalSizeClass, .compact)
+    .environment(\.horizontalSizeClass, .compact)
+    .previewLayout(.iPhoneSe(.landscape))
+    .previewDisplayName("Configuration landscape")
   }
 }
 #endif
