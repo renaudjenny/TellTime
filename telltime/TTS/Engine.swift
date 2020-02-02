@@ -12,8 +12,9 @@ extension TTS {
     private let tellTimeEngine: TellTimeEngine = SwiftPastTen()
 
     override init() {
-      super.init()
-      self.speechSynthesizer.delegate = self
+        super.init()
+        self.speechSynthesizer.delegate = self
+        try? AVAudioSession.sharedInstance().setCategory(.playback)
     }
 
     func speech(date: Date) {
