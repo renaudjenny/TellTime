@@ -7,8 +7,7 @@ struct SpeakButtonContainer: View {
     SpeakButton(
       isSpeaking: self.store.state.tts.isSpeaking,
       speakingProgress: self.store.state.tts.speakingProgress,
-      tellTime: self.tellTime,
-      isMuted: self.store.state.tts.isMuted
+      tellTime: self.tellTime
     )
       .onAppear(perform: self.subscribeToTTSEngine)
   }
@@ -27,7 +26,6 @@ struct SpeakButton: View {
   let isSpeaking: Bool
   let speakingProgress: Double
   let tellTime: () -> Void
-  let isMuted: Bool
 
   var body: some View {
     ZStack {
@@ -51,12 +49,6 @@ struct SpeakButton: View {
       }
       .disabled(self.isSpeaking)
       .layoutPriority(1)
-      .popover(isPresented: .constant(isMuted && isSpeaking)) {
-        VStack {
-          Image(systemName: "speaker.slash")
-          Text("Your device is in silent mode")
-        }
-      }
     }
   }
 
@@ -69,22 +61,22 @@ struct SpeakButton: View {
 struct SpeakButton_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      SpeakButton(isSpeaking: false, speakingProgress: 1, tellTime: {}, isMuted: false)
+      SpeakButton(isSpeaking: false, speakingProgress: 1, tellTime: {})
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Speak Button not speaking, 100% progress")
-      SpeakButton(isSpeaking: true, speakingProgress: 1/4, tellTime: {}, isMuted: false)
+      SpeakButton(isSpeaking: true, speakingProgress: 1/4, tellTime: {})
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Speak Button speaking, 25% progress")
-      SpeakButton(isSpeaking: true, speakingProgress: 1/2, tellTime: {}, isMuted: false)
+      SpeakButton(isSpeaking: true, speakingProgress: 1/2, tellTime: {})
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Speak Button speaking, 50% progress")
-      SpeakButton(isSpeaking: true, speakingProgress: 3/4, tellTime: {}, isMuted: false)
+      SpeakButton(isSpeaking: true, speakingProgress: 3/4, tellTime: {})
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Speak Button speaking, 75% progress")
-      SpeakButton(isSpeaking: true, speakingProgress: 9/10, tellTime: {}, isMuted: false)
+      SpeakButton(isSpeaking: true, speakingProgress: 9/10, tellTime: {})
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Speak Button speaking, 90% progress")
-      SpeakButton(isSpeaking: true, speakingProgress: 1, tellTime: {}, isMuted: false)
+      SpeakButton(isSpeaking: true, speakingProgress: 1, tellTime: {})
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Speak Button speaking, 100% progress")
     }

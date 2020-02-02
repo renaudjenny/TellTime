@@ -9,7 +9,6 @@ class TTSTests: XCTestCase {
     XCTAssertEqual(store.state.tts.isSpeaking, false)
     XCTAssertEqual(store.state.tts.speakingProgress, 0)
     XCTAssertEqual(store.state.tts.rateRatio, 1)
-    XCTAssertEqual(store.state.tts.isMuted, false)
   }
 
   func testWhenIChangeTheTTSRateRatioTheRateRatioOfEngineIsChanged() {

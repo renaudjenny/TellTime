@@ -6,7 +6,6 @@ enum TTS {
     var isSpeaking = false
     var speakingProgress = 0.0
     var rateRatio: Float = 1.0
-    var isMuted = false
   }
 
   enum Action {
@@ -15,7 +14,6 @@ enum TTS {
     case startSpeaking
     case stopSpeaking
     case changeSpeakingProgress(Double)
-    case setMuteStatus(Bool)
   }
 
   static func subscribeToEngineIsSpeaking() -> AnyPublisher<App.Action, Never> {
@@ -43,8 +41,6 @@ enum TTS {
       state.isSpeaking = false
     case let .changeSpeakingProgress(speakingProgress):
       state.speakingProgress = speakingProgress
-    case let .setMuteStatus(isMuted):
-      state.isMuted = isMuted
     }
   }
 }
