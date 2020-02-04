@@ -30,46 +30,58 @@ struct TellTimeContainer: View {
 }
 
 struct TellTimeView: View {
-  @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
-  @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-  @Binding var date: Date
-  let time: String
-  let changeClockRandomly: () -> Void
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    @Binding var date: Date
+    let time: String
+    let changeClockRandomly: () -> Void
 
-  var body: some View {
-    Group {
-      if verticalSizeClass == .compact || horizontalSizeClass == .regular {
-        HStack {
-          VStack {
-            ClockContainer()
-              .padding()
-            TimeText(time: self.time)
-          }
-          VStack {
-            Spacer()
-            DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
-              .fixedSize()
-            Spacer()
-            TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
-          }
+    var body: some View {
+        Group {
+            if verticalSizeClass == .regular && horizontalSizeClass == .compact {
+                VStack {
+                    Spacer()
+                    ClockContainer()
+                    Spacer()
+                    TimeText(time: self.time)
+                    Spacer()
+                    DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
+                        .fixedSize()
+                    Spacer()
+                    TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
+                }
+            } else if verticalSizeClass == .compact {
+                HStack {
+                    ClockContainer().padding()
+                    VStack {
+                        TimeText(time: self.time)
+                            .padding()
+                        DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
+                            .fixedSize()
+                        Spacer()
+                        TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
+                    }
+                }
+            } else {
+                HStack {
+                    ClockContainer()
+                        .layoutPriority(1)
+                        .padding()
+                    VStack {
+                        Spacer()
+                        TimeText(time: self.time)
+                            .padding()
+                        DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
+                            .fixedSize()
+                        Spacer()
+                        TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
+                    }
+                }
+            }
         }
-      } else {
-        VStack {
-          Spacer()
-          ClockContainer()
-          Spacer()
-          TimeText(time: self.time)
-          Spacer()
-          DatePicker("", selection: self.$date, displayedComponents: [.hourAndMinute])
-            .fixedSize()
-          Spacer()
-          TellTimeButtons(changeClockRandomly: self.changeClockRandomly)
-        }
-      }
+        .navigationBarTitle("Tell Time")
+        .padding()
     }
-    .navigationBarTitle("Tell Time")
-    .padding()
-  }
 }
 
 private struct TellTimeButtons: View {
