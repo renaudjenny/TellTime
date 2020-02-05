@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension ClockFace {
+extension ClockFaceView {
   struct Mouth: Shape {
     let shape: MouthShape
     private var mouthAnimationShape: Double
@@ -50,21 +50,21 @@ extension ClockFace {
 struct Mouth_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      ClockFace.Mouth(shape: .smile)
+      ClockFaceView.Mouth(shape: .smile)
         .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
         .padding()
         .frame(width: 100, height: 50)
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Smile")
 
-      ClockFace.Mouth(shape: .neutral)
+      ClockFaceView.Mouth(shape: .neutral)
         .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
         .padding()
         .frame(width: 100, height: 50)
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Neutral")
 
-      ClockFace.Mouth(shape: .sad)
+      ClockFaceView.Mouth(shape: .sad)
         .stroke(style: .init(lineWidth: 6.0, lineCap: .round, lineJoin: .round))
         .padding()
         .frame(width: 100, height: 50)

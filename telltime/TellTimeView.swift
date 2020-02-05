@@ -33,7 +33,7 @@ private struct VerticalBody: View {
     var body: some View {
         VStack {
             Spacer()
-            ClockContainer()
+            ClockView()
             Spacer()
             TimeText()
             Spacer()
@@ -47,7 +47,7 @@ private struct VerticalBody: View {
 private struct VerticalCompactBody: View {
     var body: some View {
         HStack {
-            ClockContainer().padding()
+            ClockView().padding()
             VStack {
                 TimeText().padding()
                 DatePicker()
@@ -61,7 +61,7 @@ private struct VerticalCompactBody: View {
 private struct RegularBody: View {
     var body: some View {
         HStack {
-            ClockContainer()
+            ClockView()
                 .layoutPriority(1)
                 .padding()
             VStack {

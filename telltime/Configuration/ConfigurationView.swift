@@ -45,8 +45,7 @@ struct ConfigurationView: View {
       if verticalSizeClass == .compact || horizontalSizeClass == .regular {
         HStack {
           VStack {
-            ClockContainer()
-              .padding()
+            ClockView().padding()
             StylePicker(clockStyle: self.$clockStyle)
           }
           Controls(
@@ -61,8 +60,7 @@ struct ConfigurationView: View {
       } else {
         VStack {
           StylePicker(clockStyle: self.$clockStyle)
-          ClockContainer()
-            .padding()
+          ClockView().padding()
           Controls(
             isMinuteIndicatorsShown: self.$isMinuteIndicatorsShown,
             isHourIndicatorsShown: self.$isHourIndicatorsShown,

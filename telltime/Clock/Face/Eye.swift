@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension ClockFace {
+extension ClockFaceView {
   struct Eye: View {
     let move: Bool
     let position: Position
@@ -9,7 +9,7 @@ extension ClockFace {
       ZStack {
         Circle()
           .stroke(lineWidth: 4)
-        ClockFace.Iris(move: self.move, position: self.position)
+        ClockFaceView.Iris(move: self.move, position: self.position)
           .fill()
       }
     }
@@ -66,19 +66,19 @@ extension ClockFace {
 struct Eye_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      ClockFace.Eye(move: false, position: .left)
+      ClockFaceView.Eye(move: false, position: .left)
         .padding()
         .frame(width: 150, height: 150)
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Eye (not moved)")
 
-      ClockFace.Eye(move: true, position: .left)
+      ClockFaceView.Eye(move: true, position: .left)
         .padding()
         .frame(width: 150, height: 150)
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
         .previewDisplayName("Left eye")
 
-      ClockFace.Eye(move: true, position: .right)
+      ClockFaceView.Eye(move: true, position: .right)
         .padding()
         .frame(width: 150, height: 150)
         .previewDevice(PreviewDevice(rawValue: "iPhone SE"))

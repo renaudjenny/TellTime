@@ -9,10 +9,4 @@ class ClockFaceTests: XCTestCase {
     let hostingController = UIHostingController(rootView: clockFaces)
     assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
-
-  func testClockFaceNeutral() {
-    let clockFaces = ClockFaceNeutral_Previews.previews
-    let hostingController = UIHostingController(rootView: clockFaces)
-    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
-  }
 }

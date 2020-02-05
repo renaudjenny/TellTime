@@ -39,7 +39,7 @@
 		4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB965F723D6412800B40F83 /* AboutViewTests.swift */; };
 		4CBC5B91236DED890000DCB5 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBC5B90236DED890000DCB5 /* Clock.swift */; };
 		4CC0406722B530EC0001AA50 /* TTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0406622B530EC0001AA50 /* TTS.swift */; };
-		4CC35E0A233F4D9400D9C8D6 /* ClockFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */; };
+		4CC35E0A233F4D9400D9C8D6 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC35E09233F4D9400D9C8D6 /* ClockFaceView.swift */; };
 		4CCF192F234E6433002E6D46 /* ClassicArm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF192E234E6433002E6D46 /* ClassicArm.swift */; };
 		4CCF1931234E6467002E6D46 /* Arms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1930234E6467002E6D46 /* Arms.swift */; };
 		4CCF1936234E6579002E6D46 /* Indicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1935234E6579002E6D46 /* Indicators.swift */; };
@@ -111,7 +111,7 @@
 		4CB965F723D6412800B40F83 /* AboutViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewTests.swift; sourceTree = "<group>"; };
 		4CBC5B90236DED890000DCB5 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		4CC0406622B530EC0001AA50 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
-		4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFace.swift; sourceTree = "<group>"; };
+		4CC35E09233F4D9400D9C8D6 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		4CCF192E234E6433002E6D46 /* ClassicArm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicArm.swift; sourceTree = "<group>"; };
 		4CCF1930234E6467002E6D46 /* Arms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arms.swift; sourceTree = "<group>"; };
 		4CCF1935234E6579002E6D46 /* Indicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicators.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		4C05AB5E2343FBE300970036 /* Face */ = {
 			isa = PBXGroup;
 			children = (
-				4CC35E09233F4D9400D9C8D6 /* ClockFace.swift */,
+				4CC35E09233F4D9400D9C8D6 /* ClockFaceView.swift */,
 				4C05AB622343FE6C00970036 /* Eye.swift */,
 				4C05AB602343FD7200970036 /* Mouth.swift */,
 			);
@@ -530,7 +530,7 @@
 				4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */,
 				4CBC5B91236DED890000DCB5 /* Clock.swift in Sources */,
 				4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */,
-				4CC35E0A233F4D9400D9C8D6 /* ClockFace.swift in Sources */,
+				4CC35E0A233F4D9400D9C8D6 /* ClockFaceView.swift in Sources */,
 				4C572759236A3B1F0028348F /* Arm.swift in Sources */,
 				4CCF1936234E6579002E6D46 /* Indicators.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
