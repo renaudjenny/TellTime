@@ -44,9 +44,3 @@ enum TTS {
     }
   }
 }
-
-extension TTS {
-  static func time(date: Date) -> String {
-    Current.tts.time(date)
-  }
-}
