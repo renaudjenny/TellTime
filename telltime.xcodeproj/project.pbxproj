@@ -59,7 +59,6 @@
 		4CEB6044238ADEE10085B07C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6043238ADEE10085B07C /* Store.swift */; };
 		4CEB604A238C82A30085B07C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6049238C82A30085B07C /* Configuration.swift */; };
 		4CF2DE86236BA01400C352F6 /* ArtNouveauClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */; };
-		4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */; };
 		4CFD817023A2EA5A00A97C77 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD816F23A2EA5A00A97C77 /* Engine.swift */; };
 		4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */; };
 		4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */; };
@@ -130,7 +129,6 @@
 		4CEB6043238ADEE10085B07C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		4CEB6049238C82A30085B07C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauClockBorder.swift; sourceTree = "<group>"; };
-		4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockBorder.swift; sourceTree = "<group>"; };
 		4CFD816F23A2EA5A00A97C77 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
 		4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensionsTests.swift; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 			children = (
 				4CF2DE85236BA01400C352F6 /* ArtNouveauClockBorder.swift */,
 				4C572756236A399B0028348F /* ClassicClockBorder.swift */,
-				4CF2DE87236BA06A00C352F6 /* ClockBorder.swift */,
 				4CA5F621237C8D49007F058A /* DrawnClockBorder.swift */,
 			);
 			path = Borders;
@@ -523,7 +520,6 @@
 				4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */,
 				4CCF192F234E6433002E6D46 /* ClassicArm.swift in Sources */,
 				4CA4F649236D125F007088BA /* ClassicIndicators.swift in Sources */,
-				4CF2DE88236BA06A00C352F6 /* ClockBorder.swift in Sources */,
 				4CEB60402381C32B0085B07C /* DrawnArm.swift in Sources */,
 				4CEB6042238ADEAF0085B07C /* App.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,

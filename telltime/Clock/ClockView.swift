@@ -7,7 +7,7 @@ struct ClockView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                ClockBorderContainer(localWidth: geometry.localWidth)
+                ClockBorderView(localWidth: geometry.localWidth, clockStyle: self.store.state.configuration.clockStyle)
                 IndicatorsContainer()
                 Arms()
                 ClockFaceView()
@@ -21,6 +21,23 @@ struct ClockView: View {
     private func showClockFace() {
         self.store.send(.clock(.showClockFace))
         self.store.send(Clock.delayClockFaceHidding())
+    }
+}
+
+private struct ClockBorderView: View {
+    let localWidth: CGFloat
+    let clockStyle: ClockStyle
+
+    var body: some View {
+        Group {
+            if self.clockStyle == .artNouveau {
+                ArtNouveauClockBorder(localWidth: self.localWidth)
+            } else if self.clockStyle == .drawing {
+                DrawnClockBorder(localWidth: self.localWidth)
+            } else {
+                ClassicClockBorder(localWidth: self.localWidth)
+            }
+        }
     }
 }
 
