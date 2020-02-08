@@ -128,4 +128,30 @@ class ClockTests: XCTestCase {
         let hostingController = UIHostingController(rootView: clockViews)
         assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
     }
+
+    func testClockViewArtNouveauStyle() {
+        Current.isAnimationDisabled = true
+        let clockViews = ClockViewArtNouveauStyle_Previews.previews
+        let hostingController = UIHostingController(rootView: clockViews)
+        assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
+    }
+
+    func testClockViewDrawingStyle() {
+        Current.isAnimationDisabled = true
+        Current.clock.randomControlRatio = (
+            leftX: { 0.5 },
+            leftY: { 0.6 },
+            rightX: { 0.7 },
+            rightY: { 0.8 }
+        )
+        Current.clock.randomAngle = { .degrees(5) }
+        Current.clock.randomScale = { 1 }
+        Current.clock.randomBorderMarginRatio = (
+            maxMargin: { $0 },
+            angleMargin: { 1/3 }
+        )
+        let clockViews = ClockViewDrawingStyle_Previews.previews
+        let hostingController = UIHostingController(rootView: clockViews)
+        assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
+    }
 }

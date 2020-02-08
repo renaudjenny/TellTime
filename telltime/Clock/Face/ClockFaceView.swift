@@ -35,15 +35,11 @@ struct ClockFaceView: View {
 
 #if DEBUG
 struct ClockFaceSmiling_Previews: PreviewProvider {
-    static var previewStoreWithShowFace: Store<App.State, App.Action> {
-        var state = App.State()
-        state.clock.isClockFaceShown = true
-        return .init(initialState: state) { _, _ in }
-    }
-
     static var previews: some View {
         ClockFaceView()
-            .environmentObject(Self.previewStoreWithShowFace)
+            .environmentObject(App.previewStore {
+                $0.clock.isClockFaceShown = true
+            })
     }
 }
 #endif

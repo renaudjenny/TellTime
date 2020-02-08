@@ -65,15 +65,29 @@ struct ClockView_Previews: PreviewProvider {
 }
 
 struct ClockViewWithFace_Previews: PreviewProvider {
-    static var previewStoreWithShowFace: Store<App.State, App.Action> {
-        var state = App.State()
-        state.clock.isClockFaceShown = true
-        return .init(initialState: state) { _, _ in }
-    }
-
     static var previews: some View {
         ClockView().padding()
-            .environmentObject(Self.previewStoreWithShowFace)
+            .environmentObject(App.previewStore {
+                $0.clock.isClockFaceShown = true
+            })
+    }
+}
+
+struct ClockViewArtNouveauStyle_Previews: PreviewProvider {
+    static var previews: some View {
+        ClockView().padding()
+            .environmentObject(App.previewStore {
+                $0.configuration.clockStyle = .artNouveau
+            })
+    }
+}
+
+struct ClockViewDrawingStyle_Previews: PreviewProvider {
+    static var previews: some View {
+        ClockView().padding()
+            .environmentObject(App.previewStore {
+                $0.configuration.clockStyle = .drawing
+            })
     }
 }
 #endif
