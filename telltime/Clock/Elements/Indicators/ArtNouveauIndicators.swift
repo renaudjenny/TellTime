@@ -26,12 +26,12 @@ struct ArtNouveauIndicators: View {
       ZStack {
         ForEach(self.configurationRomanNumbers, id: \.self) { romanNumber in
           Text("\(romanNumber)")
-            .modifier(NumberCircle(width: geometry.localWidth * 3/2 * Self.marginRatio))
+            .modifier(NumberCircle(width: geometry.localDiameter * 3/2 * Self.marginRatio))
             .modifier(ScaleUpOnAppear())
             .position(.pointInCircle(
               from: self.angle(for: romanNumber),
               frame: geometry.localFrame,
-              margin: geometry.localWidth * Self.marginRatio
+              margin: geometry.localDiameter * Self.marginRatio
             ))
         }
       }

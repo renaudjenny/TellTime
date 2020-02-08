@@ -2,18 +2,19 @@ import SwiftUI
 
 struct ClassicClockBorder: View {
   static let borderWidthRatio: CGFloat = 1/70
-  let localWidth: CGFloat
 
   var body: some View {
-    Circle()
-      .stroke(lineWidth: self.localWidth * Self.borderWidthRatio)
+    GeometryReader { geometry in
+        Circle()
+          .stroke(lineWidth: geometry.localDiameter * Self.borderWidthRatio)
+    }
   }
 }
 
 #if DEBUG
 struct ClassicClockBorder_Previews: PreviewProvider {
   static var previews: some View {
-    ClassicClockBorder(localWidth: 300)
+    ClassicClockBorder().padding()
   }
 }
 #endif

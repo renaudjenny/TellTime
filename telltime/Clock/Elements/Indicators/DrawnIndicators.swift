@@ -54,7 +54,7 @@ private struct Hours: View {
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * Self.marginRatio
+            margin: geometry.localDiameter * Self.marginRatio
           ))
           .onAppear(perform: { self.animate = true })
       }

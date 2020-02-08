@@ -52,7 +52,7 @@ private struct HourTexts: View {
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * self.dynamicMarginRatio
+            margin: geometry.localDiameter * self.dynamicMarginRatio
           ))
       }
     }
@@ -77,11 +77,11 @@ private struct HourIndicators: View {
     GeometryReader { geometry in
       ForEach(1..<13) { hour in
         Circle()
-          .frame(width: geometry.localWidth * Self.hourDotRatio)
+          .frame(width: geometry.localDiameter * Self.hourDotRatio)
           .position(.pointInCircle(
             from: Angle(degrees: Double(hour) * .hourInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * self.marginRatio/3
+            margin: geometry.localDiameter * self.marginRatio/3
           ))
       }
     }
@@ -96,11 +96,11 @@ private struct MinuteIndicators: View {
     GeometryReader { geometry in
       ForEach(1..<61) { minute in
         Circle()
-          .frame(width: geometry.localWidth * Self.minuteDotRatio)
+          .frame(width: geometry.localDiameter * Self.minuteDotRatio)
           .position(.pointInCircle(
             from: Angle(degrees: Double(minute) * .minuteInDegree),
             frame: geometry.localFrame,
-            margin: geometry.localWidth * self.marginRatio/3
+            margin: geometry.localDiameter * self.marginRatio/3
           ))
       }
     }

@@ -1,16 +1,17 @@
 import SwiftUI
 
 struct DrawnClockBorder: View {
-  static let borderWidthRatio: CGFloat = 1/70
-  let localWidth: CGFloat
-  @State private var animate = false
+    static let borderWidthRatio: CGFloat = 1/70
+    @State private var animate = false
 
-  var body: some View {
-    DrawnCircle(draw: self.animate)
-      .stroke(lineWidth: self.localWidth * Self.borderWidthRatio)
-      .onAppear(perform: { self.animate = true })
-      .animation(.easeInOut(duration: 1))
-  }
+    var body: some View {
+        GeometryReader { geometry in
+            DrawnCircle(draw: self.animate)
+                .stroke(lineWidth: geometry.localDiameter * Self.borderWidthRatio)
+                .onAppear(perform: { self.animate = true })
+                .animation(.easeInOut(duration: 1))
+        }
+    }
 }
 
 struct DrawnCircle: Shape {
@@ -59,7 +60,7 @@ struct DrawnCircle: Shape {
 #if DEBUG
 struct DrawnClockBorder_Previews: PreviewProvider {
   static var previews: some View {
-    DrawnClockBorder(localWidth: 300)
+    DrawnClockBorder()
     .padding()
   }
 }
