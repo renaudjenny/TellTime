@@ -7,8 +7,8 @@ struct ClockView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                ClockBorderView(clockStyle: self.store.state.configuration.clockStyle)
-                IndicatorsContainer()
+                ClockBorderView()
+                IndicatorsView()
                 Arms()
                 ClockFaceView()
             }
@@ -25,16 +25,32 @@ struct ClockView: View {
 }
 
 private struct ClockBorderView: View {
-    let clockStyle: ClockStyle
+    @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
         Group {
-            if self.clockStyle == .artNouveau {
+            if store.state.configuration.clockStyle == .artNouveau {
                 ArtNouveauClockBorder()
-            } else if self.clockStyle == .drawing {
+            } else if store.state.configuration.clockStyle == .drawing {
                 DrawnClockBorder()
             } else {
                 ClassicClockBorder()
+            }
+        }
+    }
+}
+
+private struct IndicatorsView: View {
+    @EnvironmentObject var store: Store<App.State, App.Action>
+
+    var body: some View {
+        Group {
+            if store.state.configuration.clockStyle == .artNouveau {
+                ArtNouveauIndicatorsContainer()
+            } else if store.state.configuration.clockStyle == .drawing {
+                DrawnIndicatorsContainer()
+            } else {
+                ClassicIndicatorsContainer()
             }
         }
     }
