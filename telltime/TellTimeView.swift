@@ -92,7 +92,7 @@ private struct TellTimeButtons: View {
 
     var body: some View {
         HStack {
-            SpeakButtonContainer()
+            SpeakButton()
             Spacer()
             Button(action: changeClockRandomly) {
                 Image(systemName: "shuffle")

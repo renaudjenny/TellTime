@@ -8,6 +8,6 @@ class SpeakButtonTests: XCTestCase {
     Current.isAnimationDisabled = true
     let speakButtons = SpeakButton_Previews.previews
     let hostingController = UIHostingController(rootView: speakButtons)
-    assertSnapshot(matching: hostingController, as: .image)
+    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
 }
