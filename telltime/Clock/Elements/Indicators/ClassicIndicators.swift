@@ -24,18 +24,19 @@ private struct HourTexts: View {
     private static let limitedHours = [12, 3, 6, 9]
     let marginRatio: CGFloat
 
-  var body: some View {
-    GeometryReader { geometry in
-      ForEach(self.configurationHours, id: \.self) { hour in
-        Text("\(hour)")
-          .position(.pointInCircle(
-            from: Angle(degrees: Double(hour) * .hourInDegree),
-            frame: geometry.localFrame,
-            margin: geometry.localDiameter * self.dynamicMarginRatio
-          ))
-      }
+    var body: some View {
+        GeometryReader { geometry in
+            ForEach(self.configurationHours, id: \.self) { hour in
+                Text("\(hour)")
+                    .font(.systemProportional(width: geometry.localDiameter))
+                    .position(.pointInCircle(
+                        from: Angle(degrees: Double(hour) * .hourInDegree),
+                        frame: geometry.localFrame,
+                        margin: geometry.localDiameter * self.dynamicMarginRatio
+                        ))
+            }
+        }
     }
-  }
 
   private var configurationHours: [Int] {
     store.state.configuration.isLimitedHoursShown ? Self.limitedHours : Self.hours

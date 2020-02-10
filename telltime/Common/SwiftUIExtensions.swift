@@ -88,3 +88,10 @@ extension PreviewLayout {
 
   static let iPhoneSe = Self.iPhoneSe(.portrait)
 }
+
+extension Font {
+    private static let ratio: CGFloat = 1/10
+    static func systemProportional(width: CGFloat) -> Font {
+        .system(size: width * Self.ratio)
+    }
+}

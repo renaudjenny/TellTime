@@ -115,12 +115,12 @@ class ClockTests: XCTestCase {
     XCTAssertEqual(store.state.clock.minuteAngle, oneHourTwentyMinutesAngles.minute)
   }
 
-  func testClockViews() {
-    Current.isAnimationDisabled = true
-    let clockViews = ClockView_Previews.previews
-    let hostingController = UIHostingController(rootView: clockViews)
-    assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
-  }
+    func testClockViews() {
+        Current.isAnimationDisabled = true
+        let clockViews = ClockView_Previews.previews
+        let hostingController = UIHostingController(rootView: clockViews)
+        assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
+    }
 
     func testClockViewWithFace() {
         Current.isAnimationDisabled = true
