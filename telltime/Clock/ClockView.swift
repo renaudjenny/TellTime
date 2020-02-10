@@ -46,7 +46,7 @@ private struct IndicatorsView: View {
     var body: some View {
         Group {
             if store.state.configuration.clockStyle == .artNouveau {
-                ArtNouveauIndicatorsContainer()
+                ArtNouveauIndicators()
             } else if store.state.configuration.clockStyle == .drawing {
                 DrawnIndicatorsContainer()
             } else {
