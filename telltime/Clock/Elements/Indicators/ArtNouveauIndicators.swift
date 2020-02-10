@@ -2,8 +2,8 @@ import SwiftUI
 
 struct ArtNouveauIndicators: View {
     @EnvironmentObject var store: Store<App.State, App.Action>
+    static let marginRatio: CGFloat = 1/12
     private static let hourInDegree: Double = 30
-    private static let marginRatio: CGFloat = 1/12
     private static let romanNumbers = ["XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"]
     private static let limitedRomanNumbers = ["XII", "III", "VI", "IX"]
 
@@ -23,13 +23,9 @@ struct ArtNouveauIndicators: View {
     func romanHour(for romanNumber: String) -> some View {
         GeometryReader { geometry in
             Text(romanNumber)
-                .modifier(NumberCircle(width: geometry.localDiameter * 3/2 * Self.marginRatio))
+                .modifier(NumberCircle(geometry: geometry))
                 .modifier(ScaleUpOnAppear())
-                .position(.pointInCircle(
-                    from: self.angle(for: romanNumber),
-                    frame: geometry.localFrame,
-                    margin: geometry.localDiameter * Self.marginRatio
-                    ))
+                .modifier(PositionInCircle(angle: self.angle(for: romanNumber), marginRatio: Self.marginRatio))
         }
     }
 
@@ -38,20 +34,28 @@ struct ArtNouveauIndicators: View {
     }
 
     private struct NumberCircle: ViewModifier {
-        let width: CGFloat
+        let geometry: GeometryProxy
 
         func body(content: Content) -> some View {
             content
-                .background(
-                    Circle()
-                        .fill(Color.background)
-                        .frame(width: self.width, height: self.width)
-            )
-                .overlay(
-                    Circle()
-                        .stroke()
-                        .frame(width: self.width, height: self.width)
-            )
+                .background(self.background)
+                .overlay(self.overlay)
+        }
+
+        private var width: CGFloat {
+            geometry.localDiameter * 3/2 * ArtNouveauIndicators.marginRatio
+        }
+
+        private var background: some View {
+            Circle()
+                .fill(Color.background)
+                .frame(width: width, height: width)
+        }
+
+        private var overlay: some View {
+            Circle()
+                .stroke()
+                .frame(width: width, height: width)
         }
     }
 

@@ -36,64 +36,62 @@ struct DrawnIndicators: View {
 }
 
 private struct Hours: View {
-  private static let widthRatio: CGFloat = 1/40
-  private static let heightRatio: CGFloat = 1/20
-  private static let marginRatio: CGFloat = 1/20
-  @State private var animate: Bool = false
+    private static let widthRatio: CGFloat = 1/40
+    private static let heightRatio: CGFloat = 1/20
+    private static let marginRatio: CGFloat = 1/20
+    @State private var animate: Bool = false
 
-  var body: some View {
-    GeometryReader { geometry in
-      ForEach(1...12, id: \.self) { hour in
-        DrawnIndicator(draw: self.animate)
-          .rotation(Angle(degrees: Double(hour) * .hourInDegree))
-          .fill()
-          .frame(
-            width: geometry.localWidth * Self.widthRatio,
-            height: geometry.localHeight * Self.heightRatio
-          )
-          .position(.pointInCircle(
-            from: Angle(degrees: Double(hour) * .hourInDegree),
-            frame: geometry.localFrame,
-            margin: geometry.localDiameter * Self.marginRatio
-          ))
-          .onAppear(perform: { self.animate = true })
-      }
+    var body: some View {
+        GeometryReader { geometry in
+            ForEach(1...12, id: \.self) { hour in
+                DrawnIndicator(draw: self.animate)
+                    .rotation(Angle(degrees: Double(hour) * .hourInDegree))
+                    .fill()
+                    .frame(
+                        width: geometry.localWidth * Self.widthRatio,
+                        height: geometry.localHeight * Self.heightRatio
+                )
+                    .modifier(PositionInCircle(
+                        angle: .degrees(Double(hour) * .hourInDegree),
+                        marginRatio: Self.marginRatio
+                    ))
+                    .onAppear(perform: { self.animate = true })
+            }
+        }
     }
-  }
 }
 
 private struct Minutes: View {
-  private static let widthRatio: CGFloat = 1/50
-  private static let heightRatio: CGFloat = 1/30
-  private static let marginRatio: CGFloat = 1/30
-  let isHourIndicatorsShown: Bool
-  @State private var animate: Bool = false
+    private static let widthRatio: CGFloat = 1/50
+    private static let heightRatio: CGFloat = 1/30
+    private static let marginRatio: CGFloat = 1/30
+    let isHourIndicatorsShown: Bool
+    @State private var animate: Bool = false
 
-  var body: some View {
-    GeometryReader { geometry in
-      ForEach(1...60, id: \.self) { minute in
-        Group {
-          if self.isOverlapingHour(minute: minute) {
-            EmptyView()
-          } else {
-            DrawnIndicator(draw: self.animate)
-              .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
-              .fill()
-              .frame(
-                width: geometry.localWidth * Self.widthRatio,
-                height: geometry.localHeight * Self.heightRatio
-              )
-              .position(.pointInCircle(
-                from: Angle(degrees: Double(minute) * .minuteInDegree),
-                frame: geometry.localFrame,
-                margin: geometry.localWidth * Self.marginRatio
-              ))
-              .onAppear(perform: { self.animate = true })
-          }
+    var body: some View {
+        GeometryReader { geometry in
+            ForEach(1...60, id: \.self) { minute in
+                Group {
+                    if self.isOverlapingHour(minute: minute) {
+                        EmptyView()
+                    } else {
+                        DrawnIndicator(draw: self.animate)
+                            .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
+                            .fill()
+                            .frame(
+                                width: geometry.localWidth * Self.widthRatio,
+                                height: geometry.localHeight * Self.heightRatio
+                        )
+                            .modifier(PositionInCircle(
+                                angle: .degrees( Double(minute) * .minuteInDegree),
+                                marginRatio: Self.marginRatio
+                            ))
+                            .onAppear(perform: { self.animate = true })
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
   private func isOverlapingHour(minute: Int) -> Bool {
     guard self.isHourIndicatorsShown else { return false }
@@ -163,27 +161,23 @@ struct DrawnIndicator: Shape {
 }
 
 struct DrawnNumbers: View {
-  private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-  private static let limitedHours = [12, 3, 6, 9]
-  private static let marginRatio: CGFloat = 1/7
-  let isHourIndicatorsShown: Bool
-  let isMinuteIndicatorsShown: Bool
-  let isLimitedHoursShown: Bool
+    private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    private static let limitedHours = [12, 3, 6, 9]
+    private static let marginRatio: CGFloat = 1/7
+    let isHourIndicatorsShown: Bool
+    let isMinuteIndicatorsShown: Bool
+    let isLimitedHoursShown: Bool
 
-  var body: some View {
-    GeometryReader { geometry in
-      ForEach(self.configurationHours, id: \.self) { hour in
-        Text("\(hour)")
-          .rotationEffect(Current.clock.randomAngle() ?? .zero, anchor: .center)
-          .scaleEffect(Current.clock.randomScale() ?? 1, anchor: .center)
-          .position(.pointInCircle(
-            from: Angle(degrees: Double(hour) * .hourInDegree),
-            frame: geometry.localFrame,
-            margin: geometry.localWidth * self.marginRatio
-          ))
-      }
+    var body: some View {
+        ForEach(self.configurationHours, id: \.self) { hour in
+            Text("\(hour)")
+                .rotationEffect(Current.clock.randomAngle() ?? .zero, anchor: .center)
+                .scaleEffect(Current.clock.randomScale() ?? 1, anchor: .center)
+                .modifier(PositionInCircle(
+                    angle: .degrees(Double(hour) * .hourInDegree), marginRatio: self.marginRatio
+                ))
+        }
     }
-  }
 
   private var marginRatio: CGFloat {
     self.isHourIndicatorsShown || self.isMinuteIndicatorsShown

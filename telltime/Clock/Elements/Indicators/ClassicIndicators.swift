@@ -29,11 +29,10 @@ private struct HourTexts: View {
             ForEach(self.configurationHours, id: \.self) { hour in
                 Text("\(hour)")
                     .font(.systemProportional(width: geometry.localDiameter))
-                    .position(.pointInCircle(
-                        from: Angle(degrees: Double(hour) * .hourInDegree),
-                        frame: geometry.localFrame,
-                        margin: geometry.localDiameter * self.dynamicMarginRatio
-                        ))
+                    .modifier(PositionInCircle(
+                        angle: .degrees(Double(hour) * .hourInDegree),
+                        marginRatio: self.dynamicMarginRatio
+                    ))
             }
         }
     }
@@ -50,41 +49,39 @@ private struct HourTexts: View {
 }
 
 private struct HourIndicators: View {
-  private static let hourDotRatio: CGFloat = 1/35
-  let marginRatio: CGFloat
+    private static let hourDotRatio: CGFloat = 1/35
+    let marginRatio: CGFloat
 
-  var body: some View {
-    GeometryReader { geometry in
-      ForEach(1..<13) { hour in
-        Circle()
-          .frame(width: geometry.localDiameter * Self.hourDotRatio)
-          .position(.pointInCircle(
-            from: Angle(degrees: Double(hour) * .hourInDegree),
-            frame: geometry.localFrame,
-            margin: geometry.localDiameter * self.marginRatio/3
-          ))
-      }
+    var body: some View {
+        GeometryReader { geometry in
+            ForEach(1..<13) { hour in
+                Circle()
+                    .frame(width: geometry.localDiameter * Self.hourDotRatio)
+                    .modifier(PositionInCircle(
+                        angle: .degrees(Double(hour) * .hourInDegree),
+                        marginRatio: self.marginRatio/3
+                    ))
+            }
+        }
     }
-  }
 }
 
 private struct MinuteIndicators: View {
-  private static let minuteDotRatio: CGFloat = 1/70
-  let marginRatio: CGFloat
+    private static let minuteDotRatio: CGFloat = 1/70
+    let marginRatio: CGFloat
 
-  var body: some View {
-    GeometryReader { geometry in
-      ForEach(1..<61) { minute in
-        Circle()
-          .frame(width: geometry.localDiameter * Self.minuteDotRatio)
-          .position(.pointInCircle(
-            from: Angle(degrees: Double(minute) * .minuteInDegree),
-            frame: geometry.localFrame,
-            margin: geometry.localDiameter * self.marginRatio/3
-          ))
-      }
+    var body: some View {
+        GeometryReader { geometry in
+            ForEach(1..<61) { minute in
+                Circle()
+                    .frame(width: geometry.localDiameter * Self.minuteDotRatio)
+                    .modifier(PositionInCircle(
+                        angle: .degrees(Double(minute) * .minuteInDegree),
+                        marginRatio: self.marginRatio/3
+                    ))
+            }
+        }
     }
-  }
 }
 
 #if DEBUG
