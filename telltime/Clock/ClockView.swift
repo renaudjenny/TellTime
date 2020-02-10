@@ -50,7 +50,7 @@ private struct IndicatorsView: View {
             } else if store.state.configuration.clockStyle == .drawing {
                 DrawnIndicatorsContainer()
             } else {
-                ClassicIndicatorsContainer()
+                ClassicIndicators()
             }
         }
     }

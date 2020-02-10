@@ -1,35 +1,16 @@
 import SwiftUI
 
-struct ClassicIndicatorsContainer: View {
-  @EnvironmentObject var store: Store<App.State, App.Action>
-
-  var body: some View {
-    ClassicIndicators(
-      isHourIndicatorsShown: self.store.state.configuration.isHourIndicatorsShown,
-      isMinuteIndicatorsShown: self.store.state.configuration.isMinuteIndicatorsShown,
-      isLimitedHoursShown: self.store.state.configuration.isLimitedHoursShown
-    )
-  }
-}
-
 struct ClassicIndicators: View {
-  let isHourIndicatorsShown: Bool
-  let isMinuteIndicatorsShown: Bool
-  let isLimitedHoursShown: Bool
+  @EnvironmentObject var store: Store<App.State, App.Action>
   private static let marginRatio: CGFloat = 1/7
 
   var body: some View {
     ZStack(alignment: .center) {
-      HourTexts(
-        marginRatio: Self.marginRatio,
-        isLimitedHoursShown: self.isLimitedHoursShown,
-        isMinuteIndicatorsShown: self.isMinuteIndicatorsShown,
-        isHourIndicatorsShown: self.isHourIndicatorsShown
-      )
-      if self.isHourIndicatorsShown {
+      HourTexts(marginRatio: Self.marginRatio)
+      if store.state.configuration.isHourIndicatorsShown {
         HourIndicators(marginRatio: Self.marginRatio)
       }
-      if self.isMinuteIndicatorsShown {
+      if store.state.configuration.isMinuteIndicatorsShown {
         MinuteIndicators(marginRatio: Self.marginRatio)
       }
     }
@@ -38,12 +19,10 @@ struct ClassicIndicators: View {
 }
 
 private struct HourTexts: View {
-  private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-  private static let limitedHours = [12, 3, 6, 9]
-  let marginRatio: CGFloat
-  let isLimitedHoursShown: Bool
-  let isMinuteIndicatorsShown: Bool
-  let isHourIndicatorsShown: Bool
+    @EnvironmentObject var store: Store<App.State, App.Action>
+    private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    private static let limitedHours = [12, 3, 6, 9]
+    let marginRatio: CGFloat
 
   var body: some View {
     GeometryReader { geometry in
@@ -59,11 +38,11 @@ private struct HourTexts: View {
   }
 
   private var configurationHours: [Int] {
-    self.isLimitedHoursShown ? Self.limitedHours : Self.hours
+    store.state.configuration.isLimitedHoursShown ? Self.limitedHours : Self.hours
   }
 
   private var dynamicMarginRatio: CGFloat {
-    self.isMinuteIndicatorsShown || self.isHourIndicatorsShown
+    store.state.configuration.isMinuteIndicatorsShown || store.state.configuration.isHourIndicatorsShown
       ? self.marginRatio
       : self.marginRatio/2
   }
@@ -111,14 +90,11 @@ private struct MinuteIndicators: View {
 struct ClassicIndicators_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
-      ClassicIndicators(
-        isHourIndicatorsShown: true,
-        isMinuteIndicatorsShown: true,
-        isLimitedHoursShown: false
-      )
+      ClassicIndicators()
+        .environmentObject(App.previewStore)
       Circle()
         .stroke()
-    }
+    }.padding()
   }
 }
 #endif
