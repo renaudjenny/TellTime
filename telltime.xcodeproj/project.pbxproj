@@ -21,6 +21,7 @@
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
 		4C7E095523D8FA7B00B40F39 /* DrawnControlRatios.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7E095423D8FA7B00B40F39 /* DrawnControlRatios.swift */; };
 		4C896F0F23F2020F006E5953 /* PositionInCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C896F0E23F2020F006E5953 /* PositionInCircle.swift */; };
+		4C896F1123F21573006E5953 /* FontProportional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C896F1023F21573006E5953 /* FontProportional.swift */; };
 		4C9309B522B0C8B80073BE0B /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9309B422B0C8B80073BE0B /* ClockView.swift */; };
 		4C99D44B23747C3100F38E55 /* ScaleUpOnAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C99D44A23747C3100F38E55 /* ScaleUpOnAppear.swift */; };
 		4CA2ECB32393C11F0098B2FF /* ClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB22393C11F0098B2FF /* ClockTests.swift */; };
@@ -87,6 +88,7 @@
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4C7E095423D8FA7B00B40F39 /* DrawnControlRatios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawnControlRatios.swift; sourceTree = "<group>"; };
 		4C896F0E23F2020F006E5953 /* PositionInCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionInCircle.swift; sourceTree = "<group>"; };
+		4C896F1023F21573006E5953 /* FontProportional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProportional.swift; sourceTree = "<group>"; };
 		4C9309B422B0C8B80073BE0B /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		4C99D44A23747C3100F38E55 /* ScaleUpOnAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleUpOnAppear.swift; sourceTree = "<group>"; };
 		4CA2ECB22393C11F0098B2FF /* ClockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTests.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		4C05AB5F2343FC2700970036 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4C896F1023F21573006E5953 /* FontProportional.swift */,
 				4C896F0E23F2020F006E5953 /* PositionInCircle.swift */,
 				4C99D44A23747C3100F38E55 /* ScaleUpOnAppear.swift */,
 				4CEB6043238ADEE10085B07C /* Store.swift */,
@@ -547,6 +550,7 @@
 				4CF2DE86236BA01400C352F6 /* ArtNouveauClockBorder.swift in Sources */,
 				4C572754236786FC0028348F /* ClockStyle.swift in Sources */,
 				4CA4F64B236D1272007088BA /* ArtNouveauIndicators.swift in Sources */,
+				4C896F1123F21573006E5953 /* FontProportional.swift in Sources */,
 				4C05AB632343FE6C00970036 /* Eye.swift in Sources */,
 				4CFD817023A2EA5A00A97C77 /* Engine.swift in Sources */,
 			);
