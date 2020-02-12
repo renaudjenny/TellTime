@@ -14,4 +14,4 @@ Works with Xcode 11.
 
 * ✅ Deploy on real iOS device
 * ✅ Add an icon
-* 🛠 Improve UI for iPad format
+* ✅ Improve UI for iPad format
