@@ -130,7 +130,7 @@ private struct TimeText: View {
 
 private struct ConfigurationGearButton: View {
   var body: some View {
-    NavigationLink(destination: ConfigurationContainer()) {
+    NavigationLink(destination: ConfigurationView()) {
       Image(systemName: "gear")
         .padding()
         .accentColor(.red)
