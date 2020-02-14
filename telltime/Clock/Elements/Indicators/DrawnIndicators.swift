@@ -24,21 +24,16 @@ private struct Hours: View {
     @State private var animate: Bool = false
 
     var body: some View {
-        GeometryReader { geometry in
-            ForEach(1...12, id: \.self) { hour in
-                DrawnIndicator(draw: self.animate)
-                    .rotation(Angle(degrees: Double(hour) * .hourInDegree))
-                    .fill()
-                    .frame(
-                        width: geometry.localWidth * Self.widthRatio,
-                        height: geometry.localHeight * Self.heightRatio
-                )
-                    .modifier(PositionInCircle(
-                        angle: .degrees(Double(hour) * .hourInDegree),
-                        marginRatio: Self.marginRatio
-                    ))
-                    .onAppear(perform: { self.animate = true })
-            }
+        ForEach(1...12, id: \.self) { hour in
+            DrawnIndicator(draw: self.animate)
+                .rotation(Angle(degrees: Double(hour) * .hourInDegree))
+                .fill()
+                .modifier(FrameProportional(widthRatio: Self.widthRatio, heightRatio: Self.heightRatio))
+                .modifier(PositionInCircle(
+                    angle: .degrees(Double(hour) * .hourInDegree),
+                    marginRatio: Self.marginRatio
+                ))
+                .onAppear(perform: { self.animate = true })
         }
     }
 }
@@ -51,26 +46,31 @@ private struct Minutes: View {
     @State private var animate: Bool = false
 
     var body: some View {
-        GeometryReader { geometry in
-            ForEach(1...60, id: \.self) { minute in
-                Group {
-                    if self.isOverlapingHour(minute: minute) {
-                        EmptyView()
-                    } else {
-                        DrawnIndicator(draw: self.animate)
-                            .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
-                            .fill()
-                            .frame(
-                                width: geometry.localWidth * Self.widthRatio,
-                                height: geometry.localHeight * Self.heightRatio
-                        )
-                            .modifier(PositionInCircle(
-                                angle: .degrees( Double(minute) * .minuteInDegree),
-                                marginRatio: Self.marginRatio
-                            ))
-                            .onAppear(perform: { self.animate = true })
-                    }
+        ForEach(1...60, id: \.self) { minute in
+            Group {
+                if self.isOverlapingHour(minute: minute) {
+                    EmptyView()
+                } else {
+                    self.indicator(minute: minute)
                 }
+            }
+        }
+    }
+
+    private func indicator(minute: Int) -> some View {
+        Group {
+            if self.isOverlapingHour(minute: minute) {
+                EmptyView()
+            } else {
+                DrawnIndicator(draw: self.animate)
+                    .rotation(Angle(degrees: Double(minute) * .minuteInDegree))
+                    .fill()
+                    .modifier(FrameProportional(widthRatio: Self.widthRatio, heightRatio: Self.heightRatio))
+                    .modifier(PositionInCircle(
+                        angle: .degrees( Double(minute) * .minuteInDegree),
+                        marginRatio: Self.marginRatio
+                    ))
+                    .onAppear(perform: { self.animate = true })
             }
         }
     }
@@ -151,25 +151,29 @@ struct DrawnNumbers: View {
 
     var body: some View {
         ForEach(self.configurationHours, id: \.self) { hour in
-            Text("\(hour)")
-                .modifier(FontProportional(ratio: Self.fontSizeRatio))
-                .rotationEffect(Current.clock.randomAngle() ?? .zero, anchor: .center)
-                .scaleEffect(Current.clock.randomScale() ?? 1, anchor: .center)
-                .modifier(PositionInCircle(
-                    angle: .degrees(Double(hour) * .hourInDegree), marginRatio: self.marginRatio
-                ))
+            self.hourText(hour)
         }
     }
 
-  private var marginRatio: CGFloat {
-    store.state.configuration.isHourIndicatorsShown || store.state.configuration.isMinuteIndicatorsShown
-      ? Self.marginRatio
-      : Self.marginRatio/2
-  }
+    private func hourText(_ hour: Int) -> some View {
+        Text("\(hour)")
+            .modifier(FontProportional(ratio: Self.fontSizeRatio))
+            .rotationEffect(Current.clock.randomAngle() ?? .zero, anchor: .center)
+            .scaleEffect(Current.clock.randomScale() ?? 1, anchor: .center)
+            .modifier(PositionInCircle(
+                angle: .degrees(Double(hour) * .hourInDegree), marginRatio: self.marginRatio
+            ))
+    }
 
-  private var configurationHours: [Int] {
-    store.state.configuration.isLimitedHoursShown ? Self.limitedHours : Self.hours
-  }
+    private var marginRatio: CGFloat {
+        store.state.configuration.isHourIndicatorsShown || store.state.configuration.isMinuteIndicatorsShown
+            ? Self.marginRatio
+            : Self.marginRatio/2
+    }
+
+    private var configurationHours: [Int] {
+        store.state.configuration.isLimitedHoursShown ? Self.limitedHours : Self.hours
+    }
 }
 
 #if DEBUG
