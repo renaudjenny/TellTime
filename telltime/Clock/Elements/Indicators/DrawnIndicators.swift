@@ -1,38 +1,20 @@
 import SwiftUI
 
-struct DrawnIndicatorsContainer: View {
-  @EnvironmentObject var store: Store<App.State, App.Action>
-
-  var body: some View {
-    DrawnIndicators(
-      isHourIndicatorsShown: self.store.state.configuration.isHourIndicatorsShown,
-      isMinuteIndicatorsShown: self.store.state.configuration.isMinuteIndicatorsShown,
-      isLimitedHoursShown: self.store.state.configuration.isLimitedHoursShown
-    )
-  }
-}
-
 struct DrawnIndicators: View {
-  let isHourIndicatorsShown: Bool
-  let isMinuteIndicatorsShown: Bool
-  let isLimitedHoursShown: Bool
+    @EnvironmentObject var store: Store<App.State, App.Action>
 
-  var body: some View {
-    ZStack {
-      if self.isHourIndicatorsShown {
-        Hours()
-      }
-      if self.isMinuteIndicatorsShown {
-        Minutes(isHourIndicatorsShown: self.isHourIndicatorsShown)
-      }
-      DrawnNumbers(
-        isHourIndicatorsShown: self.isHourIndicatorsShown,
-        isMinuteIndicatorsShown: self.isMinuteIndicatorsShown,
-        isLimitedHoursShown: self.isLimitedHoursShown
-      )
+    var body: some View {
+        ZStack {
+            if store.state.configuration.isHourIndicatorsShown {
+                Hours()
+            }
+            if store.state.configuration.isMinuteIndicatorsShown {
+                Minutes()
+            }
+            DrawnNumbers()
+        }
+        .animation(.easeOut)
     }
-    .animation(.easeOut)
-  }
 }
 
 private struct Hours: View {
@@ -62,10 +44,10 @@ private struct Hours: View {
 }
 
 private struct Minutes: View {
+    @EnvironmentObject var store: Store<App.State, App.Action>
     private static let widthRatio: CGFloat = 1/50
     private static let heightRatio: CGFloat = 1/30
     private static let marginRatio: CGFloat = 1/30
-    let isHourIndicatorsShown: Bool
     @State private var animate: Bool = false
 
     var body: some View {
@@ -94,7 +76,7 @@ private struct Minutes: View {
     }
 
   private func isOverlapingHour(minute: Int) -> Bool {
-    guard self.isHourIndicatorsShown else { return false }
+    guard store.state.configuration.isHourIndicatorsShown else { return false }
     return minute == 0 || minute % 5 == 0
   }
 }
@@ -161,13 +143,11 @@ struct DrawnIndicator: Shape {
 }
 
 struct DrawnNumbers: View {
+    @EnvironmentObject var store: Store<App.State, App.Action>
     private static let hours = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     private static let limitedHours = [12, 3, 6, 9]
     private static let marginRatio: CGFloat = 1/7
     private static let fontSizeRatio: CGFloat = 1/10
-    let isHourIndicatorsShown: Bool
-    let isMinuteIndicatorsShown: Bool
-    let isLimitedHoursShown: Bool
 
     var body: some View {
         ForEach(self.configurationHours, id: \.self) { hour in
@@ -182,24 +162,20 @@ struct DrawnNumbers: View {
     }
 
   private var marginRatio: CGFloat {
-    self.isHourIndicatorsShown || self.isMinuteIndicatorsShown
+    store.state.configuration.isHourIndicatorsShown || store.state.configuration.isMinuteIndicatorsShown
       ? Self.marginRatio
       : Self.marginRatio/2
   }
 
   private var configurationHours: [Int] {
-    self.isLimitedHoursShown ? Self.limitedHours : Self.hours
+    store.state.configuration.isLimitedHoursShown ? Self.limitedHours : Self.hours
   }
 }
 
 #if DEBUG
 struct DrawnIndicators_Previews: PreviewProvider {
   static var previews: some View {
-    DrawnIndicators(
-      isHourIndicatorsShown: true,
-      isMinuteIndicatorsShown: true,
-      isLimitedHoursShown: false
-    )
+    DrawnIndicators()
   }
 }
 #endif

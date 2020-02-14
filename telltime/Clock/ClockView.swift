@@ -48,7 +48,7 @@ private struct IndicatorsView: View {
             if store.state.configuration.clockStyle == .artNouveau {
                 ArtNouveauIndicators()
             } else if store.state.configuration.clockStyle == .drawing {
-                DrawnIndicatorsContainer()
+                DrawnIndicators()
             } else {
                 ClassicIndicators()
             }
