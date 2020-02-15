@@ -78,6 +78,7 @@ struct ClockViewArtNouveauStyle_Previews: PreviewProvider {
         ClockView().padding()
             .environmentObject(App.previewStore {
                 $0.configuration.clockStyle = .artNouveau
+                $0.clock.hourAngle = .degrees(20)
             })
     }
 }
@@ -87,6 +88,7 @@ struct ClockViewDrawingStyle_Previews: PreviewProvider {
         ClockView().padding()
             .environmentObject(App.previewStore {
                 $0.configuration.clockStyle = .drawing
+                $0.clock.hourAngle = .degrees(20)
             })
     }
 }

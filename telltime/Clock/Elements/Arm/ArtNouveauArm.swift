@@ -1,67 +1,69 @@
 import SwiftUI
 
 struct ArtNouveauArm: Shape {
-  let lineWidthRatio: CGFloat
-  let marginRatio: CGFloat
-  private static let widthRatio: CGFloat = 1/50
+    let type: ArmType
+    private static let widthRatio: CGFloat = 1/40
 
-  func path(in rect: CGRect) -> Path {
-    var path = Path()
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
 
-    let center = CGPoint(x: rect.midX, y: rect.midY)
-    let width = min(rect.maxX, rect.maxY) * Self.widthRatio * self.lineWidthRatio
-    let top = center.y * self.marginRatio
-    let height = center.y - top
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let diameter = min(rect.width, rect.height)
+        let width = diameter * Self.widthRatio * type.ratio.lineWidth
+        let topY = center.y - diameter/2
+        let margin = diameter/2 * type.ratio.margin
+        let height = diameter/2 - margin
 
-    path.addArc(
-      center: center,
-      radius: width,
-      startAngle: .zero,
-      endAngle: .degrees(180),
-      clockwise: false
-    )
+        path.addArc(
+            center: center,
+            radius: width,
+            startAngle: .zero,
+            endAngle: .degrees(180),
+            clockwise: false
+        )
 
-    let peak = CGPoint(x: center.x, y: top)
+        let top = CGPoint(x: center.x, y: topY + margin)
 
-    let destination = peak.applying(.init(translationX: -width/2, y: 0))
-    let peakControl1 = CGPoint(x: center.x + width * 2, y: top + height * 3/4)
-    let peakControl2 = CGPoint(x: center.x - width * 3, y: top + height * 1/5)
+        let topLeft = CGPoint(x: top.x - width/2, y: top.y)
+        let controlLeft1 = CGPoint(x: center.x + width * 2, y: top.y + height * 3/4)
+        let controlLeft2 = CGPoint(x: center.x - width * 3, y: top.y + height * 1/5)
 
-    path.addCurve(
-      to: destination,
-      control1: peakControl1,
-      control2: peakControl2
-    )
+        path.addCurve(
+            to: topLeft,
+            control1: controlLeft1,
+            control2: controlLeft2
+        )
 
-    path.addArc(
-      center: peak,
-      radius: width/2,
-      startAngle: .degrees(180),
-      endAngle: .zero,
-      clockwise: false
-    )
+        path.addArc(
+            center: top,
+            radius: width/2,
+            startAngle: .degrees(180),
+            endAngle: .zero,
+            clockwise: false
+        )
 
-    let arrival = center.applying(.init(translationX: width, y: 0))
-    let arrivalControl1 = CGPoint(x: center.x - width * 2, y: top + height * 1/5)
-    let arrivalControl2 = CGPoint(x: center.x + width * 3, y: top + height * 3/4)
+        let bottomRight = CGPoint(x: center.x + width, y: center.y)
+        let controlRight1 = CGPoint(x: center.x - width * 2, y: top.y + height * 1/5)
+        let controlRight2 = CGPoint(x: center.x + width * 3, y: top.y + height * 3/4)
 
-    path.addCurve(
-      to: arrival,
-      control1: arrivalControl1,
-      control2: arrivalControl2
-    )
+        path.addCurve(
+            to: bottomRight,
+            control1: controlRight1,
+            control2: controlRight2
+        )
 
-    return path
-  }
+        return path
+    }
 }
 
 #if DEBUG
 struct ArtNouveauArm_Previews: PreviewProvider {
-  static var previews: some View {
-    ArtNouveauArm(
-      lineWidthRatio: 1,
-      marginRatio: 1/8
-    )
-  }
+    static var previews: some View {
+        ZStack {
+            Circle().stroke()
+            ArtNouveauArm(type: .hour)
+        }
+        .padding()
+    }
 }
 #endif

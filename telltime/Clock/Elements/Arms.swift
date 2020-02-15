@@ -4,8 +4,8 @@ import Combine
 struct Arms: View {
   var body: some View {
     ZStack {
-      ArmContainer(type: .hour)
-      ArmContainer(type: .minute)
+      Arm(type: .hour)
+      Arm(type: .minute)
     }
   }
 }

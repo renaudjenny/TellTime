@@ -1,15 +1,14 @@
 import SwiftUI
 
 struct ClassicArm: Shape {
-    let lineWidthRatio: CGFloat
-    let marginRatio: CGFloat
+    let type: ArmType
     private static let widthRatio: CGFloat = 1/30
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let center = CGPoint(x: rect.midX, y: rect.midY)
         let diameter = min(rect.width, rect.height)
-        let width = diameter * Self.widthRatio * self.lineWidthRatio
+        let width = diameter * Self.widthRatio * type.ratio.lineWidth
 
         path.move(to: center)
         path.addArc(
@@ -21,7 +20,7 @@ struct ClassicArm: Shape {
         )
 
         let topY = center.y - diameter/2
-        let margin = diameter/2 * self.marginRatio
+        let margin = diameter/2 * type.ratio.margin
 
         let topLeft = CGPoint(x: center.x - width/4, y: topY + margin)
         path.addLine(to: topLeft)
@@ -41,10 +40,7 @@ struct ClassicArm_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
         Circle().stroke()
-        ClassicArm(
-            lineWidthRatio: 1,
-            marginRatio: 1/8
-        )
+        ClassicArm(type: .minute)
     }
   }
 }
