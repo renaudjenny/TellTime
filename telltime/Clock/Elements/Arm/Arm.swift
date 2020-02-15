@@ -44,65 +44,65 @@ struct Arm: View {
   let lineWidthRatio: CGFloat
   let marginRatio: CGFloat
   @Binding var angle: Angle
-  @State private var draggingAngle: Angle = .zero
-  @State private var animate = true
+  @GestureState private var dragAngle: Angle = .zero
 
-  var body: some View {
-    GeometryReader { geometry in
-      Group {
-        if self.clockStyle == .artNouveau {
-          ArtNouveauArm(
-            lineWidthRatio: self.lineWidthRatio,
-            marginRatio: self.marginRatio
-          )
-        } else if self.clockStyle == .drawing {
-          DrawnArm(
-            lineWidthRatio: self.lineWidthRatio,
-            marginRatio: self.marginRatio
-          )
-        } else {
-          ClassicArm(
-            lineWidthRatio: self.lineWidthRatio,
-            marginRatio: self.marginRatio
-          )
+    var body: some View {
+        GeometryReader { geometry in
+            self.arm
+                .gesture(
+                    DragGesture(coordinateSpace: .global).updating(self.$dragAngle) { value, state, _ in
+                        state = self.angle(dragGestureValue: value, frame: geometry.frame(in: .global))
+                    }
+                    .onEnded({
+                        self.angle = self.angle(dragGestureValue: $0, frame: geometry.frame(in: .global))
+                    })
+            )
+                .rotationEffect(self.rotationAngle)
+                .animation(self.bumpFreeSpring)
         }
-      }
-      .gesture(self.dragGesture(globalFrame: geometry.frame(in: .global)))
-      .rotationEffect(self.animate ? self.angle : self.draggingAngle)
-      .animation(self.animate ? .spring() : nil)
     }
-  }
+
+    private var arm: some View {
+        Group {
+            if self.clockStyle == .artNouveau {
+                ArtNouveauArm(
+                    lineWidthRatio: self.lineWidthRatio,
+                    marginRatio: self.marginRatio
+                )
+            } else if self.clockStyle == .drawing {
+                DrawnArm(
+                    lineWidthRatio: self.lineWidthRatio,
+                    marginRatio: self.marginRatio
+                )
+            } else {
+                ClassicArm(
+                    lineWidthRatio: self.lineWidthRatio,
+                    marginRatio: self.marginRatio
+                )
+            }
+        }
+    }
+
+    private var rotationAngle: Angle {
+        dragAngle == .zero ? angle : dragAngle
+    }
+
+    private var bumpFreeSpring: Animation? {
+        return dragAngle == .zero ? .spring() : nil
+    }
 }
 
 // MARK: - Drag Gesture
 extension Arm {
-  func dragGesture(globalFrame: CGRect) -> AnyGesture<DragGesture.Value> {
-    return AnyGesture<DragGesture.Value>(
-      DragGesture(coordinateSpace: .global)
-        .onChanged({ self.moveArmGesture($0, frame: globalFrame) })
-        .onEnded({ self.updateArmAngleGesture($0, frame: globalFrame) })
-    )
-  }
-
-  private func angle(dragGestureValue: DragGesture.Value, frame: CGRect) -> Angle {
-    let radius = frame.size.width/2
-    let location = (
-      x: dragGestureValue.location.x - radius - frame.origin.x,
-      y: -(dragGestureValue.location.y - radius - frame.origin.y)
-    )
-    let arctan = atan2(location.x, location.y)
-    return Angle(radians: Double(arctan).positiveRadians)
-  }
-
-  private func moveArmGesture(_ value: DragGesture.Value, frame: CGRect) {
-    self.animate = false
-    self.draggingAngle = self.angle(dragGestureValue: value, frame: frame)
-  }
-
-  private func updateArmAngleGesture(_ value: DragGesture.Value, frame: CGRect) {
-    self.angle = self.angle(dragGestureValue: value, frame: frame)
-    self.animate = true
-  }
+    private func angle(dragGestureValue: DragGesture.Value, frame: CGRect) -> Angle {
+        let radius = min(frame.size.width, frame.size.height)/2
+        let location = (
+            x: dragGestureValue.location.x - radius - frame.origin.x,
+            y: -(dragGestureValue.location.y - radius - frame.origin.y)
+        )
+        let arctan = atan2(location.x, location.y)
+        return Angle(radians: Double(arctan).positiveRadians)
+    }
 }
 
 enum ArmType {

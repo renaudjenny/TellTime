@@ -19,7 +19,7 @@ extension Double {
 
   var positiveRadians: Double {
     guard self < 0 else { return self }
-    return self + Double.pi * 2
+    return self + 2 * .pi
   }
 }
 
