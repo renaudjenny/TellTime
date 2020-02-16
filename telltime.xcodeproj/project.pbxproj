@@ -303,11 +303,11 @@
 		4CB1D4AF22A7293300786385 = {
 			isa = PBXGroup;
 			children = (
-				4CCBFD0E23F870CA004EFBD8 /* widget */,
 				4CCBFD0B23F870CA004EFBD8 /* Frameworks */,
 				4CB1D4B922A7293300786385 /* Products */,
 				4CB1D4BA22A7293300786385 /* telltime */,
 				4CB1D4D122A7293500786385 /* telltimeTests */,
+				4CCBFD0E23F870CA004EFBD8 /* widget */,
 			);
 			sourceTree = "<group>";
 		};

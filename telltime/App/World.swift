@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import SwiftPastTen
 
 // For more information check "How To Control The World" - Stephen Celis
 // https://vimeo.com/291588126
@@ -18,6 +19,7 @@ struct World {
     .publisher(for: UIDevice.orientationDidChangeNotification)
 
   var isAnimationDisabled = false
+  var formattedTime: (Date) -> String = { SwiftPastTen.formattedDate($0, calendar: Current.calendar) }
 
   var tts = TTS.World()
   var clock = Clock.World()
