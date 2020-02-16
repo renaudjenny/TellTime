@@ -845,7 +845,7 @@
 			repositoryURL = "https://github.com/renaudjenny/SwiftPastTen";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 		4CD270CC23BCD6AF004536D6 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
@@ -853,7 +853,7 @@
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.1;
+				minimumVersion = 1.7.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
