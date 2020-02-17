@@ -9,7 +9,7 @@ class TelltimeTests: XCTestCase {
 
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
 
-    XCTAssertEqual(Current.tts.time(store.state.clock.date), "It's one eleven AM.")
+    XCTAssertEqual(Current.tellTime(store.state.clock.date), "It's one eleven AM.")
   }
 
   func testWhenIChangedTheDateThenICanReadLiteralTimeFromIt() {
@@ -19,6 +19,6 @@ class TelltimeTests: XCTestCase {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     store.send(.clock(.changeDate(fakeCurrentDate)))
 
-    XCTAssertEqual(Current.tts.time(store.state.clock.date), "It's one twelve AM.")
+    XCTAssertEqual(Current.tellTime(store.state.clock.date), "It's one twelve AM.")
   }
 }
