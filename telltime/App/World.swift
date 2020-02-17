@@ -19,7 +19,11 @@ struct World {
     .publisher(for: UIDevice.orientationDidChangeNotification)
 
   var isAnimationDisabled = false
-  var formattedTime: (Date) -> String = { SwiftPastTen.formattedDate($0, calendar: Current.calendar) }
+  var tellTime: (Date) -> String = {
+    let time = SwiftPastTen.formattedDate($0, calendar: Current.calendar)
+    guard let tellTime = try? SwiftPastTen().tell(time: time) else { return "" }
+    return tellTime
+  }
 
   var tts = TTS.World()
   var clock = Clock.World()
@@ -34,7 +38,6 @@ extension TTS {
     var speakingProgressPublisher: AnyPublisher<Double, Never>
     var setRateRatio: (Float) -> Void
     var speech: (Date) -> Void
-    var time: (Date) -> String
 
     init(engine: Engine = Engine()) {
       self.engine = engine
@@ -43,7 +46,6 @@ extension TTS {
       self.speakingProgressPublisher = engine.$speakingProgress.eraseToAnyPublisher()
       self.setRateRatio = { engine.rateRatio = $0 }
       self.speech = { engine.speech(date: $0) }
-      self.time = { engine.time(date: $0) }
     }
   }
 }

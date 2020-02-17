@@ -122,7 +122,7 @@ private struct TimeText: View {
     @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
-        Text(Current.tts.time(store.state.clock.date))
+        Text(Current.tellTime(store.state.clock.date))
             .font(.headline)
             .foregroundColor(.red)
     }

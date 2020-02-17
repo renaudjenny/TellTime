@@ -9,7 +9,6 @@ extension TTS {
 
     var rateRatio: Float = 1.0
     private let speechSynthesizer = AVSpeechSynthesizer()
-    private let tellTimeEngine: TellTimeEngine = SwiftPastTen()
 
     override init() {
         super.init()
@@ -18,19 +17,8 @@ extension TTS {
     }
 
     func speech(date: Date) {
-      self.speech(text: self.time(date: date))
-    }
-
-    func time(date: Date) -> String {
-      guard let time = try? self.tellTimeEngine.tell(time: Current.formattedTime(date)) else {
-        return ""
-      }
-      return time
-    }
-
-    private func speech(text: String) {
-      let tellTimeText = try? self.tellTimeEngine.tell(time: text)
-      let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText ?? text)
+      let tellTimeText = Current.tellTime(date)
+      let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText)
       speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
       speechUtterance.rate *= self.rateRatio
       self.speechSynthesizer.speak(speechUtterance)

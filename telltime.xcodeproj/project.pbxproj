@@ -11,8 +11,6 @@
 		4C05AB612343FD7200970036 /* Mouth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05AB602343FD7200970036 /* Mouth.swift */; };
 		4C05AB632343FE6C00970036 /* Eye.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05AB622343FE6C00970036 /* Eye.swift */; };
 		4C25E63C22D0997100E64612 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C25E63B22D0997100E64612 /* SwiftPastTen */; };
-		4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */; };
-		4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */; };
 		4C572751236781B00028348F /* ArtNouveauArm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572750236781B00028348F /* ArtNouveauArm.swift */; };
 		4C572754236786FC0028348F /* ClockStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572753236786FC0028348F /* ClockStyle.swift */; };
 		4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C572756236A399B0028348F /* ClassicClockBorder.swift */; };
@@ -105,8 +103,6 @@
 		4C03BC8123550A0C00442B11 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		4C05AB602343FD7200970036 /* Mouth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mouth.swift; sourceTree = "<group>"; };
 		4C05AB622343FE6C00970036 /* Eye.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eye.swift; sourceTree = "<group>"; };
-		4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngine.swift; sourceTree = "<group>"; };
-		4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEngineSwiftPastTen.swift; sourceTree = "<group>"; };
 		4C572750236781B00028348F /* ArtNouveauArm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtNouveauArm.swift; sourceTree = "<group>"; };
 		4C572753236786FC0028348F /* ClockStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockStyle.swift; sourceTree = "<group>"; };
 		4C572756236A399B0028348F /* ClassicClockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicClockBorder.swift; sourceTree = "<group>"; };
@@ -395,8 +391,6 @@
 			isa = PBXGroup;
 			children = (
 				4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */,
-				4C25E63D22D09A8400E64612 /* TellTimeEngine.swift */,
-				4C25E64022D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift */,
 				4CC0406622B530EC0001AA50 /* TTS.swift */,
 				4CFD816F23A2EA5A00A97C77 /* Engine.swift */,
 			);
@@ -615,7 +609,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C25E63E22D09A8400E64612 /* TellTimeEngine.swift in Sources */,
 				4CCF192F234E6433002E6D46 /* ClassicArm.swift in Sources */,
 				4CA4F649236D125F007088BA /* ClassicIndicators.swift in Sources */,
 				4CEB60402381C32B0085B07C /* DrawnArm.swift in Sources */,
@@ -623,7 +616,6 @@
 				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,
 				4C572757236A399B0028348F /* ClassicClockBorder.swift in Sources */,
 				4CBC5B91236DED890000DCB5 /* Clock.swift in Sources */,
-				4C25E64122D09CEB00E64612 /* TellTimeEngineSwiftPastTen.swift in Sources */,
 				4CC35E0A233F4D9400D9C8D6 /* ClockFaceView.swift in Sources */,
 				4C572759236A3B1F0028348F /* Arm.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
