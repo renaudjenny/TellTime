@@ -6,6 +6,10 @@ A tiny iOS Swift project with SwiftUI.
 
 📲 App Store: https://apps.apple.com/gb/app/tell-time-uk/id1496541173
 
+## Features
+
+👾 Today Widget gives you the current time
+
 ## Minimum required
 
 Works with Xcode 11.
@@ -15,3 +19,4 @@ Works with Xcode 11.
 * ✅ Deploy on real iOS device
 * ✅ Add an icon
 * ✅ Improve UI for iPad format
+* 🛠 Improve the documentation by giving some features of the app
