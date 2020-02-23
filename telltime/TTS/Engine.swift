@@ -52,17 +52,3 @@ extension TTS {
     }
   }
 }
-
-private extension String {
-  static func fromDate(_ date: Date) -> String {
-    let minute = Current.calendar.component(.minute, from: date)
-    let hour = Current.calendar.component(.hour, from: date)
-    return Self.fromHour(hour, minute: minute)
-  }
-
-  private static func fromHour(_ hour: Int, minute: Int) -> String {
-    let minute = minute > 9 ? "\(minute)" : "0\(minute)"
-    let hour = hour > 9 ? "\(hour)" : "0\(hour)"
-    return "\(hour):\(minute)"
-  }
-}

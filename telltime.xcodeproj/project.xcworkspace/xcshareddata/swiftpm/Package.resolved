@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "SwiftClockUI",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
+        "state": {
+          "branch": null,
+          "revision": "9a099cf9e7dca0fb375339a0dc6beaf12da2c0a5",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "SwiftPastTen",
         "repositoryURL": "https://github.com/renaudjenny/SwiftPastTen",
         "state": {
