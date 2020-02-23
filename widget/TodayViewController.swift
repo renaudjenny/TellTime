@@ -2,6 +2,7 @@ import UIKit
 import NotificationCenter
 import SwiftUI
 import SwiftPastTen
+import SwiftClockUI
 
 // SwiftUI for Today Widget:
 // https://medium.com/@code_cookies/swiftui-embed-swiftui-view-into-the-storyboard-a6fc96e7a0a1
@@ -10,9 +11,12 @@ struct WidgetView: View {
     @Environment(\.calendar) var calendar
 
     var body: some View {
-        VStack {
+        HStack {
+            ClockView().allowsHitTesting(false)
+            Spacer()
             Text(time)
-        }
+            Spacer()
+        }.padding()
     }
 
     private var time: String {
