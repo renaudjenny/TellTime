@@ -8,6 +8,13 @@ A tiny iOS Swift project with SwiftUI.
 
 ## Features
 
+🐰 Time is written in British english, like **It's twenty past seven AM** for 07:20
+⏰ Nice clock gives you the selected time
+👆 You can move the clock arms to set the time
+🕰 Customise the design of the clock (Classic, Art Nouveau or Drawing Style)
+⏱  Display minute/hour indicators or limited hour as your convenience
+🗣 Time can be heard with a British accent
+🐢 You can slow down the spoken utterance in configuration (Speech rate)
 👾 Today Widget gives you the current time
 
 ## Minimum required
@@ -19,4 +26,3 @@ Works with Xcode 11.
 * ✅ Deploy on real iOS device
 * ✅ Add an icon
 * ✅ Improve UI for iPad format
-* 🛠 Improve the documentation by giving some features of the app
