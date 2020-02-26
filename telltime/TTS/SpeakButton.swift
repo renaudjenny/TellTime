@@ -34,7 +34,7 @@ struct SpeakButton: View {
     }
 
     private func tellTime() {
-        self.store.send(.tts(.tellTime(self.store.state.clock.date)))
+        self.store.send(.tts(.tellTime(self.store.state.date)))
     }
 
     private func subscribeToTTSEngine() {
