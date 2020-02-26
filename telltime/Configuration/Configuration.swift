@@ -1,3 +1,5 @@
+import SwiftClockUI
+
 enum Configuration {
   struct State {
     var isMinuteIndicatorsShown: Bool = true

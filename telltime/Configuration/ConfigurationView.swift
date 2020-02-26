@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import SwiftClockUI
 
 struct ConfigurationView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
