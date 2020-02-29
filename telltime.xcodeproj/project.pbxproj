@@ -884,8 +884,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/renaudjenny/SwiftClockUI";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
 			};
 		};
 		4CD270CC23BCD6AF004536D6 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {

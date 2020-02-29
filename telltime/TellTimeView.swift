@@ -37,6 +37,7 @@ struct TellTimeView: View {
     private var clockView: some View {
         ClockView()
             .environment(\.clockDate, date)
+            .environment(\.clockStyle, store.state.configuration.clockStyle)
     }
 
     private var verticalView: some View {

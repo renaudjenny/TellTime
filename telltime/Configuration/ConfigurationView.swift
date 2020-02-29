@@ -5,6 +5,7 @@ import SwiftClockUI
 struct ConfigurationView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
         Group {
@@ -18,23 +19,30 @@ struct ConfigurationView: View {
         .navigationBarTitle("Configuration")
     }
 
-    var verticalStackedView: some View {
+    private var verticalStackedView: some View {
         VStack {
             StylePicker()
-            ClockView().padding()
+            clockView
             Controls()
             Spacer()
         }
     }
 
-    var horizontalStackedView: some View {
+    private var horizontalStackedView: some View {
         HStack {
             VStack {
-                ClockView().padding()
+                clockView
                 StylePicker()
             }
             Controls()
         }
+    }
+
+    private var clockView: some View {
+        ClockView()
+            .padding()
+            .allowsHitTesting(false)
+            .environment(\.clockStyle, store.state.configuration.clockStyle)
     }
 }
 

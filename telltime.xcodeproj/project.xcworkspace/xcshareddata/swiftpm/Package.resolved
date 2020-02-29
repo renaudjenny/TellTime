@@ -14,9 +14,9 @@
         "package": "SwiftClockUI",
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
-          "branch": "master",
-          "revision": "eafbfce0680201d4a6f549cbb1b5be2536d6c9a1",
-          "version": null
+          "branch": null,
+          "revision": "68f7101801dcdf71ff68baa896d9b048d89f47f5",
+          "version": "0.0.3"
         }
       },
       {
