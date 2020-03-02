@@ -29,7 +29,7 @@
 		4CCBFD1023F870CA004EFBD8 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCBFD0F23F870CA004EFBD8 /* TodayViewController.swift */; };
 		4CCBFD1323F870CA004EFBD8 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CCBFD1123F870CA004EFBD8 /* MainInterface.storyboard */; };
 		4CCBFD1723F870CA004EFBD8 /* widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4CCBFD0A23F870CA004EFBD8 /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */; };
+		4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */; };
 		4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270C123BB9375004536D6 /* TTSTests.swift */; };
 		4CD270C723BCD30B004536D6 /* MouthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270C623BCD30B004536D6 /* MouthTests.swift */; };
 		4CD270CE23BCD6AF004536D6 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD270CD23BCD6AF004536D6 /* SnapshotTesting */; };
@@ -104,7 +104,7 @@
 		4CCBFD0F23F870CA004EFBD8 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		4CCBFD1223F870CA004EFBD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4CCBFD1423F870CA004EFBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
+		4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewLayout+PredefinedDevice.swift"; sourceTree = "<group>"; };
 		4CD270C123BB9375004536D6 /* TTSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSTests.swift; sourceTree = "<group>"; };
 		4CD270C623BCD30B004536D6 /* MouthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouthTests.swift; sourceTree = "<group>"; };
 		4CD270CF23BE80EC004536D6 /* EyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTests.swift; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				4CEB6043238ADEE10085B07C /* Store.swift */,
-				4CCF1939234E665A002E6D46 /* SwiftUIExtensions.swift */,
+				4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -503,7 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CEB6042238ADEAF0085B07C /* App.swift in Sources */,
-				4CCF193A234E665A002E6D46 /* SwiftUIExtensions.swift in Sources */,
+				4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */,
 				4CEB604A238C82A30085B07C /* Configuration.swift in Sources */,
