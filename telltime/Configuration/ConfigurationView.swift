@@ -43,19 +43,26 @@ struct ConfigurationView: View {
             .padding()
             .allowsHitTesting(false)
             .environment(\.clockStyle, store.state.configuration.clockStyle)
+            .environment(\.clockConfiguration, store.state.configuration.clock)
     }
 }
 
 private struct Controls: View {
     @EnvironmentObject var store: Store<App.State, App.Action>
     private var isMinuteIndicatorsShown: Binding<Bool> {
-        self.store.binding(for: \.configuration.isMinuteIndicatorsShown) { .configuration(.showMinuteIndicators($0)) }
+        self.store.binding(for: \.configuration.clock.isMinuteIndicatorsShown) {
+            .configuration(.showMinuteIndicators($0))
+        }
     }
     private var isHourIndicatorsShown: Binding<Bool> {
-        self.store.binding(for: \.configuration.isHourIndicatorsShown) { .configuration(.showHourIndicators($0)) }
+        self.store.binding(for: \.configuration.clock.isHourIndicatorsShown) {
+            .configuration(.showHourIndicators($0))
+        }
     }
     private var isLimitedHoursShown: Binding<Bool> {
-        self.store.binding(for: \.configuration.isLimitedHoursShown) { .configuration(.showLimitedHours($0)) }
+        self.store.binding(for: \.configuration.clock.isLimitedHoursShown) {
+            .configuration(.showLimitedHours($0))
+        }
     }
     private var speechRateRatio: Binding<Float> {
         self.store.binding(for: \.tts.rateRatio) { .tts(.changeRateRatio($0)) }

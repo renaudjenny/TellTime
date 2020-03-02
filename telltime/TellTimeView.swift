@@ -1,6 +1,5 @@
 import SwiftUI
 import Combine
-// TODO: Should target a valid library tag instead of the master branch
 import SwiftClockUI
 
 struct RootView: View {
@@ -38,6 +37,7 @@ struct TellTimeView: View {
         ClockView()
             .environment(\.clockDate, date)
             .environment(\.clockStyle, store.state.configuration.clockStyle)
+            .environment(\.clockConfiguration, store.state.configuration.clock)
     }
 
     private var verticalView: some View {
