@@ -13,7 +13,6 @@
 		4C5FB0C62406F7B000123AF8 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FB0C52406F7B000123AF8 /* SwiftClockUI */; };
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
-		4CA2ECB32393C11F0098B2FF /* ClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB22393C11F0098B2FF /* ClockTests.swift */; };
 		4CA2ECB723A057C30098B2FF /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB623A057C30098B2FF /* World.swift */; };
 		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
 		4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BD22A7293300786385 /* SceneDelegate.swift */; };
@@ -31,13 +30,8 @@
 		4CCBFD1723F870CA004EFBD8 /* widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4CCBFD0A23F870CA004EFBD8 /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */; };
 		4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270C123BB9375004536D6 /* TTSTests.swift */; };
-		4CD270C723BCD30B004536D6 /* MouthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270C623BCD30B004536D6 /* MouthTests.swift */; };
 		4CD270CE23BCD6AF004536D6 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD270CD23BCD6AF004536D6 /* SnapshotTesting */; };
-		4CD270D023BE80EC004536D6 /* EyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270CF23BE80EC004536D6 /* EyeTests.swift */; };
-		4CD270D223C0FA89004536D6 /* ClockFaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D123C0FA89004536D6 /* ClockFaceTests.swift */; };
-		4CD270D623C1FAFC004536D6 /* ArmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D523C1FAFC004536D6 /* ArmTests.swift */; };
 		4CD270D823C3AC92004536D6 /* BDD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D723C3AC92004536D6 /* BDD.swift */; };
-		4CD270DC23CA387E004536D6 /* BorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270DB23CA387E004536D6 /* BorderTests.swift */; };
 		4CDD4A802336E64E004BE734 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDD4A7F2336E64E004BE734 /* AboutView.swift */; };
 		4CE235B823F8B1C2001D0BBF /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4CE235B723F8B1C2001D0BBF /* SwiftPastTen */; };
 		4CEB6042238ADEAF0085B07C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6041238ADEAF0085B07C /* App.swift */; };
@@ -83,7 +77,6 @@
 		4C03BC8123550A0C00442B11 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
-		4CA2ECB22393C11F0098B2FF /* ClockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTests.swift; sourceTree = "<group>"; };
 		4CA2ECB623A057C30098B2FF /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* Tell Time UK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tell Time UK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4BB22A7293300786385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,12 +99,7 @@
 		4CCBFD1423F870CA004EFBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewLayout+PredefinedDevice.swift"; sourceTree = "<group>"; };
 		4CD270C123BB9375004536D6 /* TTSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSTests.swift; sourceTree = "<group>"; };
-		4CD270C623BCD30B004536D6 /* MouthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouthTests.swift; sourceTree = "<group>"; };
-		4CD270CF23BE80EC004536D6 /* EyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTests.swift; sourceTree = "<group>"; };
-		4CD270D123C0FA89004536D6 /* ClockFaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceTests.swift; sourceTree = "<group>"; };
-		4CD270D523C1FAFC004536D6 /* ArmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmTests.swift; sourceTree = "<group>"; };
 		4CD270D723C3AC92004536D6 /* BDD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDD.swift; sourceTree = "<group>"; };
-		4CD270DB23CA387E004536D6 /* BorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTests.swift; sourceTree = "<group>"; };
 		4CDD4A7F2336E64E004BE734 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		4CEB6041238ADEAF0085B07C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		4CEB6043238ADEE10085B07C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -249,7 +237,6 @@
 			children = (
 				4CB965F723D6412800B40F83 /* AboutViewTests.swift */,
 				4CD270D723C3AC92004536D6 /* BDD.swift */,
-				4CD270C423BCD2EA004536D6 /* Clock */,
 				4CFD817623B688CF00A97C77 /* Common */,
 				4C61581923CCF3C900243A5E /* Configuration */,
 				4CB1D4D422A7293500786385 /* Info.plist */,
@@ -294,35 +281,6 @@
 				4CB965F523CE3C8A00B40F83 /* SpeakButtonTests.swift */,
 			);
 			path = TTS;
-			sourceTree = "<group>";
-		};
-		4CD270C423BCD2EA004536D6 /* Clock */ = {
-			isa = PBXGroup;
-			children = (
-				4CA2ECB22393C11F0098B2FF /* ClockTests.swift */,
-				4CD270D323C1FACF004536D6 /* Elements */,
-				4CD270C523BCD2F4004536D6 /* Face */,
-			);
-			path = Clock;
-			sourceTree = "<group>";
-		};
-		4CD270C523BCD2F4004536D6 /* Face */ = {
-			isa = PBXGroup;
-			children = (
-				4CD270C623BCD30B004536D6 /* MouthTests.swift */,
-				4CD270CF23BE80EC004536D6 /* EyeTests.swift */,
-				4CD270D123C0FA89004536D6 /* ClockFaceTests.swift */,
-			);
-			path = Face;
-			sourceTree = "<group>";
-		};
-		4CD270D323C1FACF004536D6 /* Elements */ = {
-			isa = PBXGroup;
-			children = (
-				4CD270D523C1FAFC004536D6 /* ArmTests.swift */,
-				4CD270DB23CA387E004536D6 /* BorderTests.swift */,
-			);
-			path = Elements;
 			sourceTree = "<group>";
 		};
 		4CFD817623B688CF00A97C77 /* Common */ = {
@@ -523,19 +481,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */,
-				4CD270DC23CA387E004536D6 /* BorderTests.swift in Sources */,
 				4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */,
 				4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */,
 				4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */,
 				4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */,
 				4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */,
-				4CA2ECB32393C11F0098B2FF /* ClockTests.swift in Sources */,
-				4CD270D023BE80EC004536D6 /* EyeTests.swift in Sources */,
-				4CD270D223C0FA89004536D6 /* ClockFaceTests.swift in Sources */,
 				4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */,
 				4CD270D823C3AC92004536D6 /* BDD.swift in Sources */,
-				4CD270D623C1FAFC004536D6 /* ArmTests.swift in Sources */,
-				4CD270C723BCD30B004536D6 /* MouthTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

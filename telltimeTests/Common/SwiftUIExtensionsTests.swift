@@ -4,14 +4,7 @@ import SwiftUI
 import SnapshotTesting
 
 class SwiftUIExtensionsTests: XCTestCase {
-  func testDoubleExtension() {
-    XCTAssertEqual(50.0, 50.0.positiveDegrees)
-    XCTAssertEqual(310.0, (-50.0).positiveDegrees)
-
-    XCTAssertEqual(Double.pi, Double.pi.positiveRadians)
-    XCTAssertEqual(Double.pi, (-Double.pi).positiveRadians)
-  }
-
+    // TODO: move all these CGPoint related tests to the other library
   func testCGPointExtensionPointInCircleFromAngleZero() {
     let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
     let angle = Angle(degrees: 0)
@@ -95,33 +88,5 @@ class SwiftUIExtensionsTests: XCTestCase {
     let pointInCircleFromAngle: CGPoint = .pointInCircle(from: angle, frame: frame, margin: margin)
     XCTAssertEqual(expectedPoint.x, pointInCircleFromAngle.x, accuracy: 0.01)
     XCTAssertEqual(expectedPoint.y, pointInCircleFromAngle.y, accuracy: 0.01)
-  }
-
-  func testColorExtensionBackground() {
-    XCTAssertEqual(Color(UIColor.systemBackground), Color.background)
-  }
-
-  func testPathExtension() {
-    given("I want to show a specific part of the UI path") {
-      when("I create a path with some tests points") {
-        struct TestPath: Shape {
-          func path(in rect: CGRect) -> Path {
-            var path = Path()
-            path.addTest(point: CGPoint(x: 0, y: 0))
-            path.addTest(point: CGPoint(x: 50, y: 0))
-            path.addTest(point: CGPoint(x: 0, y: 50))
-            path.addTest(point: CGPoint(x: 50, y: 50))
-            return path
-          }
-        }
-        then("I'm able to see them") {
-          let path = TestPath()
-            .padding()
-            .frame(width: 100, height: 100)
-          let hostingController = UIHostingController(rootView: path)
-          assertSnapshot(matching: hostingController, as: .image)
-        }
-      }
-    }
   }
 }

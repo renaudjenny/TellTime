@@ -1,13 +1,13 @@
 import XCTest
 @testable import Tell_Time_UK
+import SwiftClockUI
 
+// TODO: reindent this file correctly
 class ConfigurationTests: XCTestCase {
   func testDefaultConfigurationValues() {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
     XCTAssertEqual(store.state.configuration.clockStyle, .classic)
-    XCTAssertEqual(store.state.configuration.isMinuteIndicatorsShown, true)
-    XCTAssertEqual(store.state.configuration.isHourIndicatorsShown, true)
-    XCTAssertEqual(store.state.configuration.isLimitedHoursShown, false)
+    XCTAssertEqual(store.state.configuration.clock, ClockConfiguration())
   }
 
   func testWhenIChangeTheClockStyleThenTheClockStyleGetTheNewValue() {
@@ -23,28 +23,37 @@ class ConfigurationTests: XCTestCase {
 
   func testWhenIWantToHideMinuteIndicatorsThenMinuteIndicatorsIsHidden() {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
-    XCTAssertEqual(store.state.configuration.isMinuteIndicatorsShown, true)
+    XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, true)
     store.send(.configuration(.showMinuteIndicators(false)))
-    XCTAssertEqual(store.state.configuration.isMinuteIndicatorsShown, false)
+    XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, false)
     store.send(.configuration(.showMinuteIndicators(true)))
-    XCTAssertEqual(store.state.configuration.isMinuteIndicatorsShown, true)
+    XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, true)
   }
 
   func testWhenIWantToHideHourIndicatorsThenHourIndicatorsIsHidden() {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
-    XCTAssertEqual(store.state.configuration.isHourIndicatorsShown, true)
+    XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, true)
     store.send(.configuration(.showHourIndicators(false)))
-    XCTAssertEqual(store.state.configuration.isHourIndicatorsShown, false)
+    XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, false)
     store.send(.configuration(.showHourIndicators(true)))
-    XCTAssertEqual(store.state.configuration.isHourIndicatorsShown, true)
+    XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, true)
   }
 
   func testWhenIWantToLimitHourDisplayedThenHourIsDisplayedWithALimitedAmount() {
     let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
-    XCTAssertEqual(store.state.configuration.isLimitedHoursShown, false)
+    XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, false)
     store.send(.configuration(.showLimitedHours(true)))
-    XCTAssertEqual(store.state.configuration.isLimitedHoursShown, true)
+    XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, true)
     store.send(.configuration(.showLimitedHours(false)))
-    XCTAssertEqual(store.state.configuration.isLimitedHoursShown, false)
+    XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, false)
   }
+}
+
+extension ClockConfiguration: Equatable {
+    public static func == (lhs: ClockConfiguration, rhs: ClockConfiguration) -> Bool {
+        lhs.isAnimationEnabled == rhs.isAnimationEnabled
+        && lhs.isHourIndicatorsShown == rhs.isHourIndicatorsShown
+        && lhs.isMinuteIndicatorsShown == rhs.isMinuteIndicatorsShown
+        && lhs.isLimitedHoursShown == rhs.isLimitedHoursShown
+    }
 }
