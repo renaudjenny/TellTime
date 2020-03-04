@@ -39,7 +39,6 @@
 		4CEB604A238C82A30085B07C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6049238C82A30085B07C /* Configuration.swift */; };
 		4CFD817023A2EA5A00A97C77 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD816F23A2EA5A00A97C77 /* Engine.swift */; };
 		4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */; };
-		4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +105,6 @@
 		4CEB6049238C82A30085B07C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		4CFD816F23A2EA5A00A97C77 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
-		4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensionsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,7 +235,6 @@
 			children = (
 				4CB965F723D6412800B40F83 /* AboutViewTests.swift */,
 				4CD270D723C3AC92004536D6 /* BDD.swift */,
-				4CFD817623B688CF00A97C77 /* Common */,
 				4C61581923CCF3C900243A5E /* Configuration */,
 				4CB1D4D422A7293500786385 /* Info.plist */,
 				4CB1D4D222A7293500786385 /* telltimeTests.swift */,
@@ -281,14 +278,6 @@
 				4CB965F523CE3C8A00B40F83 /* SpeakButtonTests.swift */,
 			);
 			path = TTS;
-			sourceTree = "<group>";
-		};
-		4CFD817623B688CF00A97C77 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				4CFD817723B688F000A97C77 /* SwiftUIExtensionsTests.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -482,7 +471,6 @@
 			files = (
 				4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */,
 				4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */,
-				4CFD817823B688F000A97C77 /* SwiftUIExtensionsTests.swift in Sources */,
 				4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */,
 				4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */,
 				4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */,
