@@ -116,6 +116,9 @@ private struct StylePicker: View {
 
 #if DEBUG
 struct ConfigurationView_Previews: PreviewProvider {
+  // TODO: reindent this file
+  @Environment(\.calendar) static var calendar
+
   static var previews: some View {
     NavigationView {
       ConfigurationView()
@@ -123,12 +126,13 @@ struct ConfigurationView_Previews: PreviewProvider {
     .environmentObject(App.previewStore)
     .environment(\.verticalSizeClass, .regular)
     .environment(\.horizontalSizeClass, .compact)
-    .previewLayout(.iPhoneSe)
-    .previewDisplayName("Configuration portrait")
+    .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
   }
 }
 
 struct ConfigurationViewLandscape_Previews: PreviewProvider {
+  @Environment(\.calendar) static var calendar
+
   static var previews: some View {
     NavigationView {
       ConfigurationView()
@@ -136,8 +140,8 @@ struct ConfigurationViewLandscape_Previews: PreviewProvider {
     .environmentObject(App.previewStore)
     .environment(\.verticalSizeClass, .compact)
     .environment(\.horizontalSizeClass, .compact)
+    .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
     .previewLayout(.iPhoneSe(.landscape))
-    .previewDisplayName("Configuration landscape")
   }
 }
 #endif

@@ -50,8 +50,7 @@ class ConfigurationTests: XCTestCase {
 
 extension ClockConfiguration: Equatable {
     public static func == (lhs: ClockConfiguration, rhs: ClockConfiguration) -> Bool {
-        lhs.isAnimationEnabled == rhs.isAnimationEnabled
-            && lhs.isHourIndicatorsShown == rhs.isHourIndicatorsShown
+        lhs.isHourIndicatorsShown == rhs.isHourIndicatorsShown
             && lhs.isMinuteIndicatorsShown == rhs.isMinuteIndicatorsShown
             && lhs.isLimitedHoursShown == rhs.isLimitedHoursShown
     }

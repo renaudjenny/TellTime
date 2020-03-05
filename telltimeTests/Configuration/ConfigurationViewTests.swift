@@ -5,8 +5,8 @@ import SwiftUI
 
 class ConfigurationViewTests: XCTestCase {
   func testConfigurationViews() {
-    Current.isAnimationDisabled = true
     let configurationViews = ConfigurationView_Previews.previews
+        .environment(\.clockIsAnimationEnabled, false)
     let hostingController = UIHostingController(rootView: configurationViews)
     assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
   }
@@ -14,6 +14,7 @@ class ConfigurationViewTests: XCTestCase {
   func testConfigurationViewsInLandscape() {
     Current.isAnimationDisabled = true
     let configurationViews = ConfigurationViewLandscape_Previews.previews
+        .environment(\.clockIsAnimationEnabled, false)
     let hostingController = UIHostingController(rootView: configurationViews)
     assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe(.landscape)))
   }
