@@ -1,9 +1,11 @@
 import SwiftUI
 import Combine
+import SwiftClockUI
 
 struct ConfigurationView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
         Group {
@@ -17,36 +19,50 @@ struct ConfigurationView: View {
         .navigationBarTitle("Configuration")
     }
 
-    var verticalStackedView: some View {
+    private var verticalStackedView: some View {
         VStack {
             StylePicker()
-            ClockView().padding()
+            clockView
             Controls()
             Spacer()
         }
     }
 
-    var horizontalStackedView: some View {
+    private var horizontalStackedView: some View {
         HStack {
             VStack {
-                ClockView().padding()
+                clockView
                 StylePicker()
             }
             Controls()
         }
+    }
+
+    private var clockView: some View {
+        ClockView()
+            .padding()
+            .allowsHitTesting(false)
+            .environment(\.clockStyle, store.state.configuration.clockStyle)
+            .environment(\.clockConfiguration, store.state.configuration.clock)
     }
 }
 
 private struct Controls: View {
     @EnvironmentObject var store: Store<App.State, App.Action>
     private var isMinuteIndicatorsShown: Binding<Bool> {
-        self.store.binding(for: \.configuration.isMinuteIndicatorsShown) { .configuration(.showMinuteIndicators($0)) }
+        self.store.binding(for: \.configuration.clock.isMinuteIndicatorsShown) {
+            .configuration(.showMinuteIndicators($0))
+        }
     }
     private var isHourIndicatorsShown: Binding<Bool> {
-        self.store.binding(for: \.configuration.isHourIndicatorsShown) { .configuration(.showHourIndicators($0)) }
+        self.store.binding(for: \.configuration.clock.isHourIndicatorsShown) {
+            .configuration(.showHourIndicators($0))
+        }
     }
     private var isLimitedHoursShown: Binding<Bool> {
-        self.store.binding(for: \.configuration.isLimitedHoursShown) { .configuration(.showLimitedHours($0)) }
+        self.store.binding(for: \.configuration.clock.isLimitedHoursShown) {
+            .configuration(.showLimitedHours($0))
+        }
     }
     private var speechRateRatio: Binding<Float> {
         self.store.binding(for: \.tts.rateRatio) { .tts(.changeRateRatio($0)) }
@@ -100,6 +116,9 @@ private struct StylePicker: View {
 
 #if DEBUG
 struct ConfigurationView_Previews: PreviewProvider {
+  // TODO: reindent this file
+  @Environment(\.calendar) static var calendar
+
   static var previews: some View {
     NavigationView {
       ConfigurationView()
@@ -107,12 +126,13 @@ struct ConfigurationView_Previews: PreviewProvider {
     .environmentObject(App.previewStore)
     .environment(\.verticalSizeClass, .regular)
     .environment(\.horizontalSizeClass, .compact)
-    .previewLayout(.iPhoneSe)
-    .previewDisplayName("Configuration portrait")
+    .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
   }
 }
 
 struct ConfigurationViewLandscape_Previews: PreviewProvider {
+  @Environment(\.calendar) static var calendar
+
   static var previews: some View {
     NavigationView {
       ConfigurationView()
@@ -120,8 +140,8 @@ struct ConfigurationViewLandscape_Previews: PreviewProvider {
     .environmentObject(App.previewStore)
     .environment(\.verticalSizeClass, .compact)
     .environment(\.horizontalSizeClass, .compact)
+    .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
     .previewLayout(.iPhoneSe(.landscape))
-    .previewDisplayName("Configuration landscape")
   }
 }
 #endif

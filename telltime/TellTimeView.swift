@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import SwiftClockUI
 
 struct RootView: View {
   var body: some View {
@@ -13,27 +14,36 @@ struct RootView: View {
 struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+    @EnvironmentObject var store: Store<App.State, App.Action>
+    private var date: Binding<Date> {
+        self.store.binding(for: \.date) { .changeDate($0) }
+    }
 
     var body: some View {
         Group {
             if verticalSizeClass == .regular && horizontalSizeClass == .compact {
-                VerticalBody()
+                verticalView
             } else if verticalSizeClass == .compact {
-                VerticalCompactBody()
+                compactView
             } else {
-                RegularBody()
+                regularView
             }
         }
         .navigationBarTitle("Tell Time")
         .padding()
     }
-}
 
-private struct VerticalBody: View {
-    var body: some View {
+    private var clockView: some View {
+        ClockView()
+            .environment(\.clockDate, date)
+            .environment(\.clockStyle, store.state.configuration.clockStyle)
+            .environment(\.clockConfiguration, store.state.configuration.clock)
+    }
+
+    private var verticalView: some View {
         VStack {
             Spacer()
-            ClockView()
+            clockView
             Spacer()
             TimeText()
             Spacer()
@@ -42,12 +52,10 @@ private struct VerticalBody: View {
             TellTimeButtons()
         }
     }
-}
 
-private struct VerticalCompactBody: View {
-    var body: some View {
+    private var compactView: some View {
         HStack {
-            ClockView().padding()
+            clockView.padding()
             VStack {
                 TimeText().padding()
                 DatePicker()
@@ -56,12 +64,10 @@ private struct VerticalCompactBody: View {
             }
         }
     }
-}
 
-private struct RegularBody: View {
-    var body: some View {
+    private var regularView: some View {
         HStack {
-            ClockView()
+            clockView
                 .layoutPriority(1)
                 .padding()
             VStack {
@@ -78,7 +84,7 @@ private struct RegularBody: View {
 private struct DatePicker: View {
     @EnvironmentObject var store: Store<App.State, App.Action>
     private var date: Binding<Date> {
-        store.binding(for: \.clock.date) { .clock(.changeDate($0)) }
+        store.binding(for: \.date) { .changeDate($0) }
     }
 
     var body: some View {
@@ -114,7 +120,7 @@ private struct TellTimeButtons: View {
     }
 
     private func changeClockRandomly() {
-        store.send(.clock(.changeClockRandomly))
+        store.send(.changeDate(Current.randomDate()))
     }
 }
 
@@ -122,7 +128,7 @@ private struct TimeText: View {
     @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
-        Text(Current.tellTime(store.state.clock.date))
+        Text(Current.tellTime(store.state.date))
             .font(.headline)
             .foregroundColor(.red)
     }

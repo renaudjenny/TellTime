@@ -21,6 +21,12 @@ A tiny iOS Swift project with SwiftUI.
 
 Works with Xcode 11.
 
+## Libraries
+
+* ⏰ [SwiftClockUI](https://github.com/renaudjenny/SwiftClockUI): SwiftUI library that provide the Clock, with draggable arms and different design and options
+* 🇬🇧 [SwiftPastTen](https://github.com/renaudjenny/SwiftPastTen): Swift framework to provide you the British way to tell the time by passing a "HH:mm" formatted string
+* 📸 [SnapshotTesting](https://github.com/pointfreeco/swift-snapshot-testing): Snapshort testing library from **Point-Free** to test views
+
 ## TODO
 
 * ✅ Deploy on real iOS device
