@@ -103,45 +103,43 @@ private struct StylePicker: View {
         self.store.binding(for: \.configuration.clockStyle) { .configuration(.changeClockStyle($0)) }
     }
 
-  var body: some View {
-    Picker("Style", selection: self.clockStyle) {
-      ForEach(ClockStyle.allCases) { style in
-        Text(style.description)
-          .tag(style)
-      }
+    var body: some View {
+        Picker("Style", selection: self.clockStyle) {
+            ForEach(ClockStyle.allCases) { style in
+                Text(style.description).tag(style)
+            }
+        }
+        .pickerStyle(SegmentedPickerStyle())
     }
-    .pickerStyle(SegmentedPickerStyle())
-  }
 }
 
 #if DEBUG
 struct ConfigurationView_Previews: PreviewProvider {
-  // TODO: reindent this file
-  @Environment(\.calendar) static var calendar
+    @Environment(\.calendar) static var calendar
 
-  static var previews: some View {
-    NavigationView {
-      ConfigurationView()
+    static var previews: some View {
+        NavigationView {
+            ConfigurationView()
+        }
+        .environmentObject(App.previewStore)
+        .environment(\.verticalSizeClass, .regular)
+        .environment(\.horizontalSizeClass, .compact)
+        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
     }
-    .environmentObject(App.previewStore)
-    .environment(\.verticalSizeClass, .regular)
-    .environment(\.horizontalSizeClass, .compact)
-    .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
-  }
 }
 
 struct ConfigurationViewLandscape_Previews: PreviewProvider {
-  @Environment(\.calendar) static var calendar
+    @Environment(\.calendar) static var calendar
 
-  static var previews: some View {
-    NavigationView {
-      ConfigurationView()
+    static var previews: some View {
+        NavigationView {
+            ConfigurationView()
+        }
+        .environmentObject(App.previewStore)
+        .environment(\.verticalSizeClass, .compact)
+        .environment(\.horizontalSizeClass, .compact)
+        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
+        .previewLayout(.iPhoneSe(.landscape))
     }
-    .environmentObject(App.previewStore)
-    .environment(\.verticalSizeClass, .compact)
-    .environment(\.horizontalSizeClass, .compact)
-    .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
-    .previewLayout(.iPhoneSe(.landscape))
-  }
 }
 #endif
