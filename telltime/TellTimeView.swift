@@ -143,12 +143,3 @@ private struct ConfigurationGearButton: View {
     }
   }
 }
-
-#if DEBUG
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    TellTimeView()
-      .environmentObject(App.previewStore)
-  }
-}
-#endif
