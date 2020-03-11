@@ -7,16 +7,15 @@ import SwiftPastTen
 
 struct World {
   var date = { Date() }
-  var calendar = Calendar.autoupdatingCurrent
-  var randomDate: () -> Date = {
+  var randomDate: (Calendar) -> Date = {
     let hour = [Int](1...12).randomElement() ?? 0
     let minute = [Int](0...59).randomElement() ?? 0
-    return Current.calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
+    return $0.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
   }
 
   var isAnimationDisabled = false
-  var tellTime: (Date) -> String = {
-    let time = SwiftPastTen.formattedDate($0, calendar: Current.calendar)
+  var tellTime: (Date, Calendar) -> String = {
+    let time = SwiftPastTen.formattedDate($0, calendar: $1)
     guard let tellTime = try? SwiftPastTen().tell(time: time) else { return "" }
     return tellTime
   }
@@ -34,7 +33,7 @@ extension TTS {
     var setRateRatio: (Float) -> Void
     var speech: (Date) -> Void
 
-    init(engine: Engine = Engine()) {
+    init(engine: Engine = Engine(calendar: Calendar.autoupdatingCurrent)) {
       self.engine = engine
       self.isSpeaking = engine.isSpeaking
       self.isSpeakingPublisher = engine.$isSpeaking.eraseToAnyPublisher()

@@ -10,6 +10,7 @@
 		4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC8123550A0C00442B11 /* ConfigurationView.swift */; };
 		4C25E63C22D0997100E64612 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C25E63B22D0997100E64612 /* SwiftPastTen */; };
 		4C2D77A82402C18900FB9677 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C2D77A72402C18900FB9677 /* SwiftClockUI */; };
+		4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32F1072419765A00BAFB3A /* Calendar+Test.swift */; };
 		4C5FB0C62406F7B000123AF8 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FB0C52406F7B000123AF8 /* SwiftClockUI */; };
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		4C03BC8123550A0C00442B11 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
+		4C32F1072419765A00BAFB3A /* Calendar+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Test.swift"; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4CA2ECB623A057C30098B2FF /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 			children = (
 				4CB965F723D6412800B40F83 /* AboutViewTests.swift */,
 				4CD270D723C3AC92004536D6 /* BDD.swift */,
+				4C32F1072419765A00BAFB3A /* Calendar+Test.swift */,
 				4C61581923CCF3C900243A5E /* Configuration */,
 				4CB1D4D422A7293500786385 /* Info.plist */,
 				4CB1D4D222A7293500786385 /* telltimeTests.swift */,
@@ -472,6 +475,7 @@
 				4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */,
 				4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */,
 				4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */,
+				4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */,
 				4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */,
 				4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */,
 				4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */,

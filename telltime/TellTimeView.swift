@@ -94,6 +94,7 @@ private struct DatePicker: View {
 }
 
 private struct TellTimeButtons: View {
+    @Environment(\.calendar) private var calendar
     @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
@@ -120,15 +121,16 @@ private struct TellTimeButtons: View {
     }
 
     private func changeClockRandomly() {
-        store.send(.changeDate(Current.randomDate()))
+        store.send(.changeDate(Current.randomDate(calendar)))
     }
 }
 
 private struct TimeText: View {
+    @Environment(\.calendar) private var calendar
     @EnvironmentObject var store: Store<App.State, App.Action>
 
     var body: some View {
-        Text(Current.tellTime(store.state.date))
+        Text(Current.tellTime(store.state.date, calendar))
             .font(.headline)
             .foregroundColor(.red)
     }

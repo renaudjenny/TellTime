@@ -10,14 +10,17 @@ extension TTS {
     var rateRatio: Float = 1.0
     private let speechSynthesizer = AVSpeechSynthesizer()
 
-    override init() {
+    let calendar: Calendar
+
+    init(calendar: Calendar) {
+        self.calendar = calendar
         super.init()
         self.speechSynthesizer.delegate = self
         try? AVAudioSession.sharedInstance().setCategory(.playback)
     }
 
     func speech(date: Date) {
-      let tellTimeText = Current.tellTime(date)
+      let tellTimeText = Current.tellTime(date, calendar)
       let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText)
       speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
       speechUtterance.rate *= self.rateRatio
