@@ -13,7 +13,6 @@ struct World {
     return $0.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
   }
 
-  var isAnimationDisabled = false
   var tellTime: (Date, Calendar) -> String = {
     let time = SwiftPastTen.formattedDate($0, calendar: $1)
     guard let tellTime = try? SwiftPastTen().tell(time: time) else { return "" }

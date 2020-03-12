@@ -12,7 +12,6 @@ class ConfigurationViewTests: XCTestCase {
   }
 
   func testConfigurationViewsInLandscape() {
-    Current.isAnimationDisabled = true
     let configurationViews = ConfigurationViewLandscape_Previews.previews
         .environment(\.clockIsAnimationEnabled, false)
     let hostingController = UIHostingController(rootView: configurationViews)
