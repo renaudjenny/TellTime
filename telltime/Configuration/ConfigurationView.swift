@@ -78,6 +78,7 @@ private struct Controls: View {
             Toggle(isOn: isMinuteIndicatorsShown) {
                 Text("Minute indicators")
             }
+            .disabled(!isMinuteIndicatorsToggleEnabled)
             Toggle(isOn: isHourIndicatorsShown) {
                 Text("Hour indicators")
             }
@@ -92,8 +93,13 @@ private struct Controls: View {
         Int((speechRateRatio.wrappedValue * 100).rounded())
     }
 
+    var isMinuteIndicatorsToggleEnabled: Bool {
+        store.state.configuration.clockStyle != .steampunk
+    }
+
     var isHourIndicatorsToggleEnabled: Bool {
         store.state.configuration.clockStyle != .artNouveau
+            && store.state.configuration.clockStyle != .steampunk
     }
 }
 

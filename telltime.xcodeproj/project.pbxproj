@@ -829,7 +829,7 @@
 			repositoryURL = "https://github.com/renaudjenny/SwiftClockUI";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.5;
+				minimumVersion = 0.0.6;
 			};
 		};
 		4CD270CC23BCD6AF004536D6 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
