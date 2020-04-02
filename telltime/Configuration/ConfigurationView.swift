@@ -110,7 +110,7 @@ private struct StylePicker: View {
     }
 
     var body: some View {
-        Picker("Style", selection: self.clockStyle) {
+        Picker("Style", selection: clockStyle) {
             ForEach(ClockStyle.allCases) { style in
                 Text(style.description).tag(style)
             }
