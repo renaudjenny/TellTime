@@ -30,7 +30,7 @@ struct SpeakButton: View {
     }
 
     private var widthProgressRatio: CGFloat {
-        return store.state.tts.isSpeaking ? CGFloat(store.state.tts.speakingProgress) : 1.0
+        store.state.tts.isSpeaking ? CGFloat(store.state.tts.speakingProgress) : 1.0
     }
 
     private func tellTime() {
