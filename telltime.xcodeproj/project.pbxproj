@@ -14,12 +14,11 @@
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
 		4CA2ECB723A057C30098B2FF /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB623A057C30098B2FF /* World.swift */; };
+		4CA7CEE12438D028004FC5EC /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
 		4CAE628924367E5300E57FAC /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAE628824367E5300E57FAC /* SwiftPastTen */; };
 		4CAE628B24367E5300E57FAC /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAE628A24367E5300E57FAC /* SwiftClockUI */; };
 		4CAE628E24367E7500E57FAC /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
 		4CAE628F24367E7500E57FAC /* SPMLibraries.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4CAE629224367E8400E57FAC /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
-		4CAE629324367E8400E57FAC /* SPMLibraries.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
 		4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BD22A7293300786385 /* SceneDelegate.swift */; };
 		4CB1D4C022A7293300786385 /* TellTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BF22A7293300786385 /* TellTimeView.swift */; };
@@ -53,13 +52,6 @@
 			remoteGlobalIDString = 4CAE627F24367E1F00E57FAC;
 			remoteInfo = SPMLibraries;
 		};
-		4CAE629424367E8400E57FAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4CAE627F24367E1F00E57FAC;
-			remoteInfo = SPMLibraries;
-		};
 		4CB1D4CF22A7293500786385 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
@@ -84,17 +76,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4CAE628F24367E7500E57FAC /* SPMLibraries.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C3B32FA242BD14800D17D70 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4CAE629324367E8400E57FAC /* SPMLibraries.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,8 +162,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CA7CEE12438D028004FC5EC /* SPMLibraries.framework in Frameworks */,
 				4CCBFD0D23F870CA004EFBD8 /* NotificationCenter.framework in Frameworks */,
-				4CAE629224367E8400E57FAC /* SPMLibraries.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,12 +410,10 @@
 				4CCBFD0623F870CA004EFBD8 /* Sources */,
 				4CCBFD0723F870CA004EFBD8 /* Frameworks */,
 				4CCBFD0823F870CA004EFBD8 /* Resources */,
-				4C3B32FA242BD14800D17D70 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4CAE629524367E8400E57FAC /* PBXTargetDependency */,
 			);
 			name = widget;
 			packageProductDependencies = (
@@ -607,11 +586,6 @@
 			isa = PBXTargetDependency;
 			target = 4CAE627F24367E1F00E57FAC /* SPMLibraries */;
 			targetProxy = 4CAE629024367E7500E57FAC /* PBXContainerItemProxy */;
-		};
-		4CAE629524367E8400E57FAC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4CAE627F24367E1F00E57FAC /* SPMLibraries */;
-			targetProxy = 4CAE629424367E8400E57FAC /* PBXContainerItemProxy */;
 		};
 		4CB1D4D022A7293500786385 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
