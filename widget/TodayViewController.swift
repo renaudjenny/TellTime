@@ -20,7 +20,7 @@ struct WidgetView: View {
     }
 
     private var time: String {
-        let  formattedDate = SwiftPastTen.formattedDate(Date(), calendar: calendar)
+        let formattedDate = SwiftPastTen.formattedDate(Date(), calendar: calendar)
         guard let time = try? SwiftPastTen().tell(time: formattedDate) else {
             return "Error"
         }
