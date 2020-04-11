@@ -1,23 +1,23 @@
 import SwiftUI
 
 struct AboutView: View {
-  var body: some View {
-    VStack {
-      Spacer()
-      VStack(spacing: 32) {
-        developmentCredit
-        openSourceCredit
-        iconsAndIllustrationsCredit
-        Text("Thank you for your support!")
-          .multilineTextAlignment(.center)
-          .font(.headline)
-      }
-      .layoutPriority(.high)
-      Spacer()
+    var body: some View {
+        VStack {
+            Spacer()
+            VStack(spacing: 32) {
+                developmentCredit
+                openSourceCredit
+                iconsAndIllustrationsCredit
+                Text("Thank you for your support!")
+                    .multilineTextAlignment(.center)
+                    .font(.headline)
+            }
+            .layoutPriority(.high)
+            Spacer()
+        }
+        .padding()
+        .navigationBarTitle("About")
     }
-    .padding()
-    .navigationBarTitle("About")
-  }
 
     private var developmentCredit: some View {
         VStack {
@@ -91,9 +91,9 @@ private extension URL {
 
 #if DEBUG
 struct AboutView_Previews: PreviewProvider {
-  static var previews: some View {
-    AboutView()
-      .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
-  }
+    static var previews: some View {
+        AboutView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
+    }
 }
 #endif
