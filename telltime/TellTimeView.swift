@@ -2,31 +2,6 @@ import SwiftUI
 import Combine
 import SwiftClockUI
 
-// TODO: move RootView to its own file
-struct RootView: View {
-    @Environment(\.date) var date
-
-    var body: some View {
-        NavigationView {
-            TellTimeView()
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .environmentObject(store)
-    }
-
-    private var environment: App.Environment {
-        App.Environment(currentDate: date)
-    }
-
-    private var store: Store<App.State, App.Action, App.Environment> {
-        Store<App.State, App.Action, App.Environment>(
-            initialState: App.State(date: environment.currentDate()),
-            reducer: App.reducer,
-            environment: environment
-        )
-    }
-}
-
 struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
