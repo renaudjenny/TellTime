@@ -3,7 +3,7 @@ import Combine
 
 enum App {
     struct State {
-        var date: Date = Current.date()
+        var date: Date
         var configuration = Configuration.State()
         var tts = TTS.State()
     }
@@ -14,24 +14,56 @@ enum App {
         case tts(TTS.Action)
     }
 
-    static func reducer(state: inout App.State, action: App.Action) {
+    struct Environment {
+        let currentDate: () -> Date
+    }
+
+    static func reducer(
+        state: inout App.State,
+        action: App.Action,
+        environment: App.Environment
+    ) -> AnyPublisher<App.Action, Never>? {
         switch action {
         case let .changeDate(date):
             state.date = date
         case let .configuration(action):
             Configuration.reducer(state: &state.configuration, action: action)
-        case let.tts(action):
-            TTS.reducer(state: &state.tts, action: action)
+        case let .tts(action):
+            guard let effect = TTS.reducer(state: &state.tts, action: action, environment: TTS.Environment()) else {
+                return nil
+            }
+            return effect
+                .map { App.Action.tts($0) }
+                .eraseToAnyPublisher()
         }
+        return nil
     }
 
     #if DEBUG
-    static func previewStore(modifyState: (inout App.State) -> Void) -> Store<App.State, App.Action> {
-        var state = App.State()
-        modifyState(&state)
-        return .init(initialState: state, reducer: { _, _ in })
+    static func previewStore(
+        modifyState: (inout App.State) -> Void
+    ) -> Store<App.State, App.Action, Environment> {
+        let mockedEnvironment = Environment(
+            currentDate: { .init(hour: 10, minute: 10, calendar: .previewCalendar) }
+        )
+        var state = App.State(date: mockedEnvironment.currentDate())
+        _ = modifyState(&state)
+
+        let mockedReducer: Reducer<App.State, App.Action, Environment> = { _, _, _ in nil }
+        return .init(initialState: state, reducer: mockedReducer, environment: mockedEnvironment)
     }
 
     static let previewStore = App.previewStore { _ in }
     #endif
 }
+
+// TODO: move this to its own file
+#if DEBUG
+extension Calendar {
+    static var previewCalendar: Self {
+        var calendar = Self(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? calendar.timeZone
+        return calendar
+    }
+}
+#endif

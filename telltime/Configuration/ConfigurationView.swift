@@ -5,7 +5,7 @@ import SwiftClockUI
 struct ConfigurationView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
 
     var body: some View {
         Group {
@@ -48,7 +48,7 @@ struct ConfigurationView: View {
 }
 
 private struct Controls: View {
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
     private var isMinuteIndicatorsShown: Binding<Bool> {
         self.store.binding(for: \.configuration.clock.isMinuteIndicatorsShown) {
             .configuration(.showMinuteIndicators($0))
@@ -104,7 +104,7 @@ private struct Controls: View {
 }
 
 private struct StylePicker: View {
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
     private var clockStyle: Binding<ClockStyle> {
         self.store.binding(for: \.configuration.clockStyle) { .configuration(.changeClockStyle($0)) }
     }

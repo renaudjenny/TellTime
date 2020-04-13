@@ -11,12 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = scene as? UIWindowScene else { return }
 
-        let store = Store<App.State, App.Action>(initialState: App.State(), reducer: App.reducer)
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UIHostingController(
-            rootView: RootView()
-                .environmentObject(store)
-        )
+        window.rootViewController = UIHostingController(rootView: RootView())
         self.window = window
         window.makeKeyAndVisible()
 

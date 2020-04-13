@@ -2,12 +2,12 @@ import SwiftUI
 import Combine
 import SwiftPastTen
 
+// TODO: Get rid of World and use Environment instead
+
 // For more information check "How To Control The World" - Stephen Celis
 // https://vimeo.com/291588126
 
 struct World {
-  var date = { Date() }
-
   var tellTime: (Date, Calendar) -> String = {
     let time = SwiftPastTen.formattedDate($0, calendar: $1)
     guard let tellTime = try? SwiftPastTen().tell(time: time) else { return "" }

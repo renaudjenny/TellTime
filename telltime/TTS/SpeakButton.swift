@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SpeakButton: View {
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
 
     var body: some View {
         ZStack {
@@ -38,8 +38,8 @@ struct SpeakButton: View {
     }
 
     private func subscribeToTTSEngine() {
-        self.store.send(TTS.subscribeToEngineIsSpeaking())
-        self.store.send(TTS.subscribeToEngineSpeakingProgress())
+        self.store.send(.tts(.subscribeToEngineIsSpeaking))
+        self.store.send(.tts(.subscribeToEngineSpeakingProgress))
     }
 }
 

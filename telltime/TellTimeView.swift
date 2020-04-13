@@ -2,19 +2,35 @@ import SwiftUI
 import Combine
 import SwiftClockUI
 
+// TODO: move RootView to its own file
 struct RootView: View {
-  var body: some View {
-    NavigationView {
-      TellTimeView()
+    @Environment(\.date) var date
+
+    var body: some View {
+        NavigationView {
+            TellTimeView()
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .environmentObject(store)
     }
-    .navigationViewStyle(StackNavigationViewStyle())
-  }
+
+    private var environment: App.Environment {
+        App.Environment(currentDate: date)
+    }
+
+    private var store: Store<App.State, App.Action, App.Environment> {
+        Store<App.State, App.Action, App.Environment>(
+            initialState: App.State(date: environment.currentDate()),
+            reducer: App.reducer,
+            environment: environment
+        )
+    }
 }
 
 struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
     private var date: Binding<Date> {
         self.store.binding(for: \.date) { .changeDate($0) }
     }
@@ -82,7 +98,7 @@ struct TellTimeView: View {
 }
 
 private struct DatePicker: View {
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
     private var date: Binding<Date> {
         store.binding(for: \.date) { .changeDate($0) }
     }
@@ -97,7 +113,7 @@ private struct TellTimeButtons: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.randomDate) private var randomDate
     @Environment(\.date) private var date
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
 
     var body: some View {
         HStack {
@@ -129,7 +145,7 @@ private struct TellTimeButtons: View {
 
 private struct TimeText: View {
     @Environment(\.calendar) private var calendar
-    @EnvironmentObject var store: Store<App.State, App.Action>
+    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
 
     var body: some View {
         Text(Current.tellTime(store.state.date, calendar))
