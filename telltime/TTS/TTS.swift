@@ -44,7 +44,7 @@ enum TTS {
             state.rateRatio = rateRatio
             environment.engine.rateRatio = rateRatio
         case let .tellTime(date):
-            Current.tts.speech(date)
+            environment.engine.speech(date: date)
         case .startSpeaking:
             state.isSpeaking = true
         case .stopSpeaking:

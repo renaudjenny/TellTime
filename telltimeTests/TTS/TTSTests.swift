@@ -35,13 +35,14 @@ class TTSTests: XCTestCase {
         given("it's 10 o clock") {
             let tenHourInSecond: TimeInterval = 10 * 60 * 60
             let date = Date(timeIntervalSince1970: tenHourInSecond)
-            let store = App.testStore
-
             let speechExpectation = self.expectation(description: "TTS Speech has been called")
-            Current.tts.speech = {
-                XCTAssertEqual(date, $0)
-                speechExpectation.fulfill()
-            }
+            let engine = MockedTTSEngine(
+                rateRatioValue: 1.0,
+                setRateRatio: { _ in },
+                speechExpectation: speechExpectation
+            )
+            let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
+            let store = App.testStore(environment: environment)
 
             when("I trigger the action to tell the time") {
                 store.send(.tts(.tellTime(date)))
@@ -199,7 +200,9 @@ class TTSTests: XCTestCase {
             store.send(.tts(.subscribeToEngineSpeakingProgress))
 
             when("the TTS engine speaking is progressing (3/4)") {
-                let publisherExpectation = self.expectation(description: "Current.tts.speakingProgressPublisher completion")
+                let publisherExpectation = self.expectation(
+                    description: "Current.tts.speakingProgressPublisher completion"
+                )
                 let isSpeakingPublisher = Current.tts.speakingProgressPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
