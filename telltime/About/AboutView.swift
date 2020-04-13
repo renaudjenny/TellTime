@@ -63,7 +63,7 @@ struct WebLink: View {
 }
 
 fileprivate extension Double {
-  static let high: Double = 100
+    static let high: Double = 100
 }
 
 private extension URL {
