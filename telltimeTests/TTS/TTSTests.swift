@@ -12,14 +12,20 @@ class TTSTests: XCTestCase {
     }
 
     func testWhenIChangeTheTTSRateRatioTheRateRatioOfEngineIsChanged() {
-        let store = App.testStore
-        XCTAssertEqual(store.state.tts.rateRatio, 1)
+        let defaultRateRatio: Float = 1.0
         let newRateRatio: Float = 0.75
         let engineSetRateRatioExpectation = self.expectation(description: "Engine ratio is set")
-        Current.tts.setRateRatio = { rateRatio in
-            XCTAssertEqual(newRateRatio, rateRatio)
-            engineSetRateRatioExpectation.fulfill()
-        }
+        let engine = MockedTTSEngine(
+            rateRatioValue: defaultRateRatio,
+            setRateRatio: { rateRatio in
+                XCTAssertEqual(newRateRatio, rateRatio)
+                engineSetRateRatioExpectation.fulfill()
+            }
+        )
+        let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
+        let store = App.testStore(environment: environment)
+
+        XCTAssertEqual(store.state.tts.rateRatio, 1)
         store.send(.tts(.changeRateRatio(newRateRatio)))
         XCTAssertEqual(newRateRatio, store.state.tts.rateRatio)
         self.wait(for: [engineSetRateRatioExpectation], timeout: 0.1)
@@ -212,6 +218,33 @@ class TTSTests: XCTestCase {
                     XCTAssertEqual(3/4, store.state.tts.speakingProgress)
                 }
             }
+        }
+    }
+}
+
+extension TTSTests {
+    final class MockedTTSEngine: TTSEngine {
+        let rateRatioValue: Float
+        let setRateRatio: (Float) -> Void
+        let speechExpectation: XCTestExpectation?
+
+        init(
+            rateRatioValue: Float,
+            setRateRatio: @escaping (Float) -> Void,
+            speechExpectation: XCTestExpectation? = nil
+        ) {
+            self.rateRatioValue = rateRatioValue
+            self.setRateRatio = setRateRatio
+            self.speechExpectation = speechExpectation
+        }
+
+        var rateRatio: Float {
+            get { rateRatioValue }
+            set { setRateRatio(newValue) }
+        }
+
+        func speech(date: Date) {
+            speechExpectation?.fulfill()
         }
     }
 }

@@ -8,12 +8,6 @@ import SwiftPastTen
 // https://vimeo.com/291588126
 
 struct World {
-  var tellTime: (Date, Calendar) -> String = {
-    let time = SwiftPastTen.formattedDate($0, calendar: $1)
-    guard let tellTime = try? SwiftPastTen().tell(time: time) else { return "" }
-    return tellTime
-  }
-
   var tts = TTS.World()
 }
 
@@ -27,7 +21,10 @@ extension TTS {
     var setRateRatio: (Float) -> Void
     var speech: (Date) -> Void
 
-    init(engine: Engine = Engine(calendar: Calendar.autoupdatingCurrent)) {
+    init(engine: Engine = Engine(
+        tellTime: { _, _ in "TTS Not available anymore" },
+        calendar: Calendar.autoupdatingCurrent)
+    ) {
       self.engine = engine
       self.isSpeaking = engine.isSpeaking
       self.isSpeakingPublisher = engine.$isSpeaking.eraseToAnyPublisher()

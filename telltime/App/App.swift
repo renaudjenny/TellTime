@@ -16,6 +16,7 @@ enum App {
 
     struct Environment {
         let currentDate: () -> Date
+        let tts: TTS.Environment
     }
 
     static func reducer(
@@ -29,7 +30,7 @@ enum App {
         case let .configuration(action):
             Configuration.reducer(state: &state.configuration, action: action)
         case let .tts(action):
-            guard let effect = TTS.reducer(state: &state.tts, action: action, environment: TTS.Environment()) else {
+            guard let effect = TTS.reducer(state: &state.tts, action: action, environment: environment.tts) else {
                 return nil
             }
             return effect
@@ -44,7 +45,8 @@ enum App {
         modifyState: (inout App.State) -> Void
     ) -> Store<App.State, App.Action, Environment> {
         let mockedEnvironment = Environment(
-            currentDate: { .init(hour: 10, minute: 10, calendar: .previewCalendar) }
+            currentDate: { .init(hour: 10, minute: 10, calendar: .previewCalendar) },
+            tts: TTS.Environment(engine: MockedTTSEngine())
         )
         var state = App.State(date: mockedEnvironment.currentDate())
         _ = modifyState(&state)
@@ -54,6 +56,11 @@ enum App {
     }
 
     static let previewStore = App.previewStore { _ in }
+
+    private final class MockedTTSEngine: TTSEngine {
+        var rateRatio: Float = 1.0
+        func speech(date: Date) { }
+    }
     #endif
 }
 

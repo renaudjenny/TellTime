@@ -31,7 +31,7 @@ enum TTS {
   }
 
     struct Environment {
-        // TODO: put Engine here!
+        var engine: TTSEngine
     }
 
     static func reducer(
@@ -42,7 +42,7 @@ enum TTS {
         switch action {
         case let .changeRateRatio(rateRatio):
             state.rateRatio = rateRatio
-            Current.tts.setRateRatio(rateRatio)
+            environment.engine.rateRatio = rateRatio
         case let .tellTime(date):
             Current.tts.speech(date)
         case .startSpeaking:

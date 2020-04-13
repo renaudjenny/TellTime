@@ -120,10 +120,11 @@ private struct TellTimeButtons: View {
 
 private struct TimeText: View {
     @Environment(\.calendar) private var calendar
+    @Environment(\.tellTime) private var tellTime
     @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
 
     var body: some View {
-        Text(Current.tellTime(store.state.date, calendar))
+        Text(tellTime(store.state.date, calendar))
             .font(.headline)
             .foregroundColor(.red)
     }

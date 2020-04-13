@@ -2,17 +2,27 @@ import AVFoundation
 import SwiftPastTen
 import Combine
 
+protocol TTSEngine: class {
+    var rateRatio: Float { get set }
+    func speech(date: Date)
+}
+
 extension TTS {
-  final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
+  final class Engine: NSObject, TTSEngine, ObservableObject, AVSpeechSynthesizerDelegate {
     @Published private(set) var isSpeaking: Bool = false
     @Published private(set) var speakingProgress: Double = 0.0
 
     var rateRatio: Float = 1.0
     private let speechSynthesizer = AVSpeechSynthesizer()
 
+    let tellTime: (Date, Calendar) -> String
     let calendar: Calendar
 
-    init(calendar: Calendar) {
+    init(
+        tellTime: @escaping (Date, Calendar) -> String,
+        calendar: Calendar
+    ) {
+        self.tellTime = tellTime
         self.calendar = calendar
         super.init()
         self.speechSynthesizer.delegate = self
@@ -20,7 +30,7 @@ extension TTS {
     }
 
     func speech(date: Date) {
-      let tellTimeText = Current.tellTime(date, calendar)
+      let tellTimeText = tellTime(date, calendar)
       let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText)
       speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
       speechUtterance.rate *= self.rateRatio
