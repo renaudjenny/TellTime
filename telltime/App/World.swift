@@ -7,11 +7,6 @@ import SwiftPastTen
 
 struct World {
   var date = { Date() }
-  var randomDate: (Calendar) -> Date = {
-    let hour = [Int](1...12).randomElement() ?? 0
-    let minute = [Int](0...59).randomElement() ?? 0
-    return $0.date(bySettingHour: hour, minute: minute, second: 0, of: Current.date()) ?? Current.date()
-  }
 
   var tellTime: (Date, Calendar) -> String = {
     let time = SwiftPastTen.formattedDate($0, calendar: $1)
