@@ -10,7 +10,6 @@
 		4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC8123550A0C00442B11 /* ConfigurationView.swift */; };
 		4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32F1072419765A00BAFB3A /* Calendar+Test.swift */; };
 		4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */; };
-		4C460CA72444408C006D02EA /* DateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA62444408C006D02EA /* DateEnvironment.swift */; };
 		4C460CAD2444BEAB006D02EA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAC2444BEAB006D02EA /* RootView.swift */; };
 		4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */; };
 		4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4C474A40243702CA00DDD53C /* SnapshotTesting */; };
@@ -100,7 +99,6 @@
 		4C03BC8123550A0C00442B11 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		4C32F1072419765A00BAFB3A /* Calendar+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Test.swift"; sourceTree = "<group>"; };
 		4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDateEnvironment.swift; sourceTree = "<group>"; };
-		4C460CA62444408C006D02EA /* DateEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEnvironment.swift; sourceTree = "<group>"; };
 		4C460CAC2444BEAB006D02EA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEnvironment.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 		4C460CA324443CEE006D02EA /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				4C460CA62444408C006D02EA /* DateEnvironment.swift */,
 				4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */,
 				4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */,
 			);
@@ -562,7 +559,6 @@
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */,
 				4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */,
-				4C460CA72444408C006D02EA /* DateEnvironment.swift in Sources */,
 				4CEB604A238C82A30085B07C /* Configuration.swift in Sources */,
 				4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */,
 				4C460CAD2444BEAB006D02EA /* RootView.swift in Sources */,
