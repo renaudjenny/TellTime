@@ -5,10 +5,12 @@ import Combine
 protocol TTSEngine: class {
     var rateRatio: Float { get set }
     func speech(date: Date)
+    var isSpeakingPublisher: AnyPublisher<Bool, Never> { get }
+    var speakingProgressPublisher: AnyPublisher<Double, Never> { get }
 }
 
 extension TTS {
-  final class Engine: NSObject, TTSEngine, ObservableObject, AVSpeechSynthesizerDelegate {
+  final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     @Published private(set) var isSpeaking: Bool = false
     @Published private(set) var speakingProgress: Double = 0.0
 
@@ -64,4 +66,14 @@ extension TTS {
       self.speakingProgress = averageBound/total
     }
   }
+}
+
+extension TTS.Engine: TTSEngine {
+    var isSpeakingPublisher: AnyPublisher<Bool, Never> {
+        $isSpeaking.eraseToAnyPublisher()
+    }
+
+    var speakingProgressPublisher: AnyPublisher<Double, Never> {
+        $speakingProgress.eraseToAnyPublisher()
+    }
 }

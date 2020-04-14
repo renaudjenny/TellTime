@@ -12,18 +12,15 @@ class TTSTests: XCTestCase {
     }
 
     func testWhenIChangeTheTTSRateRatioTheRateRatioOfEngineIsChanged() {
-        let defaultRateRatio: Float = 1.0
         let newRateRatio: Float = 0.75
         let engineSetRateRatioExpectation = self.expectation(description: "Engine ratio is set")
         let engine = MockedTTSEngine(
-            rateRatioValue: defaultRateRatio,
             setRateRatio: { rateRatio in
                 XCTAssertEqual(newRateRatio, rateRatio)
                 engineSetRateRatioExpectation.fulfill()
             }
         )
-        let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
-        let store = App.testStore(environment: environment)
+        let store = App.testStore(environment: .test(engine: engine))
 
         XCTAssertEqual(store.state.tts.rateRatio, 1)
         store.send(.tts(.changeRateRatio(newRateRatio)))
@@ -37,12 +34,12 @@ class TTSTests: XCTestCase {
             let date = Date(timeIntervalSince1970: tenHourInSecond)
             let speechExpectation = self.expectation(description: "TTS Speech has been called")
             let engine = MockedTTSEngine(
-                rateRatioValue: 1.0,
-                setRateRatio: { _ in },
-                speechExpectation: speechExpectation
+                speechCall: { spokenDate in
+                    XCTAssertEqual(spokenDate, date)
+                    speechExpectation.fulfill()
+                }
             )
-            let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
-            let store = App.testStore(environment: environment)
+            let store = App.testStore(environment: .test(engine: engine))
 
             when("I trigger the action to tell the time") {
                 store.send(.tts(.tellTime(date)))
@@ -103,15 +100,18 @@ class TTSTests: XCTestCase {
 
     func testSubscribeToEngineIsSpeaking() {
         given("the subscription to TTS engine is speaking event is made") {
-            let store = App.testStore
+            let engine = MockedTTSEngine(
+                isSpeakingPublisher: Just(true).eraseToAnyPublisher()
+            )
+            let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
+            let store = App.testStore(environment: environment)
             XCTAssertEqual(false, store.state.tts.isSpeaking)
 
-            Current.tts.isSpeakingPublisher = Just(true).eraseToAnyPublisher()
             store.send(.tts(.subscribeToEngineIsSpeaking))
 
             when("the TTS engine start speaking") {
                 let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
-                let isSpeakingPublisher = Current.tts.isSpeakingPublisher
+                let isSpeakingPublisher = engine.isSpeakingPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
@@ -132,16 +132,19 @@ class TTSTests: XCTestCase {
         }
 
         given("the subscription to TTS engine is speaking event is made") {
-            let store = App.testStore
+            let engine = MockedTTSEngine(
+                isSpeakingPublisher: Just(false).eraseToAnyPublisher()
+            )
+            let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
+            let store = App.testStore(environment: environment)
             store.send(.tts(.startSpeaking))
             XCTAssertEqual(true, store.state.tts.isSpeaking)
 
-            Current.tts.isSpeakingPublisher = Just(false).eraseToAnyPublisher()
             store.send(.tts(.subscribeToEngineIsSpeaking))
 
             when("the TTS engine stop speaking") {
                 let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
-                let isSpeakingPublisher = Current.tts.isSpeakingPublisher
+                let isSpeakingPublisher = engine.isSpeakingPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
@@ -228,26 +231,38 @@ class TTSTests: XCTestCase {
 extension TTSTests {
     final class MockedTTSEngine: TTSEngine {
         let rateRatioValue: Float
-        let setRateRatio: (Float) -> Void
-        let speechExpectation: XCTestExpectation?
+        let setRateRatio: ((Float) -> Void)?
+        var speechCall: ((Date) -> Void)?
+        var isSpeakingPublisher: AnyPublisher<Bool, Never>
+        var speakingProgressPublisher: AnyPublisher<Double, Never>
 
         init(
-            rateRatioValue: Float,
-            setRateRatio: @escaping (Float) -> Void,
-            speechExpectation: XCTestExpectation? = nil
+            rateRatioValue: Float = 1.0,
+            setRateRatio: ((Float) -> Void)? = nil,
+            speechCall: ((Date) -> Void)? = nil,
+            isSpeakingPublisher: AnyPublisher<Bool, Never> = Just(false).eraseToAnyPublisher(),
+            speakingProgressPublisher: AnyPublisher<Double, Never> = Just(0.0).eraseToAnyPublisher()
         ) {
             self.rateRatioValue = rateRatioValue
             self.setRateRatio = setRateRatio
-            self.speechExpectation = speechExpectation
+            self.speechCall = speechCall
+            self.isSpeakingPublisher = isSpeakingPublisher
+            self.speakingProgressPublisher = speakingProgressPublisher
         }
 
         var rateRatio: Float {
             get { rateRatioValue }
-            set { setRateRatio(newValue) }
+            set { setRateRatio?(newValue) }
         }
 
         func speech(date: Date) {
-            speechExpectation?.fulfill()
+            speechCall?(date)
         }
+    }
+}
+
+extension App.Environment {
+    static func test(engine: TTSEngine) -> Self {
+        .init(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
     }
 }

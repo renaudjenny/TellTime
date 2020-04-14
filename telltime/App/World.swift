@@ -15,7 +15,6 @@ extension TTS {
   struct World {
     private let engine: Engine
 
-    var isSpeakingPublisher: AnyPublisher<Bool, Never>
     var speakingProgressPublisher: AnyPublisher<Double, Never>
 
     init(engine: Engine = Engine(
@@ -23,7 +22,6 @@ extension TTS {
         calendar: Calendar.autoupdatingCurrent)
     ) {
       self.engine = engine
-      self.isSpeakingPublisher = engine.$isSpeaking.eraseToAnyPublisher()
       self.speakingProgressPublisher = engine.$speakingProgress.eraseToAnyPublisher()
     }
   }

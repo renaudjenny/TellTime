@@ -1,6 +1,7 @@
 import XCTest
 @testable import Tell_Time_UK
 import SwiftUI
+import Combine
 
 class TelltimeTests: XCTestCase {
     func testWhenIStartTheApplicationThenTheStoreDateIsTheCurrentOne() {
@@ -62,5 +63,7 @@ extension TTS.Environment {
     private final class MockedTTSEngine: TTSEngine {
         var rateRatio: Float = 1.0
         func speech(date: Date) { }
+        var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
+        var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
     }
 }
