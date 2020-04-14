@@ -17,7 +17,6 @@
 		4C474A44243702E700DDD53C /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
-		4CA2ECB723A057C30098B2FF /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA2ECB623A057C30098B2FF /* World.swift */; };
 		4CA7CEE12438D028004FC5EC /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
 		4CAE628924367E5300E57FAC /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAE628824367E5300E57FAC /* SwiftPastTen */; };
 		4CAE628B24367E5300E57FAC /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAE628A24367E5300E57FAC /* SwiftClockUI */; };
@@ -106,7 +105,6 @@
 		4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEnvironment.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
-		4CA2ECB623A057C30098B2FF /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		4CAE628024367E1F00E57FAC /* SPMLibraries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SPMLibraries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAE628324367E1F00E57FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* Tell Time UK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tell Time UK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,7 +192,6 @@
 				4CB1D4BB22A7293300786385 /* AppDelegate.swift */,
 				4CB1D4C622A7293500786385 /* LaunchScreen.storyboard */,
 				4CB1D4BD22A7293300786385 /* SceneDelegate.swift */,
-				4CA2ECB623A057C30098B2FF /* World.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -570,7 +567,6 @@
 				4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */,
 				4C460CAD2444BEAB006D02EA /* RootView.swift in Sources */,
 				4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */,
-				4CA2ECB723A057C30098B2FF /* World.swift in Sources */,
 				4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */,
 				4CDD4A802336E64E004BE734 /* AboutView.swift in Sources */,
 				4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */,

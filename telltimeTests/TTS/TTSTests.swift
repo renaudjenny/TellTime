@@ -110,14 +110,14 @@ class TTSTests: XCTestCase {
             store.send(.tts(.subscribeToEngineIsSpeaking))
 
             when("the TTS engine start speaking") {
-                let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
+                let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
                 let isSpeakingPublisher = engine.isSpeakingPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
                             switch $0 {
                             case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
                     },
                         receiveValue: { XCTAssertEqual(true, $0) }
@@ -130,7 +130,9 @@ class TTSTests: XCTestCase {
                 }
             }
         }
+    }
 
+    func testSubscribeToEngineIsSpeakingAndItsNotSpeaking() {
         given("the subscription to TTS engine is speaking event is made") {
             let engine = MockedTTSEngine(
                 isSpeakingPublisher: Just(false).eraseToAnyPublisher()
@@ -143,14 +145,14 @@ class TTSTests: XCTestCase {
             store.send(.tts(.subscribeToEngineIsSpeaking))
 
             when("the TTS engine stop speaking") {
-                let publisherExpectation = self.expectation(description: "Current.tts.isSpeakingPublisher completion")
+                let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
                 let isSpeakingPublisher = engine.isSpeakingPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
                             switch $0 {
                             case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
                     },
                         receiveValue: { XCTAssertEqual(false, $0) }
@@ -167,21 +169,22 @@ class TTSTests: XCTestCase {
 
     func testSubscribeToEngineSpeakingProgress() {
         given("the subscription to TTS engine speaking progress event is made") {
-            let store = App.testStore
+            let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
+            let store = App.testStore(environment: .test(engine: engine))
             XCTAssertEqual(0, store.state.tts.speakingProgress)
 
-            Current.tts.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
+            engine.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
             store.send(.tts(.subscribeToEngineSpeakingProgress))
 
             when("the TTS engine speaking is progressing (1/4)") {
-                let publisherExpectation = self.expectation(description: "Current.tts.speakingProgressPublisher completion")
-                let isSpeakingPublisher = Current.tts.speakingProgressPublisher
+                let publisherExpectation = self.expectation(description: "speakingProgressPublisher completion")
+                let isSpeakingPublisher = engine.speakingProgressPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
                             switch $0 {
                             case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
                     },
                         receiveValue: { XCTAssertEqual(1/4, $0) }
@@ -196,23 +199,23 @@ class TTSTests: XCTestCase {
         }
 
         given("the subscription to TTS engine speaking progress event is made") {
-            let store = App.testStore
-            XCTAssertEqual(0, store.state.tts.speakingProgress)
+            let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
+            let store = App.testStore(environment: .test(engine: engine))
 
-            Current.tts.speakingProgressPublisher = Just(3/4).eraseToAnyPublisher()
+            engine.speakingProgressPublisher = Just(3/4).eraseToAnyPublisher()
             store.send(.tts(.subscribeToEngineSpeakingProgress))
 
             when("the TTS engine speaking is progressing (3/4)") {
                 let publisherExpectation = self.expectation(
-                    description: "Current.tts.speakingProgressPublisher completion"
+                    description: "speakingProgressPublisher completion"
                 )
-                let isSpeakingPublisher = Current.tts.speakingProgressPublisher
+                let isSpeakingPublisher = engine.speakingProgressPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
                             switch $0 {
                             case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("Current.tts.isSpeakingPublisher completion has failed")
+                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
                     },
                         receiveValue: { XCTAssertEqual(3/4, $0) }
