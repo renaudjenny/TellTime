@@ -18,20 +18,8 @@ enum TTS {
     case subscribeToEngineSpeakingProgress
   }
 
-  static func subscribeToEngineIsSpeaking() -> AnyPublisher<App.Action, Never> {
-    Current.tts.isSpeakingPublisher
-      .map { $0 ? .tts(.startSpeaking) : .tts(.stopSpeaking) }
-      .eraseToAnyPublisher()
-  }
-
-  static func subscribeToEngineSpeakingProgress() -> AnyPublisher<App.Action, Never> {
-    Current.tts.speakingProgressPublisher
-      .map { .tts(.changeSpeakingProgress($0)) }
-      .eraseToAnyPublisher()
-  }
-
     struct Environment {
-        // TODO: put Engine here!
+        let engine: TTSEngine
     }
 
     static func reducer(
@@ -42,9 +30,9 @@ enum TTS {
         switch action {
         case let .changeRateRatio(rateRatio):
             state.rateRatio = rateRatio
-            Current.tts.setRateRatio(rateRatio)
+            environment.engine.rateRatio = rateRatio
         case let .tellTime(date):
-            Current.tts.speech(date)
+            environment.engine.speech(date: date)
         case .startSpeaking:
             state.isSpeaking = true
         case .stopSpeaking:
@@ -52,11 +40,11 @@ enum TTS {
         case let .changeSpeakingProgress(speakingProgress):
             state.speakingProgress = speakingProgress
         case .subscribeToEngineIsSpeaking:
-            return Current.tts.isSpeakingPublisher
+            return environment.engine.isSpeakingPublisher
                 .map { $0 ? .startSpeaking : .stopSpeaking }
                 .eraseToAnyPublisher()
         case .subscribeToEngineSpeakingProgress:
-            return Current.tts.speakingProgressPublisher
+            return environment.engine.speakingProgressPublisher
                 .map { .changeSpeakingProgress($0) }
                 .eraseToAnyPublisher()
         }

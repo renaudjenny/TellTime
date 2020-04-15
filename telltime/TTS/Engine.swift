@@ -2,6 +2,13 @@ import AVFoundation
 import SwiftPastTen
 import Combine
 
+protocol TTSEngine: class {
+    var rateRatio: Float { get set }
+    func speech(date: Date)
+    var isSpeakingPublisher: AnyPublisher<Bool, Never> { get }
+    var speakingProgressPublisher: AnyPublisher<Double, Never> { get }
+}
+
 extension TTS {
   final class Engine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     @Published private(set) var isSpeaking: Bool = false
@@ -10,9 +17,14 @@ extension TTS {
     var rateRatio: Float = 1.0
     private let speechSynthesizer = AVSpeechSynthesizer()
 
+    let tellTime: (Date, Calendar) -> String
     let calendar: Calendar
 
-    init(calendar: Calendar) {
+    init(
+        tellTime: @escaping (Date, Calendar) -> String,
+        calendar: Calendar
+    ) {
+        self.tellTime = tellTime
         self.calendar = calendar
         super.init()
         self.speechSynthesizer.delegate = self
@@ -20,7 +32,7 @@ extension TTS {
     }
 
     func speech(date: Date) {
-      let tellTimeText = Current.tellTime(date, calendar)
+      let tellTimeText = tellTime(date, calendar)
       let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: tellTimeText)
       speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
       speechUtterance.rate *= self.rateRatio
@@ -54,4 +66,14 @@ extension TTS {
       self.speakingProgress = averageBound/total
     }
   }
+}
+
+extension TTS.Engine: TTSEngine {
+    var isSpeakingPublisher: AnyPublisher<Bool, Never> {
+        $isSpeaking.eraseToAnyPublisher()
+    }
+
+    var speakingProgressPublisher: AnyPublisher<Double, Never> {
+        $speakingProgress.eraseToAnyPublisher()
+    }
 }

@@ -12,7 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UIHostingController(rootView: RootView())
+
+        let store = appStore()
+
+        window.rootViewController = UIHostingController(rootView: RootView()
+            .environmentObject(store)
+        )
         self.window = window
         window.makeKeyAndVisible()
 
@@ -21,5 +26,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func customizeAppearance() {
         UINavigationBar.appearance().tintColor = UIColor.red
+    }
+
+    private func appStore() -> Store<App.State, App.Action, App.Environment> {
+        let initialEnvironment = EnvironmentValues()
+        let ttsEngine = TTS.Engine(tellTime: initialEnvironment.tellTime, calendar: initialEnvironment.calendar)
+        let environment = App.Environment(
+            currentDate: { Date() },
+            tts: TTS.Environment(engine: ttsEngine)
+        )
+        return .init(
+            initialState: App.State(date: Date()),
+            reducer: App.reducer,
+            environment: environment
+        )
     }
 }

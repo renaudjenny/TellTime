@@ -1,10 +1,12 @@
 import XCTest
 @testable import Tell_Time_UK
+import SwiftUI
+import Combine
 
 class TelltimeTests: XCTestCase {
     func testWhenIStartTheApplicationThenTheStoreDateIsTheCurrentOne() {
         let fakeCurrentDate = Date(timeIntervalSince1970: 4300)
-        let fakeEnvironment = App.Environment(currentDate: { fakeCurrentDate })
+        let fakeEnvironment: App.Environment = .fake(currentDate: fakeCurrentDate)
 
         let store = Store<App.State, App.Action, App.Environment>(
             initialState: App.State(date: fakeCurrentDate),
@@ -12,7 +14,8 @@ class TelltimeTests: XCTestCase {
             environment: fakeEnvironment
         )
 
-        XCTAssertEqual(Current.tellTime(store.state.date, .test), "It's one eleven AM.")
+        let tellTime = EnvironmentValues().tellTime
+        XCTAssertEqual(tellTime(store.state.date, .test), "It's one eleven AM.")
     }
 
     func testWhenIChangedTheDateThenICanReadLiteralTimeFromIt() {
@@ -21,21 +24,46 @@ class TelltimeTests: XCTestCase {
         let store = App.testStore
         store.send(.changeDate(fakeCurrentDate))
 
-        XCTAssertEqual(Current.tellTime(store.state.date, .test), "It's one twelve AM.")
+        let tellTime = EnvironmentValues().tellTime
+        XCTAssertEqual(tellTime(store.state.date, .test), "It's one twelve AM.")
     }
 }
 
 extension App {
     static func testStore(
-        modifyState: (inout App.State) -> Void
+        modifyState: (inout App.State) -> Void = { _ in },
+        environment: Environment = .fake
     ) -> Store<App.State, App.Action, Environment> {
-        let mockedEnvironment = Environment(currentDate: {
-            Date(hour: 10, minute: 10, calendar: .test)
-        })
-        var state = App.State(date: mockedEnvironment.currentDate())
+        var state = App.State(date: environment.currentDate())
         _ = modifyState(&state)
-        return .init(initialState: state, reducer: App.reducer, environment: mockedEnvironment)
+        return .init(initialState: state, reducer: App.reducer, environment: environment)
     }
 
-    static var testStore: Store<App.State, App.Action, Environment> { App.testStore { _ in } }
+    static var testStore: Store<App.State, App.Action, Environment> { testStore() }
+}
+
+extension App.Environment {
+    static var fake: Self {
+        fake(currentDate: Date(hour: 10, minute: 10, calendar: .test))
+    }
+
+    static func fake(currentDate: Date) -> Self {
+        Self(
+            currentDate: { currentDate },
+            tts: .fake
+        )
+    }
+}
+
+extension TTS.Environment {
+    static var fake: Self {
+        TTS.Environment(engine: MockedTTSEngine())
+    }
+
+    private final class MockedTTSEngine: TTSEngine {
+        var rateRatio: Float = 1.0
+        func speech(date: Date) { }
+        var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
+        var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
+    }
 }
