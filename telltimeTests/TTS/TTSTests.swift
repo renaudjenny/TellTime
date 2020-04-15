@@ -103,8 +103,7 @@ class TTSTests: XCTestCase {
             let engine = MockedTTSEngine(
                 isSpeakingPublisher: Just(true).eraseToAnyPublisher()
             )
-            let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
-            let store = App.testStore(environment: environment)
+            let store = App.testStore(environment: .test(engine: engine))
             XCTAssertEqual(false, store.state.tts.isSpeaking)
 
             store.send(.tts(.subscribeToEngineIsSpeaking))
@@ -137,8 +136,7 @@ class TTSTests: XCTestCase {
             let engine = MockedTTSEngine(
                 isSpeakingPublisher: Just(false).eraseToAnyPublisher()
             )
-            let environment = App.Environment(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
-            let store = App.testStore(environment: environment)
+            let store = App.testStore(environment: .test(engine: engine))
             store.send(.tts(.startSpeaking))
             XCTAssertEqual(true, store.state.tts.isSpeaking)
 

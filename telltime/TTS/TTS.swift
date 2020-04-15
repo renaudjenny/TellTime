@@ -19,7 +19,7 @@ enum TTS {
   }
 
     struct Environment {
-        var engine: TTSEngine
+        let engine: TTSEngine
     }
 
     static func reducer(
