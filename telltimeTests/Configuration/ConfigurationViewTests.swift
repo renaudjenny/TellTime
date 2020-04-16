@@ -10,7 +10,7 @@ class ConfigurationViewTests: XCTestCase {
         let hostingController = UIHostingController(rootView: configurationViews)
         assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
     }
-    
+
     func testConfigurationViewsInLandscape() {
         let configurationViews = ConfigurationViewLandscape_Previews.previews
             .environment(\.clockIsAnimationEnabled, false)
