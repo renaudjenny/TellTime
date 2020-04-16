@@ -11,7 +11,16 @@ struct TellTimeView: View {
     }
 
     var body: some View {
-        Group {
+        NavigationView {
+            responsiveView
+            .navigationBarTitle("Tell Time")
+            .padding()
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+
+    private var responsiveView: some View {
+        ZStack {
             if verticalSizeClass == .regular && horizontalSizeClass == .compact {
                 verticalView
             } else if verticalSizeClass == .compact {
@@ -20,8 +29,6 @@ struct TellTimeView: View {
                 regularView
             }
         }
-        .navigationBarTitle("Tell Time")
-        .padding()
     }
 
     private var clockView: some View {
@@ -130,11 +137,11 @@ private struct TimeText: View {
 }
 
 private struct ConfigurationGearButton: View {
-  var body: some View {
-    NavigationLink(destination: ConfigurationView()) {
-      Image(systemName: "gear")
-        .padding()
-        .accentColor(.red)
+    var body: some View {
+        NavigationLink(destination: ConfigurationView()) {
+            Image(systemName: "gear")
+                .padding()
+                .accentColor(.red)
+        }
     }
-  }
 }

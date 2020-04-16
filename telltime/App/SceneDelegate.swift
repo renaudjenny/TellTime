@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let store = appStore()
 
-        window.rootViewController = UIHostingController(rootView: RootView()
-            .environmentObject(store)
+        window.rootViewController = UIHostingController(
+            rootView: TellTimeView().environmentObject(store)
         )
         self.window = window
         window.makeKeyAndVisible()
