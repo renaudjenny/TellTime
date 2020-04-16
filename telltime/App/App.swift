@@ -45,7 +45,7 @@ enum App {
         modifyState: (inout App.State) -> Void
     ) -> Store<App.State, App.Action, Environment> {
         let mockedEnvironment = Environment(
-            currentDate: { .init(hour: 10, minute: 10, calendar: .previewCalendar) },
+            currentDate: { .init(hour: 10, minute: 10, calendar: .preview) },
             tts: TTS.Environment(engine: MockedTTSEngine())
         )
         var state = App.State(date: mockedEnvironment.currentDate())
@@ -65,14 +65,3 @@ enum App {
     }
     #endif
 }
-
-// TODO: move this to its own file
-#if DEBUG
-extension Calendar {
-    static var previewCalendar: Self {
-        var calendar = Self(identifier: .gregorian)
-        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? calendar.timeZone
-        return calendar
-    }
-}
-#endif
