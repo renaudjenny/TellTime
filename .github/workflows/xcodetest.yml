@@ -12,6 +12,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Install SwiftLint
+      run: brew install swiftlint
+      
+    - name: Linter
+      run: swiftlint
 
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_11.4.app
