@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "TellTimeLogo200x200.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "TellTimeLogo400x400.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "TellTimeLogo600x600.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

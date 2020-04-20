@@ -2,8 +2,11 @@ import SwiftUI
 
 struct AboutView: View {
     var body: some View {
-        VStack {
-            Spacer()
+        ScrollView(.vertical) {
+            HStack { Spacer() }
+            Image(uiImage: #imageLiteral(resourceName: "Logo"))
+                .padding()
+                .shadow(radius: 5)
             VStack(spacing: 32) {
                 developmentCredit
                 openSourceCredit
@@ -11,11 +14,9 @@ struct AboutView: View {
                 Text("Thank you for your support!")
                     .multilineTextAlignment(.center)
                     .font(.headline)
-            }
-            .layoutPriority(.high)
-            Spacer()
+            }.padding()
         }
-        .padding()
+
         .navigationBarTitle("About")
     }
 
@@ -62,10 +63,6 @@ struct WebLink: View {
     }
 }
 
-fileprivate extension Double {
-    static let high: Double = 100
-}
-
 private extension URL {
     static var renox0Twitter: Self {
         guard let url = Self(string: "https://twitter.com/Renox0") else {
@@ -93,7 +90,6 @@ private extension URL {
 struct AboutView_Previews: PreviewProvider {
     static var previews: some View {
         AboutView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone SE"))
     }
 }
 #endif
