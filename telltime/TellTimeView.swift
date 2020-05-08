@@ -20,7 +20,7 @@ struct TellTimeView: View {
     }
 
     private var responsiveView: some View {
-        ZStack {
+        Group {
             if verticalSizeClass == .regular && horizontalSizeClass == .compact {
                 verticalView
             } else if verticalSizeClass == .compact {
