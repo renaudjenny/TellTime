@@ -14,6 +14,7 @@ struct AboutView: View {
                 Text("Thank you for your support!")
                     .multilineTextAlignment(.center)
                     .font(.headline)
+                rateThisApp
             }.padding()
         }
 
@@ -45,6 +46,11 @@ struct AboutView: View {
                 .font(.body)
             WebLink(text: "@MathildeSeyller", url: .myobrielInstagram)
         }
+    }
+
+    private var rateThisApp: some View {
+        WebLink(text: "Rate this application on the App Store", url: .appStoreWriteReview)
+            .multilineTextAlignment(.center)
     }
 }
 
@@ -81,6 +87,13 @@ private extension URL {
     static var myobrielInstagram: Self {
         guard let url = Self(string: "https://www.instagram.com/myobriel") else {
             fatalError("Cannot build the instagram URL")
+        }
+        return url
+    }
+
+    static var appStoreWriteReview: Self {
+        guard let url = Self(string: "itms-apps://itunes.apple.com/app/id1496541173?action=write-review") else {
+            fatalError("Cannot build the AppStore URL")
         }
         return url
     }
