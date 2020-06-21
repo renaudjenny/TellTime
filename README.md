@@ -8,6 +8,10 @@ A tiny iOS Swift project with SwiftUI.
 
 📲 App Store: https://apps.apple.com/gb/app/tell-time-uk/id1496541173
 
+## Screenshots
+
+![Screenshots of the application from an iPhone](docs/assets/iPhoneScreenshots.png)
+
 ## Features
 
 * 🐰 Time is written in British english, like **It's twenty past seven AM** for 07:20
