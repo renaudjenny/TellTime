@@ -12,15 +12,13 @@
 		4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */; };
 		4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */; };
 		4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4C474A40243702CA00DDD53C /* SnapshotTesting */; };
-		4C474A44243702E700DDD53C /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
+		4C61D58624A52ACE0033B689 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58524A52ACE0033B689 /* SwiftPastTen */; };
+		4C61D58824A52ACE0033B689 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58724A52ACE0033B689 /* SwiftClockUI */; };
+		4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58924A52AE20033B689 /* SwiftPastTen */; };
+		4C61D58C24A52AE20033B689 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58B24A52AE20033B689 /* SwiftClockUI */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
 		4C6FB8932448CEED00C527A1 /* Calendar+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */; };
-		4CA7CEE12438D028004FC5EC /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
-		4CAE628924367E5300E57FAC /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAE628824367E5300E57FAC /* SwiftPastTen */; };
-		4CAE628B24367E5300E57FAC /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4CAE628A24367E5300E57FAC /* SwiftClockUI */; };
-		4CAE628E24367E7500E57FAC /* SPMLibraries.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; };
-		4CAE628F24367E7500E57FAC /* SPMLibraries.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
 		4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BD22A7293300786385 /* SceneDelegate.swift */; };
 		4CB1D4C022A7293300786385 /* TellTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BF22A7293300786385 /* TellTimeView.swift */; };
@@ -47,13 +45,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4CAE629024367E7500E57FAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4CAE627F24367E1F00E57FAC;
-			remoteInfo = SPMLibraries;
-		};
 		4CB1D4CF22A7293500786385 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
@@ -77,7 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4CAE628F24367E7500E57FAC /* SPMLibraries.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,8 +93,6 @@
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Preview.swift"; sourceTree = "<group>"; };
-		4CAE628024367E1F00E57FAC /* SPMLibraries.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SPMLibraries.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CAE628324367E1F00E57FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* Tell Time UK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tell Time UK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB1D4BB22A7293300786385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CB1D4BD22A7293300786385 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,20 +124,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4CAE627D24367E1F00E57FAC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CAE628924367E5300E57FAC /* SwiftPastTen in Frameworks */,
-				4CAE628B24367E5300E57FAC /* SwiftClockUI in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4CB1D4B522A7293300786385 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CAE628E24367E7500E57FAC /* SPMLibraries.framework in Frameworks */,
+				4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */,
+				4C61D58C24A52AE20033B689 /* SwiftClockUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +137,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C474A44243702E700DDD53C /* SPMLibraries.framework in Frameworks */,
 				4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,7 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA7CEE12438D028004FC5EC /* SPMLibraries.framework in Frameworks */,
+				4C61D58624A52ACE0033B689 /* SwiftPastTen in Frameworks */,
+				4C61D58824A52ACE0033B689 /* SwiftClockUI in Frameworks */,
 				4CCBFD0D23F870CA004EFBD8 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,20 +210,11 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
-		4CAE628124367E1F00E57FAC /* SPMLibraries */ = {
-			isa = PBXGroup;
-			children = (
-				4CAE628324367E1F00E57FAC /* Info.plist */,
-			);
-			path = SPMLibraries;
-			sourceTree = "<group>";
-		};
 		4CB1D4AF22A7293300786385 = {
 			isa = PBXGroup;
 			children = (
 				4CCBFD0B23F870CA004EFBD8 /* Frameworks */,
 				4CB1D4B922A7293300786385 /* Products */,
-				4CAE628124367E1F00E57FAC /* SPMLibraries */,
 				4CB1D4BA22A7293300786385 /* telltime */,
 				4CB1D4D122A7293500786385 /* telltimeTests */,
 				4CCBFD0E23F870CA004EFBD8 /* widget */,
@@ -256,7 +227,6 @@
 				4CB1D4B822A7293300786385 /* Tell Time UK.app */,
 				4CB1D4CE22A7293500786385 /* telltimeTests.xctest */,
 				4CCBFD0A23F870CA004EFBD8 /* widget.appex */,
-				4CAE628024367E1F00E57FAC /* SPMLibraries.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,39 +309,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		4CAE627B24367E1F00E57FAC /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		4CAE627F24367E1F00E57FAC /* SPMLibraries */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4CAE628524367E1F00E57FAC /* Build configuration list for PBXNativeTarget "SPMLibraries" */;
-			buildPhases = (
-				4CAE627B24367E1F00E57FAC /* Headers */,
-				4CAE627C24367E1F00E57FAC /* Sources */,
-				4CAE627D24367E1F00E57FAC /* Frameworks */,
-				4CAE627E24367E1F00E57FAC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SPMLibraries;
-			packageProductDependencies = (
-				4CAE628824367E5300E57FAC /* SwiftPastTen */,
-				4CAE628A24367E5300E57FAC /* SwiftClockUI */,
-			);
-			productName = SPMLibraries;
-			productReference = 4CAE628024367E1F00E57FAC /* SPMLibraries.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		4CB1D4B722A7293300786385 /* telltime */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CB1D4E222A7293500786385 /* Build configuration list for PBXNativeTarget "telltime" */;
@@ -387,10 +325,11 @@
 			);
 			dependencies = (
 				4CCBFD1623F870CA004EFBD8 /* PBXTargetDependency */,
-				4CAE629124367E7500E57FAC /* PBXTargetDependency */,
 			);
 			name = telltime;
 			packageProductDependencies = (
+				4C61D58924A52AE20033B689 /* SwiftPastTen */,
+				4C61D58B24A52AE20033B689 /* SwiftClockUI */,
 			);
 			productName = telltime;
 			productReference = 4CB1D4B822A7293300786385 /* Tell Time UK.app */;
@@ -431,6 +370,8 @@
 			);
 			name = widget;
 			packageProductDependencies = (
+				4C61D58524A52ACE0033B689 /* SwiftPastTen */,
+				4C61D58724A52ACE0033B689 /* SwiftClockUI */,
 			);
 			productName = widget;
 			productReference = 4CCBFD0A23F870CA004EFBD8 /* widget.appex */;
@@ -446,9 +387,6 @@
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Renaud JENNY";
 				TargetAttributes = {
-					4CAE627F24367E1F00E57FAC = {
-						CreatedOnToolsVersion = 11.4;
-					};
 					4CB1D4B722A7293300786385 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -482,19 +420,11 @@
 				4CB1D4B722A7293300786385 /* telltime */,
 				4CB1D4CD22A7293500786385 /* telltimeTests */,
 				4CCBFD0923F870CA004EFBD8 /* widget */,
-				4CAE627F24367E1F00E57FAC /* SPMLibraries */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4CAE627E24367E1F00E57FAC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4CB1D4B622A7293300786385 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,13 +473,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4CAE627C24367E1F00E57FAC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4CB1D4B422A7293300786385 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -598,11 +521,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4CAE629124367E7500E57FAC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4CAE627F24367E1F00E57FAC /* SPMLibraries */;
-			targetProxy = 4CAE629024367E7500E57FAC /* PBXContainerItemProxy */;
-		};
 		4CB1D4D022A7293500786385 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4CB1D4B722A7293300786385 /* telltime */;
@@ -635,66 +553,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4CAE628624367E1F00E57FAC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MBQ98GC8JT;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SPMLibraries/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.5.1;
-				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.SPMLibraries;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		4CAE628724367E1F00E57FAC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MBQ98GC8JT;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SPMLibraries/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.5.1;
-				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.SPMLibraries;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		4CB1D4E022A7293500786385 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -950,15 +808,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4CAE628524367E1F00E57FAC /* Build configuration list for PBXNativeTarget "SPMLibraries" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4CAE628624367E1F00E57FAC /* Debug */,
-				4CAE628724367E1F00E57FAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4CB1D4B322A7293300786385 /* Build configuration list for PBXProject "telltime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1030,12 +879,22 @@
 			package = 4CAE627A24367DB100E57FAC /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
 		};
-		4CAE628824367E5300E57FAC /* SwiftPastTen */ = {
+		4C61D58524A52ACE0033B689 /* SwiftPastTen */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4C3B32EB242BCE5300D17D70 /* XCRemoteSwiftPackageReference "SwiftPastTen" */;
 			productName = SwiftPastTen;
 		};
-		4CAE628A24367E5300E57FAC /* SwiftClockUI */ = {
+		4C61D58724A52ACE0033B689 /* SwiftClockUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C3B32EE242BD11700D17D70 /* XCRemoteSwiftPackageReference "SwiftClockUI" */;
+			productName = SwiftClockUI;
+		};
+		4C61D58924A52AE20033B689 /* SwiftPastTen */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C3B32EB242BCE5300D17D70 /* XCRemoteSwiftPackageReference "SwiftPastTen" */;
+			productName = SwiftPastTen;
+		};
+		4C61D58B24A52AE20033B689 /* SwiftClockUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4C3B32EE242BD11700D17D70 /* XCRemoteSwiftPackageReference "SwiftClockUI" */;
 			productName = SwiftClockUI;
