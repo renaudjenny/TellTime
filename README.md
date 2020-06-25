@@ -25,7 +25,8 @@ A tiny iOS Swift project with SwiftUI.
 
 ## Minimum required
 
-Works with Xcode 11.
+Works with Xcode 12 Beta.
+For a the legacy branch working with Xcode 11, please checkout [Legacy branch](https://github.com/renaudjenny/telltime/tree/legacy)
 
 ## Libraries used
 
