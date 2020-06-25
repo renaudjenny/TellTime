@@ -3,6 +3,8 @@ import XCTest
 import SwiftUI
 import Combine
 
+typealias App = Tell_Time_UK.App
+
 class TelltimeTests: XCTestCase {
     func testWhenIStartTheApplicationThenTheStoreDateIsTheCurrentOne() {
         let fakeCurrentDate = Date(timeIntervalSince1970: 4300)
