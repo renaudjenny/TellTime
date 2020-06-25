@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 
+// The name App could be confused with the SwiftUI name. Should be refactored to use AppStore name or something
 enum App {
     struct State {
         var date: Date

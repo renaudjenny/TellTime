@@ -19,8 +19,7 @@
 		4C61D58C24A52AE20033B689 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58B24A52AE20033B689 /* SwiftClockUI */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
 		4C6FB8932448CEED00C527A1 /* Calendar+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */; };
-		4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* AppDelegate.swift */; };
-		4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BD22A7293300786385 /* SceneDelegate.swift */; };
+		4CB1D4BC22A7293300786385 /* TellTimeUKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */; };
 		4CB1D4C022A7293300786385 /* TellTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BF22A7293300786385 /* TellTimeView.swift */; };
 		4CB1D4C222A7293500786385 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C122A7293500786385 /* Assets.xcassets */; };
 		4CB1D4C522A7293500786385 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C422A7293500786385 /* Preview Assets.xcassets */; };
@@ -94,8 +93,7 @@
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Preview.swift"; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* Tell Time UK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tell Time UK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CB1D4BB22A7293300786385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4CB1D4BD22A7293300786385 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeUKApp.swift; sourceTree = "<group>"; };
 		4CB1D4BF22A7293300786385 /* TellTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeView.swift; sourceTree = "<group>"; };
 		4CB1D4C122A7293500786385 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4CB1D4C422A7293500786385 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -167,9 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				4CEB6041238ADEAF0085B07C /* App.swift */,
-				4CB1D4BB22A7293300786385 /* AppDelegate.swift */,
+				4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */,
 				4CB1D4C622A7293500786385 /* LaunchScreen.storyboard */,
-				4CB1D4BD22A7293300786385 /* SceneDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -485,8 +482,7 @@
 				4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */,
 				4CEB604A238C82A30085B07C /* Configuration.swift in Sources */,
 				4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */,
-				4CB1D4BC22A7293300786385 /* AppDelegate.swift in Sources */,
-				4CB1D4BE22A7293300786385 /* SceneDelegate.swift in Sources */,
+				4CB1D4BC22A7293300786385 /* TellTimeUKApp.swift in Sources */,
 				4CDD4A802336E64E004BE734 /* AboutView.swift in Sources */,
 				4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */,
 				4CB1D4C022A7293300786385 /* TellTimeView.swift in Sources */,
@@ -604,7 +600,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -659,7 +655,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -680,7 +676,6 @@
 				DEVELOPMENT_TEAM = MBQ98GC8JT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = telltime/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -705,7 +700,6 @@
 				DEVELOPMENT_TEAM = MBQ98GC8JT;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = telltime/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -768,7 +762,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBQ98GC8JT;
 				INFOPLIST_FILE = widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -790,7 +783,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBQ98GC8JT;
 				INFOPLIST_FILE = widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
