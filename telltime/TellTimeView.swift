@@ -87,7 +87,8 @@ private struct DatePicker: View {
 
     var body: some View {
         SwiftUI.DatePicker("", selection: self.date, displayedComponents: [.hourAndMinute])
-            .fixedSize()
+            .datePickerStyle(WheelDatePickerStyle())
+
     }
 }
 
@@ -145,3 +146,22 @@ private struct ConfigurationGearButton: View {
         }
     }
 }
+
+#if DEBUG
+struct TellTimeView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            TellTimeView()
+                .environmentObject(App.previewStore)
+                .environment(\.horizontalSizeClass, .compact)
+                .environment(\.verticalSizeClass, .regular)
+            TellTimeView()
+                .previewLayout(.fixed(width: 800, height: 400))
+                .preferredColorScheme(.dark)
+                .environmentObject(App.previewStore)
+                .environment(\.horizontalSizeClass, .compact)
+                .environment(\.verticalSizeClass, .compact)
+        }
+    }
+}
+#endif

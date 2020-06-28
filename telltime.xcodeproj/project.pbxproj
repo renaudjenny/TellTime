@@ -851,8 +851,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/renaudjenny/SwiftClockUI";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = "fix/8-glitch-while-compiled-with-xcode-12";
+				kind = branch;
 			};
 		};
 		4CAE627A24367DB100E57FAC /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
