@@ -14,9 +14,9 @@
         "package": "SwiftClockUI",
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
-          "branch": "fix/8-glitch-while-compiled-with-xcode-12",
-          "revision": "8b414c03f1f1940e19be018b2209626598c60512",
-          "version": null
+          "branch": null,
+          "revision": "34101f89f0cfb7989be97213cb7faf3ebf6107e4",
+          "version": "1.1.0"
         }
       },
       {
