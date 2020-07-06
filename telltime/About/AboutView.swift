@@ -17,8 +17,7 @@ struct AboutView: View {
                 rateThisApp
             }.padding()
         }
-
-        .navigationBarTitle("About")
+        .navigationBarTitle("Abou")
     }
 
     private var developmentCredit: some View {
