@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC8123550A0C00442B11 /* ConfigurationView.swift */; };
 		4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32F1072419765A00BAFB3A /* Calendar+Test.swift */; };
+		4C3CCC6124B39353008F0699 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3CCC6024B39353008F0699 /* WidgetKit.framework */; };
+		4C3CCC6324B39353008F0699 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3CCC6224B39353008F0699 /* SwiftUI.framework */; };
+		4C3CCC6624B39353008F0699 /* TellTimeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CCC6524B39353008F0699 /* TellTimeWidget.swift */; };
+		4C3CCC6924B39356008F0699 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C3CCC6824B39356008F0699 /* Assets.xcassets */; };
+		4C3CCC6B24B39356008F0699 /* TellTimeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CCC6724B39353008F0699 /* TellTimeWidget.intentdefinition */; };
+		4C3CCC6C24B39356008F0699 /* TellTimeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CCC6724B39353008F0699 /* TellTimeWidget.intentdefinition */; };
+		4C3CCC6F24B39356008F0699 /* TellTimeWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4C3CCC7424B396D5008F0699 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C3CCC7324B396D5008F0699 /* SwiftPastTen */; };
+		4C3CCC7624B396D5008F0699 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C3CCC7524B396D5008F0699 /* SwiftClockUI */; };
 		4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */; };
 		4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */; };
 		4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4C474A40243702CA00DDD53C /* SnapshotTesting */; };
@@ -43,6 +52,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4C3CCC6D24B39356008F0699 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C3CCC5E24B39353008F0699;
+			remoteInfo = TellTimeWidgetExtension;
+		};
 		4CB1D4CF22A7293500786385 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4CB1D4B022A7293300786385 /* Project object */;
@@ -76,6 +92,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				4C3CCC6F24B39356008F0699 /* TellTimeWidgetExtension.appex in Embed App Extensions */,
 				4CCBFD1723F870CA004EFBD8 /* widget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -86,6 +103,13 @@
 /* Begin PBXFileReference section */
 		4C03BC8123550A0C00442B11 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
 		4C32F1072419765A00BAFB3A /* Calendar+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Test.swift"; sourceTree = "<group>"; };
+		4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TellTimeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C3CCC6024B39353008F0699 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4C3CCC6224B39353008F0699 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		4C3CCC6524B39353008F0699 /* TellTimeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeWidget.swift; sourceTree = "<group>"; };
+		4C3CCC6724B39353008F0699 /* TellTimeWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = TellTimeWidget.intentdefinition; sourceTree = "<group>"; };
+		4C3CCC6824B39356008F0699 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4C3CCC6A24B39356008F0699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDateEnvironment.swift; sourceTree = "<group>"; };
 		4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEnvironment.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
@@ -120,6 +144,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C3CCC5C24B39353008F0699 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C3CCC6324B39353008F0699 /* SwiftUI.framework in Frameworks */,
+				4C3CCC6124B39353008F0699 /* WidgetKit.framework in Frameworks */,
+				4C3CCC7424B396D5008F0699 /* SwiftPastTen in Frameworks */,
+				4C3CCC7624B396D5008F0699 /* SwiftClockUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4CB1D4B522A7293300786385 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +221,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		4C3CCC6424B39353008F0699 /* TellTimeWidget */ = {
+			isa = PBXGroup;
+			children = (
+				4C3CCC6524B39353008F0699 /* TellTimeWidget.swift */,
+				4C3CCC6724B39353008F0699 /* TellTimeWidget.intentdefinition */,
+				4C3CCC6824B39356008F0699 /* Assets.xcassets */,
+				4C3CCC6A24B39356008F0699 /* Info.plist */,
+			);
+			path = TellTimeWidget;
+			sourceTree = "<group>";
+		};
 		4C460CA324443CEE006D02EA /* Environment */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +257,7 @@
 				4CB1D4B922A7293300786385 /* Products */,
 				4CB1D4BA22A7293300786385 /* telltime */,
 				4CB1D4D122A7293500786385 /* telltimeTests */,
+				4C3CCC6424B39353008F0699 /* TellTimeWidget */,
 				4CCBFD0E23F870CA004EFBD8 /* widget */,
 			);
 			sourceTree = "<group>";
@@ -221,6 +268,7 @@
 				4CB1D4B822A7293300786385 /* Tell Time UK.app */,
 				4CB1D4CE22A7293500786385 /* telltimeTests.xctest */,
 				4CCBFD0A23F870CA004EFBD8 /* widget.appex */,
+				4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -268,6 +316,8 @@
 			isa = PBXGroup;
 			children = (
 				4CCBFD0C23F870CA004EFBD8 /* NotificationCenter.framework */,
+				4C3CCC6024B39353008F0699 /* WidgetKit.framework */,
+				4C3CCC6224B39353008F0699 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -304,6 +354,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4C3CCC5E24B39353008F0699 /* TellTimeWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C3CCC7224B39356008F0699 /* Build configuration list for PBXNativeTarget "TellTimeWidgetExtension" */;
+			buildPhases = (
+				4C3CCC5B24B39353008F0699 /* Sources */,
+				4C3CCC5C24B39353008F0699 /* Frameworks */,
+				4C3CCC5D24B39353008F0699 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TellTimeWidgetExtension;
+			packageProductDependencies = (
+				4C3CCC7324B396D5008F0699 /* SwiftPastTen */,
+				4C3CCC7524B396D5008F0699 /* SwiftClockUI */,
+			);
+			productName = TellTimeWidgetExtension;
+			productReference = 4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		4CB1D4B722A7293300786385 /* telltime */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CB1D4E222A7293500786385 /* Build configuration list for PBXNativeTarget "telltime" */;
@@ -319,6 +390,7 @@
 			);
 			dependencies = (
 				4CCBFD1623F870CA004EFBD8 /* PBXTargetDependency */,
+				4C3CCC6E24B39356008F0699 /* PBXTargetDependency */,
 			);
 			name = telltime;
 			packageProductDependencies = (
@@ -377,10 +449,13 @@
 		4CB1D4B022A7293300786385 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Renaud JENNY";
 				TargetAttributes = {
+					4C3CCC5E24B39353008F0699 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 					4CB1D4B722A7293300786385 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -414,11 +489,20 @@
 				4CB1D4B722A7293300786385 /* telltime */,
 				4CB1D4CD22A7293500786385 /* telltimeTests */,
 				4CCBFD0923F870CA004EFBD8 /* widget */,
+				4C3CCC5E24B39353008F0699 /* TellTimeWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4C3CCC5D24B39353008F0699 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C3CCC6924B39356008F0699 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4CB1D4B622A7293300786385 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -466,11 +550,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4C3CCC5B24B39353008F0699 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C3CCC6B24B39356008F0699 /* TellTimeWidget.intentdefinition in Sources */,
+				4C3CCC6624B39353008F0699 /* TellTimeWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4CB1D4B422A7293300786385 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4C6FB8932448CEED00C527A1 /* Calendar+Preview.swift in Sources */,
+				4C3CCC6C24B39356008F0699 /* TellTimeWidget.intentdefinition in Sources */,
 				4CEB6042238ADEAF0085B07C /* App.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */,
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
@@ -513,6 +607,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4C3CCC6E24B39356008F0699 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C3CCC5E24B39353008F0699 /* TellTimeWidgetExtension */;
+			targetProxy = 4C3CCC6D24B39356008F0699 /* PBXContainerItemProxy */;
+		};
 		4CB1D4D022A7293500786385 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4CB1D4B722A7293300786385 /* telltime */;
@@ -537,6 +636,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4C3CCC7024B39356008F0699 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MBQ98GC8JT;
+				INFOPLIST_FILE = TellTimeWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime.TellTimeWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4C3CCC7124B39356008F0699 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MBQ98GC8JT;
+				INFOPLIST_FILE = TellTimeWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime.TellTimeWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4CB1D4E022A7293500786385 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -788,6 +931,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4C3CCC7224B39356008F0699 /* Build configuration list for PBXNativeTarget "TellTimeWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C3CCC7024B39356008F0699 /* Debug */,
+				4C3CCC7124B39356008F0699 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4CB1D4B322A7293300786385 /* Build configuration list for PBXProject "telltime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -854,6 +1006,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4C3CCC7324B396D5008F0699 /* SwiftPastTen */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C3B32EB242BCE5300D17D70 /* XCRemoteSwiftPackageReference "SwiftPastTen" */;
+			productName = SwiftPastTen;
+		};
+		4C3CCC7524B396D5008F0699 /* SwiftClockUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C3B32EE242BD11700D17D70 /* XCRemoteSwiftPackageReference "SwiftClockUI" */;
+			productName = SwiftClockUI;
+		};
 		4C474A40243702CA00DDD53C /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4CAE627A24367DB100E57FAC /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
