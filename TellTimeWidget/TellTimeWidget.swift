@@ -5,12 +5,18 @@ import SwiftPastTen
 import SwiftClockUI
 
 struct Provider: IntentTimelineProvider {
+    @Environment(\.calendar) private var calendar
+
     public func snapshot(
         for configuration: ConfigurationIntent,
         with context: Context,
         completion: @escaping (SimpleEntry) -> Void
     ) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration)
+        let entry = SimpleEntry(
+            date: Date(),
+            calendar: calendar,
+            configuration: configuration
+        )
         completion(entry)
     }
 
@@ -27,7 +33,11 @@ struct Provider: IntentTimelineProvider {
             guard let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate) else {
                 continue
             }
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
+            let entry = SimpleEntry(
+                date: entryDate,
+                calendar: calendar,
+                configuration: configuration
+            )
             entries.append(entry)
         }
 
@@ -38,16 +48,8 @@ struct Provider: IntentTimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     public let date: Date
+    let calendar: Calendar
     public let configuration: ConfigurationIntent
-}
-
-struct PlaceholderView: View {
-    var body: some View {
-        TellTimeWidgetView(
-            date: Date(),
-            calendar: .autoupdatingCurrent
-        )
-    }
 }
 
 struct TellTimeWidgetEntryView: View {
@@ -56,7 +58,7 @@ struct TellTimeWidgetEntryView: View {
     var body: some View {
         TellTimeWidgetView(
             date: entry.date,
-            calendar: .autoupdatingCurrent
+            calendar: entry.calendar
         )
     }
 }
@@ -69,9 +71,17 @@ struct TellTimeWidgetView: View {
         VStack {
             ClockView().allowsHitTesting(false)
             Spacer()
-            Text(SwiftPastTen.formattedDate(date, calendar: calendar))
+            Text(time)
             Spacer()
         }.padding()
+    }
+
+    private var time: String {
+        let formattedString = SwiftPastTen.formattedDate(date, calendar: calendar)
+        guard let time = try? SwiftPastTen().tell(time: formattedString) else {
+            return ""
+        }
+        return time
     }
 }
 
@@ -83,8 +93,7 @@ struct TellTimeWidget: Widget {
         IntentConfiguration(
             kind: kind,
             intent: ConfigurationIntent.self,
-            provider: Provider(),
-            placeholder: PlaceholderView()
+            provider: Provider()
         ) { entry in
             TellTimeWidgetEntryView(entry: entry)
         }
@@ -95,7 +104,21 @@ struct TellTimeWidget: Widget {
 
 struct TellTimeWidget_Previews: PreviewProvider {
     static var previews: some View {
-        TellTimeWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
+        Preview()
+    }
+
+    private struct Preview: View {
+        @Environment(\.calendar) private var calendar
+
+        var body: some View {
+            TellTimeWidgetEntryView(
+                entry: SimpleEntry(
+                    date: Date(),
+                    calendar: calendar,
+                    configuration: ConfigurationIntent()
+                )
+            )
             .previewContext(WidgetPreviewContext(family: .systemSmall))
+        }
     }
 }
