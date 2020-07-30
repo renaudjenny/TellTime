@@ -64,10 +64,31 @@ struct TellTimeWidgetEntryView: View {
 }
 
 struct TellTimeWidgetView: View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
     let date: Date
     let calendar: Calendar
 
     var body: some View {
+        switch family {
+        case .systemSmall: smallView
+        case .systemMedium: mediumView
+        case .systemLarge: largeView
+        default: Text("Error")
+        }
+    }
+
+    private var smallView: some View {
+        Text(time).padding()
+    }
+
+    private var mediumView: some View {
+        HStack {
+            ClockView().allowsHitTesting(false)
+            Text(time)
+        }.padding()
+    }
+
+    private var largeView: some View {
         VStack {
             ClockView().allowsHitTesting(false)
             Spacer()
@@ -104,7 +125,11 @@ struct TellTimeWidget: Widget {
 
 struct TellTimeWidget_Previews: PreviewProvider {
     static var previews: some View {
-        Preview()
+        Group {
+            Preview().previewContext(WidgetPreviewContext(family: .systemSmall))
+            Preview().previewContext(WidgetPreviewContext(family: .systemMedium))
+            Preview().previewContext(WidgetPreviewContext(family: .systemLarge))
+        }
     }
 
     private struct Preview: View {
@@ -118,7 +143,6 @@ struct TellTimeWidget_Previews: PreviewProvider {
                     configuration: ConfigurationIntent()
                 )
             )
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
         }
     }
 }
