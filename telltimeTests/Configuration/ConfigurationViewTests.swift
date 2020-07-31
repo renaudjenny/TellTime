@@ -7,14 +7,12 @@ class ConfigurationViewTests: XCTestCase {
     func testConfigurationViews() {
         let configurationViews = ConfigurationView_Previews.previews
             .environment(\.clockIsAnimationEnabled, false)
-        let hostingController = UIHostingController(rootView: configurationViews)
-        assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
+        assertSnapshot(matching: configurationViews, as: .image(layout: .device(config: .iPhoneSe)))
     }
 
     func testConfigurationViewsInLandscape() {
         let configurationViews = ConfigurationViewLandscape_Previews.previews
             .environment(\.clockIsAnimationEnabled, false)
-        let hostingController = UIHostingController(rootView: configurationViews)
-        assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe(.landscape)))
+        assertSnapshot(matching: configurationViews, as: .image(layout: .device(config: .iPhoneSe(.landscape))))
     }
 }
