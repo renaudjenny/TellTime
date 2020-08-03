@@ -6,7 +6,6 @@ import SwiftUI
 class SpeakButtonTests: XCTestCase {
     func testSpeakButtons() {
         let speakButtons = SpeakButton_Previews.previews
-        let hostingController = UIHostingController(rootView: speakButtons)
-        assertSnapshot(matching: hostingController, as: .image(on: .iPhoneSe))
+        assertSnapshot(matching: speakButtons, as: .image(layout: .device(config: .iPhoneSe)))
     }
 }

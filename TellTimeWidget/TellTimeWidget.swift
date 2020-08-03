@@ -114,7 +114,10 @@ struct TellTimeWidget: Widget {
         IntentConfiguration(
             kind: kind,
             intent: ConfigurationIntent.self,
-            provider: Provider()
+            provider: Provider(),
+            // TODO: remove placeholder, it's just to get the CI happy :(. GitHub actions Xcode version is beta 2.
+            /// See https://github.com/renaudjenny/telltime/issues/15
+            placeholder: EmptyView()
         ) { entry in
             TellTimeWidgetEntryView(entry: entry)
         }
