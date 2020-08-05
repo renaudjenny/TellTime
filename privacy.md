@@ -1,7 +1,6 @@
 # Privacy Policy
 
 This policy applies to all information collected or submitted on Renaud Jenny apps for iPhone, iPad and any other devices and platforms.
-For now, there is just one App available: Tell Time UK on iOS.
 
 ## Information we collect
 
@@ -43,4 +42,4 @@ If you have questions regarding this privacy policy, you may email renaud.jenny@
 
 If I decide to change our privacy policy, I will post those changes on this page. Summary of changes so far:
 
-January 26, 2020: First published.
+August 5, 2020: Second update published.
