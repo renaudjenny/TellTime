@@ -41,7 +41,7 @@
 		4CEB6042238ADEAF0085B07C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6041238ADEAF0085B07C /* App.swift */; };
 		4CEB6044238ADEE10085B07C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6043238ADEE10085B07C /* Store.swift */; };
 		4CEB604A238C82A30085B07C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6049238C82A30085B07C /* Configuration.swift */; };
-		4CFD817023A2EA5A00A97C77 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD816F23A2EA5A00A97C77 /* Engine.swift */; };
+		4CF452A624E036CE00C34A0F /* SwiftTTSCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF452A524E036CE00C34A0F /* SwiftTTSCombine */; };
 		4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,7 +121,6 @@
 		4CEB6041238ADEAF0085B07C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		4CEB6043238ADEE10085B07C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		4CEB6049238C82A30085B07C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		4CFD816F23A2EA5A00A97C77 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +142,7 @@
 			files = (
 				4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */,
 				4C61D58C24A52AE20033B689 /* SwiftClockUI in Frameworks */,
+				4CF452A624E036CE00C34A0F /* SwiftTTSCombine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +297,6 @@
 			children = (
 				4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */,
 				4CC0406622B530EC0001AA50 /* TTS.swift */,
-				4CFD816F23A2EA5A00A97C77 /* Engine.swift */,
 			);
 			path = TTS;
 			sourceTree = "<group>";
@@ -355,6 +354,7 @@
 			packageProductDependencies = (
 				4C61D58924A52AE20033B689 /* SwiftPastTen */,
 				4C61D58B24A52AE20033B689 /* SwiftClockUI */,
+				4CF452A524E036CE00C34A0F /* SwiftTTSCombine */,
 			);
 			productName = telltime;
 			productReference = 4CB1D4B822A7293300786385 /* Tell Time UK.app */;
@@ -416,6 +416,7 @@
 				4C3B32EB242BCE5300D17D70 /* XCRemoteSwiftPackageReference "SwiftPastTen" */,
 				4C3B32EE242BD11700D17D70 /* XCRemoteSwiftPackageReference "SwiftClockUI" */,
 				4CAE627A24367DB100E57FAC /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				4CF452A424E036CE00C34A0F /* XCRemoteSwiftPackageReference "SwiftTTSCombine" */,
 			);
 			productRefGroup = 4CB1D4B922A7293300786385 /* Products */;
 			projectDirPath = "";
@@ -503,7 +504,6 @@
 				4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */,
 				4CB1D4C022A7293300786385 /* TellTimeView.swift in Sources */,
 				4CEB6044238ADEE10085B07C /* Store.swift in Sources */,
-				4CFD817023A2EA5A00A97C77 /* Engine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,6 +856,14 @@
 				minimumVersion = 1.7.2;
 			};
 		};
+		4CF452A424E036CE00C34A0F /* XCRemoteSwiftPackageReference "SwiftTTSCombine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/renaudjenny/SwiftTTSCombine";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -883,6 +891,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C3B32EE242BD11700D17D70 /* XCRemoteSwiftPackageReference "SwiftClockUI" */;
 			productName = SwiftClockUI;
+		};
+		4CF452A524E036CE00C34A0F /* SwiftTTSCombine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4CF452A424E036CE00C34A0F /* XCRemoteSwiftPackageReference "SwiftTTSCombine" */;
+			productName = SwiftTTSCombine;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

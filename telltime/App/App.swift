@@ -1,5 +1,7 @@
 import SwiftUI
 import Combine
+import SwiftTTSCombine
+import AVFoundation
 
 // The name App could be confused with the SwiftUI name. Should be refactored to use AppStore name or something
 enum App {
@@ -47,7 +49,7 @@ enum App {
     ) -> Store<App.State, App.Action, Environment> {
         let mockedEnvironment = Environment(
             currentDate: { .init(hour: 10, minute: 10, calendar: .preview) },
-            tts: TTS.Environment(engine: MockedTTSEngine())
+            tts: TTS.Environment(engine: MockedTTSEngine(), calendar: .preview, tellTime: mockedTellTime)
         )
         var state = App.State(date: mockedEnvironment.currentDate())
         _ = modifyState(&state)
@@ -60,9 +62,12 @@ enum App {
 
     private final class MockedTTSEngine: TTSEngine {
         var rateRatio: Float = 1.0
-        func speech(date: Date) { }
+        var voice: AVSpeechSynthesisVoice?
+        func speak(string: String) { }
         var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
         var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
     }
+
+    private static func mockedTellTime(date: Date, calendar: Calendar) -> String { "12:34" }
     #endif
 }
