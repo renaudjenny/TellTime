@@ -1,5 +1,6 @@
 import UIKit
 import SwiftUI
+import SwiftTTSCombine
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -30,10 +31,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func appStore() -> Store<App.State, App.Action, App.Environment> {
         let initialEnvironment = EnvironmentValues()
-        let ttsEngine = TTS.Engine(tellTime: initialEnvironment.tellTime, calendar: initialEnvironment.calendar)
         let environment = App.Environment(
             currentDate: { Date() },
-            tts: TTS.Environment(engine: ttsEngine)
+            tts: TTS.Environment(
+                engine: Engine(),
+                calendar: initialEnvironment.calendar,
+                tellTime: initialEnvironment.tellTime
+            )
         )
         return .init(
             initialState: App.State(date: Date()),

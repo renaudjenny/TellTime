@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftTTSCombine
 
 enum TTS {
     struct State {
@@ -20,6 +21,8 @@ enum TTS {
 
     struct Environment {
         let engine: TTSEngine
+        let calendar: Calendar
+        let tellTime: (Date, Calendar) -> String
     }
 
     static func reducer(
@@ -32,7 +35,8 @@ enum TTS {
             state.rateRatio = rateRatio
             environment.engine.rateRatio = rateRatio
         case let .tellTime(date):
-            environment.engine.speech(date: date)
+            let tellTimeText = environment.tellTime(date, environment.calendar)
+            environment.engine.speak(string: tellTimeText)
         case .startSpeaking:
             state.isSpeaking = true
         case .stopSpeaking:

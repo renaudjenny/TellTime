@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
           "branch": null,
-          "revision": "5c3d2141fb0e55da411577012c917962b6b3517e",
-          "version": "1.8.0"
+          "revision": "2fd91357e90efe82bfa6845d1e7d5bc2f5025d35",
+          "version": "1.8.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
           "branch": null,
-          "revision": "9fbb34e8e07b2bb50d2fd5f00f88f282132d3eb3",
-          "version": "1.0.0"
+          "revision": "34101f89f0cfb7989be97213cb7faf3ebf6107e4",
+          "version": "1.1.0"
         }
       },
       {
@@ -26,6 +26,15 @@
           "branch": null,
           "revision": "01af0a4c8bc79ab87843cd3877e391ac1fd049af",
           "version": "1.0.1"
+        }
+      },
+      {
+        "package": "SwiftTTSCombine",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftTTSCombine",
+        "state": {
+          "branch": null,
+          "revision": "f72c4ed9f8796643806c150e9aa6df6cfeb7783a",
+          "version": "1.0.0"
         }
       }
     ]
