@@ -36,6 +36,7 @@ For a the legacy branch working with Xcode 11, please checkout [Legacy branch](h
 
 * ⏰ [SwiftClockUI](https://github.com/renaudjenny/SwiftClockUI): SwiftUI library that provide the Clock, with draggable arms and different design and options
 * 🇬🇧 [SwiftPastTen](https://github.com/renaudjenny/SwiftPastTen): Swift framework to provide you the British way to tell the time by passing a "HH:mm" formatted string
+* 🗣 [SwiftTTSCombine](https://github.com/renaudjenny/SwiftTTSCombine): Swift Combine framework to use Text To Speech directly wrapped in Combine way
 * 📸 [SnapshotTesting](https://github.com/pointfreeco/swift-snapshot-testing): Snapshort testing library from **Point-Free** to test views
 
 ## TODO
