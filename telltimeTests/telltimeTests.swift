@@ -2,6 +2,8 @@ import XCTest
 @testable import Tell_Time_UK
 import SwiftUI
 import Combine
+import SwiftTTSCombine
+import AVFoundation
 
 typealias App = Tell_Time_UK.App
 
@@ -59,12 +61,17 @@ extension App.Environment {
 
 extension TTS.Environment {
     static var fake: Self {
-        TTS.Environment(engine: MockedTTSEngine())
+        TTS.Environment(
+            engine: MockedTTSEngine(),
+            calendar: .test,
+            tellTime: { _, _ in "12:34" }
+        )
     }
 
     private final class MockedTTSEngine: TTSEngine {
         var rateRatio: Float = 1.0
-        func speech(date: Date) { }
+        var voice: AVSpeechSynthesisVoice?
+        func speak(string: String) { }
         var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
         var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
     }
