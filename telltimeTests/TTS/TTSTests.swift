@@ -2,6 +2,8 @@ import XCTest
 @testable import Tell_Time_UK
 import SwiftUI
 import Combine
+import SwiftTTSCombine
+import AVFoundation
 
 class TTSTests: XCTestCase {
     func testDefaultTTSValues() {
@@ -34,8 +36,8 @@ class TTSTests: XCTestCase {
             let date = Date(timeIntervalSince1970: tenHourInSecond)
             let speechExpectation = self.expectation(description: "TTS Speech has been called")
             let engine = MockedTTSEngine(
-                speechCall: { spokenDate in
-                    XCTAssertEqual(spokenDate, date)
+                speakCall: { spokenString in
+                    XCTAssertEqual(spokenString, date.description)
                     speechExpectation.fulfill()
                 }
             )
@@ -233,20 +235,21 @@ extension TTSTests {
     final class MockedTTSEngine: TTSEngine {
         let rateRatioValue: Float
         let setRateRatio: ((Float) -> Void)?
-        var speechCall: ((Date) -> Void)?
+        var voice: AVSpeechSynthesisVoice?
+        var speakCall: ((String) -> Void)?
         var isSpeakingPublisher: AnyPublisher<Bool, Never>
         var speakingProgressPublisher: AnyPublisher<Double, Never>
 
         init(
             rateRatioValue: Float = 1.0,
             setRateRatio: ((Float) -> Void)? = nil,
-            speechCall: ((Date) -> Void)? = nil,
+            speakCall: ((String) -> Void)? = nil,
             isSpeakingPublisher: AnyPublisher<Bool, Never> = Just(false).eraseToAnyPublisher(),
             speakingProgressPublisher: AnyPublisher<Double, Never> = Just(0.0).eraseToAnyPublisher()
         ) {
             self.rateRatioValue = rateRatioValue
             self.setRateRatio = setRateRatio
-            self.speechCall = speechCall
+            self.speakCall = speakCall
             self.isSpeakingPublisher = isSpeakingPublisher
             self.speakingProgressPublisher = speakingProgressPublisher
         }
@@ -256,14 +259,21 @@ extension TTSTests {
             set { setRateRatio?(newValue) }
         }
 
-        func speech(date: Date) {
-            speechCall?(date)
+        func speak(string: String) {
+            speakCall?(string)
         }
     }
 }
 
 extension App.Environment {
     static func test(engine: TTSEngine) -> Self {
-        .init(currentDate: { Date() }, tts: TTS.Environment(engine: engine))
+        .init(
+            currentDate: { Date() },
+            tts: TTS.Environment(
+                engine: engine,
+                calendar: .test,
+                tellTime: { date, _ in date.description  }
+            )
+        )
     }
 }

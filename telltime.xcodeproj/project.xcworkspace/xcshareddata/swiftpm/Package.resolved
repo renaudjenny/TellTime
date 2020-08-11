@@ -27,6 +27,15 @@
           "revision": "01af0a4c8bc79ab87843cd3877e391ac1fd049af",
           "version": "1.0.1"
         }
+      },
+      {
+        "package": "SwiftTTSCombine",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftTTSCombine",
+        "state": {
+          "branch": null,
+          "revision": "f72c4ed9f8796643806c150e9aa6df6cfeb7783a",
+          "version": "1.0.0"
+        }
       }
     ]
   },
