@@ -7,9 +7,17 @@ import SwiftClockUI
 struct Provider: IntentTimelineProvider {
     @Environment(\.calendar) private var calendar
 
-    public func snapshot(
+    func placeholder(in context: Context) -> SimpleEntry {
+        SimpleEntry(
+            date: Date(),
+            calendar: calendar,
+            configuration: ConfigurationIntent()
+        )
+    }
+
+    func getSnapshot(
         for configuration: ConfigurationIntent,
-        with context: Context,
+        in context: Context,
         completion: @escaping (SimpleEntry) -> Void
     ) {
         let entry = SimpleEntry(
@@ -20,10 +28,10 @@ struct Provider: IntentTimelineProvider {
         completion(entry)
     }
 
-    public func timeline(
+    func getTimeline(
         for configuration: ConfigurationIntent,
-        with context: Context,
-        completion: @escaping (Timeline<Entry>) -> Void
+        in context: Context,
+        completion: @escaping (Timeline<SimpleEntry>) -> Void
     ) {
         var entries: [SimpleEntry] = []
 

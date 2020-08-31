@@ -844,8 +844,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/renaudjenny/SwiftClockUI";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				branch = "fix/steampunk-animation-should-be-triggered";
+				kind = branch;
 			};
 		};
 		4CAE627A24367DB100E57FAC /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {

@@ -6,17 +6,17 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
           "branch": null,
-          "revision": "2fd91357e90efe82bfa6845d1e7d5bc2f5025d35",
-          "version": "1.8.1"
+          "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
+          "version": "1.8.2"
         }
       },
       {
         "package": "SwiftClockUI",
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
-          "branch": null,
-          "revision": "34101f89f0cfb7989be97213cb7faf3ebf6107e4",
-          "version": "1.1.0"
+          "branch": "fix/steampunk-animation-should-be-triggered",
+          "revision": "9f0bce9574623a87e613f0f7c864885b54e20379",
+          "version": null
         }
       },
       {
