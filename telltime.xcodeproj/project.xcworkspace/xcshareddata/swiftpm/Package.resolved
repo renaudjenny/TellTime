@@ -14,9 +14,9 @@
         "package": "SwiftClockUI",
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
-          "branch": "fix/steampunk-animation-should-be-triggered",
-          "revision": "9f0bce9574623a87e613f0f7c864885b54e20379",
-          "version": null
+          "branch": null,
+          "revision": "a98c20e5408f4e3b45e60a1ebc7879c92f8fbc50",
+          "version": "1.1.1"
         }
       },
       {

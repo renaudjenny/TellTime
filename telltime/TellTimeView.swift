@@ -6,28 +6,47 @@ struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
-    private var date: Binding<Date> {
-        self.store.binding(for: \.date) { .changeDate($0) }
-    }
+    private var date: Binding<Date> { store.binding(for: \.date) { .changeDate($0) } }
 
     var body: some View {
         NavigationView {
-            responsiveView
-            .navigationBarTitle("Tell Time")
-            .padding()
+            content
+                .navigationBarTitle("Tell Time")
+                .padding()
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    private var responsiveView: some View {
-        Group {
+    private var content: some View {
+        VStack {
             if verticalSizeClass == .regular && horizontalSizeClass == .compact {
-                verticalView
+                Spacer()
+                clockView
+                Spacer()
+                TimeText()
+                Spacer()
+                DatePicker()
             } else if verticalSizeClass == .compact {
-                compactView
+                HStack {
+                    clockView.padding()
+                    VStack {
+                        TimeText().padding()
+                        DatePicker()
+                    }
+                }
             } else {
-                regularView
+                HStack {
+                    clockView
+                        .layoutPriority(1)
+                        .padding()
+                    VStack {
+                        Spacer()
+                        TimeText().padding()
+                        DatePicker()
+                    }
+                }
             }
+            TellTimeButtons()
         }
     }
 
@@ -36,46 +55,6 @@ struct TellTimeView: View {
             .environment(\.clockDate, date)
             .environment(\.clockStyle, store.state.configuration.clockStyle)
             .environment(\.clockConfiguration, store.state.configuration.clock)
-    }
-
-    private var verticalView: some View {
-        VStack {
-            Spacer()
-            clockView
-            Spacer()
-            TimeText()
-            Spacer()
-            DatePicker()
-            Spacer()
-            TellTimeButtons()
-        }
-    }
-
-    private var compactView: some View {
-        HStack {
-            clockView.padding()
-            VStack {
-                TimeText().padding()
-                DatePicker()
-                Spacer()
-                TellTimeButtons()
-            }
-        }
-    }
-
-    private var regularView: some View {
-        HStack {
-            clockView
-                .layoutPriority(1)
-                .padding()
-            VStack {
-                Spacer()
-                TimeText().padding()
-                DatePicker()
-                Spacer()
-                TellTimeButtons()
-            }
-        }
     }
 }
 
@@ -88,7 +67,6 @@ private struct DatePicker: View {
     var body: some View {
         SwiftUI.DatePicker("", selection: self.date, displayedComponents: [.hourAndMinute])
             .datePickerStyle(WheelDatePickerStyle())
-
     }
 }
 
@@ -117,7 +95,7 @@ private struct TellTimeButtons: View {
                     .accentColor(.red)
             }
         }
-        .padding(Edge.Set.horizontal)
+        .padding(.horizontal)
     }
 
     private func changeClockRandomly() {
