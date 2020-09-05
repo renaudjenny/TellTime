@@ -7,7 +7,7 @@ class ConfigurationViewTests: XCTestCase {
     func testConfigurationViews() {
         let configurationViews = ConfigurationView_Previews.previews
             .environment(\.clockIsAnimationEnabled, false)
-        assertSnapshot(matching: configurationViews, as: .image(layout: .device(config: .iPhoneSe)))
+        assertSnapshot(matching: configurationViews, as: .defaultImage)
     }
 
     func testConfigurationViewsInLandscape() {

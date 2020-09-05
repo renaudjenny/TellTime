@@ -8,7 +8,7 @@ class AboutViewTests: XCTestCase {
         let aboutViews = AboutView_Previews.previews
         assertSnapshot(
             matching: aboutViews,
-            as: .image(layout: .device(config: .iPhoneSe))
+            as: .defaultImage
         )
     }
 }

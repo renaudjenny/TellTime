@@ -34,6 +34,7 @@
 		4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB965F523CE3C8A00B40F83 /* SpeakButtonTests.swift */; };
 		4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB965F723D6412800B40F83 /* AboutViewTests.swift */; };
 		4CC0406722B530EC0001AA50 /* TTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0406622B530EC0001AA50 /* TTS.swift */; };
+		4CC1AAD22503AB3700DA2EE0 /* SnapshotTesting+DefaultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC1AAD12503AB3600DA2EE0 /* SnapshotTesting+DefaultImage.swift */; };
 		4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */; };
 		4CD270C223BB9375004536D6 /* TTSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270C123BB9375004536D6 /* TTSTests.swift */; };
 		4CD270D823C3AC92004536D6 /* BDD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D723C3AC92004536D6 /* BDD.swift */; };
@@ -113,6 +114,7 @@
 		4CB965F523CE3C8A00B40F83 /* SpeakButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButtonTests.swift; sourceTree = "<group>"; };
 		4CB965F723D6412800B40F83 /* AboutViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewTests.swift; sourceTree = "<group>"; };
 		4CC0406622B530EC0001AA50 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
+		4CC1AAD12503AB3600DA2EE0 /* SnapshotTesting+DefaultImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapshotTesting+DefaultImage.swift"; sourceTree = "<group>"; };
 		4CCBFD0C23F870CA004EFBD8 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewLayout+PredefinedDevice.swift"; sourceTree = "<group>"; };
 		4CD270C123BB9375004536D6 /* TTSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSTests.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				4CB1D4D422A7293500786385 /* Info.plist */,
 				4CB1D4D222A7293500786385 /* telltimeTests.swift */,
 				4CD270C023BB935A004536D6 /* TTS */,
+				4CC1AAD12503AB3600DA2EE0 /* SnapshotTesting+DefaultImage.swift */,
 			);
 			path = telltimeTests;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				4CB965F823D6412900B40F83 /* AboutViewTests.swift in Sources */,
 				4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */,
 				4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */,
+				4CC1AAD22503AB3700DA2EE0 /* SnapshotTesting+DefaultImage.swift in Sources */,
 				4CB965F623CE3C8A00B40F83 /* SpeakButtonTests.swift in Sources */,
 				4CB1D4D322A7293500786385 /* telltimeTests.swift in Sources */,
 				4CD270D823C3AC92004536D6 /* BDD.swift in Sources */,
