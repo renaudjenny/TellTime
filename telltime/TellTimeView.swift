@@ -6,6 +6,8 @@ struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
+    @State private var isConfigurationShown: Bool = false
+    @State private var isAboutShown: Bool = false
     private var date: Binding<Date> { store.binding(for: \.date) { .changeDate($0) } }
 
     var body: some View {
@@ -26,12 +28,16 @@ struct TellTimeView: View {
                 TimeText()
                 Spacer()
                 DatePicker()
+                Spacer()
+                TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
             } else if verticalSizeClass == .compact {
                 HStack {
                     clockView.padding()
                     VStack {
                         TimeText().padding()
                         DatePicker()
+                        Spacer()
+                        TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
                     }
                 }
             } else {
@@ -43,10 +49,12 @@ struct TellTimeView: View {
                         Spacer()
                         TimeText().padding()
                         DatePicker()
+                        Spacer()
+                        TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
                     }
                 }
             }
-            TellTimeButtons()
+            navigationLinks
         }
     }
 
@@ -55,6 +63,13 @@ struct TellTimeView: View {
             .environment(\.clockDate, date)
             .environment(\.clockStyle, store.state.configuration.clockStyle)
             .environment(\.clockConfiguration, store.state.configuration.clock)
+    }
+
+    private var navigationLinks: some View {
+        VStack {
+            NavigationLink(destination: ConfigurationView(), isActive: $isConfigurationShown, label: EmptyView.init)
+            NavigationLink(destination: AboutView(), isActive: $isAboutShown, label: EmptyView.init)
+        }
     }
 }
 
@@ -74,6 +89,8 @@ private struct TellTimeButtons: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.randomDate) private var randomDate
     @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
+    @Binding var isConfigurationShown: Bool
+    @Binding var isAboutShown: Bool
 
     var body: some View {
         HStack {
@@ -87,13 +104,13 @@ private struct TellTimeButtons: View {
                     .cornerRadius(8)
             }
             Spacer()
-            ConfigurationGearButton()
+            ConfigurationGearButton(isConfigurationShown: $isConfigurationShown)
             Spacer()
-            NavigationLink(destination: AboutView()) {
+            Button(action: { isAboutShown.toggle() }, label: {
                 Image(systemName: "questionmark.circle")
                     .padding()
                     .accentColor(.red)
-            }
+            })
         }
         .padding(.horizontal)
     }
@@ -116,12 +133,14 @@ private struct TimeText: View {
 }
 
 private struct ConfigurationGearButton: View {
+    @Binding var isConfigurationShown: Bool
+
     var body: some View {
-        NavigationLink(destination: ConfigurationView()) {
+        Button(action: { isConfigurationShown.toggle() }, label: {
             Image(systemName: "gear")
                 .padding()
                 .accentColor(.red)
-        }
+        })
     }
 }
 
