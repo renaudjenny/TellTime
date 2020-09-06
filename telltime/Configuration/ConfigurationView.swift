@@ -71,7 +71,7 @@ private struct Controls: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Speech rate: \(speechRateRatioPourcentage)%")
+                Text("Speech rate: \(speechRateRatioPercentage)%")
                 Slider(value: speechRateRatio, in: 0.5...1.0)
                     .accentColor(.red)
             }
@@ -89,7 +89,7 @@ private struct Controls: View {
         }
     }
 
-    private var speechRateRatioPourcentage: Int {
+    private var speechRateRatioPercentage: Int {
         Int((speechRateRatio.wrappedValue * 100).rounded())
     }
 
