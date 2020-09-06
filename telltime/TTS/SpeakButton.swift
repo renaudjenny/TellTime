@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SpeakButton: View {
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
 
     var body: some View {
         ZStack {
@@ -47,24 +47,24 @@ struct SpeakButton: View {
 struct SpeakButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            SpeakButton().environmentObject(App.previewStore)
-            SpeakButton().environmentObject(App.previewStore {
+            SpeakButton().environmentObject(previewStore { _ in })
+            SpeakButton().environmentObject(previewStore {
                 $0.tts.speakingProgress = 1/4
                 $0.tts.isSpeaking = true
             })
-            SpeakButton().environmentObject(App.previewStore {
+            SpeakButton().environmentObject(previewStore {
                 $0.tts.speakingProgress = 1/2
                 $0.tts.isSpeaking = true
             })
-            SpeakButton().environmentObject(App.previewStore {
+            SpeakButton().environmentObject(previewStore {
                 $0.tts.speakingProgress = 3/4
                 $0.tts.isSpeaking = true
             })
-            SpeakButton().environmentObject(App.previewStore {
+            SpeakButton().environmentObject(previewStore {
                 $0.tts.speakingProgress = 9/10
                 $0.tts.isSpeaking = true
             })
-            SpeakButton().environmentObject(App.previewStore {
+            SpeakButton().environmentObject(previewStore {
                 $0.tts.speakingProgress = 1
                 $0.tts.isSpeaking = true
             })

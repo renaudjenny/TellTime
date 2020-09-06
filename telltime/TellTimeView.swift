@@ -5,7 +5,7 @@ import SwiftClockUI
 struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
     private var date: Binding<Date> { store.binding(for: \.date) { .changeDate($0) } }
 
     var body: some View {
@@ -59,7 +59,7 @@ struct TellTimeView: View {
 }
 
 private struct DatePicker: View {
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
     private var date: Binding<Date> {
         store.binding(for: \.date) { .changeDate($0) }
     }
@@ -73,7 +73,7 @@ private struct DatePicker: View {
 private struct TellTimeButtons: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.randomDate) private var randomDate
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
 
     var body: some View {
         HStack {
@@ -106,7 +106,7 @@ private struct TellTimeButtons: View {
 private struct TimeText: View {
     @Environment(\.calendar) private var calendar
     @Environment(\.tellTime) private var tellTime
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
 
     var body: some View {
         Text(tellTime(store.state.date, calendar))
@@ -130,13 +130,13 @@ struct TellTimeView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             TellTimeView()
-                .environmentObject(App.previewStore)
+                .environmentObject(previewStore { _ in })
                 .environment(\.horizontalSizeClass, .compact)
                 .environment(\.verticalSizeClass, .regular)
             TellTimeView()
                 .previewLayout(.fixed(width: 800, height: 400))
                 .preferredColorScheme(.dark)
-                .environmentObject(App.previewStore)
+                .environmentObject(previewStore { _ in })
                 .environment(\.horizontalSizeClass, .compact)
                 .environment(\.verticalSizeClass, .compact)
         }

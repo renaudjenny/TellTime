@@ -5,7 +5,7 @@ import SwiftClockUI
 struct ConfigurationView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
 
     var body: some View {
         Group {
@@ -48,7 +48,7 @@ struct ConfigurationView: View {
 }
 
 private struct Controls: View {
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
     private var isMinuteIndicatorsShown: Binding<Bool> {
         self.store.binding(for: \.configuration.clock.isMinuteIndicatorsShown) {
             .configuration(.showMinuteIndicators($0))
@@ -104,7 +104,7 @@ private struct Controls: View {
 }
 
 private struct StylePicker: View {
-    @EnvironmentObject var store: Store<App.State, App.Action, App.Environment>
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
     private var clockStyle: Binding<ClockStyle> {
         self.store.binding(for: \.configuration.clockStyle) { .configuration(.changeClockStyle($0)) }
     }
@@ -127,7 +127,7 @@ struct ConfigurationView_Previews: PreviewProvider {
         NavigationView {
             ConfigurationView()
         }
-        .environmentObject(App.previewStore)
+        .environmentObject(previewStore { _ in })
         .environment(\.verticalSizeClass, .regular)
         .environment(\.horizontalSizeClass, .compact)
         .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
@@ -141,7 +141,7 @@ struct ConfigurationViewLandscape_Previews: PreviewProvider {
         NavigationView {
             ConfigurationView()
         }
-        .environmentObject(App.previewStore)
+        .environmentObject(previewStore { _ in })
         .environment(\.verticalSizeClass, .compact)
         .environment(\.horizontalSizeClass, .compact)
         .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))

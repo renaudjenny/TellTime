@@ -3,19 +3,19 @@ import SwiftTTSCombine
 
 @main
 struct TellTimeUKApp: SwiftUI.App {
-    @StateObject private var store: Store<App.State, App.Action, App.Environment> = {
+    @StateObject private var store: Store<AppState, AppAction, AppEnvironment> = {
         let initialEnvironment = EnvironmentValues()
-        let environment = App.Environment(
+        let environment = AppEnvironment(
             currentDate: { Date() },
-            tts: TTS.Environment(
+            tts: TTSEnvironment(
                 engine: Engine(),
                 calendar: initialEnvironment.calendar,
                 tellTime: initialEnvironment.tellTime
             )
         )
         return .init(
-            initialState: App.State(date: Date()),
-            reducer: App.reducer,
+            initialState: AppState(date: Date()),
+            reducer: appReducer,
             environment: environment
         )
     }()

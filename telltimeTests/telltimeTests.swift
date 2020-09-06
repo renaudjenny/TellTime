@@ -5,16 +5,14 @@ import Combine
 import SwiftTTSCombine
 import AVFoundation
 
-typealias App = Tell_Time_UK.App
-
 class TelltimeTests: XCTestCase {
     func testWhenIStartTheApplicationThenTheStoreDateIsTheCurrentOne() {
         let fakeCurrentDate = Date(timeIntervalSince1970: 4300)
-        let fakeEnvironment: App.Environment = .fake(currentDate: fakeCurrentDate)
+        let fakeEnvironment: AppEnvironment = .fake(currentDate: fakeCurrentDate)
 
-        let store = Store<App.State, App.Action, App.Environment>(
-            initialState: App.State(date: fakeCurrentDate),
-            reducer: App.reducer,
+        let store = Store<AppState, AppAction, AppEnvironment>(
+            initialState: AppState(date: fakeCurrentDate),
+            reducer: appReducer,
             environment: fakeEnvironment
         )
 
@@ -25,7 +23,7 @@ class TelltimeTests: XCTestCase {
     func testWhenIChangedTheDateThenICanReadLiteralTimeFromIt() {
         let fakeCurrentDate = Date(timeIntervalSince1970: 4360)
 
-        let store = App.testStore
+        let store = testStore
         store.send(.changeDate(fakeCurrentDate))
 
         let tellTime = EnvironmentValues().tellTime
@@ -33,20 +31,18 @@ class TelltimeTests: XCTestCase {
     }
 }
 
-extension App {
-    static func testStore(
-        modifyState: (inout App.State) -> Void = { _ in },
-        environment: Environment = .fake
-    ) -> Store<App.State, App.Action, Environment> {
-        var state = App.State(date: environment.currentDate())
-        _ = modifyState(&state)
-        return .init(initialState: state, reducer: App.reducer, environment: environment)
-    }
-
-    static var testStore: Store<App.State, App.Action, Environment> { testStore() }
+func testStore(
+    modifyState: (inout AppState) -> Void = { _ in },
+    environment: AppEnvironment = .fake
+) -> Store<AppState, AppAction, AppEnvironment> {
+    var state = AppState(date: environment.currentDate())
+    _ = modifyState(&state)
+    return .init(initialState: state, reducer: appReducer, environment: environment)
 }
 
-extension App.Environment {
+var testStore: Store<AppState, AppAction, AppEnvironment> { testStore() }
+
+extension AppEnvironment {
     static var fake: Self {
         fake(currentDate: Date(hour: 10, minute: 10, calendar: .test))
     }
@@ -59,9 +55,9 @@ extension App.Environment {
     }
 }
 
-extension TTS.Environment {
+extension TTSEnvironment {
     static var fake: Self {
-        TTS.Environment(
+        TTSEnvironment(
             engine: MockedTTSEngine(),
             calendar: .test,
             tellTime: { _, _ in "12:34" }

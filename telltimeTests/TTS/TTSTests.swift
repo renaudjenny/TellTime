@@ -7,7 +7,7 @@ import AVFoundation
 
 class TTSTests: XCTestCase {
     func testDefaultTTSValues() {
-        let store = App.testStore
+        let store = testStore
         XCTAssertEqual(store.state.tts.isSpeaking, false)
         XCTAssertEqual(store.state.tts.speakingProgress, 0)
         XCTAssertEqual(store.state.tts.rateRatio, 1)
@@ -22,7 +22,7 @@ class TTSTests: XCTestCase {
                 engineSetRateRatioExpectation.fulfill()
             }
         )
-        let store = App.testStore(environment: .test(engine: engine))
+        let store = testStore(environment: .test(engine: engine))
 
         XCTAssertEqual(store.state.tts.rateRatio, 1)
         store.send(.tts(.changeRateRatio(newRateRatio)))
@@ -41,7 +41,7 @@ class TTSTests: XCTestCase {
                     speechExpectation.fulfill()
                 }
             )
-            let store = App.testStore(environment: .test(engine: engine))
+            let store = testStore(environment: .test(engine: engine))
 
             when("I trigger the action to tell the time") {
                 store.send(.tts(.tellTime(date)))
@@ -55,7 +55,7 @@ class TTSTests: XCTestCase {
 
     func testTTSStartSpeaking() {
         given("TTS is not currently speaking because I just started the application") {
-            let store = App.testStore
+            let store = testStore
             XCTAssertEqual(false, store.state.tts.isSpeaking)
 
             when("I trigger the action for speaking") {
@@ -70,7 +70,7 @@ class TTSTests: XCTestCase {
 
     func testTTSStopSpeaking() {
         given("TTS is currently speaking") {
-            let store = App.testStore
+            let store = testStore
             store.send(.tts(.startSpeaking))
             XCTAssertEqual(true, store.state.tts.isSpeaking)
 
@@ -86,7 +86,7 @@ class TTSTests: XCTestCase {
 
     func testTTSSpeakingProgress() {
         given("TTS start speaking") {
-            let store = App.testStore
+            let store = testStore
             XCTAssertEqual(0, store.state.tts.speakingProgress)
 
             when("the utterance progress, 50% for instance") {
@@ -105,7 +105,7 @@ class TTSTests: XCTestCase {
             let engine = MockedTTSEngine(
                 isSpeakingPublisher: Just(true).eraseToAnyPublisher()
             )
-            let store = App.testStore(environment: .test(engine: engine))
+            let store = testStore(environment: .test(engine: engine))
             XCTAssertEqual(false, store.state.tts.isSpeaking)
 
             store.send(.tts(.subscribeToEngineIsSpeaking))
@@ -138,7 +138,7 @@ class TTSTests: XCTestCase {
             let engine = MockedTTSEngine(
                 isSpeakingPublisher: Just(false).eraseToAnyPublisher()
             )
-            let store = App.testStore(environment: .test(engine: engine))
+            let store = testStore(environment: .test(engine: engine))
             store.send(.tts(.startSpeaking))
             XCTAssertEqual(true, store.state.tts.isSpeaking)
 
@@ -170,7 +170,7 @@ class TTSTests: XCTestCase {
     func testSubscribeToEngineSpeakingProgress() {
         given("the subscription to TTS engine speaking progress event is made") {
             let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
-            let store = App.testStore(environment: .test(engine: engine))
+            let store = testStore(environment: .test(engine: engine))
             XCTAssertEqual(0, store.state.tts.speakingProgress)
 
             engine.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
@@ -200,7 +200,7 @@ class TTSTests: XCTestCase {
 
         given("the subscription to TTS engine speaking progress event is made") {
             let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
-            let store = App.testStore(environment: .test(engine: engine))
+            let store = testStore(environment: .test(engine: engine))
 
             engine.speakingProgressPublisher = Just(3/4).eraseToAnyPublisher()
             store.send(.tts(.subscribeToEngineSpeakingProgress))
@@ -265,11 +265,11 @@ extension TTSTests {
     }
 }
 
-extension App.Environment {
+extension AppEnvironment {
     static func test(engine: TTSEngine) -> Self {
         .init(
             currentDate: { Date() },
-            tts: TTS.Environment(
+            tts: TTSEnvironment(
                 engine: engine,
                 calendar: .test,
                 tellTime: { date, _ in date.description  }

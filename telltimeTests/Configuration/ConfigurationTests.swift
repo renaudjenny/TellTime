@@ -4,13 +4,13 @@ import SwiftClockUI
 
 class ConfigurationTests: XCTestCase {
     func testDefaultConfigurationValues() {
-        let store = App.testStore
+        let store = testStore
         XCTAssertEqual(store.state.configuration.clockStyle, .classic)
         XCTAssertEqual(store.state.configuration.clock, ClockConfiguration())
     }
 
     func testWhenIChangeTheClockStyleThenTheClockStyleGetTheNewValue() {
-        let store = App.testStore
+        let store = testStore
         XCTAssertEqual(store.state.configuration.clockStyle, .classic)
         store.send(.configuration(.changeClockStyle(.artNouveau)))
         XCTAssertEqual(store.state.configuration.clockStyle, .artNouveau)
@@ -21,7 +21,7 @@ class ConfigurationTests: XCTestCase {
     }
 
     func testWhenIWantToHideMinuteIndicatorsThenMinuteIndicatorsIsHidden() {
-        let store = App.testStore
+        let store = testStore
         XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, true)
         store.send(.configuration(.showMinuteIndicators(false)))
         XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, false)
@@ -30,7 +30,7 @@ class ConfigurationTests: XCTestCase {
     }
 
     func testWhenIWantToHideHourIndicatorsThenHourIndicatorsIsHidden() {
-        let store = App.testStore
+        let store = testStore
         XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, true)
         store.send(.configuration(.showHourIndicators(false)))
         XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, false)
@@ -39,7 +39,7 @@ class ConfigurationTests: XCTestCase {
     }
 
     func testWhenIWantToLimitHourDisplayedThenHourIsDisplayedWithALimitedAmount() {
-        let store = App.testStore
+        let store = testStore
         XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, false)
         store.send(.configuration(.showLimitedHours(true)))
         XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, true)
