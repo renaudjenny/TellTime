@@ -35,10 +35,10 @@ struct Provider: IntentTimelineProvider {
     ) {
         var entries: [SimpleEntry] = []
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+        // Generate a timeline consisting of all minute entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            guard let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate) else {
+        for minuteOffset in 0 ..< 60 {
+            guard let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate) else {
                 continue
             }
             let entry = SimpleEntry(
@@ -91,14 +91,18 @@ struct TellTimeWidgetView: View {
 
     private var mediumView: some View {
         HStack {
-            ClockView().allowsHitTesting(false)
+            ClockView()
+                .allowsHitTesting(false)
+                .environment(\.clockDate, .constant(date))
             Text(time)
         }.padding()
     }
 
     private var largeView: some View {
         VStack {
-            ClockView().allowsHitTesting(false)
+            ClockView()
+                .allowsHitTesting(false)
+                .environment(\.clockDate, .constant(date))
             Spacer()
             Text(time)
             Spacer()
