@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC8123550A0C00442B11 /* ConfigurationView.swift */; };
+		4C28CDB22513F72000DAE010 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C28CDB12513F72000DAE010 /* LaunchScreen.storyboard */; };
 		4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32F1072419765A00BAFB3A /* Calendar+Test.swift */; };
 		4C3CCC6124B39353008F0699 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3CCC6024B39353008F0699 /* WidgetKit.framework */; };
 		4C3CCC6324B39353008F0699 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3CCC6224B39353008F0699 /* SwiftUI.framework */; };
@@ -89,6 +90,7 @@
 
 /* Begin PBXFileReference section */
 		4C03BC8123550A0C00442B11 /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
+		4C28CDB12513F72000DAE010 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C32F1072419765A00BAFB3A /* Calendar+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calendar+Test.swift"; sourceTree = "<group>"; };
 		4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TellTimeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3CCC6024B39353008F0699 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -258,6 +260,7 @@
 				4CB1D4C322A7293500786385 /* Preview Content */,
 				4CB1D4BF22A7293300786385 /* TellTimeView.swift */,
 				4CD0504B23A2D47000BD9C34 /* TTS */,
+				4C28CDB12513F72000DAE010 /* LaunchScreen.storyboard */,
 			);
 			path = telltime;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C28CDB22513F72000DAE010 /* LaunchScreen.storyboard in Resources */,
 				4CB1D4C522A7293500786385 /* Preview Assets.xcassets in Resources */,
 				4CB1D4C222A7293500786385 /* Assets.xcassets in Resources */,
 			);
@@ -556,7 +560,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime.TellTimeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -579,7 +583,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime.TellTimeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -719,7 +723,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime;
 				PRODUCT_NAME = "Tell Time UK";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -743,7 +747,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = renaud.jenny.telltime;
 				PRODUCT_NAME = "Tell Time UK";
 				PROVISIONING_PROFILE_SPECIFIER = "";
