@@ -66,7 +66,8 @@ struct TellTimeWidgetEntryView: View {
     var body: some View {
         TellTimeWidgetView(
             date: entry.date,
-            calendar: entry.calendar
+            calendar: entry.calendar,
+            design: entry.configuration.design
         )
     }
 }
@@ -75,6 +76,7 @@ struct TellTimeWidgetView: View {
     @Environment(\.widgetFamily) var family: WidgetFamily
     let date: Date
     let calendar: Calendar
+    let design: Design
 
     var body: some View {
         switch family {
@@ -94,6 +96,7 @@ struct TellTimeWidgetView: View {
             ClockView()
                 .allowsHitTesting(false)
                 .environment(\.clockDate, .constant(date))
+                .environment(\.clockStyle, clockStyle)
             Text(time)
         }.padding()
     }
@@ -103,6 +106,7 @@ struct TellTimeWidgetView: View {
             ClockView()
                 .allowsHitTesting(false)
                 .environment(\.clockDate, .constant(date))
+                .environment(\.clockStyle, clockStyle)
             Spacer()
             Text(time)
             Spacer()
@@ -115,6 +119,16 @@ struct TellTimeWidgetView: View {
             return ""
         }
         return time
+    }
+
+    private var clockStyle: ClockStyle {
+        switch design {
+        case .unknown: return .classic
+        case .classic: return .classic
+        case .drawing: return .drawing
+        case .artNouveau: return .artNouveau
+        case .steampunk: return .steampunk
+        }
     }
 }
 
