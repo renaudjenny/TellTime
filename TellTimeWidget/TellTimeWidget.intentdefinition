@@ -65,6 +65,16 @@
 					<key>INEnumValueName</key>
 					<string>steampunk</string>
 				</dict>
+				<dict>
+					<key>INEnumValueDisplayName</key>
+					<string>Lewis</string>
+					<key>INEnumValueDisplayNameID</key>
+					<string>QWdLfY</string>
+					<key>INEnumValueIndex</key>
+					<integer>6</integer>
+					<key>INEnumValueName</key>
+					<string>lewis</string>
+				</dict>
 			</array>
 		</dict>
 	</array>

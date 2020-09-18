@@ -91,31 +91,36 @@ struct TellTimeWidgetView: View {
         Text(time).padding()
     }
 
+    @ViewBuilder
     private var mediumView: some View {
-        HStack {
-            ClockView()
-                .allowsHitTesting(false)
-                .environment(\.clockDate, .constant(date))
-                .environment(\.clockStyle, clockStyle)
-            Text(time)
-        }.padding()
+        if design == .lewis {
+            HStack {
+                clock
+                digital
+            }.padding()
+        } else {
+            HStack {
+                clock
+                Text(time)
+            }.padding()
+        }
     }
 
     private var largeView: some View {
         VStack {
-            ClockView()
-                .allowsHitTesting(false)
-                .environment(\.clockDate, .constant(date))
-                .environment(\.clockStyle, clockStyle)
+            clock
             Spacer()
             Text(time)
             Spacer()
         }.padding()
     }
 
+    private var formattedTime: String {
+        SwiftPastTen.formattedDate(date, calendar: calendar)
+    }
+
     private var time: String {
-        let formattedString = SwiftPastTen.formattedDate(date, calendar: calendar)
-        guard let time = try? SwiftPastTen().tell(time: formattedString) else {
+        guard let time = try? SwiftPastTen().tell(time: formattedTime) else {
             return ""
         }
         return time
@@ -128,6 +133,33 @@ struct TellTimeWidgetView: View {
         case .drawing: return .drawing
         case .artNouveau: return .artNouveau
         case .steampunk: return .steampunk
+        default: return .classic
+        }
+    }
+
+    @ViewBuilder
+    private var clock: some View {
+        ClockView()
+            .allowsHitTesting(false)
+            .environment(\.clockDate, .constant(date))
+            .environment(\.clockStyle, clockStyle)
+    }
+
+    private var digital: some View {
+        GeometryReader { (geometry: GeometryProxy) in
+            VStack {
+                Spacer()
+                Text(formattedTime)
+                    .font(
+                        .system(
+                            size: min(geometry.size.width, geometry.size.height) * 1/4,
+                            weight: .bold,
+                            design: .monospaced
+                        )
+                    )
+                    .padding()
+                Spacer()
+            }
         }
     }
 }
