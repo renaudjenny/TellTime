@@ -11,11 +11,12 @@ struct SpeakButton: View {
                     .cornerRadius(8)
                 Rectangle()
                     .size(
-                        width: geometry.size.width * self.widthProgressRatio,
-                        height: geometry.size.height)
+                        width: geometry.size.width * widthProgressRatio,
+                        height: geometry.size.height
+                    )
                     .fill(Color.red)
                     .cornerRadius(8)
-                    .animation(.easeInOut)
+                    .animation(.easeInOut, value: store.state.tts.speakingProgress)
             }
             Button(action: tellTime) {
                 Image(systemName: "speaker.2")
@@ -30,7 +31,9 @@ struct SpeakButton: View {
     }
 
     private var widthProgressRatio: CGFloat {
-        store.state.tts.isSpeaking ? CGFloat(store.state.tts.speakingProgress) : 1.0
+        store.state.tts.isSpeaking
+            ? CGFloat(store.state.tts.speakingProgress)
+            : 1.0
     }
 
     private func tellTime() {
