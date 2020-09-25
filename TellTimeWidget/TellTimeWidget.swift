@@ -36,9 +36,12 @@ struct Provider: IntentTimelineProvider {
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of all minute entries an hour apart, starting from the current date.
-        let currentDate = Date()
+        let date = Date()
+        let hour = Calendar.current.component(.hour, from: date)
+        let minute = Calendar.current.component(.minute, from: date)
+        let flooredDate = Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) ?? Date()
         for minuteOffset in 0 ..< 60 {
-            guard let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate) else {
+            guard let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: flooredDate) else {
                 continue
             }
             let entry = SimpleEntry(
