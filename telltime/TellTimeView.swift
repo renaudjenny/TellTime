@@ -34,23 +34,24 @@ struct TellTimeView: View {
                 HStack {
                     clockView.padding()
                     VStack {
-                        TimeText().padding()
+                        TimeText()
+                        Spacer()
                         DatePicker()
                         Spacer()
                         TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
                     }
                 }
             } else {
-                HStack {
-                    clockView
-                        .layoutPriority(1)
-                        .padding()
+                VStack {
+                    clockView.padding()
                     VStack {
-                        Spacer()
-                        TimeText().padding()
+                        TimeText()
                         DatePicker()
+                    }
+                    HStack {
                         Spacer()
                         TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
+                        Spacer()
                     }
                 }
             }
@@ -80,8 +81,13 @@ private struct DatePicker: View {
     }
 
     var body: some View {
-        SwiftUI.DatePicker("", selection: self.date, displayedComponents: [.hourAndMinute])
-            .datePickerStyle(WheelDatePickerStyle())
+        // It seems there is a misalignment with the GraphicalDatePickerStyle
+        // So we have to set the `width` manually here (maybe it will be fixed >iOS 14.0)
+        SwiftUI.DatePicker(selection: date, displayedComponents: [.hourAndMinute]) {
+            Text("Select a time")
+        }
+        .labelsHidden()
+        .padding()
     }
 }
 
@@ -112,7 +118,8 @@ private struct TellTimeButtons: View {
                     .accentColor(.red)
             })
         }
-        .padding(.horizontal)
+        .frame(maxWidth: 800)
+        .padding([.horizontal, .top])
     }
 
     private func changeClockRandomly() {
@@ -127,8 +134,9 @@ private struct TimeText: View {
 
     var body: some View {
         Text(tellTime(store.state.date, calendar))
-            .font(.headline)
+            .font(.title2)
             .foregroundColor(.red)
+            .padding()
     }
 }
 
@@ -150,14 +158,16 @@ struct TellTimeView_Previews: PreviewProvider {
         Group {
             TellTimeView()
                 .environmentObject(previewStore { _ in })
-                .environment(\.horizontalSizeClass, .compact)
-                .environment(\.verticalSizeClass, .regular)
             TellTimeView()
                 .previewLayout(.fixed(width: 800, height: 400))
                 .preferredColorScheme(.dark)
                 .environmentObject(previewStore { _ in })
                 .environment(\.horizontalSizeClass, .compact)
                 .environment(\.verticalSizeClass, .compact)
+            TellTimeView()
+                .previewLayout(.fixed(width: 1600, height: 1000))
+                .environmentObject(previewStore { _ in })
+                .environment(\.locale, Locale(identifier: "fr_FR"))
         }
     }
 }
