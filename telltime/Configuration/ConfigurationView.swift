@@ -9,7 +9,9 @@ struct ConfigurationView: View {
 
     var body: some View {
         Group {
-            if verticalSizeClass == .compact || horizontalSizeClass == .regular {
+            if verticalSizeClass == .regular && horizontalSizeClass == .regular {
+                regularStackedView
+            } else if verticalSizeClass == .compact || horizontalSizeClass == .regular {
                 horizontalStackedView
             } else {
                 verticalStackedView
@@ -21,7 +23,7 @@ struct ConfigurationView: View {
 
     private var verticalStackedView: some View {
         VStack {
-            StylePicker()
+            StylePicker().pickerStyle(SegmentedPickerStyle())
             clockView
             Controls()
             Spacer()
@@ -32,9 +34,23 @@ struct ConfigurationView: View {
         HStack {
             VStack {
                 clockView
-                StylePicker()
+                StylePicker().pickerStyle(SegmentedPickerStyle())
             }
             Controls()
+        }
+    }
+
+    private var regularStackedView: some View {
+        VStack {
+            HStack {
+                clockView
+                VStack {
+                    AllClockStylePicker()
+                }
+                .frame(maxWidth: 400)
+            }
+            Controls().frame(maxWidth: 800)
+            Spacer()
         }
     }
 
@@ -105,6 +121,7 @@ private struct Controls: View {
 
 private struct StylePicker: View {
     @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
+
     private var clockStyle: Binding<ClockStyle> {
         self.store.binding(for: \.configuration.clockStyle) { .configuration(.changeClockStyle($0)) }
     }
@@ -115,7 +132,26 @@ private struct StylePicker: View {
                 Text(style.description).tag(style)
             }
         }
-        .pickerStyle(SegmentedPickerStyle())
+    }
+}
+
+private struct AllClockStylePicker: View {
+    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
+
+    var body: some View {
+        ForEach(ClockStyle.allCases) { style in
+            Button(action: { selectClockStyle(style) }, label: {
+                ClockView()
+                    .allowsHitTesting(false)
+                    .environment(\.clockStyle, style)
+                    .environment(\.clockConfiguration, store.state.configuration.clock)
+                    .padding()
+            })
+        }
+    }
+
+    private func selectClockStyle(_ style: ClockStyle) {
+        store.send(.configuration(.changeClockStyle(style)))
     }
 }
 
@@ -146,6 +182,22 @@ struct ConfigurationViewLandscape_Previews: PreviewProvider {
         .environment(\.horizontalSizeClass, .compact)
         .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
         .previewLayout(.iPhoneSe(.landscape))
+    }
+}
+
+struct ConfigurationViewRegular_Previews: PreviewProvider {
+    @Environment(\.calendar) static var calendar
+
+    static var previews: some View {
+        NavigationView {
+            ConfigurationView()
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .environmentObject(previewStore { _ in })
+        .environment(\.verticalSizeClass, .regular)
+        .environment(\.horizontalSizeClass, .regular)
+        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
+        .previewLayout(.fixed(width: 1000, height: 900))
     }
 }
 #endif
