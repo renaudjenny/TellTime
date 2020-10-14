@@ -91,7 +91,10 @@ struct TellTimeWidgetView: View {
     }
 
     private var smallView: some View {
-        Text(time).padding()
+        VStack {
+            Text(time).padding()
+            Button("Speak", action: {})
+        }
     }
 
     @ViewBuilder
@@ -99,12 +102,20 @@ struct TellTimeWidgetView: View {
         if design == .lewis {
             HStack {
                 clock
-                digital
+                VStack {
+                    digital
+                    Spacer()
+                    Button("Speak", action: {})
+                }
             }.padding()
         } else {
             HStack {
                 clock
-                Text(time)
+                VStack {
+                    Text(time)
+                    Spacer()
+                    Button("Speak", action: {})
+                }
             }.padding()
         }
     }
@@ -113,7 +124,12 @@ struct TellTimeWidgetView: View {
         VStack {
             clock
             Spacer()
-            Text(time)
+            HStack {
+                Spacer()
+                Text(time)
+                Spacer()
+                Button("Speak", action: {})
+            }
             Spacer()
         }.padding()
     }
