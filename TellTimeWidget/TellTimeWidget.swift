@@ -93,7 +93,6 @@ struct TellTimeWidgetView: View {
     private var smallView: some View {
         VStack {
             Text(time).padding()
-            Button("Speak", action: {})
         }
     }
 
@@ -104,8 +103,6 @@ struct TellTimeWidgetView: View {
                 clock
                 VStack {
                     digital
-                    Spacer()
-                    Button("Speak", action: {})
                 }
             }.padding()
         } else {
@@ -114,7 +111,9 @@ struct TellTimeWidgetView: View {
                 VStack {
                     Text(time)
                     Spacer()
-                    Button("Speak", action: {})
+                    Link(destination: URL(string: "speak")!) {
+                        speakButton
+                    }
                 }
             }.padding()
         }
@@ -128,7 +127,9 @@ struct TellTimeWidgetView: View {
                 Spacer()
                 Text(time)
                 Spacer()
-                Button("Speak", action: {})
+                Link(destination: URL(string: "speak")!) {
+                    speakButton
+                }
             }
             Spacer()
         }.padding()
@@ -180,6 +181,14 @@ struct TellTimeWidgetView: View {
                 Spacer()
             }
         }
+    }
+
+    private var speakButton: some View {
+        Image(systemName: "speaker.2")
+            .foregroundColor(.white)
+            .padding()
+            .cornerRadius(8)
+            .background(Color.red.cornerRadius(8))
     }
 }
 

@@ -22,7 +22,15 @@ struct TellTimeUKApp: SwiftUI.App {
 
     var body: some Scene {
         WindowGroup {
-            TellTimeView().environmentObject(store)
+            TellTimeView()
+                .environmentObject(store)
+                .onOpenURL(perform: { url in
+                    switch url.absoluteString {
+                    case "speak":
+                        store.send(.tts(.tellTime(Date())))
+                    default: break
+                    }
+                })
         }
     }
 }
