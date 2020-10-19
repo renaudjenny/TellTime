@@ -104,18 +104,22 @@ struct TellTimeWidgetView: View {
                 VStack {
                     digital
                 }
-            }.padding()
+            }
+            .padding()
+            .widgetURL(url())
         } else {
             HStack {
                 clock
                 VStack {
                     Text(time)
                     Spacer()
-                    Link(destination: URL(string: "speak")!) {
+                    Link(destination: url(speak: true)) {
                         speakButton
                     }
                 }
-            }.padding()
+            }
+            .padding()
+            .widgetURL(url())
         }
     }
 
@@ -127,12 +131,14 @@ struct TellTimeWidgetView: View {
                 Spacer()
                 Text(time)
                 Spacer()
-                Link(destination: URL(string: "speak")!) {
+                Link(destination: url(speak: true)) {
                     speakButton
                 }
             }
             Spacer()
-        }.padding()
+        }
+        .padding()
+        .widgetURL(url())
     }
 
     private var formattedTime: String {
@@ -190,6 +196,19 @@ struct TellTimeWidgetView: View {
             .cornerRadius(8)
             .background(Color.red.cornerRadius(8))
     }
+
+    private func url(speak: Bool = false) -> URL {
+        var urlComponents = URLComponents()
+        urlComponents.host = "renaud.jenny.telltime"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "clockStyle", value: "\(design.clockStyle.id)"),
+            URLQueryItem(name: "speak", value: "\(speak)")
+        ]
+        guard let url = urlComponents.url else {
+            fatalError("Cannot build the URL from the Widget")
+        }
+        return url
+    }
 }
 
 @main
@@ -206,6 +225,19 @@ struct TellTimeWidget: Widget {
         }
         .configurationDisplayName("Tell Time UK")
         .description("Widget for help you telling you the time the British English way.")
+    }
+}
+
+extension Design {
+    var clockStyle: ClockStyle {
+        switch self {
+        case .unknown: return .classic
+        case .classic: return .classic
+        case .artNouveau: return .artNouveau
+        case .drawing: return .drawing
+        case .steampunk: return .steampunk
+        case .lewis: return .classic
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftTTSCombine
+import SwiftClockUI
 
 @main
 struct TellTimeUKApp: SwiftUI.App {
@@ -25,10 +26,19 @@ struct TellTimeUKApp: SwiftUI.App {
             TellTimeView()
                 .environmentObject(store)
                 .onOpenURL(perform: { url in
-                    switch url.absoluteString {
-                    case "speak":
+                    store.send(.changeDate(Date()))
+                    guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                        return
+                    }
+                    guard
+                        let clockStyleValue = urlComponents.queryItems?.first(where: { $0.name == "clockStyle" })?.value,
+                        let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
+                    else {
+                        return
+                    }
+                    store.send(.configuration(.changeClockStyle(clockStyle)))
+                    if urlComponents.queryItems?.first(where: { $0.name == "speak" })?.value == "true" {
                         store.send(.tts(.tellTime(Date())))
-                    default: break
                     }
                 })
         }
