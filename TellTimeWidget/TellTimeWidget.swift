@@ -91,7 +91,9 @@ struct TellTimeWidgetView: View {
     }
 
     private var smallView: some View {
-        Text(time).padding()
+        VStack {
+            Text(time).padding()
+        }
     }
 
     @ViewBuilder
@@ -99,13 +101,25 @@ struct TellTimeWidgetView: View {
         if design == .lewis {
             HStack {
                 clock
-                digital
-            }.padding()
+                VStack {
+                    digital
+                }
+            }
+            .padding()
+            .widgetURL(url())
         } else {
             HStack {
                 clock
-                Text(time)
-            }.padding()
+                VStack {
+                    Text(time)
+                    Spacer()
+                    Link(destination: url(speak: true)) {
+                        speakButton
+                    }
+                }
+            }
+            .padding()
+            .widgetURL(url())
         }
     }
 
@@ -113,9 +127,18 @@ struct TellTimeWidgetView: View {
         VStack {
             clock
             Spacer()
-            Text(time)
+            HStack {
+                Spacer()
+                Text(time)
+                Spacer()
+                Link(destination: url(speak: true)) {
+                    speakButton
+                }
+            }
             Spacer()
-        }.padding()
+        }
+        .padding()
+        .widgetURL(url())
     }
 
     private var formattedTime: String {
@@ -165,6 +188,27 @@ struct TellTimeWidgetView: View {
             }
         }
     }
+
+    private var speakButton: some View {
+        Image(systemName: "speaker.2")
+            .foregroundColor(.white)
+            .padding()
+            .cornerRadius(8)
+            .background(Color.red.cornerRadius(8))
+    }
+
+    private func url(speak: Bool = false) -> URL {
+        var urlComponents = URLComponents()
+        urlComponents.host = "renaud.jenny.telltime"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "clockStyle", value: "\(design.clockStyle.id)"),
+            URLQueryItem(name: "speak", value: "\(speak)")
+        ]
+        guard let url = urlComponents.url else {
+            fatalError("Cannot build the URL from the Widget")
+        }
+        return url
+    }
 }
 
 @main
@@ -181,6 +225,19 @@ struct TellTimeWidget: Widget {
         }
         .configurationDisplayName("Tell Time UK")
         .description("Widget for help you telling you the time the British English way.")
+    }
+}
+
+extension Design {
+    var clockStyle: ClockStyle {
+        switch self {
+        case .unknown: return .classic
+        case .classic: return .classic
+        case .artNouveau: return .artNouveau
+        case .drawing: return .drawing
+        case .steampunk: return .steampunk
+        case .lewis: return .classic
+        }
     }
 }
 
