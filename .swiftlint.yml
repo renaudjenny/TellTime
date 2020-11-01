@@ -1,16 +1,10 @@
+trailing_comma:
+    mandatory_comma: true
 disabled_rules:
   - identifier_name
 opt_in_rules:
-  - explicit_self
   - force_unwrapping
   - implicitly_unwrapped_optional
   - implicit_return
   - unused_import
   - indentation_width
-custom_rules:
-  no_current_mutation:
-    included: ".*\\.swift"
-    excluded: ".*Tests\\.swift"
-    name: "Current Mutation"
-    regex: "(Current\\.\\S+\\s+=)"
-    message: "Don't mutate the current world!"

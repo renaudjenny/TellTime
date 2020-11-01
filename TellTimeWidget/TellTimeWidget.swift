@@ -202,7 +202,7 @@ struct TellTimeWidgetView: View {
         urlComponents.host = "renaud.jenny.telltime"
         urlComponents.queryItems = [
             URLQueryItem(name: "clockStyle", value: "\(design.clockStyle.id)"),
-            URLQueryItem(name: "speak", value: "\(speak)")
+            URLQueryItem(name: "speak", value: "\(speak)"),
         ]
         guard let url = urlComponents.url else {
             fatalError("Cannot build the URL from the Widget")
