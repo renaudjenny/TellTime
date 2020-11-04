@@ -23,7 +23,11 @@ A tiny iOS Swift project with SwiftUI.
 * 🐢 You can slow down the spoken utterance in configuration (Speech rate)
 * 👾 Today Widget gives you the current time
 
-## Minimum required
+## Icons and illustrations
+
+All artistic work has been made by [Mathilde Seyller](https://instagram.com/myobriel). Go follow her!
+
+## Minimum required to build the project
 
 Works with Xcode 12.
 
