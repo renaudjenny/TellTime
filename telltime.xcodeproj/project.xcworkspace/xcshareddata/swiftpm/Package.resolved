@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "RenaudJennyAboutView",
+        "repositoryURL": "https://github.com/renaudjenny/RenaudJennyAboutView",
+        "state": {
+          "branch": null,
+          "revision": "7c91b9715f3f52e73eeb583ebc5be7e095e83c81",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "SnapshotTesting",
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {

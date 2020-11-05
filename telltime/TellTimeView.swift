@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import SwiftClockUI
+import RenaudJennyAboutView
 
 struct TellTimeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
@@ -69,7 +70,13 @@ struct TellTimeView: View {
     private var navigationLinks: some View {
         VStack {
             NavigationLink(destination: ConfigurationView(), isActive: $isConfigurationShown, label: EmptyView.init)
-            NavigationLink(destination: AboutView(), isActive: $isAboutShown, label: EmptyView.init)
+            NavigationLink(
+                destination: AboutView(appId: "id1496541173") {
+                    Image(uiImage: #imageLiteral(resourceName: "Logo")).shadow(radius: 5)
+                },
+                isActive: $isAboutShown,
+                label: EmptyView.init
+            )
         }
     }
 }
