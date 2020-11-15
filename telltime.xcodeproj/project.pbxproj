@@ -845,7 +845,7 @@
 			repositoryURL = "https://github.com/renaudjenny/SwiftClockUI";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				minimumVersion = 1.3.0;
 			};
 		};
 		4C86575225531EB20040EA04 /* XCRemoteSwiftPackageReference "RenaudJennyAboutView" */ = {
