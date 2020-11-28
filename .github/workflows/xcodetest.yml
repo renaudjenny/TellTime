@@ -35,5 +35,5 @@ jobs:
       if: failure()
       with:
         name: failed-screenshots
-        path: 'Library/Developer/CoreSimulator/Devices/*/data/Containers/Data/Application/*/tmp/*'
+        path: '~/Library/Developer/CoreSimulator/Devices/*/data/Containers/Data/Application/*/tmp/*'
         retention-days: 5
