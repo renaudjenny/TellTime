@@ -30,3 +30,10 @@ jobs:
 
     - name: Xcode test on iPhone SE
       run: xcodebuild clean test -scheme telltime -destination 'platform=iOS Simulator,name=iPhone SE (1st generation)'
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: failed-screenshots
+        path: 'Library/Developer/CoreSimulator/Devices/*/data/Containers/Data/Application/*/tmp/*'
+        retention-days: 5
