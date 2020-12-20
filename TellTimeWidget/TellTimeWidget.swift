@@ -92,35 +92,27 @@ struct TellTimeWidgetView: View {
 
     private var smallView: some View {
         VStack {
-            Text(time).padding()
+            switch design {
+            case .unknown, .text: Text(time).padding()
+            default: clock.padding()
+            }
         }
+        .widgetURL(url())
     }
 
-    @ViewBuilder
     private var mediumView: some View {
-        if design == .lewis {
-            HStack {
-                clock
-                VStack {
-                    digital
+        HStack {
+            clock
+            VStack {
+                Text(time)
+                Spacer()
+                Link(destination: url(speak: true)) {
+                    speakButton
                 }
             }
-            .padding()
-            .widgetURL(url())
-        } else {
-            HStack {
-                clock
-                VStack {
-                    Text(time)
-                    Spacer()
-                    Link(destination: url(speak: true)) {
-                        speakButton
-                    }
-                }
-            }
-            .padding()
-            .widgetURL(url())
         }
+        .padding()
+        .widgetURL(url())
     }
 
     private var largeView: some View {
@@ -152,41 +144,11 @@ struct TellTimeWidgetView: View {
         return time
     }
 
-    private var clockStyle: ClockStyle {
-        switch design {
-        case .unknown: return .classic
-        case .classic: return .classic
-        case .drawing: return .drawing
-        case .artNouveau: return .artNouveau
-        case .steampunk: return .steampunk
-        default: return .classic
-        }
-    }
-
-    @ViewBuilder
     private var clock: some View {
         ClockView()
             .allowsHitTesting(false)
             .environment(\.clockDate, .constant(date))
-            .environment(\.clockStyle, clockStyle)
-    }
-
-    private var digital: some View {
-        GeometryReader { (geometry: GeometryProxy) in
-            VStack {
-                Spacer()
-                Text(formattedTime)
-                    .font(
-                        .system(
-                            size: min(geometry.size.width, geometry.size.height) * 1/4,
-                            weight: .bold,
-                            design: .monospaced
-                        )
-                    )
-                    .padding()
-                Spacer()
-            }
-        }
+            .environment(\.clockStyle, design.clockStyle)
     }
 
     private var speakButton: some View {
@@ -231,12 +193,10 @@ struct TellTimeWidget: Widget {
 extension Design {
     var clockStyle: ClockStyle {
         switch self {
-        case .unknown: return .classic
-        case .classic: return .classic
+        case .unknown, .classic, .text: return .classic
         case .artNouveau: return .artNouveau
         case .drawing: return .drawing
         case .steampunk: return .steampunk
-        case .lewis: return .classic
         }
     }
 }
