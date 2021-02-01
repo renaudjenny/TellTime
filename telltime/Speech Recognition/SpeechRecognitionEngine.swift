@@ -1,0 +1,104 @@
+import Foundation
+import Speech
+
+// TODO: move Audio session management into its own module, like the TTS one
+
+// See: https://developer.apple.com/documentation/speech/recognizing_speech_in_live_audio
+final class SpeechRecognitionEngine: NSObject, ObservableObject {
+    @Published var recognizedUtterance: String?
+    @Published var recognitionStatus: SpeechRecognitionStatus = .notStarted
+
+    /// Whenever the availability of speech recognition services changes, this value will change
+    /// For instance if the internet connection is lost, isRecognitionAvailable will change to `false`
+    @Published var isRecognitionAvailable: Bool = false
+
+    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-GB"))
+    private let audioEngine = AVAudioEngine()
+    private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    private var recognitionTask: SFSpeechRecognitionTask?
+
+    func startRecording() throws {
+        // Cancel the previous task if it's running.
+        recognitionTask?.cancel()
+        recognitionTask = nil
+
+        // Configure the audio session for the app.
+        let audioSession = AVAudioSession.sharedInstance()
+        try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
+        try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        let inputNode = audioEngine.inputNode
+
+        // Create and configure the speech recognition request.
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        guard let recognitionRequest = recognitionRequest
+        else {
+            throw SpeechRecognitionEngineError.speechAudioBufferRecognitionRequestInitFailed
+        }
+        recognitionRequest.shouldReportPartialResults = true
+        // Make some test, we could probably keep all speech recognition data on the devices
+        // recognitionRequest.requiresOnDeviceRecognition = true
+
+        // Create a recognition task for the speech recognition session.
+        // Keep a reference to the task so that it can be canceled.
+        recognitionTask = speechRecognizer!.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+            guard let self = self else { return }
+
+            var isFinal = false
+
+            if let result = result {
+                // Update the text view with the results
+                DispatchQueue.main.async { [weak self] in
+                    self?.recognizedUtterance = result.bestTranscription.formattedString
+                }
+                isFinal = result.isFinal
+                print("Text \(result.bestTranscription.formattedString)")
+            }
+
+            if error != nil || isFinal {
+                // Stop recognizing speech if there is a problem.
+                self.audioEngine.stop()
+                inputNode.removeTap(onBus: 0)
+
+                self.recognitionRequest = nil
+                self.recognitionTask = nil
+
+                DispatchQueue.main.async { [weak self] in
+                    self?.recognitionStatus = .stopped
+                }
+            }
+        }
+
+        // Configure the microphone input.
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+            recognitionRequest.append(buffer)
+        }
+
+        audioEngine.prepare()
+        try audioEngine.start()
+        recognitionStatus = .recording
+    }
+
+    func stopRecording() {
+        audioEngine.stop()
+        recognitionRequest?.endAudio()
+        recognitionStatus = .stopping
+    }
+}
+
+extension SpeechRecognitionEngine: SFSpeechRecognizerDelegate {
+    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
+        isRecognitionAvailable = available
+    }
+}
+
+enum SpeechRecognitionStatus {
+    case notStarted
+    case recording
+    case stopping
+    case stopped
+}
+
+enum SpeechRecognitionEngineError: Error {
+    case speechAudioBufferRecognitionRequestInitFailed
+}

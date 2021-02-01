@@ -28,7 +28,7 @@ struct TellTimeView: View {
                 Spacer()
                 TimeText()
                 Spacer()
-                DatePicker()
+                DateSelector()
                 Spacer()
                 TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
             } else if verticalSizeClass == .compact {
@@ -37,7 +37,7 @@ struct TellTimeView: View {
                     VStack {
                         TimeText()
                         Spacer()
-                        DatePicker()
+                        DateSelector()
                         Spacer()
                         TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
                     }
@@ -47,7 +47,7 @@ struct TellTimeView: View {
                     clockView.padding()
                     VStack {
                         TimeText()
-                        DatePicker()
+                        DateSelector()
                     }
                     HStack {
                         Spacer()
@@ -81,20 +81,29 @@ struct TellTimeView: View {
     }
 }
 
-private struct DatePicker: View {
+private struct DateSelector: View {
     @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
+    @State private var recognizedUtterance: String?
     private var date: Binding<Date> {
         store.binding(for: \.date) { .changeDate($0) }
     }
 
     var body: some View {
-        // It seems there is a misalignment with the GraphicalDatePickerStyle
-        // So we have to set the `width` manually here (maybe it will be fixed >iOS 14.0)
-        SwiftUI.DatePicker(selection: date, displayedComponents: [.hourAndMinute]) {
-            Text("Select a time")
+        VStack {
+            HStack {
+                SpeechRecognitionButton(recognizedUtterance: $recognizedUtterance)
+
+                DatePicker(selection: date, displayedComponents: [.hourAndMinute]) {
+                    Text("Select a time")
+                }
+                .datePickerStyle(GraphicalDatePickerStyle())
+                .labelsHidden()
+                .padding()
+            }
+            recognizedUtterance.map { recognizedUtterance in
+                Text(recognizedUtterance)
+            }
         }
-        .labelsHidden()
-        .padding()
     }
 }
 
