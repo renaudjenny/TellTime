@@ -50,5 +50,7 @@
 	</array>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>TellTime listen for specific words when you press the speech recognition button, like the time you&apos;re dictating. For instance, if it understands &quot;five to five&quot;, it will display 04:55 and move the arms on the Clock accordingly</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>TellTime listen for specific words when you press the speech recognition button, like the time you&apos;re dictating. For instance, if it understands &quot;five to five&quot;, it will display 04:55 and move the arms on the Clock accordingly</string>
 </dict>
 </plist>

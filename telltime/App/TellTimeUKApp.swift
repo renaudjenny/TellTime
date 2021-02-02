@@ -21,10 +21,14 @@ struct TellTimeUKApp: SwiftUI.App {
         )
     }()
 
+    // TODO: This should be manager in the store like the TTS module
+    @StateObject private var speechRecognitionEngine = SpeechRecognitionEngine()
+
     var body: some Scene {
         WindowGroup {
             TellTimeView()
                 .environmentObject(store)
+                .environmentObject(speechRecognitionEngine)
                 .onOpenURL(perform: { url in
                     store.send(.changeDate(Date()))
                     guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {

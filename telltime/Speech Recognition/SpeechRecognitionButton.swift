@@ -1,8 +1,8 @@
 import SwiftUI
-import Speech
+import Combine
 
 struct SpeechRecognitionButton: View {
-    @ObservedObject var speechRecognitionEngine = SpeechRecognitionEngine()
+    @EnvironmentObject var speechRecognitionEngine: SpeechRecognitionEngine
     @Binding var recognizedUtterance: String?
 
     var body: some View {
@@ -15,35 +15,41 @@ struct SpeechRecognitionButton: View {
         }
         .padding()
         .accessibilityLabel(label)
-        .onReceive(speechRecognitionEngine.$recognizedUtterance) { utterance in
+        .onReceive(speechRecognitionEngine.newUtterance) { utterance in
             recognizedUtterance = utterance
         }
     }
 
     private func onTapped() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            switch authStatus {
-            case .denied:
-                // Display an alert to the user and lead them to the app configuration
-                print("Should display an alert for denied!")
-            case .restricted:
-                print("Should display an alert for restricted!")
-            case .notDetermined:
-                print("Not yet authorized!")
-            default: break
-            }
+        guard speechRecognitionEngine.recognitionStatus != .recording
+        else {
+            speechRecognitionEngine.stopRecording()
+            return
+        }
 
-            guard authStatus == .authorized
-            else { return }
-
-            DispatchQueue.main.async {
-                do {
-                    try speechRecognitionEngine.startRecording()
-                } catch {
-                    print(error)
-                    // FIXME: Should also notify the button state
-                }
+        switch speechRecognitionEngine.authorizationStatus {
+        case .none:
+            speechRecognitionEngine.requestAuthorization {
+                DispatchQueue.main.async(execute: onTapped)
             }
+        case .denied:
+            // Display an alert to the user and lead them to the app configuration
+            print("Should display an alert for denied!")
+        case .restricted:
+            print("Should display an alert for restricted!")
+        case .notDetermined:
+            print("Should display an alert for not determined!")
+        default: break
+        }
+
+        guard speechRecognitionEngine.authorizationStatus == .authorized
+        else { return }
+
+        do {
+            try speechRecognitionEngine.startRecording()
+        } catch {
+            print(error)
+            // FIXME: Should also notify the button state
         }
     }
 

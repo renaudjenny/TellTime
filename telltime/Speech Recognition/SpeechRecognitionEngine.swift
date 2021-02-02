@@ -1,10 +1,11 @@
-import Foundation
+import Combine
 import Speech
 
 // TODO: move Audio session management into its own module, like the TTS one
 
 // See: https://developer.apple.com/documentation/speech/recognizing_speech_in_live_audio
 final class SpeechRecognitionEngine: NSObject, ObservableObject {
+    @Published var authorizationStatus: SFSpeechRecognizerAuthorizationStatus?
     @Published var recognizedUtterance: String?
     @Published var recognitionStatus: SpeechRecognitionStatus = .notStarted
 
@@ -12,10 +13,27 @@ final class SpeechRecognitionEngine: NSObject, ObservableObject {
     /// For instance if the internet connection is lost, isRecognitionAvailable will change to `false`
     @Published var isRecognitionAvailable: Bool = false
 
+    /// Shortcut to access with ease to the published new utterance (already filtered)
+    var newUtterance: AnyPublisher<String, Never> {
+        $recognizedUtterance
+            .removeDuplicates()
+            .compactMap({ $0 })
+            .eraseToAnyPublisher()
+    }
+
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-GB"))
     private let audioEngine = AVAudioEngine()
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
+
+    func requestAuthorization(completion: @escaping () -> Void) {
+        SFSpeechRecognizer.requestAuthorization { [weak self] authorizationStatus in
+            DispatchQueue.main.async { [weak self] in
+                self?.authorizationStatus = authorizationStatus
+                completion()
+            }
+        }
+    }
 
     func startRecording() throws {
         // Cancel the previous task if it's running.
@@ -41,29 +59,27 @@ final class SpeechRecognitionEngine: NSObject, ObservableObject {
         // Create a recognition task for the speech recognition session.
         // Keep a reference to the task so that it can be canceled.
         recognitionTask = speechRecognizer!.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-            guard let self = self else { return }
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
 
-            var isFinal = false
+                var isFinal = false
 
-            if let result = result {
-                // Update the text view with the results
-                DispatchQueue.main.async { [weak self] in
-                    self?.recognizedUtterance = result.bestTranscription.formattedString
+                if let result = result {
+                    // Update the text view with the results
+                    self.recognizedUtterance = result.bestTranscription.formattedString
+                    isFinal = result.isFinal
+                    print("Text \(result.bestTranscription.formattedString)")
                 }
-                isFinal = result.isFinal
-                print("Text \(result.bestTranscription.formattedString)")
-            }
 
-            if error != nil || isFinal {
-                // Stop recognizing speech if there is a problem.
-                self.audioEngine.stop()
-                inputNode.removeTap(onBus: 0)
+                if error != nil || isFinal {
+                    // Stop recognizing speech if there is a problem.
+                    self.audioEngine.stop()
+                    inputNode.removeTap(onBus: 0)
 
-                self.recognitionRequest = nil
-                self.recognitionTask = nil
+                    self.recognitionRequest = nil
+                    self.recognitionTask = nil
 
-                DispatchQueue.main.async { [weak self] in
-                    self?.recognitionStatus = .stopped
+                    self.recognitionStatus = .stopped
                 }
             }
         }
