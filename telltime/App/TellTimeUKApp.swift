@@ -12,6 +12,9 @@ struct TellTimeUKApp: SwiftUI.App {
                 engine: Engine(),
                 calendar: initialEnvironment.calendar,
                 tellTime: initialEnvironment.tellTime
+            ),
+            speechRecognition: SpeechRecognitionEnvironment(
+                engine: SpeechRecognitionEngine()
             )
         )
         return .init(

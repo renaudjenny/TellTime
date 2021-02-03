@@ -7,17 +7,20 @@ struct AppState {
     var date: Date
     var configuration = ConfigurationState()
     var tts = TTSState()
+    var speechRecognition = SpeechRecognitionState()
 }
 
 enum AppAction {
     case changeDate(Date)
     case configuration(ConfigurationAction)
     case tts(TTSAction)
+    case speechRecognition(SpeechRecognitionAction)
 }
 
 struct AppEnvironment {
     let currentDate: () -> Date
     let tts: TTSEnvironment
+    let speechRecognition: SpeechRecognitionEnvironment
 }
 
 func appReducer(
@@ -37,6 +40,17 @@ func appReducer(
         return effect
             .map { AppAction.tts($0) }
             .eraseToAnyPublisher()
+    case let .speechRecognition(action):
+        guard let effect = speechRecognitionReducer(
+                state: &state.speechRecognition,
+                action: action,
+                environment: environment.speechRecognition
+        )
+        else { return nil }
+
+        return effect
+            .map { AppAction.speechRecognition($0) }
+            .eraseToAnyPublisher()
     }
     return nil
 }
@@ -47,7 +61,9 @@ func previewStore(
 ) -> Store<AppState, AppAction, AppEnvironment> {
     let mockedEnvironment = AppEnvironment(
         currentDate: { .init(hour: 10, minute: 10, calendar: .preview) },
-        tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: .preview, tellTime: mockedTellTime)
+        tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: .preview, tellTime: mockedTellTime),
+        // TODO: add a mock to SpeechRecognitionEnvironmentSpeechRecognitionEnvironment
+        speechRecognition: SpeechRecognitionEnvironment(engine: SpeechRecognitionEngine())
     )
     var state = AppState(date: mockedEnvironment.currentDate())
     _ = modifyState(&state)

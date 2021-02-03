@@ -83,7 +83,6 @@ struct TellTimeView: View {
 
 private struct DateSelector: View {
     @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
-    @State private var recognizedUtterance: String?
     private var date: Binding<Date> {
         store.binding(for: \.date) { .changeDate($0) }
     }
@@ -91,7 +90,7 @@ private struct DateSelector: View {
     var body: some View {
         VStack {
             HStack {
-                SpeechRecognitionButton(recognizedUtterance: $recognizedUtterance)
+                SpeechRecognitionButton()
 
                 DatePicker(selection: date, displayedComponents: [.hourAndMinute]) {
                     Text("Select a time")
@@ -100,7 +99,7 @@ private struct DateSelector: View {
                 .labelsHidden()
                 .padding()
             }
-            recognizedUtterance.map { recognizedUtterance in
+            store.state.speechRecognition.utterance.map { recognizedUtterance in
                 Text(recognizedUtterance)
             }
         }
