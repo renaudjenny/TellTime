@@ -7,10 +7,15 @@ struct SpeechRecognitionButton: View {
     var body: some View {
         Button(action: onTapped) {
             image
-                .padding()
+                .resizable()
                 .accentColor(.white)
+                .padding(4)
                 .background(Color.red)
                 .cornerRadius(8)
+                .animation(nil)
+                .opacity(isRecording ? 0.8 : 1)
+                .animation(isRecording ? glowingAnimation : .default)
+                .frame(width: 50, height: 50)
         }
         .padding()
         .accessibilityLabel(label)
@@ -27,9 +32,9 @@ struct SpeechRecognitionButton: View {
 
     private var image: Image {
         switch store.state.speechRecognition.status {
-        case .notStarted, .stopped: return Image(systemName: "mouth.fill")
-        case .recording: return Image(systemName: "waveform")
-        case .stopping: return Image(systemName: "stop")
+        case .notStarted, .stopped: return Image(systemName: "waveform.circle")
+        case .recording: return Image(systemName: "record.circle")
+        case .stopping: return Image(systemName: "stop.circle")
         }
     }
 
@@ -40,4 +45,22 @@ struct SpeechRecognitionButton: View {
         case .stopping: return Text("Speech Recognition stopping...")
         }
     }
+
+    private var isRecording: Bool {
+        store.state.speechRecognition.status == .recording
+    }
+
+    private var glowingAnimation: Animation {
+        Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
+    }
 }
+
+#if DEBUG
+struct SpeechRecognitionButton_Previews: PreviewProvider {
+    static var previews: some View {
+        SpeechRecognitionButton()
+            .environmentObject(previewStore { _ in })
+    }
+}
+
+#endif

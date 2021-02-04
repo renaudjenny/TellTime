@@ -64,7 +64,7 @@ func speechRecognitionReducer(
         state.utterance = utterance
     case .setAuthorizationStatus(let authorizationStatus):
         state.authorizationStatus = authorizationStatus
-        if (authorizationStatus == .authorized) {
+        if authorizationStatus == .authorized {
             return Just(.startRecording)
                 .eraseToAnyPublisher()
         }
