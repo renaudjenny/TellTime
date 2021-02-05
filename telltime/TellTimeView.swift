@@ -58,6 +58,7 @@ struct TellTimeView: View {
             }
             navigationLinks
         }
+        .animation(.easeInOut)
     }
 
     private var clockView: some View {

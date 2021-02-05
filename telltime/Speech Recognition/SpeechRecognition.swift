@@ -60,6 +60,9 @@ func speechRecognitionReducer(
             .eraseToAnyPublisher()
     case .setStatus(let status):
         state.status = status
+        if status != .recording {
+            state.utterance = nil
+        }
     case .setUtterance(let utterance):
         state.utterance = utterance
     case .setAuthorizationStatus(let authorizationStatus):

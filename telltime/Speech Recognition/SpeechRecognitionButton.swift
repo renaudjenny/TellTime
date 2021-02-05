@@ -12,9 +12,8 @@ struct SpeechRecognitionButton: View {
                 .padding(4)
                 .background(Color.red)
                 .cornerRadius(8)
-                .animation(nil)
                 .opacity(isRecording ? 0.8 : 1)
-                .animation(isRecording ? glowingAnimation : .default)
+                .animation(isRecording ? glowingAnimation : .default, value: isRecording)
                 .frame(width: 50, height: 50)
         }
         .padding()
