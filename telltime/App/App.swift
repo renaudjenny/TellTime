@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import SwiftTTSCombine
+import Speech
 import AVFoundation
 
 struct AppState {
@@ -63,7 +64,7 @@ func previewStore(
         currentDate: { .init(hour: 10, minute: 10, calendar: .preview) },
         tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: .preview, tellTime: mockedTellTime),
         // TODO: add a mock to SpeechRecognitionEnvironmentSpeechRecognitionEnvironment
-        speechRecognition: SpeechRecognitionEnvironment(engine: SpeechRecognitionEngine())
+        speechRecognition: SpeechRecognitionEnvironment(engine: MockedSpeechRecognitionEngine())
     )
     var state = AppState(date: mockedEnvironment.currentDate())
     _ = modifyState(&state)
@@ -78,6 +79,19 @@ private final class MockedTTSEngine: TTSEngine {
     func speak(string: String) { }
     var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
     var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
+}
+
+private final class MockedSpeechRecognitionEngine: SpeechRecognitionEngine {
+    var authorizationStatusPublisher: AnyPublisher<SFSpeechRecognizerAuthorizationStatus?, Never> {
+        Just(.notDetermined).eraseToAnyPublisher()
+    }
+    var recognizedUtterancePublisher: AnyPublisher<String?, Never> { Just(nil).eraseToAnyPublisher() }
+    var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> { Just(.notStarted).eraseToAnyPublisher() }
+    var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
+    var newUtterancePublisher: AnyPublisher<String, Never> { Just("").eraseToAnyPublisher() }
+    func requestAuthorization(completion: @escaping () -> Void) { completion() }
+    func startRecording() throws { }
+    func stopRecording() { }
 }
 
 func mockedTellTime(date: Date, calendar: Calendar) -> String { "12:34" }

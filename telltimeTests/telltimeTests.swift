@@ -3,6 +3,7 @@ import XCTest
 import SwiftUI
 import Combine
 import SwiftTTSCombine
+import Speech
 import AVFoundation
 
 class TelltimeTests: XCTestCase {
@@ -50,7 +51,8 @@ extension AppEnvironment {
     static func fake(currentDate: Date) -> Self {
         Self(
             currentDate: { currentDate },
-            tts: .fake
+            tts: .fake,
+            speechRecognition: .fake
         )
     }
 }
@@ -70,5 +72,26 @@ extension TTSEnvironment {
         func speak(string: String) { }
         var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
         var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
+    }
+}
+
+extension SpeechRecognitionEnvironment {
+    static var fake: Self {
+        SpeechRecognitionEnvironment(
+            engine: MockedSpeechRecognitionEngine()
+        )
+    }
+
+    private final class MockedSpeechRecognitionEngine: SpeechRecognitionEngine {
+        var authorizationStatusPublisher: AnyPublisher<SFSpeechRecognizerAuthorizationStatus?, Never> {
+            Just(.notDetermined).eraseToAnyPublisher()
+        }
+        var recognizedUtterancePublisher: AnyPublisher<String?, Never> { Just(nil).eraseToAnyPublisher() }
+        var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> { Just(.notStarted).eraseToAnyPublisher() }
+        var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
+        var newUtterancePublisher: AnyPublisher<String, Never> { Just("").eraseToAnyPublisher() }
+        func requestAuthorization(completion: @escaping () -> Void) { completion() }
+        func startRecording() throws { }
+        func stopRecording() { }
     }
 }

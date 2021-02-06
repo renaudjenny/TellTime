@@ -3,8 +3,22 @@ import Speech
 
 // TODO: move Audio session management into its own module, like the TTS one
 
+protocol SpeechRecognitionEngine {
+    var authorizationStatusPublisher: AnyPublisher<SFSpeechRecognizerAuthorizationStatus?, Never> { get }
+    var recognizedUtterancePublisher: AnyPublisher<String?, Never> { get }
+    var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> { get }
+    var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { get }
+
+    /// Shortcut to access with ease to the published new utterance (already filtered)
+    var newUtterancePublisher: AnyPublisher<String, Never> { get }
+
+    func requestAuthorization(completion: @escaping () -> Void)
+    func startRecording() throws
+    func stopRecording()
+}
+
 // See: https://developer.apple.com/documentation/speech/recognizing_speech_in_live_audio
-final class SpeechRecognitionEngine: NSObject, ObservableObject {
+final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
     @Published var authorizationStatus: SFSpeechRecognizerAuthorizationStatus?
     @Published var recognizedUtterance: String?
     @Published var recognitionStatus: SpeechRecognitionStatus = .notStarted
@@ -12,14 +26,6 @@ final class SpeechRecognitionEngine: NSObject, ObservableObject {
     /// Whenever the availability of speech recognition services changes, this value will change
     /// For instance if the internet connection is lost, isRecognitionAvailable will change to `false`
     @Published var isRecognitionAvailable: Bool = false
-
-    /// Shortcut to access with ease to the published new utterance (already filtered)
-    var newUtterance: AnyPublisher<String, Never> {
-        $recognizedUtterance
-            .removeDuplicates()
-            .compactMap({ $0 })
-            .eraseToAnyPublisher()
-    }
 
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-GB"))
     private let audioEngine = AVAudioEngine()
@@ -102,9 +108,34 @@ final class SpeechRecognitionEngine: NSObject, ObservableObject {
     }
 }
 
-extension SpeechRecognitionEngine: SFSpeechRecognizerDelegate {
+extension SpeechRecognitionSpeechEngine: SFSpeechRecognizerDelegate {
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         isRecognitionAvailable = available
+    }
+}
+
+extension SpeechRecognitionSpeechEngine: SpeechRecognitionEngine {
+    var authorizationStatusPublisher: AnyPublisher<SFSpeechRecognizerAuthorizationStatus?, Never> {
+        $authorizationStatus.eraseToAnyPublisher()
+    }
+
+    var recognizedUtterancePublisher: AnyPublisher<String?, Never> {
+        $recognizedUtterance.eraseToAnyPublisher()
+    }
+
+    var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> {
+        $recognitionStatus.eraseToAnyPublisher()
+    }
+
+    var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> {
+        $isRecognitionAvailable.eraseToAnyPublisher()
+    }
+
+    var newUtterancePublisher: AnyPublisher<String, Never> {
+        $recognizedUtterance
+            .removeDuplicates()
+            .compactMap({ $0 })
+            .eraseToAnyPublisher()
     }
 }
 

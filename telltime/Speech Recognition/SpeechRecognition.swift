@@ -45,7 +45,7 @@ func speechRecognitionReducer(
         else { return Just(.requestAuthorization).eraseToAnyPublisher() }
         do {
             try environment.engine.startRecording()
-            return environment.engine.newUtterance
+            return environment.engine.newUtterancePublisher
                 .map { .setUtterance($0) }
                 .eraseToAnyPublisher()
         } catch {
@@ -55,7 +55,7 @@ func speechRecognitionReducer(
     case .stopRecording:
         environment.engine.stopRecording()
     case .subscribeToSpeechRecognitionStatus:
-        return environment.engine.$recognitionStatus
+        return environment.engine.recognitionStatusPublisher
             .map { .setStatus($0) }
             .eraseToAnyPublisher()
     case .setStatus(let status):
@@ -74,7 +74,7 @@ func speechRecognitionReducer(
     case .requestAuthorization:
         // TODO: check if we still need the callback here...
         environment.engine.requestAuthorization { }
-        return environment.engine.$authorizationStatus
+        return environment.engine.authorizationStatusPublisher
             .map { .setAuthorizationStatus($0 ?? .notDetermined) }
             .eraseToAnyPublisher()
     }
