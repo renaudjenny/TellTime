@@ -6,6 +6,7 @@ struct SpeechRecognitionState {
     var status: SpeechRecognitionStatus = .notStarted
     var authorizationStatus = SFSpeechRecognizerAuthorizationStatus.notDetermined
     var utterance: String?
+    var recognizedTime: Date?
 }
 
 enum SpeechRecognitionAction {
@@ -17,10 +18,13 @@ enum SpeechRecognitionAction {
     case setUtterance(String?)
     case requestAuthorization
     case setAuthorizationStatus(SFSpeechRecognizerAuthorizationStatus)
+    case setRecognizedDate(Date)
 }
 
 struct SpeechRecognitionEnvironment {
     let engine: SpeechRecognitionEngine
+    let recognizeTime: (String, Calendar) -> Date?
+    let calendar: Calendar
 }
 
 func speechRecognitionReducer(
@@ -31,14 +35,12 @@ func speechRecognitionReducer(
     switch action {
     case .buttonTapped:
         switch state.status {
-        case .recording:
+        case .recording, .stopping:
             return Just(.stopRecording)
                 .eraseToAnyPublisher()
         case .notStarted, .stopped:
             return Just(.startRecording)
                 .eraseToAnyPublisher()
-        case .stopping:
-            break
         }
     case .startRecording:
         guard state.authorizationStatus == .authorized
@@ -62,9 +64,15 @@ func speechRecognitionReducer(
         state.status = status
         if status != .recording {
             state.utterance = nil
+            state.recognizedTime = nil
         }
     case .setUtterance(let utterance):
         state.utterance = utterance
+        if let utterance = utterance,
+           let recognizedTime = environment.recognizeTime(utterance, environment.calendar) {
+            return Just(.setRecognizedDate(recognizedTime))
+                .eraseToAnyPublisher()
+        }
     case .setAuthorizationStatus(let authorizationStatus):
         state.authorizationStatus = authorizationStatus
         if authorizationStatus == .authorized {
@@ -76,6 +84,11 @@ func speechRecognitionReducer(
         environment.engine.requestAuthorization { }
         return environment.engine.authorizationStatusPublisher
             .map { .setAuthorizationStatus($0 ?? .notDetermined) }
+            .eraseToAnyPublisher()
+    case .setRecognizedDate(let date):
+        state.recognizedTime = date
+        return Just(.stopRecording)
+            .delay(for: .seconds(2), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     return nil

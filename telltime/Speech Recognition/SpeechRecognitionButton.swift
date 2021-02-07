@@ -19,6 +19,7 @@ struct SpeechRecognitionButton: View {
         .padding()
         .accessibilityLabel(label)
         .onAppear(perform: subscribeToSpeechRecognitionStatus)
+        .onReceive(recognizedTimeChanged, perform: onRecognizedTimeReceived)
     }
 
     private func onTapped() {
@@ -51,6 +52,20 @@ struct SpeechRecognitionButton: View {
 
     private var glowingAnimation: Animation {
         Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
+    }
+
+    private var recognizedTimeChanged: AnyPublisher<Date, Never> {
+        store.$state
+            .debounce(for: .milliseconds(200), scheduler: DispatchQueue.main)
+            .map { $0.speechRecognition.recognizedTime }
+            .compactMap { $0 }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+
+    private func onRecognizedTimeReceived(date: Date?) {
+        guard let date = date else { return }
+        store.send(.changeDate(date))
     }
 }
 

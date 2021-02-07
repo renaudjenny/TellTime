@@ -64,7 +64,11 @@ func previewStore(
         currentDate: { .init(hour: 10, minute: 10, calendar: .preview) },
         tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: .preview, tellTime: mockedTellTime),
         // TODO: add a mock to SpeechRecognitionEnvironmentSpeechRecognitionEnvironment
-        speechRecognition: SpeechRecognitionEnvironment(engine: MockedSpeechRecognitionEngine())
+        speechRecognition: SpeechRecognitionEnvironment(
+            engine: MockedSpeechRecognitionEngine(),
+            recognizeTime: { _, _ in nil },
+            calendar: .preview
+        )
     )
     var state = AppState(date: mockedEnvironment.currentDate())
     _ = modifyState(&state)

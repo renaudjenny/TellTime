@@ -45,6 +45,7 @@ final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
         // Cancel the previous task if it's running.
         recognitionTask?.cancel()
         recognitionTask = nil
+        recognizedUtterance = nil
 
         // Configure the audio session for the app.
         let audioSession = AVAudioSession.sharedInstance()

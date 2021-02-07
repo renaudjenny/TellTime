@@ -14,7 +14,9 @@ struct TellTimeUKApp: SwiftUI.App {
                 tellTime: initialEnvironment.tellTime
             ),
             speechRecognition: SpeechRecognitionEnvironment(
-                engine: SpeechRecognitionSpeechEngine()
+                engine: SpeechRecognitionSpeechEngine(),
+                recognizeTime: SwiftToTen.recognizeTime,
+                calendar: initialEnvironment.calendar
             )
         )
         return .init(
