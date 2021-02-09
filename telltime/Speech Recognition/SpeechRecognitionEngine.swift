@@ -63,9 +63,12 @@ final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
         // Make some test, we could probably keep all speech recognition data on the devices
         // recognitionRequest.requiresOnDeviceRecognition = true
 
+        guard let speechRecognizer = speechRecognizer
+        else { throw SpeechRecognitionEngineError.speechRecognizerInitFailed }
+
         // Create a recognition task for the speech recognition session.
         // Keep a reference to the task so that it can be canceled.
-        recognitionTask = speechRecognizer!.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, error in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
 
@@ -93,7 +96,7 @@ final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
 
         // Configure the microphone input.
         let recordingFormat = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, _) in
             recognitionRequest.append(buffer)
         }
 
@@ -149,4 +152,5 @@ enum SpeechRecognitionStatus {
 
 enum SpeechRecognitionEngineError: Error {
     case speechAudioBufferRecognitionRequestInitFailed
+    case speechRecognizerInitFailed
 }

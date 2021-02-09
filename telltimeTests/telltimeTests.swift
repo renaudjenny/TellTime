@@ -78,7 +78,9 @@ extension TTSEnvironment {
 extension SpeechRecognitionEnvironment {
     static var fake: Self {
         SpeechRecognitionEnvironment(
-            engine: MockedSpeechRecognitionEngine()
+            engine: MockedSpeechRecognitionEngine(),
+            recognizeTime: { _, _ in nil },
+            calendar: .test
         )
     }
 
@@ -87,7 +89,9 @@ extension SpeechRecognitionEnvironment {
             Just(.notDetermined).eraseToAnyPublisher()
         }
         var recognizedUtterancePublisher: AnyPublisher<String?, Never> { Just(nil).eraseToAnyPublisher() }
-        var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> { Just(.notStarted).eraseToAnyPublisher() }
+        var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> {
+            Just(.notStarted).eraseToAnyPublisher()
+        }
         var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
         var newUtterancePublisher: AnyPublisher<String, Never> { Just("").eraseToAnyPublisher() }
         func requestAuthorization(completion: @escaping () -> Void) { completion() }

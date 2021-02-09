@@ -43,9 +43,9 @@ func appReducer(
             .eraseToAnyPublisher()
     case let .speechRecognition(action):
         guard let effect = speechRecognitionReducer(
-                state: &state.speechRecognition,
-                action: action,
-                environment: environment.speechRecognition
+            state: &state.speechRecognition,
+            action: action,
+            environment: environment.speechRecognition
         )
         else { return nil }
 
@@ -90,7 +90,9 @@ private final class MockedSpeechRecognitionEngine: SpeechRecognitionEngine {
         Just(.notDetermined).eraseToAnyPublisher()
     }
     var recognizedUtterancePublisher: AnyPublisher<String?, Never> { Just(nil).eraseToAnyPublisher() }
-    var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> { Just(.notStarted).eraseToAnyPublisher() }
+    var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> {
+        Just(.notStarted).eraseToAnyPublisher()
+    }
     var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
     var newUtterancePublisher: AnyPublisher<String, Never> { Just("").eraseToAnyPublisher() }
     func requestAuthorization(completion: @escaping () -> Void) { completion() }
