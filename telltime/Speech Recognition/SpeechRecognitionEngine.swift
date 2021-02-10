@@ -106,9 +106,13 @@ final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
     }
 
     func stopRecording() {
-        audioEngine.stop()
-        recognitionRequest?.endAudio()
-        recognitionStatus = .stopping
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            recognitionStatus = .stopping
+        } else {
+            recognitionStatus = .stopped
+        }
     }
 }
 
