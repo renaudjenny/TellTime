@@ -1,8 +1,8 @@
-import Foundation
+import ComposableArchitecture
 import Combine
 import SwiftTTSCombine
 
-struct TTSState {
+struct TTSState: Equatable {
     var isSpeaking = false
     var speakingProgress = 0.0
     var rateRatio: Float = 1.0
@@ -14,8 +14,6 @@ enum TTSAction {
     case startSpeaking
     case stopSpeaking
     case changeSpeakingProgress(Double)
-    case subscribeToEngineIsSpeaking
-    case subscribeToEngineSpeakingProgress
 }
 
 struct TTSEnvironment {
@@ -24,32 +22,28 @@ struct TTSEnvironment {
     let tellTime: (Date, Calendar) -> String
 }
 
-func ttsReducer(
-    state: inout TTSState,
-    action: TTSAction,
-    environment: TTSEnvironment
-) -> AnyPublisher<TTSAction, Never>? {
+let ttsReducer = Reducer<TTSState, TTSAction, TTSEnvironment> { state, action, environment in
     switch action {
     case let .changeRateRatio(rateRatio):
         state.rateRatio = rateRatio
         environment.engine.rateRatio = rateRatio
+        return .none
     case let .tellTime(date):
         let tellTimeText = environment.tellTime(date, environment.calendar)
         environment.engine.speak(string: tellTimeText)
-    case .startSpeaking:
-        state.isSpeaking = true
-    case .stopSpeaking:
-        state.isSpeaking = false
-    case let .changeSpeakingProgress(speakingProgress):
-        state.speakingProgress = speakingProgress
-    case .subscribeToEngineIsSpeaking:
         return environment.engine.isSpeakingPublisher
             .map { $0 ? .startSpeaking : .stopSpeaking }
-            .eraseToAnyPublisher()
-    case .subscribeToEngineSpeakingProgress:
+            .eraseToEffect()
+    case .startSpeaking:
+        state.isSpeaking = true
         return environment.engine.speakingProgressPublisher
             .map { .changeSpeakingProgress($0) }
-            .eraseToAnyPublisher()
+            .eraseToEffect()
+    case .stopSpeaking:
+        state.isSpeaking = false
+        return .none
+    case let .changeSpeakingProgress(speakingProgress):
+        state.speakingProgress = speakingProgress
+        return .none
     }
-    return nil
 }

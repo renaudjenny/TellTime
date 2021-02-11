@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import Speech
 
-struct SpeechRecognitionState {
+struct SpeechRecognitionState: Equatable {
     var status: SpeechRecognitionStatus = .notStarted
     var authorizationStatus = SFSpeechRecognizerAuthorizationStatus.notDetermined
     var utterance: String?

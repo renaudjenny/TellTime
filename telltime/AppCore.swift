@@ -3,8 +3,9 @@ import Combine
 import SwiftTTSCombine
 import Speech
 import AVFoundation
+import ComposableArchitecture
 
-struct AppState {
+struct AppState: Equatable {
     var date: Date
     var configuration = ConfigurationState()
     var tts = TTSState()
@@ -57,24 +58,25 @@ func appReducer(
 }
 
 #if DEBUG
-func previewStore(
-    modifyState: (inout AppState) -> Void
-) -> Store<AppState, AppAction, AppEnvironment> {
-    let mockedEnvironment = AppEnvironment(
-        currentDate: { .init(hour: 10, minute: 10, calendar: .preview) },
-        tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: .preview, tellTime: mockedTellTime),
-        // TODO: add a mock to SpeechRecognitionEnvironmentSpeechRecognitionEnvironment
-        speechRecognition: SpeechRecognitionEnvironment(
-            engine: MockedSpeechRecognitionEngine(),
-            recognizeTime: { _, _ in nil },
-            calendar: .preview
-        )
-    )
-    var state = AppState(date: mockedEnvironment.currentDate())
-    _ = modifyState(&state)
+extension Store where State == AppState, Action == AppAction {
+    static func preview(
+        modifyState: (inout AppState) -> Void = { _ in },
+        modifyEnvironment: (inout AppEnvironment) -> Void = { _ in }
+    ) -> Self {
+        var state = AppState(date: Date())
+        modifyState(&state)
 
-    let mockedReducer: Reducer<AppState, AppAction, AppEnvironment> = { _, _, _ in nil }
-    return .init(initialState: state, reducer: mockedReducer, environment: mockedEnvironment)
+        let calendar = Calendar.autoupdatingCurrent
+        var environment = AppEnvironment(
+            currentDate: { Date() },
+            tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: calendar, tellTime: { _, _ in "" }),
+            speechRecognition: SpeechRecognitionEnvironment(engine: MockedSpeechRecognitionEngine(), recognizeTime: { _, _ in nil }, calendar: calendar)
+        )
+
+        return Store(initialState: state, reducer: appReducer, environment: environment)
+    }
+
+    static var preview: Self { preview() }
 }
 
 private final class MockedTTSEngine: TTSEngine {

@@ -3,7 +3,7 @@ import Combine
 import SwiftClockUI
 import RenaudJennyAboutView
 
-struct TellTimeView: View {
+struct MainView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
