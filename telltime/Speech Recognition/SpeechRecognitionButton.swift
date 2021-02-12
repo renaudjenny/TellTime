@@ -1,79 +1,79 @@
 import SwiftUI
-import Combine
+import ComposableArchitecture
+import Speech
 
 struct SpeechRecognitionButton: View {
-    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
+    struct ViewState: Equatable {
+        var status: SpeechRecognitionStatus
+    }
+
+    enum ViewAction: Equatable {
+        case buttonTapped
+    }
+
+    let store: Store<AppState, AppAction>
 
     var body: some View {
-        Button(action: onTapped) {
-            image
-                .resizable()
-                .accentColor(.white)
-                .padding(4)
-                .background(Color.red)
-                .cornerRadius(8)
-                .opacity(isRecording ? 0.8 : 1)
-                .animation(isRecording ? glowingAnimation : .default, value: isRecording)
-                .frame(width: 50, height: 50)
+        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
+            Button(action: { viewStore.send(.buttonTapped) }) {
+                image(viewStore: viewStore)
+                    .resizable()
+                    .accentColor(.white)
+                    .padding(4)
+                    .background(Color.red)
+                    .cornerRadius(8)
+                    .opacity(isRecording(viewStore: viewStore) ? 0.8 : 1)
+                    .animation(isRecording(viewStore: viewStore) ? glowingAnimation : .default, value: viewStore.status)
+                    .frame(width: 50, height: 50)
+            }
+            .padding()
+            .accessibilityLabel(label(viewStore: viewStore))
         }
-        .padding()
-        .accessibilityLabel(label)
-        .onAppear(perform: subscribeToSpeechRecognitionStatus)
-        .onReceive(recognizedTimeChanged, perform: onRecognizedTimeReceived)
     }
 
-    private func onTapped() {
-        store.send(.speechRecognition(.buttonTapped))
-    }
-
-    private func subscribeToSpeechRecognitionStatus() {
-        store.send(.speechRecognition(.subscribeToSpeechRecognitionStatus))
-    }
-
-    private var image: Image {
-        switch store.state.speechRecognition.status {
+    private func image(viewStore: ViewStore<ViewState, ViewAction>) -> Image {
+        switch viewStore.status {
         case .notStarted, .stopped: return Image(systemName: "waveform.circle")
         case .recording: return Image(systemName: "record.circle")
         case .stopping: return Image(systemName: "stop.circle")
         }
     }
 
-    private var label: Text {
-        switch store.state.speechRecognition.status {
+    private func label(viewStore: ViewStore<ViewState, ViewAction>) -> Text {
+        switch viewStore.status {
         case .notStarted, .stopped: return Text("Speech Recognition ready")
         case .recording: return Text("Speech Recognition recording...")
         case .stopping: return Text("Speech Recognition stopping...")
         }
     }
 
-    private var isRecording: Bool {
-        store.state.speechRecognition.status == .recording
+    private func isRecording(viewStore: ViewStore<ViewState, ViewAction>) -> Bool {
+        viewStore.status == .recording
     }
 
     private var glowingAnimation: Animation {
         Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
     }
+}
 
-    private var recognizedTimeChanged: AnyPublisher<Date, Never> {
-        store.$state
-            .debounce(for: .milliseconds(200), scheduler: DispatchQueue.main)
-            .map { $0.speechRecognition.recognizedTime }
-            .compactMap { $0 }
-            .removeDuplicates()
-            .eraseToAnyPublisher()
+private extension AppState {
+    var view: SpeechRecognitionButton.ViewState {
+        SpeechRecognitionButton.ViewState(status: speechRecognition.status)
     }
+}
 
-    private func onRecognizedTimeReceived(date: Date?) {
-        guard let date = date else { return }
-        store.send(.changeDate(date))
+private extension AppAction {
+    static func view(localAction: SpeechRecognitionButton.ViewAction) -> Self {
+        switch localAction {
+        case .buttonTapped: return .speechRecognition(.buttonTapped)
+        }
     }
 }
 
 #if DEBUG
 struct SpeechRecognitionButton_Previews: PreviewProvider {
     static var previews: some View {
-        SpeechRecognitionButton()
-            .environmentObject(previewStore { _ in })
+        SpeechRecognitionButton(store: .preview)
     }
 }
 

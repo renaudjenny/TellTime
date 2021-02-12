@@ -8,7 +8,7 @@ struct TTSState: Equatable {
     var rateRatio: Float = 1.0
 }
 
-enum TTSAction {
+enum TTSAction: Equatable {
     case changeRateRatio(Float)
     case tellTime(Date)
     case startSpeaking

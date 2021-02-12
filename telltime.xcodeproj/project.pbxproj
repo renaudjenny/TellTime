@@ -20,8 +20,8 @@
 		4C3CCC7424B396D5008F0699 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C3CCC7324B396D5008F0699 /* SwiftPastTen */; };
 		4C3CCC7624B396D5008F0699 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C3CCC7524B396D5008F0699 /* SwiftClockUI */; };
 		4C43CB9D25CB27D600890D3B /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43CB9C25CB27D600890D3B /* SpeechRecognition.swift */; };
-		4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */; };
-		4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */; };
+		4C460CA524443D53006D02EA /* RandomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDate.swift */; };
+		4C460CAF2444D6A5006D02EA /* TellTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTime.swift */; };
 		4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4C474A40243702CA00DDD53C /* SnapshotTesting */; };
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
 		4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58924A52AE20033B689 /* SwiftPastTen */; };
@@ -47,6 +47,7 @@
 		4CEB604A238C82A30085B07C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6049238C82A30085B07C /* Configuration.swift */; };
 		4CF452A624E036CE00C34A0F /* SwiftTTSCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF452A524E036CE00C34A0F /* SwiftTTSCombine */; };
 		4CFB1C5C25D5BBC900AA7374 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFB1C5B25D5BBC900AA7374 /* ComposableArchitecture */; };
+		4CFB1C6A25D726BA00AA7374 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB1C6925D726BA00AA7374 /* DateSelector.swift */; };
 		4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,8 +104,8 @@
 		4C3CCC6824B39356008F0699 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C3CCC6A24B39356008F0699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C43CB9C25CB27D600890D3B /* SpeechRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
-		4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDateEnvironment.swift; sourceTree = "<group>"; };
-		4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTimeEnvironment.swift; sourceTree = "<group>"; };
+		4C460CA424443D53006D02EA /* RandomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDate.swift; sourceTree = "<group>"; };
+		4C460CAE2444D6A5006D02EA /* TellTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTime.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
 		4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Preview.swift"; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		4CEA2AF225C751D10062F5A0 /* SpeechRecognitionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionEngine.swift; sourceTree = "<group>"; };
 		4CEB6041238ADEAF0085B07C /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		4CEB6049238C82A30085B07C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		4CFB1C6925D726BA00AA7374 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,8 +188,11 @@
 		4C05AB5F2343FC2700970036 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4C460CAE2444D6A5006D02EA /* TellTime.swift */,
+				4C460CA424443D53006D02EA /* RandomDate.swift */,
 				4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */,
 				4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */,
+				4CFB1C6925D726BA00AA7374 /* DateSelector.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -201,15 +206,6 @@
 				4C3CCC6A24B39356008F0699 /* Info.plist */,
 			);
 			path = TellTimeWidget;
-			sourceTree = "<group>";
-		};
-		4C460CA324443CEE006D02EA /* Environment */ = {
-			isa = PBXGroup;
-			children = (
-				4C460CA424443D53006D02EA /* RandomDateEnvironment.swift */,
-				4C460CAE2444D6A5006D02EA /* TellTimeEnvironment.swift */,
-			);
-			path = Environment;
 			sourceTree = "<group>";
 		};
 		4C61581923CCF3C900243A5E /* Configuration */ = {
@@ -252,7 +248,6 @@
 				4CB1D4C122A7293500786385 /* Assets.xcassets */,
 				4C05AB5F2343FC2700970036 /* Common */,
 				4C03BC80235509DE00442B11 /* Configuration */,
-				4C460CA324443CEE006D02EA /* Environment */,
 				4CB1D4C922A7293500786385 /* Info.plist */,
 				4CB1D4C322A7293500786385 /* Preview Content */,
 				4CB1D4BF22A7293300786385 /* MainView.swift */,
@@ -515,14 +510,15 @@
 				4CC0406722B530EC0001AA50 /* TTS.swift in Sources */,
 				4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */,
 				4CEA2AF325C751D10062F5A0 /* SpeechRecognitionEngine.swift in Sources */,
-				4C460CA524443D53006D02EA /* RandomDateEnvironment.swift in Sources */,
+				4C460CA524443D53006D02EA /* RandomDate.swift in Sources */,
 				4CEB604A238C82A30085B07C /* Configuration.swift in Sources */,
 				4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */,
 				4CEA2AEC25C712A80062F5A0 /* SpeechRecognitionButton.swift in Sources */,
 				4C43CB9D25CB27D600890D3B /* SpeechRecognition.swift in Sources */,
 				4CE649EE25D0124A006183BB /* SwiftToTen.swift in Sources */,
 				4CB1D4BC22A7293300786385 /* TellTimeUKApp.swift in Sources */,
-				4C460CAF2444D6A5006D02EA /* TellTimeEnvironment.swift in Sources */,
+				4CFB1C6A25D726BA00AA7374 /* DateSelector.swift in Sources */,
+				4C460CAF2444D6A5006D02EA /* TellTime.swift in Sources */,
 				4CB1D4C022A7293300786385 /* MainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

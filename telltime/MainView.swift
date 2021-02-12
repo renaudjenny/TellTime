@@ -1,26 +1,39 @@
 import SwiftUI
+import ComposableArchitecture
 import Combine
 import SwiftClockUI
 import RenaudJennyAboutView
 
 struct MainView: View {
-    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
-    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
-    @State private var isConfigurationShown: Bool = false
-    @State private var isAboutShown: Bool = false
-    private var date: Binding<Date> { store.binding(for: \.date) { .changeDate($0) } }
-
-    var body: some View {
-        NavigationView {
-            content
-                .navigationBarTitle("Tell Time")
-                .padding()
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
+    struct ViewState: Equatable {
+        var date: Date
+        var recognizedUtterance: String?
     }
 
-    private var content: some View {
+    enum ViewAction: Equatable {
+        case setDate(Date)
+    }
+
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+
+    let store: Store<AppState, AppAction>
+
+    @State private var isConfigurationShown: Bool = false
+    @State private var isAboutShown: Bool = false
+
+    var body: some View {
+        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
+            NavigationView {
+                content(viewStore: viewStore)
+                    .navigationBarTitle("Tell Time")
+                    .padding()
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+        }
+    }
+
+    private func content(viewStore: ViewStore<ViewState, ViewAction>) -> some View {
         VStack {
             if verticalSizeClass == .regular && horizontalSizeClass == .compact {
                 Spacer()
@@ -28,18 +41,18 @@ struct MainView: View {
                 Spacer()
                 TimeText()
                 Spacer()
-                DateSelector()
+                DateSelector(store: store)
                 Spacer()
-                TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
+                TellTimeButtons(store: store)
             } else if verticalSizeClass == .compact {
                 HStack {
                     clockView.padding()
                     VStack {
                         TimeText()
                         Spacer()
-                        DateSelector()
+                        DateSelector(store: store)
                         Spacer()
-                        TellTimeButtons(isConfigurationShown: $isConfigurationShown, isAboutShown: $isAboutShown)
+                        TellTimeButtons(store: store)
                     }
                 }
             } else {
@@ -82,41 +95,30 @@ struct MainView: View {
     }
 }
 
-private struct DateSelector: View {
-    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
-    private var date: Binding<Date> {
-        store.binding(for: \.date) { .changeDate($0) }
+private extension AppState {
+    var view: MainView.ViewState {
+        MainView.ViewState(
+            date: date,
+            recognizedUtterance: speechRecognition.utterance
+        )
     }
+}
 
-    var body: some View {
-        VStack {
-            HStack {
-                SpeechRecognitionButton()
-
-                DatePicker(selection: date, displayedComponents: [.hourAndMinute]) {
-                    Text("Select a time")
-                }
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .labelsHidden()
-                .padding()
-            }
-            store.state.speechRecognition.utterance.map { recognizedUtterance in
-                Text(recognizedUtterance)
-            }
+private extension AppAction {
+    static func view(localAction: MainView.ViewAction) -> Self {
+        switch localAction {
+        case .setDate(let date): return changeDate(date)
         }
     }
 }
 
 private struct TellTimeButtons: View {
-    @Environment(\.calendar) private var calendar
     @Environment(\.randomDate) private var randomDate
-    @EnvironmentObject var store: Store<AppState, AppAction, AppEnvironment>
-    @Binding var isConfigurationShown: Bool
-    @Binding var isAboutShown: Bool
+    let store: Store<AppState, AppAction>
 
     var body: some View {
         HStack {
-            SpeakButton()
+            SpeakButton(store: store)
             Spacer()
             Button(action: changeClockRandomly) {
                 Image(systemName: "shuffle")

@@ -6,13 +6,13 @@ import AVFoundation
 import ComposableArchitecture
 
 struct AppState: Equatable {
-    var date: Date
+    var date: Date = Date()
     var configuration = ConfigurationState()
     var tts = TTSState()
     var speechRecognition = SpeechRecognitionState()
 }
 
-enum AppAction {
+enum AppAction: Equatable {
     case changeDate(Date)
     case configuration(ConfigurationAction)
     case tts(TTSAction)
@@ -20,42 +20,50 @@ enum AppAction {
 }
 
 struct AppEnvironment {
-    let currentDate: () -> Date
-    let tts: TTSEnvironment
-    let speechRecognition: SpeechRecognitionEnvironment
+    var currentDate: () -> Date
+    var randomDate: (Calendar) -> Date
+    var ttsEngine: TTSEngine
+    var calendar: Calendar
+    var tellTime: (Date, Calendar) -> String
+    var speechRecognitionEngine: SpeechRecognitionEngine
+    var recognizeTime: (String, Calendar) -> Date?
 }
 
-func appReducer(
-    state: inout AppState,
-    action: AppAction,
-    environment: AppEnvironment
-) -> AnyPublisher<AppAction, Never>? {
-    switch action {
-    case let .changeDate(date):
-        state.date = date
-    case let .configuration(action):
-        configurationReducer(state: &state.configuration, action: action)
-    case let .tts(action):
-        guard let effect = ttsReducer(state: &state.tts, action: action, environment: environment.tts) else {
-            return nil
+let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
+    configurationReducer.pullback(
+        state: \.configuration,
+        action: /AppAction.configuration,
+        environment: { _ in ConfigurationEnvironment() }
+    ),
+    ttsReducer.pullback(
+        state: \.tts,
+        action: /AppAction.tts,
+        environment: { TTSEnvironment(
+            engine: $0.ttsEngine,
+            calendar: $0.calendar,
+            tellTime: $0.tellTime
+        ) }
+    ),
+    speechRecognitionReducer.pullback(
+        state: \.speechRecognition,
+        action: /AppAction.speechRecognition,
+        environment: { SpeechRecognitionEnvironment(
+            engine: $0.speechRecognitionEngine,
+            recognizeTime: $0.recognizeTime,
+            calendar: $0.calendar
+        ) }
+    ),
+    Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+        switch action {
+        case let .changeDate(date):
+            state.date = date
+            return .none
+        case .configuration: return .none
+        case .tts: return .none
+        case .speechRecognition: return .none
         }
-        return effect
-            .map { AppAction.tts($0) }
-            .eraseToAnyPublisher()
-    case let .speechRecognition(action):
-        guard let effect = speechRecognitionReducer(
-            state: &state.speechRecognition,
-            action: action,
-            environment: environment.speechRecognition
-        )
-        else { return nil }
-
-        return effect
-            .map { AppAction.speechRecognition($0) }
-            .eraseToAnyPublisher()
     }
-    return nil
-}
+)
 
 #if DEBUG
 extension Store where State == AppState, Action == AppAction {
@@ -63,17 +71,22 @@ extension Store where State == AppState, Action == AppAction {
         modifyState: (inout AppState) -> Void = { _ in },
         modifyEnvironment: (inout AppEnvironment) -> Void = { _ in }
     ) -> Self {
-        var state = AppState(date: Date())
+        var state = AppState()
         modifyState(&state)
 
         let calendar = Calendar.autoupdatingCurrent
         var environment = AppEnvironment(
             currentDate: { Date() },
-            tts: TTSEnvironment(engine: MockedTTSEngine(), calendar: calendar, tellTime: { _, _ in "" }),
-            speechRecognition: SpeechRecognitionEnvironment(engine: MockedSpeechRecognitionEngine(), recognizeTime: { _, _ in nil }, calendar: calendar)
+            randomDate: randomDate,
+            ttsEngine: MockedTTSEngine(),
+            calendar: calendar,
+            tellTime: { _, _ in "" },
+            speechRecognitionEngine: MockedSpeechRecognitionEngine(),
+            recognizeTime: { _, _ in nil }
         )
+        modifyEnvironment(&environment)
 
-        return Store(initialState: state, reducer: appReducer, environment: environment)
+        return Self(initialState: state, reducer: appReducer, environment: environment)
     }
 
     static var preview: Self { preview() }

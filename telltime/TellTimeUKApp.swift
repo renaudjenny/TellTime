@@ -13,36 +13,25 @@ struct TellTimeUKApp: SwiftUI.App {
         case setClockStyle(ClockStyle)
         case tellTime
     }
-    
+
     let store: Store<AppState, AppAction> = Store(
         initialState: AppState(date: Date()),
         reducer: appReducer,
         environment: AppEnvironment(
             currentDate: { Date() },
-            tts: TTSEnvironment(
-                engine: Engine(),
-                calendar: Calendar.autoupdatingCurrent,
-                tellTime: {
-                    let time = SwiftPastTen.formattedDate($0, calendar: $1)
-
-                    guard let tellTime = try? SwiftPastTen().tell(time: time)
-                    else { return "" }
-
-                    return tellTime
-                }
-            ),
-            speechRecognition: SpeechRecognitionEnvironment(
-                engine: SpeechRecognitionSpeechEngine(),
-                recognizeTime: SwiftToTen.recognizeTime,
-                calendar: Calendar.autoupdatingCurrent
-            )
+            randomDate: randomDate,
+            ttsEngine: Engine(),
+            calendar: Calendar.autoupdatingCurrent,
+            tellTime: tellTime,
+            speechRecognitionEngine: SpeechRecognitionSpeechEngine(),
+            recognizeTime: SwiftToTen.recognizeTime
         )
     )
 
     var body: some Scene {
         WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
             WindowGroup {
-                MainView()
+                MainView(store: store)
                     .onOpenURL(perform: { url in
                         viewStore.send(.setDateNow)
                         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
