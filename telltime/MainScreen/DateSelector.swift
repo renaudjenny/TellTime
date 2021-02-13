@@ -39,7 +39,7 @@ struct DateSelector: View {
 
 private extension AppState {
     var view: DateSelector.ViewState {
-        return DateSelector.ViewState(
+        DateSelector.ViewState(
             date: date,
             recognizedUtterance: speechRecognition.utterance
         )

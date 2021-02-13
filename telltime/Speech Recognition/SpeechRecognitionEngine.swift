@@ -42,6 +42,9 @@ final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
     }
 
     func startRecording() throws {
+        guard !audioEngine.isRunning
+        else { return stopRecording() }
+
         // Cancel the previous task if it's running.
         recognitionTask?.cancel()
         recognitionTask = nil

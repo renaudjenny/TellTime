@@ -114,7 +114,10 @@ private extension AppState {
     var view: MainView.ViewState {
         MainView.ViewState(
             date: date,
-            time: tellTime ?? NSLocalizedString("Change the time to display something here.", comment: "Placeholder where the TellTime text will appear."),
+            time: tellTime ?? NSLocalizedString(
+                "Change the time to display something here.",
+                comment: "Placeholder where the TellTime text will appear."
+            ),
             recognizedUtterance: speechRecognition.utterance,
             clockStyle: configuration.clockStyle,
             clockConfiguration: configuration.clock,

@@ -18,7 +18,8 @@ enum ConfigurationAction: Equatable {
 
 struct ConfigurationEnvironment { }
 
-let configurationReducer = Reducer<ConfigurationState, ConfigurationAction, ConfigurationEnvironment> { state, action, environment in
+typealias ConfigurationReducer = Reducer<ConfigurationState, ConfigurationAction, ConfigurationEnvironment>
+let configurationReducer = ConfigurationReducer { state, action, _ in
     switch action {
     case let .setMinuteIndicatorsShown(isShown):
         state.clock.isMinuteIndicatorsShown = isShown

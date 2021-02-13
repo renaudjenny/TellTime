@@ -14,7 +14,6 @@ enum SpeechRecognitionAction: Equatable {
     case buttonTapped
     case startRecording
     case stopRecording
-    case subscribeToSpeechRecognitionStatus
     case setStatus(SpeechRecognitionStatus)
     case setUtterance(String?)
     case requestAuthorization
@@ -28,7 +27,8 @@ struct SpeechRecognitionEnvironment {
     var calendar: Calendar
 }
 
-let speechRecognitionReducer = Reducer<SpeechRecognitionState, SpeechRecognitionAction, SpeechRecognitionEnvironment> { state, action, environment in
+typealias SpeechRecognitionReducer = Reducer<SpeechRecognitionState, SpeechRecognitionAction, SpeechRecognitionEnvironment>
+let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environment in
     switch action {
     case .buttonTapped:
         switch state.status {
@@ -42,9 +42,14 @@ let speechRecognitionReducer = Reducer<SpeechRecognitionState, SpeechRecognition
         else { return Effect(value: .requestAuthorization) }
         do {
             try environment.engine.startRecording()
-            return environment.engine.newUtterancePublisher
-                .map { .setUtterance($0) }
-                .eraseToEffect()
+            return Effect.merge(
+                environment.engine.recognitionStatusPublisher
+                    .map { .setStatus($0) }
+                    .eraseToEffect(),
+                environment.engine.newUtterancePublisher
+                    .map { .setUtterance($0) }
+                    .eraseToEffect()
+            )
         } catch {
             print(error)
             // FIXME: Should also notify the button state
@@ -53,10 +58,6 @@ let speechRecognitionReducer = Reducer<SpeechRecognitionState, SpeechRecognition
     case .stopRecording:
         environment.engine.stopRecording()
         return .none
-    case .subscribeToSpeechRecognitionStatus:
-        return environment.engine.recognitionStatusPublisher
-            .map { .setStatus($0) }
-            .eraseToEffect()
     case .setStatus(let status):
         state.status = status
         if status != .recording {

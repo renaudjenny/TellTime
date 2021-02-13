@@ -15,7 +15,7 @@ struct SpeechRecognitionButton: View {
 
     var body: some View {
         WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
-            Button(action: { viewStore.send(.buttonTapped) }) {
+            Button { viewStore.send(.buttonTapped) } label: {
                 image(viewStore: viewStore)
                     .resizable()
                     .accentColor(.white)
