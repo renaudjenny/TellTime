@@ -10,13 +10,18 @@ struct AppState: Equatable {
     var configuration = ConfigurationState()
     var tts = TTSState()
     var speechRecognition = SpeechRecognitionState()
+    var isAboutPresented = false
+    var tellTime: String?
 }
 
 enum AppAction: Equatable {
     case changeDate(Date)
+    case setRandomDate
     case configuration(ConfigurationAction)
     case tts(TTSAction)
     case speechRecognition(SpeechRecognitionAction)
+    case presentAbout
+    case hideAbout
 }
 
 struct AppEnvironment {
@@ -57,7 +62,15 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         switch action {
         case let .changeDate(date):
             state.date = date
+            state.tellTime = environment.tellTime(date, environment.calendar)
             return .none
+        case .setRandomDate:
+            let randomDate = environment.randomDate(environment.calendar)
+            return Effect(value: .changeDate(randomDate))
+        case .presentAbout:
+            state.isAboutPresented = true
+        case .hideAbout:
+            state.isAboutPresented = false
         case .configuration: return .none
         case .tts: return .none
         case .speechRecognition: return .none

@@ -48,6 +48,7 @@
 		4CF452A624E036CE00C34A0F /* SwiftTTSCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 4CF452A524E036CE00C34A0F /* SwiftTTSCombine */; };
 		4CFB1C5C25D5BBC900AA7374 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFB1C5B25D5BBC900AA7374 /* ComposableArchitecture */; };
 		4CFB1C6A25D726BA00AA7374 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB1C6925D726BA00AA7374 /* DateSelector.swift */; };
+		4CFB1C7025D7E0A800AA7374 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB1C6F25D7E0A800AA7374 /* Buttons.swift */; };
 		4CFD817223A42EA000A97C77 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		4CEB6041238ADEAF0085B07C /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		4CEB6049238C82A30085B07C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		4CFB1C6925D726BA00AA7374 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
+		4CFB1C6F25D7E0A800AA7374 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		4CFD817123A42EA000A97C77 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,7 +194,6 @@
 				4C460CA424443D53006D02EA /* RandomDate.swift */,
 				4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */,
 				4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */,
-				4CFB1C6925D726BA00AA7374 /* DateSelector.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -241,6 +242,7 @@
 		4CB1D4BA22A7293300786385 /* telltime */ = {
 			isa = PBXGroup;
 			children = (
+				4CFB1C6E25D7E05700AA7374 /* MainScreen */,
 				4CEB6041238ADEAF0085B07C /* AppCore.swift */,
 				4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */,
 				4CEA2AEA25C7127F0062F5A0 /* Speech Recognition */,
@@ -316,6 +318,15 @@
 				4CE649ED25D0124A006183BB /* SwiftToTen.swift */,
 			);
 			path = "Speech Recognition";
+			sourceTree = "<group>";
+		};
+		4CFB1C6E25D7E05700AA7374 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4CFB1C6925D726BA00AA7374 /* DateSelector.swift */,
+				4CFB1C6F25D7E0A800AA7374 /* Buttons.swift */,
+			);
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,6 +523,7 @@
 				4CEA2AF325C751D10062F5A0 /* SpeechRecognitionEngine.swift in Sources */,
 				4C460CA524443D53006D02EA /* RandomDate.swift in Sources */,
 				4CEB604A238C82A30085B07C /* Configuration.swift in Sources */,
+				4CFB1C7025D7E0A800AA7374 /* Buttons.swift in Sources */,
 				4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */,
 				4CEA2AEC25C712A80062F5A0 /* SpeechRecognitionButton.swift in Sources */,
 				4C43CB9D25CB27D600890D3B /* SpeechRecognition.swift in Sources */,

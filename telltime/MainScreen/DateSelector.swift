@@ -17,7 +17,7 @@ struct DateSelector: View {
         WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
             VStack {
                 HStack {
-                    SpeechRecognitionButton()
+                    SpeechRecognitionButton(store: store)
 
                     DatePicker(
                         selection: viewStore.binding(get: \.date, send: ViewAction.setDate),

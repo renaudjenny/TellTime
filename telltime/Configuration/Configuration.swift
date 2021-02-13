@@ -4,30 +4,39 @@ import ComposableArchitecture
 struct ConfigurationState: Equatable {
     var clock = ClockConfiguration()
     var clockStyle: ClockStyle = .classic
+    var isPresented = false
 }
 
 enum ConfigurationAction: Equatable {
-    case showMinuteIndicators(Bool)
-    case showHourIndicators(Bool)
-    case showLimitedHours(Bool)
-    case changeClockStyle(ClockStyle)
+    case setMinuteIndicatorsShown(Bool)
+    case setHourIndicatorsShown(Bool)
+    case setLimitedHoursShown(Bool)
+    case setClockStyle(ClockStyle)
+    case present
+    case hide
 }
 
 struct ConfigurationEnvironment { }
 
 let configurationReducer = Reducer<ConfigurationState, ConfigurationAction, ConfigurationEnvironment> { state, action, environment in
     switch action {
-    case let .showMinuteIndicators(isShown):
+    case let .setMinuteIndicatorsShown(isShown):
         state.clock.isMinuteIndicatorsShown = isShown
         return .none
-    case let .showHourIndicators(isShown):
+    case let .setHourIndicatorsShown(isShown):
         state.clock.isHourIndicatorsShown = isShown
         return .none
-    case let .showLimitedHours(isShown):
+    case let .setLimitedHoursShown(isShown):
         state.clock.isLimitedHoursShown = isShown
         return .none
-    case let .changeClockStyle(clockStyle):
+    case let .setClockStyle(clockStyle):
         state.clockStyle = clockStyle
+        return .none
+    case .present:
+        state.isPresented = true
+        return .none
+    case .hide:
+        state.isPresented = false
         return .none
     }
 }
