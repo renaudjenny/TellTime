@@ -69,8 +69,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             return Effect(value: .changeDate(randomDate))
         case .presentAbout:
             state.isAboutPresented = true
+            return .none
         case .hideAbout:
             state.isAboutPresented = false
+            return .none
         case .configuration: return .none
         case .tts: return .none
         case .speechRecognition: return .none

@@ -17,6 +17,8 @@ struct MainView: View {
 
     enum ViewAction: Equatable {
         case setDate(Date)
+        case hideAbout
+        case hideConfiguration
     }
 
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
@@ -92,12 +94,16 @@ struct MainView: View {
 
     private func navigationLinks(viewStore: ViewStore<MainView.ViewState, MainView.ViewAction>) -> some View {
         VStack {
-            NavigationLink(destination: ConfigurationView(), isActive: viewStore.configuration.isPresented, label: EmptyView.init)
+            NavigationLink(
+                destination: ConfigurationView(store: store),
+                isActive: viewStore.binding(get: \.isConfigurationPresented, send: ViewAction.hideConfiguration),
+                label: EmptyView.init
+            )
             NavigationLink(
                 destination: AboutView(appId: "id1496541173") {
                     Image(uiImage: #imageLiteral(resourceName: "Logo")).shadow(radius: 5)
                 },
-                isActive: viewStore.isAboutPresented,
+                isActive: viewStore.binding(get: \.isAboutPresented, send: ViewAction.hideAbout),
                 label: EmptyView.init
             )
         }
@@ -122,6 +128,8 @@ private extension AppAction {
     static func view(localAction: MainView.ViewAction) -> Self {
         switch localAction {
         case .setDate(let date): return changeDate(date)
+        case .hideAbout: return hideAbout
+        case .hideConfiguration: return configuration(.hide)
         }
     }
 }

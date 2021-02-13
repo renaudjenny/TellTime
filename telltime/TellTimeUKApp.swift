@@ -8,7 +8,7 @@ import SwiftPastTen
 struct TellTimeUKApp: SwiftUI.App {
     struct ViewState: Equatable { }
 
-    enum ViewAction {
+    enum ViewAction: Equatable {
         case setDateNow
         case setClockStyle(ClockStyle)
         case tellTime
@@ -65,7 +65,7 @@ private extension AppAction {
         switch localAction {
         case .setDateNow: return .changeDate(Date())
         case .tellTime: return .tts(.tellTime(Date()))
-        case .setClockStyle(let clockStyle): return .configuration(.changeClockStyle(clockStyle))
+        case .setClockStyle(let clockStyle): return .configuration(.setClockStyle(clockStyle))
         }
     }
 }
