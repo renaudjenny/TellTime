@@ -32,11 +32,7 @@ enum SwiftToTen {
               let minute = Int(minuteString)
         else { return nil }
 
-        return DateComponents(
-            calendar: calendar,
-            hour: hour,
-            minute: minute
-        )
-        .date
+        let epoch = Date(timeIntervalSince1970: 0)
+        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: epoch)
     }
 }

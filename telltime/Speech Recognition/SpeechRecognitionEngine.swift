@@ -12,7 +12,7 @@ protocol SpeechRecognitionEngine {
     /// Shortcut to access with ease to the published new utterance (already filtered)
     var newUtterancePublisher: AnyPublisher<String, Never> { get }
 
-    func requestAuthorization(completion: @escaping () -> Void)
+    func requestAuthorization()
     func startRecording() throws
     func stopRecording()
 }
@@ -32,11 +32,10 @@ final class SpeechRecognitionSpeechEngine: NSObject, ObservableObject {
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
 
-    func requestAuthorization(completion: @escaping () -> Void) {
+    func requestAuthorization() {
         SFSpeechRecognizer.requestAuthorization { [weak self] authorizationStatus in
             DispatchQueue.main.async { [weak self] in
                 self?.authorizationStatus = authorizationStatus
-                completion()
             }
         }
     }

@@ -49,7 +49,7 @@ private extension AppState {
 private extension AppAction {
     static func view(localAction: DateSelector.ViewAction) -> Self {
         switch localAction {
-        case .setDate(let date): return .changeDate(date)
+        case .setDate(let date): return .setDate(date)
         }
     }
 }

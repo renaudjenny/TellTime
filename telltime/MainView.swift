@@ -7,7 +7,7 @@ import RenaudJennyAboutView
 struct MainView: View {
     struct ViewState: Equatable {
         var date: Date
-        var time: String
+        var time: String?
         var recognizedUtterance: String?
         var clockStyle: ClockStyle
         var clockConfiguration: ClockConfiguration
@@ -86,10 +86,12 @@ struct MainView: View {
     }
 
     private func timeText(viewStore: ViewStore<MainView.ViewState, MainView.ViewAction>) -> some View {
-        Text(viewStore.time)
-            .font(.title2)
-            .foregroundColor(.red)
-            .padding()
+        viewStore.time.map { time in
+            Text(time)
+                .font(.title2)
+                .foregroundColor(.red)
+                .padding()
+        }
     }
 
     private func navigationLinks(viewStore: ViewStore<MainView.ViewState, MainView.ViewAction>) -> some View {
@@ -114,10 +116,7 @@ private extension AppState {
     var view: MainView.ViewState {
         MainView.ViewState(
             date: date,
-            time: tellTime ?? NSLocalizedString(
-                "Change the time to display something here.",
-                comment: "Placeholder where the TellTime text will appear."
-            ),
+            time: tellTime,
             recognizedUtterance: speechRecognition.utterance,
             clockStyle: configuration.clockStyle,
             clockConfiguration: configuration.clock,
@@ -130,7 +129,9 @@ private extension AppState {
 private extension AppAction {
     static func view(localAction: MainView.ViewAction) -> Self {
         switch localAction {
-        case .setDate(let date): return changeDate(date)
+        case .setDate(let date):
+            print(date)
+            return setDate(date)
         case .hideAbout: return hideAbout
         case .hideConfiguration: return configuration(.hide)
         }

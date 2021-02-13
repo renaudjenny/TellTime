@@ -80,7 +80,7 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         return .none
     case .requestAuthorization:
         // TODO: check if we still need the callback here...
-        environment.engine.requestAuthorization { }
+        environment.engine.requestAuthorization()
         return environment.engine.authorizationStatusPublisher
             .map { .setAuthorizationStatus($0 ?? .notDetermined) }
             .eraseToEffect()

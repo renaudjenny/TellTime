@@ -15,7 +15,7 @@ struct AppState: Equatable {
 }
 
 enum AppAction: Equatable {
-    case changeDate(Date)
+    case setDate(Date)
     case setRandomDate
     case configuration(ConfigurationAction)
     case tts(TTSAction)
@@ -60,19 +60,21 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     ),
     Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
         switch action {
-        case let .changeDate(date):
+        case let .setDate(date):
             state.date = date
             state.tellTime = environment.tellTime(date, environment.calendar)
             return .none
         case .setRandomDate:
             let randomDate = environment.randomDate(environment.calendar)
-            return Effect(value: .changeDate(randomDate))
+            return Effect(value: .setDate(randomDate))
         case .presentAbout:
             state.isAboutPresented = true
             return .none
         case .hideAbout:
             state.isAboutPresented = false
             return .none
+        case let .speechRecognition(.setRecognizedDate(date)):
+            return Effect(value: .setDate(date))
         case .configuration: return .none
         case .tts: return .none
         case .speechRecognition: return .none
@@ -125,7 +127,7 @@ private final class MockedSpeechRecognitionEngine: SpeechRecognitionEngine {
     }
     var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
     var newUtterancePublisher: AnyPublisher<String, Never> { Just("").eraseToAnyPublisher() }
-    func requestAuthorization(completion: @escaping () -> Void) { completion() }
+    func requestAuthorization() { }
     func startRecording() throws { }
     func stopRecording() { }
 }
