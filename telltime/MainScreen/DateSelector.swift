@@ -16,8 +16,11 @@ struct DateSelector: View {
     var body: some View {
         WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
             VStack {
-                HStack {
-                    SpeechRecognitionButton(store: store)
+                ZStack {
+                    HStack {
+                        SpeechRecognitionButton(store: store)
+                        Spacer()
+                    }
 
                     DatePicker(
                         selection: viewStore.binding(get: \.date, send: ViewAction.setDate),
@@ -25,9 +28,10 @@ struct DateSelector: View {
                     ) {
                         Text("Select a time")
                     }
-                    .datePickerStyle(GraphicalDatePickerStyle())
                     .labelsHidden()
                     .padding()
+
+                    Spacer()
                 }
                 viewStore.recognizedUtterance.map { recognizedUtterance in
                     Text(recognizedUtterance)
@@ -53,3 +57,19 @@ private extension AppAction {
         }
     }
 }
+
+#if DEBUG
+struct DateSelector_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            DateSelector(store: .preview)
+            VStack {
+                DateSelector(store: .preview)
+                Buttons(store: .preview)
+            }
+            .previewLayout(.iPhoneSe(.landscape))
+        }
+    }
+}
+
+#endif
