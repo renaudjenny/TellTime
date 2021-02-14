@@ -88,25 +88,45 @@ extension Store where State == AppState, Action == AppAction {
         modifyState: (inout AppState) -> Void = { _ in },
         modifyEnvironment: (inout AppEnvironment) -> Void = { _ in }
     ) -> Self {
-        var state = AppState()
-        modifyState(&state)
-
-        let calendar = Calendar.autoupdatingCurrent
-        var environment = AppEnvironment(
-            currentDate: { Date() },
-            randomDate: randomDate,
-            ttsEngine: MockedTTSEngine(),
-            calendar: calendar,
-            tellTime: { _, _ in "" },
-            speechRecognitionEngine: MockedSpeechRecognitionEngine(),
-            recognizeTime: { _, _ in nil }
-        )
-        modifyEnvironment(&environment)
+        let state: AppState = .preview(modifyState: modifyState)
+        let environment: AppEnvironment = .preview(modifyEnvironment: modifyEnvironment)
 
         return Self(initialState: state, reducer: appReducer, environment: environment)
     }
 
     static var preview: Self { preview() }
+}
+
+extension AppState {
+    static func preview(
+        modifyState: (inout AppState) -> Void = { _ in }
+    ) -> Self {
+        var state = AppState()
+        modifyState(&state)
+        return state
+    }
+
+    static var preview: Self { .preview() }
+}
+
+extension AppEnvironment {
+    static func preview(
+        modifyEnvironment: (inout AppEnvironment) -> Void = { _ in }
+    ) -> Self {
+        var environment = AppEnvironment(
+            currentDate: { Date() },
+            randomDate: generateRandomDate,
+            ttsEngine: MockedTTSEngine(),
+            calendar: Calendar.autoupdatingCurrent,
+            tellTime: mockedTellTime,
+            speechRecognitionEngine: MockedSpeechRecognitionEngine(),
+            recognizeTime: { _, _ in nil }
+        )
+        modifyEnvironment(&environment)
+        return environment
+    }
+
+    static var preview: Self { .preview() }
 }
 
 private final class MockedTTSEngine: TTSEngine {

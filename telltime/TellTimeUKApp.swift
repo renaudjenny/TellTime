@@ -19,7 +19,7 @@ struct TellTimeUKApp: SwiftUI.App {
         reducer: appReducer,
         environment: AppEnvironment(
             currentDate: { Date() },
-            randomDate: randomDate,
+            randomDate: generateRandomDate,
             ttsEngine: Engine(),
             calendar: Calendar.autoupdatingCurrent,
             tellTime: tellTime,

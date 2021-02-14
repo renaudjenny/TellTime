@@ -2,17 +2,11 @@ import XCTest
 @testable import Tell_Time_UK
 import SwiftUI
 import Combine
+import ComposableArchitecture
 import SwiftTTSCombine
 import AVFoundation
 
 class TTSTests: XCTestCase {
-    func testDefaultTTSValues() {
-        let store = testStore
-        XCTAssertEqual(store.state.tts.isSpeaking, false)
-        XCTAssertEqual(store.state.tts.speakingProgress, 0)
-        XCTAssertEqual(store.state.tts.rateRatio, 1)
-    }
-
     func testWhenIChangeTheTTSRateRatioTheRateRatioOfEngineIsChanged() {
         let newRateRatio: Float = 0.75
         let engineSetRateRatioExpectation = self.expectation(description: "Engine ratio is set")
@@ -22,11 +16,21 @@ class TTSTests: XCTestCase {
                 engineSetRateRatioExpectation.fulfill()
             }
         )
-        let store = testStore(environment: .test(ttsEngine: engine))
+        let store = TestStore(
+            initialState: AppState(),
+            reducer: appReducer,
+            environment: .test {
+                $0.ttsEngine = engine
+            }
+        )
 
-        XCTAssertEqual(store.state.tts.rateRatio, 1)
-        store.send(.tts(.changeRateRatio(newRateRatio)))
-        XCTAssertEqual(newRateRatio, store.state.tts.rateRatio)
+
+        store.assert(
+            .send(.tts(.changeRateRatio(newRateRatio))) {
+                $0.tts.rateRatio = newRateRatio
+            }
+        )
+        XCTAssertEqual(engine.rateRatio, newRateRatio)
         self.wait(for: [engineSetRateRatioExpectation], timeout: 0.1)
     }
 
@@ -41,10 +45,16 @@ class TTSTests: XCTestCase {
                     speechExpectation.fulfill()
                 }
             )
-            let store = testStore(environment: .test(ttsEngine: engine))
+            let store = TestStore(
+                initialState: AppState(),
+                reducer: appReducer,
+                environment: .test {
+                    $0.ttsEngine = engine
+                }
+            )
 
             when("I trigger the action to tell the time") {
-                store.send(.tts(.tellTime(date)))
+                store.assert(.send(.tts(.tellTime(date))))
 
                 then("The TTS Speech function is called with the current date") {
                     self.wait(for: [speechExpectation], timeout: 0.1)
@@ -53,66 +63,47 @@ class TTSTests: XCTestCase {
         }
     }
 
-    func testTTSStartSpeaking() {
-        given("TTS is not currently speaking because I just started the application") {
-            let store = testStore
-            XCTAssertEqual(false, store.state.tts.isSpeaking)
+    func testTTSStartAndStopSpeaking() {
+        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
 
-            when("I trigger the action for speaking") {
-                store.send(.tts(.startSpeaking))
-
-                then("the the TTS state is speaking") {
-                    XCTAssertEqual(true, store.state.tts.isSpeaking)
-                }
+        store.assert(
+            .send(.tts(.startSpeaking)) {
+                $0.tts.isSpeaking = true
+            },
+            .send(.tts(.stopSpeaking)) {
+                $0.tts.isSpeaking = false
             }
-        }
-    }
-
-    func testTTSStopSpeaking() {
-        given("TTS is currently speaking") {
-            let store = testStore
-            store.send(.tts(.startSpeaking))
-            XCTAssertEqual(true, store.state.tts.isSpeaking)
-
-            when("the utterance ends, an action is triggered") {
-                store.send(.tts(.stopSpeaking))
-
-                then("the the TTS state is not speaking") {
-                    XCTAssertEqual(false, store.state.tts.isSpeaking)
-                }
-            }
-        }
+        )
     }
 
     func testTTSSpeakingProgress() {
-        given("TTS start speaking") {
-            let store = testStore
-            XCTAssertEqual(0, store.state.tts.speakingProgress)
+        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
 
-            when("the utterance progress, 50% for instance") {
-                let progress: Double = 50/100
-                store.send(.tts(.changeSpeakingProgress(progress)))
-
-                then("the the TTS state is not speaking") {
-                    XCTAssertEqual(progress, store.state.tts.speakingProgress)
-                }
+        store.assert(
+            .send(.tts(.changeSpeakingProgress(50/100))) {
+                $0.tts.speakingProgress = 50/100
             }
-        }
+        )
     }
 
-    func testSubscribeToEngineIsSpeaking() {
-        given("the subscription to TTS engine is speaking event is made") {
-            let engine = MockedTTSEngine(
-                isSpeakingPublisher: Just(true).eraseToAnyPublisher()
-            )
-            let store = testStore(environment: .test(ttsEngine: engine))
-            XCTAssertEqual(false, store.state.tts.isSpeaking)
+    func testIsSpeakingUpdateFromEngineWhenStartSpeaking() {
+        let engine = MockedTTSEngine(
+            isSpeakingPublisher: Just(true).eraseToAnyPublisher()
+        )
+        let store = TestStore(
+            initialState: AppState(),
+            reducer: appReducer,
+            environment: .test {
+                $0.ttsEngine = engine
+            }
+        )
 
-            store.send(.tts(.subscribeToEngineIsSpeaking))
+        let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
 
-            when("the TTS engine start speaking") {
-                let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
-                let isSpeakingPublisher = engine.isSpeakingPublisher
+        store.assert(
+            .send(.tts(.tellTime(Date()))),
+            .environment { environment in
+                _ = environment.ttsEngine.isSpeakingPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
@@ -120,33 +111,36 @@ class TTSTests: XCTestCase {
                             case .finished: publisherExpectation.fulfill()
                             case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
-                    },
+                        },
                         receiveValue: { XCTAssertEqual(true, $0) }
-                )
-                XCTAssertNotNil(isSpeakingPublisher)
-
-                then("the start speaking action is triggered") {
-                    self.wait(for: [publisherExpectation], timeout: 0.1)
-                    XCTAssertEqual(true, store.state.tts.isSpeaking)
-                }
+                    )
+            },
+            .receive(.tts(.startSpeaking)) {
+                $0.tts.isSpeaking = true
             }
-        }
+        )
     }
 
-    func testSubscribeToEngineIsSpeakingAndItsNotSpeaking() {
-        given("the subscription to TTS engine is speaking event is made") {
-            let engine = MockedTTSEngine(
-                isSpeakingPublisher: Just(false).eraseToAnyPublisher()
-            )
-            let store = testStore(environment: .test(ttsEngine: engine))
-            store.send(.tts(.startSpeaking))
-            XCTAssertEqual(true, store.state.tts.isSpeaking)
+    func testIsSpeakingUpdateFromEngineWhenStopSpeaking() {
+        let engine = MockedTTSEngine(
+            isSpeakingPublisher: Just(false).eraseToAnyPublisher()
+        )
+        let store = TestStore(
+            initialState: AppState.preview {
+                $0.tts.isSpeaking = true
+            },
+            reducer: appReducer,
+            environment: .test {
+                $0.ttsEngine = engine
+            }
+        )
 
-            store.send(.tts(.subscribeToEngineIsSpeaking))
+        let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
 
-            when("the TTS engine stop speaking") {
-                let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
-                let isSpeakingPublisher = engine.isSpeakingPublisher
+        store.assert(
+            .send(.tts(.tellTime(Date()))),
+            .environment { environment in
+                _ = environment.ttsEngine.isSpeakingPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
@@ -154,31 +148,38 @@ class TTSTests: XCTestCase {
                             case .finished: publisherExpectation.fulfill()
                             case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
-                    },
+                        },
                         receiveValue: { XCTAssertEqual(false, $0) }
-                )
-                XCTAssertNotNil(isSpeakingPublisher)
-
-                then("the start speaking action is triggered") {
-                    self.wait(for: [publisherExpectation], timeout: 0.1)
-                    XCTAssertEqual(false, store.state.tts.isSpeaking)
-                }
+                    )
+            },
+            .receive(.tts(.stopSpeaking)) {
+                $0.tts.isSpeaking = true
             }
-        }
+        )
     }
 
-    func testSubscribeToEngineSpeakingProgress() {
-        given("the subscription to TTS engine speaking progress event is made") {
+    func testSpeakingProgressUpdateFromEngine() {
             let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
-            let store = testStore(environment: .test(ttsEngine: engine))
-            XCTAssertEqual(0, store.state.tts.speakingProgress)
+            let store = TestStore(
+                initialState: AppState.preview {
+                    $0.tts.isSpeaking = true
+                },
+                reducer: appReducer,
+                environment: .test {
+                    $0.ttsEngine = engine
+                }
+            )
 
             engine.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
-            store.send(.tts(.subscribeToEngineSpeakingProgress))
 
-            when("the TTS engine speaking is progressing (1/4)") {
-                let publisherExpectation = self.expectation(description: "speakingProgressPublisher completion")
-                let isSpeakingPublisher = engine.speakingProgressPublisher
+        let publisherExpectation = self.expectation(description: "speakingProgressPublisher completion")
+
+        store.assert(
+            .send(.tts(.startSpeaking)) {
+                $0.tts.isSpeaking = true
+            },
+            .environment { environment in
+                _ = engine.speakingProgressPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
@@ -186,30 +187,18 @@ class TTSTests: XCTestCase {
                             case .finished: publisherExpectation.fulfill()
                             case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
-                    },
+                        },
                         receiveValue: { XCTAssertEqual(1/4, $0) }
-                )
-                XCTAssertNotNil(isSpeakingPublisher)
+                    )
+            },
+            .receive(.tts(.changeSpeakingProgress(1/4))) {
+                $0.tts.speakingProgress = 1/4
+            },
+            .environment { environment in
+                // TODO: IMO we should reproduce this schema for the other ones
+                environment.ttsEngine = MockedTTSEngine(speakingProgressPublisher: Just(4/4).eraseToAnyPublisher())
 
-                then("the speaking progress action is triggered with 1/4") {
-                    self.wait(for: [publisherExpectation], timeout: 0.1)
-                    XCTAssertEqual(1/4, store.state.tts.speakingProgress)
-                }
-            }
-        }
-
-        given("the subscription to TTS engine speaking progress event is made") {
-            let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
-            let store = testStore(environment: .test(ttsEngine: engine))
-
-            engine.speakingProgressPublisher = Just(3/4).eraseToAnyPublisher()
-            store.send(.tts(.subscribeToEngineSpeakingProgress))
-
-            when("the TTS engine speaking is progressing (3/4)") {
-                let publisherExpectation = self.expectation(
-                    description: "speakingProgressPublisher completion"
-                )
-                let isSpeakingPublisher = engine.speakingProgressPublisher
+                _ = engine.speakingProgressPublisher
                     .receive(on: DispatchQueue.main)
                     .sink(
                         receiveCompletion: {
@@ -217,17 +206,14 @@ class TTSTests: XCTestCase {
                             case .finished: publisherExpectation.fulfill()
                             case .failure: XCTFail("isSpeakingPublisher completion has failed")
                             }
-                    },
+                        },
                         receiveValue: { XCTAssertEqual(3/4, $0) }
-                )
-                XCTAssertNotNil(isSpeakingPublisher)
-
-                then("the speaking progress action is triggered with 3/4") {
-                    self.wait(for: [publisherExpectation], timeout: 0.1)
-                    XCTAssertEqual(3/4, store.state.tts.speakingProgress)
-                }
+                    )
+            },
+            .receive(.tts(.changeSpeakingProgress(3/4))) {
+                $0.tts.speakingProgress = 3/4
             }
-        }
+        )
     }
 }
 
@@ -262,19 +248,5 @@ extension TTSTests {
         func speak(string: String) {
             speakCall?(string)
         }
-    }
-}
-
-extension AppEnvironment {
-    static func test(ttsEngine: TTSEngine) -> Self {
-        .init(
-            currentDate: { Date() },
-            tts: TTSEnvironment(
-                engine: ttsEngine,
-                calendar: .test,
-                tellTime: { date, _ in date.description  }
-            ),
-            speechRecognition: .fake
-        )
     }
 }
