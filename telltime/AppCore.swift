@@ -20,6 +20,7 @@ enum AppAction: Equatable {
     case configuration(ConfigurationAction)
     case tts(TTSAction)
     case speechRecognition(SpeechRecognitionAction)
+    case appStarted
     case presentAbout
     case hideAbout
 }
@@ -32,6 +33,7 @@ struct AppEnvironment {
     var tellTime: (Date, Calendar) -> String
     var speechRecognitionEngine: SpeechRecognitionEngine
     var recognizeTime: (String, Calendar) -> Date?
+    var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
@@ -46,7 +48,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         environment: { TTSEnvironment(
             engine: $0.ttsEngine,
             calendar: $0.calendar,
-            tellTime: $0.tellTime
+            tellTime: $0.tellTime,
+            mainQueue: $0.mainQueue
         ) }
     ),
     speechRecognitionReducer.pullback(
@@ -67,6 +70,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .setRandomDate:
             let randomDate = environment.randomDate(environment.calendar)
             return Effect(value: .setDate(randomDate))
+        case .appStarted:
+            if state.tellTime == nil {
+                return Effect(value: .setDate(state.date))
+            }
+            return .none
         case .presentAbout:
             state.isAboutPresented = true
             return .none
@@ -120,7 +128,8 @@ extension AppEnvironment {
             calendar: Calendar.autoupdatingCurrent,
             tellTime: mockedTellTime,
             speechRecognitionEngine: MockedSpeechRecognitionEngine(),
-            recognizeTime: { _, _ in nil }
+            recognizeTime: { _, _ in nil },
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
         modifyEnvironment(&environment)
         return environment

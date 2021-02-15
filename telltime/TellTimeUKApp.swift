@@ -24,7 +24,8 @@ struct TellTimeUKApp: SwiftUI.App {
             calendar: Calendar.autoupdatingCurrent,
             tellTime: tellTime,
             speechRecognitionEngine: SpeechRecognitionSpeechEngine(),
-            recognizeTime: SwiftToTen.recognizeTime
+            recognizeTime: SwiftToTen.recognizeTime,
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
     )
 

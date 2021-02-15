@@ -13,33 +13,36 @@ struct SpeakButton: View {
     }
 
     let store: Store<AppState, AppAction>
+    @ObservedObject private var viewStore: ViewStore<ViewState, ViewAction>
+
+    init(store: Store<AppState, AppAction>) {
+        self.store = store
+        _viewStore = ObservedObject(
+            initialValue: ViewStore(store.scope(state: { $0.view }, action: AppAction.view))
+        )
+    }
 
     var body: some View {
-        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
-            ZStack {
-                GeometryReader { geometry in
-                    Rectangle()
-                        .fill(Color.gray)
-                        .cornerRadius(8)
-                    Rectangle()
-                        .size(
-                            width: geometry.size.width * viewStore.widthProgressRatio,
-                            height: geometry.size.height
-                        )
-                        .fill(Color.red)
-                        .cornerRadius(8)
-                        .animation(.easeInOut, value: viewStore.widthProgressRatio)
-                }
-                Button { viewStore.send(.tellTime(viewStore.date)) } label: {
-                    Image(systemName: "speaker.2")
-                        .padding()
-                        .accentColor(.white)
-                        .cornerRadius(8)
-                }
-                .disabled(viewStore.isSpeaking)
-                .layoutPriority(1)
-            }
+        Button { viewStore.send(.tellTime(viewStore.date)) } label: {
+            Image(systemName: "speaker.2")
+                .padding()
+                .accentColor(.white)
+                .cornerRadius(8)
         }
+        .disabled(viewStore.isSpeaking)
+        .background(GeometryReader { geometry in
+            Rectangle()
+                .fill(Color.gray)
+                .cornerRadius(8)
+            Rectangle()
+                .size(
+                    width: geometry.size.width * viewStore.widthProgressRatio,
+                    height: geometry.size.height
+                )
+                .fill(Color.red)
+                .cornerRadius(8)
+                .animation(.easeInOut, value: viewStore.widthProgressRatio)
+        })
     }
 }
 

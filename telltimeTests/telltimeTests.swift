@@ -16,7 +16,14 @@ class TelltimeTests: XCTestCase {
     func testWhenIChangedTheDateThenICanReadLiteralTimeFromIt() {
         let fakeCurrentDate = Date(timeIntervalSince1970: 4360)
 
-        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
+        let store = TestStore(
+            initialState: AppState(),
+            reducer: appReducer,
+            environment: .test {
+                $0.tellTime = tellTime
+                $0.calendar = .test
+            }
+        )
         store.assert(
             .send(.setDate(fakeCurrentDate)) {
                 $0.date = fakeCurrentDate

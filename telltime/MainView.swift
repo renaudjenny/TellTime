@@ -19,6 +19,7 @@ struct MainView: View {
         case setDate(Date)
         case hideAbout
         case hideConfiguration
+        case appStarted
     }
 
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
@@ -34,6 +35,7 @@ struct MainView: View {
                     .padding()
             }
             .navigationViewStyle(StackNavigationViewStyle())
+            .onAppear { viewStore.send(.appStarted) }
         }
     }
 
@@ -134,6 +136,7 @@ private extension AppAction {
             return setDate(date)
         case .hideAbout: return hideAbout
         case .hideConfiguration: return configuration(.hide)
+        case .appStarted: return .appStarted
         }
     }
 }

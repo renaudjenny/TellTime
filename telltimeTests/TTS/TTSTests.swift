@@ -7,6 +7,8 @@ import SwiftTTSCombine
 import AVFoundation
 
 class TTSTests: XCTestCase {
+    let scheduler = DispatchQueue.testScheduler
+
     func testWhenIChangeTheTTSRateRatioTheRateRatioOfEngineIsChanged() {
         let newRateRatio: Float = 0.75
         let engineSetRateRatioExpectation = self.expectation(description: "Engine ratio is set")
@@ -24,196 +26,70 @@ class TTSTests: XCTestCase {
             }
         )
 
-
         store.assert(
             .send(.tts(.changeRateRatio(newRateRatio))) {
                 $0.tts.rateRatio = newRateRatio
             }
         )
-        XCTAssertEqual(engine.rateRatio, newRateRatio)
         self.wait(for: [engineSetRateRatioExpectation], timeout: 0.1)
     }
 
     func testTTSTellTime() {
-        given("it's 10 o clock") {
-            let tenHourInSecond: TimeInterval = 10 * 60 * 60
-            let date = Date(timeIntervalSince1970: tenHourInSecond)
-            let speechExpectation = self.expectation(description: "TTS Speech has been called")
-            let engine = MockedTTSEngine(
-                speakCall: { spokenString in
-                    XCTAssertEqual(spokenString, date.description)
-                    speechExpectation.fulfill()
-                }
-            )
-            let store = TestStore(
-                initialState: AppState(),
-                reducer: appReducer,
-                environment: .test {
-                    $0.ttsEngine = engine
-                }
-            )
-
-            when("I trigger the action to tell the time") {
-                store.assert(.send(.tts(.tellTime(date))))
-
-                then("The TTS Speech function is called with the current date") {
-                    self.wait(for: [speechExpectation], timeout: 0.1)
-                }
-            }
-        }
-    }
-
-    func testTTSStartAndStopSpeaking() {
-        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
-
-        store.assert(
-            .send(.tts(.startSpeaking)) {
-                $0.tts.isSpeaking = true
-            },
-            .send(.tts(.stopSpeaking)) {
-                $0.tts.isSpeaking = false
-            }
-        )
-    }
-
-    func testTTSSpeakingProgress() {
-        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
-
-        store.assert(
-            .send(.tts(.changeSpeakingProgress(50/100))) {
-                $0.tts.speakingProgress = 50/100
-            }
-        )
-    }
-
-    func testIsSpeakingUpdateFromEngineWhenStartSpeaking() {
-        let engine = MockedTTSEngine(
-            isSpeakingPublisher: Just(true).eraseToAnyPublisher()
-        )
+        let tenHourInSecond: TimeInterval = 10 * 60 * 60
+        let date = Date(timeIntervalSince1970: tenHourInSecond)
+        let speechExpectation = self.expectation(description: "TTS Speech has been called")
+        let isSpeakingPublisher = PassthroughSubject<Bool, Never>()
+        let speakingProgressPublisher = PassthroughSubject<Double, Never>()
         let store = TestStore(
             initialState: AppState(),
             reducer: appReducer,
             environment: .test {
-                $0.ttsEngine = engine
+                $0.mainQueue = self.scheduler.eraseToAnyScheduler()
+                $0.ttsEngine = MockedTTSEngine(
+                    speakCall: { spokenString in
+                        XCTAssertEqual(spokenString, date.description)
+                        speechExpectation.fulfill()
+                    },
+                    isSpeakingPublisher: isSpeakingPublisher.eraseToAnyPublisher(),
+                    speakingProgressPublisher: speakingProgressPublisher.eraseToAnyPublisher()
+                )
+                $0.tellTime = { date, _ in date.description }
             }
         )
 
-        let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
-
         store.assert(
-            .send(.tts(.tellTime(Date()))),
-            .environment { environment in
-                _ = environment.ttsEngine.isSpeakingPublisher
-                    .receive(on: DispatchQueue.main)
-                    .sink(
-                        receiveCompletion: {
-                            switch $0 {
-                            case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
-                            }
-                        },
-                        receiveValue: { XCTAssertEqual(true, $0) }
-                    )
+            .send(.tts(.tellTime(date))),
+            .do {
+                isSpeakingPublisher.send(true)
+                self.scheduler.advance()
             },
             .receive(.tts(.startSpeaking)) {
                 $0.tts.isSpeaking = true
-            }
-        )
-    }
-
-    func testIsSpeakingUpdateFromEngineWhenStopSpeaking() {
-        let engine = MockedTTSEngine(
-            isSpeakingPublisher: Just(false).eraseToAnyPublisher()
-        )
-        let store = TestStore(
-            initialState: AppState.preview {
-                $0.tts.isSpeaking = true
             },
-            reducer: appReducer,
-            environment: .test {
-                $0.ttsEngine = engine
-            }
-        )
-
-        let publisherExpectation = self.expectation(description: "isSpeakingPublisher completion")
-
-        store.assert(
-            .send(.tts(.tellTime(Date()))),
-            .environment { environment in
-                _ = environment.ttsEngine.isSpeakingPublisher
-                    .receive(on: DispatchQueue.main)
-                    .sink(
-                        receiveCompletion: {
-                            switch $0 {
-                            case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
-                            }
-                        },
-                        receiveValue: { XCTAssertEqual(false, $0) }
-                    )
-            },
-            .receive(.tts(.stopSpeaking)) {
-                $0.tts.isSpeaking = true
-            }
-        )
-    }
-
-    func testSpeakingProgressUpdateFromEngine() {
-            let engine = MockedTTSEngine(speakingProgressPublisher: Just(0).eraseToAnyPublisher())
-            let store = TestStore(
-                initialState: AppState.preview {
-                    $0.tts.isSpeaking = true
-                },
-                reducer: appReducer,
-                environment: .test {
-                    $0.ttsEngine = engine
-                }
-            )
-
-            engine.speakingProgressPublisher = Just(1/4).eraseToAnyPublisher()
-
-        let publisherExpectation = self.expectation(description: "speakingProgressPublisher completion")
-
-        store.assert(
-            .send(.tts(.startSpeaking)) {
-                $0.tts.isSpeaking = true
-            },
-            .environment { environment in
-                _ = engine.speakingProgressPublisher
-                    .receive(on: DispatchQueue.main)
-                    .sink(
-                        receiveCompletion: {
-                            switch $0 {
-                            case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
-                            }
-                        },
-                        receiveValue: { XCTAssertEqual(1/4, $0) }
-                    )
+            .do {
+                speakingProgressPublisher.send(1/4)
+                self.scheduler.advance()
             },
             .receive(.tts(.changeSpeakingProgress(1/4))) {
                 $0.tts.speakingProgress = 1/4
             },
-            .environment { environment in
-                // TODO: IMO we should reproduce this schema for the other ones
-                environment.ttsEngine = MockedTTSEngine(speakingProgressPublisher: Just(4/4).eraseToAnyPublisher())
-
-                _ = engine.speakingProgressPublisher
-                    .receive(on: DispatchQueue.main)
-                    .sink(
-                        receiveCompletion: {
-                            switch $0 {
-                            case .finished: publisherExpectation.fulfill()
-                            case .failure: XCTFail("isSpeakingPublisher completion has failed")
-                            }
-                        },
-                        receiveValue: { XCTAssertEqual(3/4, $0) }
-                    )
+            .do {
+                speakingProgressPublisher.send(3/4)
+                self.scheduler.advance()
             },
             .receive(.tts(.changeSpeakingProgress(3/4))) {
                 $0.tts.speakingProgress = 3/4
+            },
+            .do {
+                isSpeakingPublisher.send(false)
+                self.scheduler.advance()
+            },
+            .receive(.tts(.stopSpeaking)) {
+                $0.tts.isSpeaking = false
             }
         )
+
+        self.wait(for: [speechExpectation], timeout: 0.1)
     }
 }
 
