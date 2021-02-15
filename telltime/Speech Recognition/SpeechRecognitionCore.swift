@@ -28,7 +28,11 @@ struct SpeechRecognitionEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
-typealias SpeechRecognitionReducer = Reducer<SpeechRecognitionState, SpeechRecognitionAction, SpeechRecognitionEnvironment>
+typealias SpeechRecognitionReducer = Reducer<
+    SpeechRecognitionState,
+    SpeechRecognitionAction,
+    SpeechRecognitionEnvironment
+>
 let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environment in
     struct RecognitionStatusId: Hashable { }
     struct NewUtteranceId: Hashable { }
@@ -60,9 +64,7 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
                     .cancellable(id: NewUtteranceId())
             )
         } catch {
-            print(error)
-            // FIXME: Should also notify the button state
-            return .none
+            return Effect(value: .stopRecording)
         }
     case .stopRecording:
         environment.engine.stopRecording()

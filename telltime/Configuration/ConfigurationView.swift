@@ -89,8 +89,11 @@ struct ConfigurationView: View {
         VStack {
             HStack {
                 Text("Speech rate: \(viewStore.speechRateRatioPercentage)%")
-                Slider(value: viewStore.binding(get: \.speechRateRatio, send: ViewAction.setSpeechRateRatio), in: 0.5...1.0)
-                    .accentColor(.red)
+                Slider(
+                    value: viewStore.binding(get: \.speechRateRatio, send: ViewAction.setSpeechRateRatio),
+                    in: 0.5...1.0
+                )
+                .accentColor(.red)
             }
             Toggle(isOn: viewStore.binding(get: \.isMinuteIndicatorsShown, send: ViewAction.setMinuteIndicatorsShown)) {
                 Text("Minute indicators")
