@@ -25,10 +25,15 @@ struct SpeechRecognitionEnvironment {
     var engine: SpeechRecognitionEngine
     var recognizeTime: (String, Calendar) -> Date?
     var calendar: Calendar
+    var mainQueue: AnySchedulerOf<DispatchQueue>
 }
 
 typealias SpeechRecognitionReducer = Reducer<SpeechRecognitionState, SpeechRecognitionAction, SpeechRecognitionEnvironment>
 let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environment in
+    struct RecognitionStatusId: Hashable { }
+    struct NewUtteranceId: Hashable { }
+    struct AuthorizationStatusId: Hashable { }
+
     switch action {
     case .buttonTapped:
         switch state.status {
@@ -44,11 +49,15 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
             try environment.engine.startRecording()
             return Effect.merge(
                 environment.engine.recognitionStatusPublisher
+                    .receive(on: environment.mainQueue)
                     .map { .setStatus($0) }
-                    .eraseToEffect(),
+                    .eraseToEffect()
+                    .cancellable(id: RecognitionStatusId()),
                 environment.engine.newUtterancePublisher
+                    .receive(on: environment.mainQueue)
                     .map { .setUtterance($0) }
                     .eraseToEffect()
+                    .cancellable(id: NewUtteranceId())
             )
         } catch {
             print(error)
@@ -60,9 +69,18 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         return .none
     case .setStatus(let status):
         state.status = status
-        if status != .recording {
+        switch status {
+        case .recording:
             state.utterance = nil
             state.recognizedTime = nil
+        case .stopped:
+            state.utterance = nil
+            state.recognizedTime = nil
+            return .merge(
+                .cancel(id: NewUtteranceId()),
+                .cancel(id: RecognitionStatusId())
+            )
+        default: break
         }
         return .none
     case .setUtterance(let utterance):
@@ -74,19 +92,31 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         return .none
     case .setAuthorizationStatus(let authorizationStatus):
         state.authorizationStatus = authorizationStatus
-        if authorizationStatus == .authorized {
-            return Effect(value: .startRecording)
+        switch authorizationStatus {
+        case .authorized:
+            return .merge(
+                Effect(value: .startRecording),
+                .cancel(id: AuthorizationStatusId())
+            )
+        case .notDetermined:
+            return .merge(
+                Effect(value: .requestAuthorization),
+                .cancel(id: AuthorizationStatusId())
+            )
+        default: break
         }
-        return .none
+        return .cancel(id: AuthorizationStatusId())
     case .requestAuthorization:
-        // TODO: check if we still need the callback here...
         environment.engine.requestAuthorization()
         return environment.engine.authorizationStatusPublisher
+            .receive(on: environment.mainQueue)
             .map { .setAuthorizationStatus($0 ?? .notDetermined) }
             .eraseToEffect()
+            .cancellable(id: AuthorizationStatusId())
     case .setRecognizedDate(let date):
         state.recognizedTime = date
         return Effect(value: .stopRecording)
+            .receive(on: environment.mainQueue)
             .delay(for: .seconds(2), scheduler: DispatchQueue.main)
             .eraseToEffect()
     }

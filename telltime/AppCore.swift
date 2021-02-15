@@ -58,7 +58,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         environment: { SpeechRecognitionEnvironment(
             engine: $0.speechRecognitionEngine,
             recognizeTime: $0.recognizeTime,
-            calendar: $0.calendar
+            calendar: $0.calendar,
+            mainQueue: $0.mainQueue
         ) }
     ),
     Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
