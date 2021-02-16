@@ -119,7 +119,7 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         state.recognizedTime = date
         return Effect(value: .stopRecording)
             .receive(on: environment.mainQueue)
-            .delay(for: .seconds(2), scheduler: DispatchQueue.main)
+            .delay(for: .seconds(2), scheduler: environment.mainQueue)
             .eraseToEffect()
     }
 }
