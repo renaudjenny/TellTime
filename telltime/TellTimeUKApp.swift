@@ -3,6 +3,7 @@ import ComposableArchitecture
 import SwiftTTSCombine
 import SwiftClockUI
 import SwiftPastTen
+import SwiftToTen
 
 @main
 struct TellTimeUKApp: SwiftUI.App {

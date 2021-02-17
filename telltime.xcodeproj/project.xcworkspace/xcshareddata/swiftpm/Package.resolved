@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "SwiftToTen",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftToTen",
+        "state": {
+          "branch": null,
+          "revision": "866e5ee213a70c12ea79af1fe827b476061d76c2",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "SwiftTTSCombine",
         "repositoryURL": "https://github.com/renaudjenny/SwiftTTSCombine",
         "state": {
