@@ -41,12 +41,3 @@ let configurationReducer = ConfigurationReducer { state, action, _ in
         return .none
     }
 }
-
-// TODO: should be done in the library directly
-extension ClockConfiguration: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.isLimitedHoursShown == rhs.isLimitedHoursShown
-        && lhs.isMinuteIndicatorsShown == rhs.isMinuteIndicatorsShown
-        && lhs.isHourIndicatorsShown == rhs.isHourIndicatorsShown
-    }
-}
