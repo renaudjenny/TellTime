@@ -2,6 +2,7 @@ import SwiftUI
 import ComposableArchitecture
 import Combine
 import Speech
+import SwiftSpeechCombine
 
 struct SpeechRecognitionState: Equatable {
     var status: SpeechRecognitionStatus = .notStarted

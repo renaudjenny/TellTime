@@ -4,6 +4,7 @@ import SwiftUI
 import Combine
 import ComposableArchitecture
 import SwiftTTSCombine
+import SwiftSpeechCombine
 import Speech
 
 class SpeechRecognitionCoreTests: XCTestCase {

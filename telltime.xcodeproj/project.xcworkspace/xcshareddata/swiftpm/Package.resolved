@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "SwiftSpeechCombine",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftSpeechCombine",
+        "state": {
+          "branch": null,
+          "revision": "2254845633f6f3bbf0a5bce58221c6f89e1651e1",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "SwiftToTen",
         "repositoryURL": "https://github.com/renaudjenny/SwiftToTen",
         "state": {

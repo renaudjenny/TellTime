@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import SwiftTTSCombine
+import SwiftSpeechCombine
 import Speech
 import AVFoundation
 import ComposableArchitecture
