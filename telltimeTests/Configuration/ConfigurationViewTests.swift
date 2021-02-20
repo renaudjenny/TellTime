@@ -13,6 +13,12 @@ class ConfigurationViewTests: XCTestCase {
     func testConfigurationViewsInLandscape() {
         let configurationViews = ConfigurationViewLandscape_Previews.previews
             .environment(\.clockIsAnimationEnabled, false)
-        assertSnapshot(matching: configurationViews, as: .image(precision: 95/100, layout: .device(config: .iPhoneSe(.landscape))))
+        assertSnapshot(
+            matching: configurationViews,
+            as: .image(
+                precision: 95/100,
+                layout: .device(config: .iPhoneSe(.landscape))
+            )
+        )
     }
 }

@@ -1,26 +1,43 @@
 import SwiftClockUI
+import ComposableArchitecture
 
-struct ConfigurationState {
+struct ConfigurationState: Equatable {
     var clock = ClockConfiguration()
     var clockStyle: ClockStyle = .classic
+    var isPresented = false
 }
 
-enum ConfigurationAction {
-    case showMinuteIndicators(Bool)
-    case showHourIndicators(Bool)
-    case showLimitedHours(Bool)
-    case changeClockStyle(ClockStyle)
+enum ConfigurationAction: Equatable {
+    case setMinuteIndicatorsShown(Bool)
+    case setHourIndicatorsShown(Bool)
+    case setLimitedHoursShown(Bool)
+    case setClockStyle(ClockStyle)
+    case present
+    case hide
 }
 
-func configurationReducer(state: inout ConfigurationState, action: ConfigurationAction) {
+struct ConfigurationEnvironment { }
+
+typealias ConfigurationReducer = Reducer<ConfigurationState, ConfigurationAction, ConfigurationEnvironment>
+let configurationReducer = ConfigurationReducer { state, action, _ in
     switch action {
-    case let .showMinuteIndicators(isShown):
+    case let .setMinuteIndicatorsShown(isShown):
         state.clock.isMinuteIndicatorsShown = isShown
-    case let .showHourIndicators(isShown):
+        return .none
+    case let .setHourIndicatorsShown(isShown):
         state.clock.isHourIndicatorsShown = isShown
-    case let .showLimitedHours(isShown):
+        return .none
+    case let .setLimitedHoursShown(isShown):
         state.clock.isLimitedHoursShown = isShown
-    case let .changeClockStyle(clockStyle):
+        return .none
+    case let .setClockStyle(clockStyle):
         state.clockStyle = clockStyle
+        return .none
+    case .present:
+        state.isPresented = true
+        return .none
+    case .hide:
+        state.isPresented = false
+        return .none
     }
 }

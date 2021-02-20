@@ -2,12 +2,39 @@
   "object": {
     "pins": [
       {
+        "package": "combine-schedulers",
+        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
+        "state": {
+          "branch": null,
+          "revision": "8eab6ad841ccc420f29f3e77e17e7b260841b50a",
+          "version": "0.2.0"
+        }
+      },
+      {
         "package": "RenaudJennyAboutView",
         "repositoryURL": "https://github.com/renaudjenny/RenaudJennyAboutView",
         "state": {
           "branch": null,
-          "revision": "7c91b9715f3f52e73eeb583ebc5be7e095e83c81",
-          "version": "1.0.0"
+          "revision": "88b458bdb1cfed265a025f7d257d4fad4d5a5b24",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "1aa1bf7c4069d9ba2f7edd36dbfc96ff1c58cbff",
+          "version": "0.1.3"
+        }
+      },
+      {
+        "package": "swift-composable-architecture",
+        "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture",
+        "state": {
+          "branch": null,
+          "revision": "0fb6c9bfc306e39dc750786edf28a4a77e67749c",
+          "version": "0.14.0"
         }
       },
       {
@@ -24,8 +51,8 @@
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
           "branch": null,
-          "revision": "bc33e46f8e4a8a73b6c46a42734040afd9d8e368",
-          "version": "1.3.0"
+          "revision": "7abdd35113416cbf1b8baa60aa05fd5bdd1250ef",
+          "version": "1.4.0"
         }
       },
       {
@@ -35,6 +62,24 @@
           "branch": null,
           "revision": "01af0a4c8bc79ab87843cd3877e391ac1fd049af",
           "version": "1.0.1"
+        }
+      },
+      {
+        "package": "SwiftSpeechCombine",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftSpeechCombine",
+        "state": {
+          "branch": null,
+          "revision": "2254845633f6f3bbf0a5bce58221c6f89e1651e1",
+          "version": "0.0.1"
+        }
+      },
+      {
+        "package": "SwiftToTen",
+        "repositoryURL": "https://github.com/renaudjenny/SwiftToTen",
+        "state": {
+          "branch": null,
+          "revision": "866e5ee213a70c12ea79af1fe827b476061d76c2",
+          "version": "0.0.1"
         }
       },
       {

@@ -1,57 +1,57 @@
 import XCTest
 @testable import Tell_Time_UK
 import SwiftClockUI
+import ComposableArchitecture
 
 class ConfigurationTests: XCTestCase {
-    func testDefaultConfigurationValues() {
-        let store = testStore
-        XCTAssertEqual(store.state.configuration.clockStyle, .classic)
-        XCTAssertEqual(store.state.configuration.clock, ClockConfiguration())
-    }
-
     func testWhenIChangeTheClockStyleThenTheClockStyleGetTheNewValue() {
-        let store = testStore
-        XCTAssertEqual(store.state.configuration.clockStyle, .classic)
-        store.send(.configuration(.changeClockStyle(.artNouveau)))
-        XCTAssertEqual(store.state.configuration.clockStyle, .artNouveau)
-        store.send(.configuration(.changeClockStyle(.drawing)))
-        XCTAssertEqual(store.state.configuration.clockStyle, .drawing)
-        store.send(.configuration(.changeClockStyle(.classic)))
-        XCTAssertEqual(store.state.configuration.clockStyle, .classic)
+        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
+        store.assert(
+            .send(.configuration(.setClockStyle(.artNouveau))) {
+                $0.configuration.clockStyle = .artNouveau
+            },
+            .send(.configuration(.setClockStyle(.drawing))) {
+                $0.configuration.clockStyle = .drawing
+            },
+            .send(.configuration(.setClockStyle(.classic))) {
+                $0.configuration.clockStyle = .classic
+            }
+        )
     }
 
     func testWhenIWantToHideMinuteIndicatorsThenMinuteIndicatorsIsHidden() {
-        let store = testStore
-        XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, true)
-        store.send(.configuration(.showMinuteIndicators(false)))
-        XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, false)
-        store.send(.configuration(.showMinuteIndicators(true)))
-        XCTAssertEqual(store.state.configuration.clock.isMinuteIndicatorsShown, true)
+        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
+        store.assert(
+            .send(.configuration(.setMinuteIndicatorsShown(false))) {
+                $0.configuration.clock.isMinuteIndicatorsShown = false
+            },
+            .send(.configuration(.setMinuteIndicatorsShown(true))) {
+                $0.configuration.clock.isMinuteIndicatorsShown = true
+            }
+        )
     }
 
     func testWhenIWantToHideHourIndicatorsThenHourIndicatorsIsHidden() {
-        let store = testStore
-        XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, true)
-        store.send(.configuration(.showHourIndicators(false)))
-        XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, false)
-        store.send(.configuration(.showHourIndicators(true)))
-        XCTAssertEqual(store.state.configuration.clock.isHourIndicatorsShown, true)
+        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
+        store.assert(
+            .send(.configuration(.setHourIndicatorsShown(false))) {
+                $0.configuration.clock.isHourIndicatorsShown = false
+            },
+            .send(.configuration(.setHourIndicatorsShown(true))) {
+                $0.configuration.clock.isHourIndicatorsShown = true
+            }
+        )
     }
 
     func testWhenIWantToLimitHourDisplayedThenHourIsDisplayedWithALimitedAmount() {
-        let store = testStore
-        XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, false)
-        store.send(.configuration(.showLimitedHours(true)))
-        XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, true)
-        store.send(.configuration(.showLimitedHours(false)))
-        XCTAssertEqual(store.state.configuration.clock.isLimitedHoursShown, false)
-    }
-}
-
-extension ClockConfiguration: Equatable {
-    public static func == (lhs: ClockConfiguration, rhs: ClockConfiguration) -> Bool {
-        lhs.isHourIndicatorsShown == rhs.isHourIndicatorsShown
-            && lhs.isMinuteIndicatorsShown == rhs.isMinuteIndicatorsShown
-            && lhs.isLimitedHoursShown == rhs.isLimitedHoursShown
+        let store = TestStore(initialState: AppState(), reducer: appReducer, environment: .test)
+        store.assert(
+            .send(.configuration(.setLimitedHoursShown(true))) {
+                $0.configuration.clock.isLimitedHoursShown = true
+            },
+            .send(.configuration(.setLimitedHoursShown(false))) {
+                $0.configuration.clock.isLimitedHoursShown = false
+            }
+        )
     }
 }
