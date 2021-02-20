@@ -77,5 +77,4 @@ struct SpeechRecognitionButton_Previews: PreviewProvider {
         SpeechRecognitionButton(store: .preview)
     }
 }
-
 #endif

@@ -131,9 +131,7 @@ private extension AppState {
 private extension AppAction {
     static func view(localAction: MainView.ViewAction) -> Self {
         switch localAction {
-        case .setDate(let date):
-            print(date)
-            return setDate(date)
+        case .setDate(let date): return setDate(date)
         case .hideAbout: return hideAbout
         case .hideConfiguration: return configuration(.hide)
         case .appStarted: return .appStarted

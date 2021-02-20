@@ -6,7 +6,7 @@ import SwiftSpeechCombine
 
 struct SpeechRecognitionState: Equatable {
     var status: SpeechRecognitionStatus = .notStarted
-    var authorizationStatus = SFSpeechRecognizerAuthorizationStatus.notDetermined
+    var authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
     var utterance: String?
     var recognizedTime: Date?
 }
