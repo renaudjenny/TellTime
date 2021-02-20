@@ -35,24 +35,26 @@ struct TellTimeUKApp: SwiftUI.App {
         WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
             WindowGroup {
                 MainView(store: store)
-                    .onOpenURL(perform: { url in
-                        viewStore.send(.setDateNow)
-                        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-                        else { return }
-
-                        guard let clockStyleValue = urlComponents
-                                .queryItems?
-                                .first(where: { $0.name == "clockStyle" })?
-                                .value,
-                              let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
-                        else { return }
-                        viewStore.send(.setClockStyle(clockStyle))
-
-                        if urlComponents.queryItems?.first(where: { $0.name == "speak" })?.value == "true" {
-                            viewStore.send(.tellTime)
-                        }
-                    })
+                    .onOpenURL(perform: { openURL($0, viewStore: viewStore) })
             }
+        }
+    }
+
+    private func openURL(_ url: URL, viewStore: ViewStore<ViewState, ViewAction>) {
+        viewStore.send(.setDateNow)
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        else { return }
+
+        guard let clockStyleValue = urlComponents
+                .queryItems?
+                .first(where: { $0.name == "clockStyle" })?
+                .value,
+              let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
+        else { return }
+        viewStore.send(.setClockStyle(clockStyle))
+
+        if urlComponents.queryItems?.first(where: { $0.name == "speak" })?.value == "true" {
+            viewStore.send(.tellTime)
         }
     }
 }
