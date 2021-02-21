@@ -184,13 +184,6 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
-		4C05AB5B2343FB9400970036 /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
 		4C05AB5F2343FC2700970036 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,7 +251,6 @@
 				4CEB6041238ADEAF0085B07C /* AppCore.swift */,
 				4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */,
 				4CEA2AEA25C7127F0062F5A0 /* Speech Recognition */,
-				4C05AB5B2343FB9400970036 /* App */,
 				4CB1D4C122A7293500786385 /* Assets.xcassets */,
 				4C05AB5F2343FC2700970036 /* Common */,
 				4C03BC80235509DE00442B11 /* Configuration */,

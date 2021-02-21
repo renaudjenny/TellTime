@@ -27,7 +27,6 @@ struct SpeechRecognitionButton: View {
                     .animation(isRecording(viewStore: viewStore) ? glowingAnimation : .default, value: viewStore.status)
                     .frame(width: 50, height: 50)
             }
-            .padding()
             .accessibilityLabel(label(viewStore: viewStore))
         }
     }

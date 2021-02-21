@@ -37,6 +37,8 @@ struct DateSelector: View {
                     Text(recognizedUtterance)
                 }
             }
+            .frame(maxWidth: 800)
+            .padding(.horizontal)
         }
     }
 }
