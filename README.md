@@ -21,6 +21,7 @@ A tiny iOS Swift project with SwiftUI.
 * ⏱  Display minute/hour indicators or limited hour as your convenience
 * 🗣 Time can be heard with a British accent
 * 🐢 You can slow down the spoken utterance in configuration (Speech rate)
+* 👂 You can activate the Speech recognition to train your pronunciation.
 * 👾 Today Widget gives you the current time
 
 ## Icons and illustrations
@@ -36,4 +37,5 @@ Works with Xcode 12.
 * ⏰ [SwiftClockUI](https://github.com/renaudjenny/SwiftClockUI): SwiftUI library that provide the Clock, with draggable arms and different design and options
 * 🇬🇧 [SwiftPastTen](https://github.com/renaudjenny/SwiftPastTen): Swift framework to provide you the British way to tell the time by passing a "HH:mm" formatted string
 * 🗣 [SwiftTTSCombine](https://github.com/renaudjenny/SwiftTTSCombine): Swift Combine framework to use Text To Speech directly wrapped in Combine way
+* 👂 [SwiftSpeechCombine](https://github.com/renaudjenny/SwiftSpeechCombine): Swift Combine framework to use Speech recognition directly wrapped in Combine way
 * 📸 [SnapshotTesting](https://github.com/pointfreeco/swift-snapshot-testing): Snapshort testing library from **Point-Free** to test views
