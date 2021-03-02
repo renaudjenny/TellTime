@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {
           "branch": null,
-          "revision": "8eab6ad841ccc420f29f3e77e17e7b260841b50a",
-          "version": "0.2.0"
+          "revision": "ae2f434e81017bb7de02c168fb0bde83cd8370c1",
+          "version": "0.3.1"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture",
         "state": {
           "branch": null,
-          "revision": "0fb6c9bfc306e39dc750786edf28a4a77e67749c",
-          "version": "0.14.0"
+          "revision": "86d6e3551437a88ecd73a789753fd2151761b17d",
+          "version": "0.15.0"
         }
       },
       {
@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "SwiftRegex",
+        "repositoryURL": "https://github.com/johnno1962/SwiftRegex5",
+        "state": {
+          "branch": null,
+          "revision": "bc9b22e4b4521075057ae98826def52cea5226f0",
+          "version": "5.2.1"
+        }
+      },
+      {
         "package": "SwiftSpeechCombine",
         "repositoryURL": "https://github.com/renaudjenny/SwiftSpeechCombine",
         "state": {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/renaudjenny/SwiftToTen",
         "state": {
           "branch": null,
-          "revision": "866e5ee213a70c12ea79af1fe827b476061d76c2",
-          "version": "0.0.1"
+          "revision": "e0031d77524453956b256c678bb84605c58c9c41",
+          "version": "0.0.2"
         }
       },
       {
