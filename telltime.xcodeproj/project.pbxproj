@@ -877,7 +877,7 @@
 			repositoryURL = "https://github.com/renaudjenny/SwiftToTen";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.1;
+				minimumVersion = 1.1.0;
 			};
 		};
 		4C1496B825DEF34700993CF3 /* XCRemoteSwiftPackageReference "SwiftSpeechCombine" */ = {
