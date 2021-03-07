@@ -8,7 +8,6 @@ struct SpeechRecognitionState: Equatable {
     var status: SpeechRecognitionStatus = .notStarted
     var authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
     var utterance: String?
-    var recognizedTime: Date?
 }
 
 enum SpeechRecognitionAction: Equatable {
@@ -38,6 +37,7 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
     struct RecognitionStatusId: Hashable { }
     struct NewUtteranceId: Hashable { }
     struct AuthorizationStatusId: Hashable { }
+    struct RecognizedTimeDebounceId: Hashable { }
 
     switch action {
     case .buttonTapped:
@@ -69,16 +69,14 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         }
     case .stopRecording:
         environment.engine.stopRecording()
-        return .none
+        return .cancel(id: RecognizedTimeDebounceId())
     case .setStatus(let status):
         state.status = status
         switch status {
         case .recording:
             state.utterance = nil
-            state.recognizedTime = nil
         case .stopped:
             state.utterance = nil
-            state.recognizedTime = nil
             return .merge(
                 .cancel(id: NewUtteranceId()),
                 .cancel(id: RecognitionStatusId())
@@ -91,6 +89,7 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         if let utterance = utterance,
            let recognizedTime = environment.recognizeTime(utterance, environment.calendar) {
             return Effect(value: .setRecognizedDate(recognizedTime))
+                .debounce(id: RecognizedTimeDebounceId(), for: .seconds(1), scheduler: environment.mainQueue)
         }
         return .none
     case .setAuthorizationStatus(let authorizationStatus):
@@ -117,10 +116,6 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
             .eraseToEffect()
             .cancellable(id: AuthorizationStatusId())
     case .setRecognizedDate(let date):
-        state.recognizedTime = date
         return Effect(value: .stopRecording)
-            .receive(on: environment.mainQueue)
-            .delay(for: .seconds(2), scheduler: environment.mainQueue)
-            .eraseToEffect()
     }
 }

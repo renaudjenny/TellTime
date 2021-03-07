@@ -79,15 +79,15 @@ class SpeechRecognitionCoreTests: XCTestCase {
             .receive(.speechRecognition(.setUtterance(utterance))) {
                 $0.speechRecognition.utterance = utterance
             },
-            .receive(.speechRecognition(.setRecognizedDate(recognizedDate))) {
-                $0.speechRecognition.recognizedTime = recognizedDate
+            .do {
+                self.scheduler.advance(by: .seconds(1))
             },
+            .receive(.speechRecognition(.setRecognizedDate(recognizedDate))),
+            .receive(.speechRecognition(.stopRecording)),
             .receive(.setDate(recognizedDate)) {
                 $0.date = recognizedDate
                 $0.tellTime = tellTime
             },
-            .do { self.scheduler.advance(by: 2) },
-            .receive(.speechRecognition(.stopRecording)),
             .do {
                 engine.recognitionStatus.send(.stopped)
                 self.scheduler.advance()
@@ -95,7 +95,6 @@ class SpeechRecognitionCoreTests: XCTestCase {
             .receive(.speechRecognition(.setStatus(.stopped))) {
                 $0.speechRecognition.status = .stopped
                 $0.speechRecognition.utterance = nil
-                $0.speechRecognition.recognizedTime = nil
             }
         )
 
