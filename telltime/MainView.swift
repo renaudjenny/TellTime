@@ -77,7 +77,6 @@ struct MainView: View {
             }
             navigationLinks(viewStore: viewStore)
         }
-        .animation(.easeInOut)
     }
 
     private func clockView(viewStore: ViewStore<MainView.ViewState, MainView.ViewAction>) -> some View {
