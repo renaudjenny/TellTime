@@ -15,10 +15,7 @@ class ConfigurationViewTests: XCTestCase {
             .environment(\.clockIsAnimationEnabled, false)
         assertSnapshot(
             matching: configurationViews,
-            as: .image(
-                precision: 95/100,
-                layout: .device(config: .iPhoneSe(.landscape))
-            )
+            as: .image(layout: .device(config: .iPhoneSe(.landscape)))
         )
     }
 }

@@ -69,17 +69,17 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
         "state": {
           "branch": null,
-          "revision": "c466812aa2e22898f27557e2e780d3aad7a27203",
-          "version": "1.8.2"
+          "revision": "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
+          "version": "1.9.0"
         }
       },
       {
         "package": "SwiftClockUI",
         "repositoryURL": "https://github.com/renaudjenny/SwiftClockUI",
         "state": {
-          "branch": null,
-          "revision": "7abdd35113416cbf1b8baa60aa05fd5bdd1250ef",
-          "version": "1.4.0"
+          "branch": "refactor-remove-animation-modifier",
+          "revision": "f965bf7ef6b6c89e91acf675bfbe51f611bbdd61",
+          "version": null
         }
       },
       {
