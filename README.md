@@ -30,7 +30,7 @@ All artistic work has been made by [Mathilde Seyller](https://instagram.com/myob
 
 ## Minimum required to build the project
 
-Works with Xcode 12.
+Works with **Xcode 13.3**.
 
 ## Libraries used
 
