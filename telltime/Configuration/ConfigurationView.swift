@@ -162,29 +162,35 @@ private extension AppAction {
 
 #if DEBUG
 struct ConfigurationView_Previews: PreviewProvider {
+    @Environment(\.calendar) static var calendar
+
     static var previews: some View {
         NavigationView {
             ConfigurationView(store: .preview)
         }
         .environment(\.verticalSizeClass, .regular)
         .environment(\.horizontalSizeClass, .compact)
-        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: .preview)))
+        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
     }
 }
 
 struct ConfigurationViewLandscape_Previews: PreviewProvider {
+    @Environment(\.calendar) static var calendar
+
     static var previews: some View {
         NavigationView {
             ConfigurationView(store: .preview)
         }
         .environment(\.verticalSizeClass, .compact)
         .environment(\.horizontalSizeClass, .compact)
-        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: .preview)))
+        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
         .previewLayout(.iPhoneSe(.landscape))
     }
 }
 
 struct ConfigurationViewRegular_Previews: PreviewProvider {
+    @Environment(\.calendar) static var calendar
+
     static var previews: some View {
         NavigationView {
             ConfigurationView(store: .preview)
@@ -192,7 +198,7 @@ struct ConfigurationViewRegular_Previews: PreviewProvider {
         .navigationViewStyle(StackNavigationViewStyle())
         .environment(\.verticalSizeClass, .regular)
         .environment(\.horizontalSizeClass, .regular)
-        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: .preview)))
+        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
         .previewLayout(.fixed(width: 1000, height: 900))
     }
 }
