@@ -86,8 +86,9 @@ let speechRecognitionReducer = SpeechRecognitionReducer { state, action, environ
         return .none
     case .setUtterance(let utterance):
         state.utterance = utterance
-        if let utterance = utterance,
-           let recognizedTime = environment.recognizeTime(utterance, environment.calendar) {
+        if
+            let utterance = utterance,
+            let recognizedTime = environment.recognizeTime(utterance, environment.calendar) {
             return Effect(value: .setRecognizedDate(recognizedTime))
                 .debounce(id: RecognizedTimeDebounceId(), for: .seconds(1), scheduler: environment.mainQueue)
         }
