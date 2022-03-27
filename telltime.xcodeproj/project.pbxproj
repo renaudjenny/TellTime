@@ -29,7 +29,6 @@
 		4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58924A52AE20033B689 /* SwiftPastTen */; };
 		4C61D58C24A52AE20033B689 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58B24A52AE20033B689 /* SwiftClockUI */; };
 		4C6C9CE223592C56004EF6A5 /* SpeakButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */; };
-		4C6FB8932448CEED00C527A1 /* Calendar+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */; };
 		4C86575425531EB20040EA04 /* RenaudJennyAboutView in Frameworks */ = {isa = PBXBuildFile; productRef = 4C86575325531EB20040EA04 /* RenaudJennyAboutView */; };
 		4CA041A725D90F9300364928 /* Store+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA041A625D90F9300364928 /* Store+Test.swift */; };
 		4CA041B425DB13BA00364928 /* SpeechRecognitionCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA041B325DB13BA00364928 /* SpeechRecognitionCoreTests.swift */; };
@@ -111,7 +110,6 @@
 		4C460CAE2444D6A5006D02EA /* TellTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTime.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
 		4C6C9CE123592C56004EF6A5 /* SpeakButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakButton.swift; sourceTree = "<group>"; };
-		4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Preview.swift"; sourceTree = "<group>"; };
 		4CA041A625D90F9300364928 /* Store+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Store+Test.swift"; sourceTree = "<group>"; };
 		4CA041B325DB13BA00364928 /* SpeechRecognitionCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionCoreTests.swift; sourceTree = "<group>"; };
 		4CB1D4B822A7293300786385 /* Tell Time UK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tell Time UK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,7 +188,6 @@
 				4C460CAE2444D6A5006D02EA /* TellTime.swift */,
 				4C460CA424443D53006D02EA /* RandomDate.swift */,
 				4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */,
-				4C6FB8922448CEED00C527A1 /* Calendar+Preview.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -522,7 +519,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C6FB8932448CEED00C527A1 /* Calendar+Preview.swift in Sources */,
 				4C3CCC6C24B39356008F0699 /* TellTimeWidget.intentdefinition in Sources */,
 				4CEB6042238ADEAF0085B07C /* AppCore.swift in Sources */,
 				4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */,
