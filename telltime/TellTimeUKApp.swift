@@ -45,11 +45,12 @@ struct TellTimeUKApp: SwiftUI.App {
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         else { return }
 
-        guard let clockStyleValue = urlComponents
+        guard
+            let clockStyleValue = urlComponents
                 .queryItems?
                 .first(where: { $0.name == "clockStyle" })?
                 .value,
-              let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
+            let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
         else { return }
         viewStore.send(.setClockStyle(clockStyle))
 

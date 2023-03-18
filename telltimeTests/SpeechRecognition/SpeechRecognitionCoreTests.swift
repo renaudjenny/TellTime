@@ -8,7 +8,7 @@ import SwiftSpeechCombine
 import Speech
 
 class SpeechRecognitionCoreTests: XCTestCase {
-    let scheduler = DispatchQueue.testScheduler
+    let scheduler = DispatchQueue.test
 
     // swiftlint:disable function_body_length
     func testButtonTappedWhenNotAuthorizedYetAndAuthorizeRecord() {
@@ -53,50 +53,38 @@ class SpeechRecognitionCoreTests: XCTestCase {
             }
         )
 
-        store.assert(
-            .send(.speechRecognition(.buttonTapped)),
-            .receive(.speechRecognition(.startRecording)),
-            .receive(.speechRecognition(.requestAuthorization)),
-            .do {
-                engine.authorizationStatus.send(.authorized)
-                self.scheduler.advance()
-            },
-            .receive(.speechRecognition(.setAuthorizationStatus(.authorized))) {
-                $0.speechRecognition.authorizationStatus = .authorized
-            },
-            .receive(.speechRecognition(.startRecording)),
-            .do {
-                engine.recognitionStatus.send(.recording)
-                self.scheduler.advance()
-            },
-            .receive(.speechRecognition(.setStatus(.recording))) {
-                $0.speechRecognition.status = .recording
-            },
-            .do {
-                engine.newUtterance.send(utterance)
-                self.scheduler.advance()
-            },
-            .receive(.speechRecognition(.setUtterance(utterance))) {
-                $0.speechRecognition.utterance = utterance
-            },
-            .do {
-                self.scheduler.advance(by: .seconds(1))
-            },
-            .receive(.speechRecognition(.setRecognizedDate(recognizedDate))),
-            .receive(.speechRecognition(.stopRecording)),
-            .receive(.setDate(recognizedDate)) {
-                $0.date = recognizedDate
-                $0.tellTime = tellTime
-            },
-            .do {
-                engine.recognitionStatus.send(.stopped)
-                self.scheduler.advance()
-            },
-            .receive(.speechRecognition(.setStatus(.stopped))) {
-                $0.speechRecognition.status = .stopped
-                $0.speechRecognition.utterance = nil
-            }
-        )
+        store.send(.speechRecognition(.buttonTapped))
+        store.receive(.speechRecognition(.startRecording))
+        store.receive(.speechRecognition(.requestAuthorization))
+        engine.authorizationStatus.send(.authorized)
+        scheduler.advance()
+        store.receive(.speechRecognition(.setAuthorizationStatus(.authorized))) {
+            $0.speechRecognition.authorizationStatus = .authorized
+        }
+        store.receive(.speechRecognition(.startRecording))
+        engine.recognitionStatus.send(.recording)
+        scheduler.advance()
+        store.receive(.speechRecognition(.setStatus(.recording))) {
+            $0.speechRecognition.status = .recording
+        }
+        engine.newUtterance.send(utterance)
+        scheduler.advance()
+        store.receive(.speechRecognition(.setUtterance(utterance))) {
+            $0.speechRecognition.utterance = utterance
+        }
+        scheduler.advance(by: .seconds(1))
+        store.receive(.speechRecognition(.setRecognizedDate(recognizedDate)))
+        store.receive(.speechRecognition(.stopRecording))
+        store.receive(.setDate(recognizedDate)) {
+            $0.date = recognizedDate
+            $0.tellTime = tellTime
+        }
+        engine.recognitionStatus.send(.stopped)
+        scheduler.advance()
+        store.receive(.speechRecognition(.setStatus(.stopped))) {
+            $0.speechRecognition.status = .stopped
+            $0.speechRecognition.utterance = nil
+        }
 
         self.wait(
             for: [

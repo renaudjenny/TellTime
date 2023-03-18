@@ -7,7 +7,7 @@ import SwiftTTSCombine
 import AVFoundation
 
 class TTSTests: XCTestCase {
-    let scheduler = DispatchQueue.testScheduler
+    let scheduler = DispatchQueue.test
 
     func testWhenIChangeTheTTSRateRatioTheRateRatioOfEngineIsChanged() {
         let newRateRatio: Float = 0.75
@@ -18,19 +18,16 @@ class TTSTests: XCTestCase {
                 engineSetRateRatioExpectation.fulfill()
             }
         )
-        let store = TestStore(
+        TestStore(
             initialState: AppState(),
             reducer: appReducer,
             environment: .test {
                 $0.ttsEngine = engine
             }
-        )
+        ).send(.tts(.changeRateRatio(newRateRatio))) {
+            $0.tts.rateRatio = newRateRatio
+        }
 
-        store.assert(
-            .send(.tts(.changeRateRatio(newRateRatio))) {
-                $0.tts.rateRatio = newRateRatio
-            }
-        )
         self.wait(for: [engineSetRateRatioExpectation], timeout: 0.1)
     }
 
@@ -57,37 +54,27 @@ class TTSTests: XCTestCase {
             }
         )
 
-        store.assert(
-            .send(.tts(.tellTime(date))),
-            .do {
-                isSpeakingPublisher.send(true)
-                self.scheduler.advance()
-            },
-            .receive(.tts(.startSpeaking)) {
-                $0.tts.isSpeaking = true
-            },
-            .do {
-                speakingProgressPublisher.send(1/4)
-                self.scheduler.advance()
-            },
-            .receive(.tts(.changeSpeakingProgress(1/4))) {
-                $0.tts.speakingProgress = 1/4
-            },
-            .do {
-                speakingProgressPublisher.send(3/4)
-                self.scheduler.advance()
-            },
-            .receive(.tts(.changeSpeakingProgress(3/4))) {
-                $0.tts.speakingProgress = 3/4
-            },
-            .do {
-                isSpeakingPublisher.send(false)
-                self.scheduler.advance()
-            },
-            .receive(.tts(.stopSpeaking)) {
-                $0.tts.isSpeaking = false
-            }
-        )
+        store.send(.tts(.tellTime(date)))
+        isSpeakingPublisher.send(true)
+        self.scheduler.advance()
+        store.receive(.tts(.startSpeaking)) {
+            $0.tts.isSpeaking = true
+        }
+        speakingProgressPublisher.send(1/4)
+        self.scheduler.advance()
+        store.receive(.tts(.changeSpeakingProgress(1/4))) {
+            $0.tts.speakingProgress = 1/4
+        }
+        speakingProgressPublisher.send(3/4)
+        self.scheduler.advance()
+        store.receive(.tts(.changeSpeakingProgress(3/4))) {
+            $0.tts.speakingProgress = 3/4
+        }
+        isSpeakingPublisher.send(false)
+        self.scheduler.advance()
+        store.receive(.tts(.stopSpeaking)) {
+            $0.tts.isSpeaking = false
+        }
 
         self.wait(for: [speechExpectation], timeout: 0.1)
     }
