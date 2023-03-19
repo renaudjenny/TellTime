@@ -44,7 +44,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         environment: { _ in ConfigurationEnvironment() }
     ),
     ttsReducer.pullback(
-        state: \.tts,
+        state: \AppState.tts,
         action: /AppAction.tts,
         environment: { TTSEnvironment(
             engine: $0.ttsEngine,

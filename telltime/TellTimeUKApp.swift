@@ -32,8 +32,8 @@ struct TellTimeUKApp: SwiftUI.App {
     )
 
     var body: some Scene {
-        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
-            WindowGroup {
+        WindowGroup {
+            WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
                 MainView(store: store)
                     .onOpenURL(perform: { openURL($0, viewStore: viewStore) })
             }

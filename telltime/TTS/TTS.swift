@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Combine
+import Foundation
 import SwiftTTSCombine
 
 struct TTSState: Equatable {
