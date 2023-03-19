@@ -26,7 +26,7 @@ jobs:
       run: xcrun simctl list
 
     - name: Xcode test on specific device
-      working-directory: ./MixTeam
+      working-directory: .
       run: xcodebuild clean test -scheme telltime -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)'
 
     - uses: actions/upload-artifact@v2

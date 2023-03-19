@@ -1,12 +1,15 @@
 trailing_comma:
     mandatory_comma: true
+
 disabled_rules:
   - identifier_name
   - multiple_closures_with_trailing_closure
+
 opt_in_rules:
   - force_unwrapping
   - implicitly_unwrapped_optional
   - implicit_return
-analyzer_rule:
+
+analyzer_rules:
   - explicit_self
   - unused_import
