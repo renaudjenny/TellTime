@@ -1,0 +1,20 @@
+// swift-tools-version: 5.7
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "telltime",
+    platforms: [.iOS(.v15), .macOS(.v13)],
+    products: [
+        .library(name: "TTSCore", targets: ["TTSCore"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
+    ],
+    targets: [
+        .target(name: "TTSCore", dependencies: [
+            .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        ]),
+    ]
+)
