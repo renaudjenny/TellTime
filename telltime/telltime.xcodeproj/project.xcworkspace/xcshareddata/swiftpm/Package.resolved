@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections",
       "state" : {
-        "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
-        "version" : "1.0.2"
+        "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
+        "version" : "1.0.4"
       }
     },
     {
@@ -86,8 +86,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-snapshot-testing.git",
       "state" : {
-        "revision" : "f8a9c997c3c1dab4e216a8ec9014e23144cbab37",
-        "version" : "1.9.0"
+        "revision" : "cef5b3f6f11781dd4591bdd1dd0a3d22bd609334",
+        "version" : "1.11.0"
+      }
+    },
+    {
+      "identity" : "swift-tts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-tts",
+      "state" : {
+        "revision" : "820ef9e4ef699b4ec224c9ac7bd86e924bc3126f",
+        "version" : "2.0.0"
       }
     },
     {
@@ -133,15 +142,6 @@
       "state" : {
         "revision" : "18d8694594b06aee67b0889f0bd9eaaaf16a6d27",
         "version" : "1.1.0"
-      }
-    },
-    {
-      "identity" : "swiftttscombine",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/renaudjenny/SwiftTTSCombine",
-      "state" : {
-        "revision" : "f72c4ed9f8796643806c150e9aa6df6cfeb7783a",
-        "version" : "1.0.0"
       }
     },
     {

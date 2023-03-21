@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import TTSCore
 
 struct Buttons: View {
     struct ViewState: Equatable { }
@@ -15,7 +16,7 @@ struct Buttons: View {
     var body: some View {
         WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
             HStack {
-                SpeakButton(store: store)
+                SpeakButton(store: store.scope(state: \.tts, action: AppAction.tts))
                 Spacer()
                 Button { viewStore.send(.setRandomDate) } label: {
                     Image(systemName: "shuffle")

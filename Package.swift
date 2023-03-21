@@ -11,10 +11,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
+        .package(url: "https://github.com/renaudjenny/swift-tts", from: "2.0.0"),
     ],
     targets: [
         .target(name: "TTSCore", dependencies: [
             .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            .product(name: "SwiftTTSDependency", package: "swift-tts"),
         ]),
     ]
 )

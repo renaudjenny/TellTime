@@ -1,15 +1,15 @@
 import SwiftUI
 import Combine
-import SwiftTTSCombine
 import SwiftSpeechCombine
 import Speech
 import AVFoundation
 import ComposableArchitecture
+import TTSCore
 
 struct AppState: Equatable {
     var date: Date = Date()
     var configuration = ConfigurationState()
-    var tts = TTSState()
+    var tts = TTS.State()
     var speechRecognition = SpeechRecognitionState()
     var isAboutPresented = false
     var tellTime: String?
@@ -19,7 +19,7 @@ enum AppAction: Equatable {
     case setDate(Date)
     case setRandomDate
     case configuration(ConfigurationAction)
-    case tts(TTSAction)
+    case tts(TTS.Action)
     case speechRecognition(SpeechRecognitionAction)
     case appStarted
     case presentAbout
@@ -29,7 +29,6 @@ enum AppAction: Equatable {
 struct AppEnvironment {
     var currentDate: () -> Date
     var randomDate: (Calendar) -> Date
-    var ttsEngine: TTSEngine
     var calendar: Calendar
     var tellTime: (Date, Calendar) -> String
     var speechRecognitionEngine: SpeechRecognitionEngine
@@ -43,16 +42,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         action: /AppAction.configuration,
         environment: { _ in ConfigurationEnvironment() }
     ),
-    ttsReducer.pullback(
-        state: \AppState.tts,
-        action: /AppAction.tts,
-        environment: { TTSEnvironment(
-            engine: $0.ttsEngine,
-            calendar: $0.calendar,
-            tellTime: $0.tellTime,
-            mainQueue: $0.mainQueue
-        ) }
-    ),
+    AnyReducer(TTS()).pullback(state: \.tts, action: /AppAction.tts, environment: { $0 }),
     speechRecognitionReducer.pullback(
         state: \.speechRecognition,
         action: /AppAction.speechRecognition,
@@ -68,6 +58,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .setDate(date):
             state.date = date
             state.tellTime = environment.tellTime(date, environment.calendar)
+            state.tts.text = state.tellTime ?? ""
             return .none
         case .setRandomDate:
             let randomDate = environment.randomDate(environment.calendar)
@@ -126,7 +117,6 @@ extension AppEnvironment {
         var environment = AppEnvironment(
             currentDate: { Date() },
             randomDate: generateRandomDate,
-            ttsEngine: MockedTTSEngine(),
             calendar: Calendar.autoupdatingCurrent,
             tellTime: mockedTellTime,
             speechRecognitionEngine: MockedSpeechRecognitionEngine(),
@@ -138,14 +128,6 @@ extension AppEnvironment {
     }
 
     static var preview: Self { .preview() }
-}
-
-private final class MockedTTSEngine: TTSEngine {
-    var rateRatio: Float = 1.0
-    var voice: AVSpeechSynthesisVoice?
-    func speak(string: String) { }
-    var isSpeakingPublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
-    var speakingProgressPublisher: AnyPublisher<Double, Never> { Just(0.0).eraseToAnyPublisher() }
 }
 
 private final class MockedSpeechRecognitionEngine: SpeechRecognitionEngine {

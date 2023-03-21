@@ -1,6 +1,5 @@
 import SwiftUI
 import ComposableArchitecture
-import SwiftTTSCombine
 import SwiftSpeechCombine
 import SwiftClockUI
 import SwiftPastTen
@@ -22,7 +21,6 @@ struct TellTimeUKApp: SwiftUI.App {
         environment: AppEnvironment(
             currentDate: { Date() },
             randomDate: generateRandomDate,
-            ttsEngine: Engine(),
             calendar: Calendar.autoupdatingCurrent,
             tellTime: tellTime,
             speechRecognitionEngine: SpeechRecognitionSpeechEngine(),
@@ -70,7 +68,7 @@ private extension AppAction {
     static func view(localAction: TellTimeUKApp.ViewAction) -> Self {
         switch localAction {
         case .setDateNow: return .setDate(Date())
-        case .tellTime: return .tts(.tellTime(Date()))
+        case .tellTime: return .tts(.tellTime)
         case .setClockStyle(let clockStyle): return .configuration(.setClockStyle(clockStyle))
         }
     }

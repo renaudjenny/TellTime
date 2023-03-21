@@ -1,29 +1,29 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SpeakButton: View {
+public struct SpeakButton: View {
     struct ViewState: Equatable {
-        var date: Date
         var isSpeaking: Bool
         var widthProgressRatio: CGFloat
+
+        init(_ state: TTS.State) {
+            self.isSpeaking = state.isSpeaking
+            self.widthProgressRatio = state.speakingProgress
+        }
     }
 
-    enum ViewAction {
-        case tellTime(Date)
-    }
+    let store: StoreOf<TTS>
+    @ObservedObject private var viewStore: ViewStore<ViewState, TTS.Action>
 
-    let store: Store<AppState, AppAction>
-    @ObservedObject private var viewStore: ViewStore<ViewState, ViewAction>
-
-    init(store: Store<AppState, AppAction>) {
+    public init(store: StoreOf<TTS>) {
         self.store = store
         _viewStore = ObservedObject(
-            initialValue: ViewStore(store.scope(state: { $0.view }, action: AppAction.view))
+            initialValue: ViewStore(store.scope(state: ViewState.init))
         )
     }
 
-    var body: some View {
-        Button { viewStore.send(.tellTime(viewStore.date)) } label: {
+    public var body: some View {
+        Button { viewStore.send(.tellTime) } label: {
             Image(systemName: "speaker.2")
                 .padding()
                 .accentColor(.white)
@@ -46,50 +46,41 @@ struct SpeakButton: View {
     }
 }
 
-private extension AppState {
-    var view: SpeakButton.ViewState {
-        SpeakButton.ViewState(
-            date: date,
-            isSpeaking: tts.isSpeaking,
-            widthProgressRatio: tts.isSpeaking ? CGFloat(tts.speakingProgress) : 1.0
-        )
-    }
-}
-
-private extension AppAction {
-    static func view(localAction: SpeakButton.ViewAction) -> Self {
-        switch localAction {
-        case .tellTime(let date): return .tts(.tellTime(date))
-        }
-    }
-}
-
 #if DEBUG
 struct SpeakButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             SpeakButton(store: .preview)
             SpeakButton(store: .preview(modifyState: {
-                $0.tts.speakingProgress = 1/4
-                $0.tts.isSpeaking = true
+                $0.speakingProgress = 1/4
+                $0.isSpeaking = true
             }))
             SpeakButton(store: .preview(modifyState: {
-                $0.tts.speakingProgress = 1/2
-                $0.tts.isSpeaking = true
+                $0.speakingProgress = 1/2
+                $0.isSpeaking = true
             }))
             SpeakButton(store: .preview(modifyState: {
-                $0.tts.speakingProgress = 3/4
-                $0.tts.isSpeaking = true
+                $0.speakingProgress = 3/4
+                $0.isSpeaking = true
             }))
             SpeakButton(store: .preview(modifyState: {
-                $0.tts.speakingProgress = 9/10
-                $0.tts.isSpeaking = true
+                $0.speakingProgress = 9/10
+                $0.isSpeaking = true
             }))
             SpeakButton(store: .preview(modifyState: {
-                $0.tts.speakingProgress = 1
-                $0.tts.isSpeaking = true
+                $0.speakingProgress = 1
+                $0.isSpeaking = true
             }))
         }
     }
+}
+
+extension Store where State == TTS.State, Action == TTS.Action {
+    static func preview(modifyState: (inout TTS.State) -> Void) -> Store<TTS.State, TTS.Action> {
+        var state = TTS.State()
+        modifyState(&state)
+        return Store(initialState: state, reducer: TTS())
+    }
+    static var preview: Store<TTS.State, TTS.Action> { preview(modifyState: { _ in }) }
 }
 #endif
