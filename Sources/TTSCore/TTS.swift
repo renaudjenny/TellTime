@@ -1,5 +1,4 @@
 import ComposableArchitecture
-import Combine
 import Foundation
 import SwiftTTSDependency
 
@@ -25,7 +24,7 @@ public struct TTS: ReducerProtocol {
 
     public enum Action: Equatable {
         case changeRateRatio(Float)
-        case tellTime
+        case speak
         case startSpeaking
         case stopSpeaking
         case changeSpeakingProgress(Double)
@@ -42,7 +41,7 @@ public struct TTS: ReducerProtocol {
                 state.rateRatio = rateRatio
                 tts.setRateRatio(rateRatio)
                 return .none
-            case .tellTime:
+            case .speak:
                 tts.speak(state.text)
                 return .run { send in
                     for await isSpeaking in tts.isSpeaking() {

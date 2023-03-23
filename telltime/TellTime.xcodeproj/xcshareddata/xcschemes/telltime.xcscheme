@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CB1D4B722A7293300786385"
                BuildableName = "Tell Time UK.app"
-               BlueprintName = "telltime"
+               BlueprintName = "TellTime"
                ReferencedContainer = "container:telltime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB1D4B722A7293300786385"
             BuildableName = "Tell Time UK.app"
-            BlueprintName = "telltime"
+            BlueprintName = "TellTime"
             ReferencedContainer = "container:telltime.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
@@ -44,8 +44,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CB1D4CD22A7293500786385"
-               BuildableName = "telltimeTests.xctest"
-               BlueprintName = "telltimeTests"
+               BuildableName = "TellTimeTests.xctest"
+               BlueprintName = "TellTimeTests"
                ReferencedContainer = "container:telltime.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -67,7 +67,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB1D4B722A7293300786385"
             BuildableName = "Tell Time UK.app"
-            BlueprintName = "telltime"
+            BlueprintName = "TellTime"
             ReferencedContainer = "container:telltime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -84,7 +84,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CB1D4B722A7293300786385"
             BuildableName = "Tell Time UK.app"
-            BlueprintName = "telltime"
+            BlueprintName = "TellTime"
             ReferencedContainer = "container:telltime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -68,7 +68,7 @@ private extension AppAction {
     static func view(localAction: TellTimeUKApp.ViewAction) -> Self {
         switch localAction {
         case .setDateNow: return .setDate(Date())
-        case .tellTime: return .tts(.tellTime)
+        case .tellTime: return .tts(.speak)
         case .setClockStyle(let clockStyle): return .configuration(.setClockStyle(clockStyle))
         }
     }

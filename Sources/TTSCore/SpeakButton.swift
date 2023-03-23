@@ -23,7 +23,7 @@ public struct SpeakButton: View {
     }
 
     public var body: some View {
-        Button { viewStore.send(.tellTime) } label: {
+        Button { viewStore.send(.speak) } label: {
             Image(systemName: "speaker.2")
                 .padding()
                 .accentColor(.white)
