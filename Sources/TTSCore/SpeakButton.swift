@@ -47,8 +47,8 @@ public struct SpeakButton: View {
 }
 
 #if DEBUG
-struct SpeakButton_Previews: PreviewProvider {
-    static var previews: some View {
+public struct SpeakButton_Previews: PreviewProvider {
+    public static var previews: some View {
         VStack {
             SpeakButton(store: .preview)
             SpeakButton(store: .preview(modifyState: {
@@ -75,7 +75,7 @@ struct SpeakButton_Previews: PreviewProvider {
     }
 }
 
-extension Store where State == TTS.State, Action == TTS.Action {
+public extension Store where State == TTS.State, Action == TTS.Action {
     static func preview(modifyState: (inout TTS.State) -> Void) -> Store<TTS.State, TTS.Action> {
         var state = TTS.State()
         modifyState(&state)

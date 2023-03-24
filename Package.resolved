@@ -73,6 +73,24 @@
       }
     },
     {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
+      "state" : {
+        "revision" : "cef5b3f6f11781dd4591bdd1dd0a3d22bd609334",
+        "version" : "1.11.0"
+      }
+    },
+    {
+      "identity" : "swift-tts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-tts",
+      "state" : {
+        "revision" : "89e957b1dd4dad5d11d214cbb391ff0cf783c819",
+        "version" : "2.1.0"
+      }
+    },
+    {
       "identity" : "swiftui-navigation",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swiftui-navigation",
