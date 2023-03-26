@@ -24,12 +24,12 @@
 		4C460CA524443D53006D02EA /* RandomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDate.swift */; };
 		4C460CAF2444D6A5006D02EA /* TellTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTime.swift */; };
 		4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4C474A40243702CA00DDD53C /* SnapshotTesting */; };
+		4C4A811929CFC03600463169 /* TTSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4A811829CFC03600463169 /* TTSCore */; };
 		4C61581B23CCF3E400243A5E /* ConfigurationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */; };
 		4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C61D58924A52AE20033B689 /* SwiftPastTen */; };
 		4C86575425531EB20040EA04 /* RenaudJennyAboutView in Frameworks */ = {isa = PBXBuildFile; productRef = 4C86575325531EB20040EA04 /* RenaudJennyAboutView */; };
 		4CA041A725D90F9300364928 /* Store+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA041A625D90F9300364928 /* Store+Test.swift */; };
 		4CA041B425DB13BA00364928 /* SpeechRecognitionCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA041B325DB13BA00364928 /* SpeechRecognitionCoreTests.swift */; };
-		4CB1756529C9047900972E74 /* TTSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CB1756429C9047900972E74 /* TTSCore */; };
 		4CB1D4BC22A7293300786385 /* TellTimeUKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */; };
 		4CB1D4C022A7293300786385 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BF22A7293300786385 /* MainView.swift */; };
 		4CB1D4C222A7293500786385 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C122A7293500786385 /* Assets.xcassets */; };
@@ -147,8 +147,8 @@
 			files = (
 				4CFB1C5C25D5BBC900AA7374 /* ComposableArchitecture in Frameworks */,
 				4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */,
+				4C4A811929CFC03600463169 /* TTSCore in Frameworks */,
 				4CD9494527E7BC67003EA782 /* SwiftClockUI in Frameworks */,
-				4CB1756529C9047900972E74 /* TTSCore in Frameworks */,
 				4C1496BA25DEF34700993CF3 /* SwiftSpeechCombine in Frameworks */,
 				4C86575425531EB20040EA04 /* RenaudJennyAboutView in Frameworks */,
 				4C1496B325DDBB3F00993CF3 /* SwiftToTen in Frameworks */,
@@ -352,7 +352,7 @@
 				4C1496B225DDBB3F00993CF3 /* SwiftToTen */,
 				4C1496B925DEF34700993CF3 /* SwiftSpeechCombine */,
 				4CD9494427E7BC67003EA782 /* SwiftClockUI */,
-				4CB1756429C9047900972E74 /* TTSCore */,
+				4C4A811829CFC03600463169 /* TTSCore */,
 			);
 			productName = telltime;
 			productReference = 4CB1D4B822A7293300786385 /* Tell Time UK.app */;
@@ -920,6 +920,10 @@
 			package = 4CAE627A24367DB100E57FAC /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
 		};
+		4C4A811829CFC03600463169 /* TTSCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TTSCore;
+		};
 		4C61D58924A52AE20033B689 /* SwiftPastTen */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4C3B32EB242BCE5300D17D70 /* XCRemoteSwiftPackageReference "SwiftPastTen" */;
@@ -929,10 +933,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C86575225531EB20040EA04 /* XCRemoteSwiftPackageReference "RenaudJennyAboutView" */;
 			productName = RenaudJennyAboutView;
-		};
-		4CB1756429C9047900972E74 /* TTSCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TTSCore;
 		};
 		4CB9C77227EB0C30006BC36E /* SwiftClockUI */ = {
 			isa = XCSwiftPackageProductDependency;

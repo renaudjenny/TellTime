@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/swift-tts",
       "state" : {
-        "revision" : "89e957b1dd4dad5d11d214cbb391ff0cf783c819",
-        "version" : "2.1.0"
+        "revision" : "99fe207f779cb7707f70d806d661fdc5cadb4390",
+        "version" : "2.1.1"
       }
     },
     {
