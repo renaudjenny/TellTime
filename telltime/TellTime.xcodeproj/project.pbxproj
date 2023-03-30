@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4C03BC8223550A0C00442B11 /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C03BC8123550A0C00442B11 /* ConfigurationView.swift */; };
 		4C1496B325DDBB3F00993CF3 /* SwiftToTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C1496B225DDBB3F00993CF3 /* SwiftToTen */; };
-		4C1496BA25DEF34700993CF3 /* SwiftSpeechCombine in Frameworks */ = {isa = PBXBuildFile; productRef = 4C1496B925DEF34700993CF3 /* SwiftSpeechCombine */; };
 		4C28CDB22513F72000DAE010 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C28CDB12513F72000DAE010 /* LaunchScreen.storyboard */; };
 		4C32F1082419765A00BAFB3A /* Calendar+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C32F1072419765A00BAFB3A /* Calendar+Test.swift */; };
 		4C3CCC6124B39353008F0699 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3CCC6024B39353008F0699 /* WidgetKit.framework */; };
@@ -20,7 +19,6 @@
 		4C3CCC6C24B39356008F0699 /* TellTimeWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CCC6724B39353008F0699 /* TellTimeWidget.intentdefinition */; };
 		4C3CCC6F24B39356008F0699 /* TellTimeWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C3CCC7424B396D5008F0699 /* SwiftPastTen in Frameworks */ = {isa = PBXBuildFile; productRef = 4C3CCC7324B396D5008F0699 /* SwiftPastTen */; };
-		4C43CB9D25CB27D600890D3B /* SpeechRecognitionCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43CB9C25CB27D600890D3B /* SpeechRecognitionCore.swift */; };
 		4C460CA524443D53006D02EA /* RandomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CA424443D53006D02EA /* RandomDate.swift */; };
 		4C460CAF2444D6A5006D02EA /* TellTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C460CAE2444D6A5006D02EA /* TellTime.swift */; };
 		4C474A41243702CA00DDD53C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 4C474A40243702CA00DDD53C /* SnapshotTesting */; };
@@ -40,7 +38,6 @@
 		4CCF193A234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */; };
 		4CD270D823C3AC92004536D6 /* BDD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD270D723C3AC92004536D6 /* BDD.swift */; };
 		4CD9494527E7BC67003EA782 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD9494427E7BC67003EA782 /* SwiftClockUI */; };
-		4CEA2AEC25C712A80062F5A0 /* SpeechRecognitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEA2AEB25C712A80062F5A0 /* SpeechRecognitionButton.swift */; };
 		4CEB6042238ADEAF0085B07C /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6041238ADEAF0085B07C /* AppCore.swift */; };
 		4CEB604A238C82A30085B07C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6049238C82A30085B07C /* Configuration.swift */; };
 		4CFB1C5C25D5BBC900AA7374 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFB1C5B25D5BBC900AA7374 /* ComposableArchitecture */; };
@@ -101,7 +98,6 @@
 		4C3CCC6724B39353008F0699 /* TellTimeWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = TellTimeWidget.intentdefinition; sourceTree = "<group>"; };
 		4C3CCC6824B39356008F0699 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C3CCC6A24B39356008F0699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C43CB9C25CB27D600890D3B /* SpeechRecognitionCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionCore.swift; sourceTree = "<group>"; };
 		4C460CA424443D53006D02EA /* RandomDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDate.swift; sourceTree = "<group>"; };
 		4C460CAE2444D6A5006D02EA /* TellTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TellTime.swift; sourceTree = "<group>"; };
 		4C61581A23CCF3E400243A5E /* ConfigurationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewTests.swift; sourceTree = "<group>"; };
@@ -121,7 +117,6 @@
 		4CCBFD0C23F870CA004EFBD8 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4CCF1939234E665A002E6D46 /* PreviewLayout+PredefinedDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewLayout+PredefinedDevice.swift"; sourceTree = "<group>"; };
 		4CD270D723C3AC92004536D6 /* BDD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDD.swift; sourceTree = "<group>"; };
-		4CEA2AEB25C712A80062F5A0 /* SpeechRecognitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionButton.swift; sourceTree = "<group>"; };
 		4CEB6041238ADEAF0085B07C /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
 		4CEB6049238C82A30085B07C /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		4CFB1C6925D726BA00AA7374 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
@@ -149,7 +144,6 @@
 				4C61D58A24A52AE20033B689 /* SwiftPastTen in Frameworks */,
 				4C4A811929CFC03600463169 /* TTSCore in Frameworks */,
 				4CD9494527E7BC67003EA782 /* SwiftClockUI in Frameworks */,
-				4C1496BA25DEF34700993CF3 /* SwiftSpeechCombine in Frameworks */,
 				4C86575425531EB20040EA04 /* RenaudJennyAboutView in Frameworks */,
 				4C1496B325DDBB3F00993CF3 /* SwiftToTen in Frameworks */,
 			);
@@ -241,7 +235,6 @@
 				4CFB1C6E25D7E05700AA7374 /* MainScreen */,
 				4CEB6041238ADEAF0085B07C /* AppCore.swift */,
 				4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */,
-				4CEA2AEA25C7127F0062F5A0 /* Speech Recognition */,
 				4CB1D4C122A7293500786385 /* Assets.xcassets */,
 				4C05AB5F2343FC2700970036 /* Common */,
 				4C03BC80235509DE00442B11 /* Configuration */,
@@ -284,15 +277,6 @@
 				4C3CCC6224B39353008F0699 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4CEA2AEA25C7127F0062F5A0 /* Speech Recognition */ = {
-			isa = PBXGroup;
-			children = (
-				4CEA2AEB25C712A80062F5A0 /* SpeechRecognitionButton.swift */,
-				4C43CB9C25CB27D600890D3B /* SpeechRecognitionCore.swift */,
-			);
-			path = "Speech Recognition";
 			sourceTree = "<group>";
 		};
 		4CFB1C6E25D7E05700AA7374 /* MainScreen */ = {
@@ -350,7 +334,6 @@
 				4C86575325531EB20040EA04 /* RenaudJennyAboutView */,
 				4CFB1C5B25D5BBC900AA7374 /* ComposableArchitecture */,
 				4C1496B225DDBB3F00993CF3 /* SwiftToTen */,
-				4C1496B925DEF34700993CF3 /* SwiftSpeechCombine */,
 				4CD9494427E7BC67003EA782 /* SwiftClockUI */,
 				4C4A811829CFC03600463169 /* TTSCore */,
 			);
@@ -416,7 +399,6 @@
 				4C86575225531EB20040EA04 /* XCRemoteSwiftPackageReference "RenaudJennyAboutView" */,
 				4CFB1C5A25D5BBC900AA7374 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				4C1496B125DDBB3F00993CF3 /* XCRemoteSwiftPackageReference "SwiftToTen" */,
-				4C1496B825DEF34700993CF3 /* XCRemoteSwiftPackageReference "SwiftSpeechCombine" */,
 				4CD9494327E7BC67003EA782 /* XCRemoteSwiftPackageReference "SwiftClockUi" */,
 			);
 			productRefGroup = 4CB1D4B922A7293300786385 /* Products */;
@@ -499,8 +481,6 @@
 				4C460CA524443D53006D02EA /* RandomDate.swift in Sources */,
 				4CEB604A238C82A30085B07C /* Configuration.swift in Sources */,
 				4CFB1C7025D7E0A800AA7374 /* Buttons.swift in Sources */,
-				4CEA2AEC25C712A80062F5A0 /* SpeechRecognitionButton.swift in Sources */,
-				4C43CB9D25CB27D600890D3B /* SpeechRecognitionCore.swift in Sources */,
 				4CB1D4BC22A7293300786385 /* TellTimeUKApp.swift in Sources */,
 				4CFB1C6A25D726BA00AA7374 /* DateSelector.swift in Sources */,
 				4C460CAF2444D6A5006D02EA /* TellTime.swift in Sources */,
@@ -849,14 +829,6 @@
 				minimumVersion = 1.1.0;
 			};
 		};
-		4C1496B825DEF34700993CF3 /* XCRemoteSwiftPackageReference "SwiftSpeechCombine" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/renaudjenny/SwiftSpeechCombine";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.1;
-			};
-		};
 		4C3B32EB242BCE5300D17D70 /* XCRemoteSwiftPackageReference "SwiftPastTen" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/renaudjenny/SwiftPastTen";
@@ -904,11 +876,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4C1496B125DDBB3F00993CF3 /* XCRemoteSwiftPackageReference "SwiftToTen" */;
 			productName = SwiftToTen;
-		};
-		4C1496B925DEF34700993CF3 /* SwiftSpeechCombine */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4C1496B825DEF34700993CF3 /* XCRemoteSwiftPackageReference "SwiftSpeechCombine" */;
-			productName = SwiftSpeechCombine;
 		};
 		4C3CCC7324B396D5008F0699 /* SwiftPastTen */ = {
 			isa = XCSwiftPackageProductDependency;

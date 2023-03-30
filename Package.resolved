@@ -82,12 +82,21 @@
       }
     },
     {
+      "identity" : "swift-speech-recognizer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-speech-recognizer",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d405095aed8069fece60badb17b5c93449b65cf1"
+      }
+    },
+    {
       "identity" : "swift-tts",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/swift-tts",
       "state" : {
-        "revision" : "89e957b1dd4dad5d11d214cbb391ff0cf783c819",
-        "version" : "2.1.0"
+        "revision" : "01ed546e43f75e45eee49ed91f5a449d86e48fa3",
+        "version" : "2.1.2"
       }
     },
     {
