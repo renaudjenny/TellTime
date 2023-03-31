@@ -1,77 +1,57 @@
 import ComposableArchitecture
 import Speech
 import SwiftUI
+import SwiftSpeechRecognizerDependency
 
 struct SpeechRecognizerButton: View {
-    
-    var body: some View { Text("WIP") }
-    
+    struct ViewState: Equatable {
+        var isRecording: Bool
+        var label: Text
+        var image: Image
+
+        init(_ state: SpeechRecognizer.State) {
+            switch state.status {
+            case .notStarted, .stopped:
+                self.label = Text("Speech Recognition ready")
+                self.isRecording = false
+                self.image = Image(systemName: "waveform.circle")
+            case .recording:
+                self.label = Text("Speech Recognition recording...")
+                self.isRecording = true
+                self.image = Image(systemName: "record.circle")
+            case .stopping:
+                self.label = Text("Speech Recognition stopping...")
+                self.isRecording = false
+                self.image = Image(systemName: "stop.circle")
+            }
+            self.isRecording = state.status == .recording
+
+        }
+    }
+
+    let store: StoreOf<SpeechRecognizer>
+
+    var body: some View {
+        WithViewStore(store, observe: ViewState.init) { viewStore in
+            Button { viewStore.send(.buttonTapped) } label: {
+                viewStore.image
+                    .resizable()
+                    .accentColor(.white)
+                    .padding(4)
+                    .background(Color.red)
+                    .cornerRadius(8)
+                    .opacity(viewStore.isRecording ? 0.8 : 1)
+                    .animation(viewStore.isRecording ? glowingAnimation : .default, value: viewStore.state)
+                    .frame(width: 50, height: 50)
+            }
+            .accessibilityLabel(viewStore.label)
+        }
+    }
+
+    private var glowingAnimation: Animation {
+        Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
+    }
 }
-//    struct ViewState: Equatable {
-//        var status: SpeechRecognitionStatus
-//    }
-//
-//    enum ViewAction: Equatable {
-//        case buttonTapped
-//    }
-//
-//    let store: StoreOf<SpeechRecognizer>
-//
-//    var body: some View {
-//        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
-//            Button { viewStore.send(.buttonTapped) } label: {
-//                image(viewStore: viewStore)
-//                    .resizable()
-//                    .accentColor(.white)
-//                    .padding(4)
-//                    .background(Color.red)
-//                    .cornerRadius(8)
-//                    .opacity(isRecording(viewStore: viewStore) ? 0.8 : 1)
-//                    .animation(isRecording(viewStore: viewStore) ? glowingAnimation : .default, value: viewStore.status)
-//                    .frame(width: 50, height: 50)
-//            }
-//            .accessibilityLabel(label(viewStore: viewStore))
-//        }
-//    }
-//
-//    private func image(viewStore: ViewStore<ViewState, ViewAction>) -> Image {
-//        switch viewStore.status {
-//        case .notStarted, .stopped: return Image(systemName: "waveform.circle")
-//        case .recording: return Image(systemName: "record.circle")
-//        case .stopping: return Image(systemName: "stop.circle")
-//        }
-//    }
-//
-//    private func label(viewStore: ViewStore<ViewState, ViewAction>) -> Text {
-//        switch viewStore.status {
-//        case .notStarted, .stopped: return Text("Speech Recognition ready")
-//        case .recording: return Text("Speech Recognition recording...")
-//        case .stopping: return Text("Speech Recognition stopping...")
-//        }
-//    }
-//
-//    private func isRecording(viewStore: ViewStore<ViewState, ViewAction>) -> Bool {
-//        viewStore.status == .recording
-//    }
-//
-//    private var glowingAnimation: Animation {
-//        Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
-//    }
-//}
-//
-//private extension AppState {
-//    var view: SpeechRecognitionButton.ViewState {
-//        SpeechRecognitionButton.ViewState(status: speechRecognition.status)
-//    }
-//}
-//
-//private extension AppAction {
-//    static func view(localAction: SpeechRecognitionButton.ViewAction) -> Self {
-//        switch localAction {
-//        case .buttonTapped: return .speechRecognition(.buttonTapped)
-//        }
-//    }
-//}
 //
 //#if DEBUG
 //struct SpeechRecognitionButton_Previews: PreviewProvider {
