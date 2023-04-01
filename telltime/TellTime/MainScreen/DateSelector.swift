@@ -1,5 +1,6 @@
-import SwiftUI
 import ComposableArchitecture
+import SpeechRecognizerCore
+import SwiftUI
 
 struct DateSelector: View {
     struct ViewState: Equatable {
@@ -18,7 +19,10 @@ struct DateSelector: View {
             VStack {
                 ZStack {
                     HStack {
-                        SpeechRecognitionButton(store: store)
+                        SpeechRecognizerButton(store: store.scope(
+                            state: \.speechRecognizer,
+                            action: AppAction.speechRecognizer
+                        ))
                         Spacer()
                     }
 
@@ -47,7 +51,7 @@ private extension AppState {
     var view: DateSelector.ViewState {
         DateSelector.ViewState(
             date: date,
-            recognizedUtterance: speechRecognition.utterance
+            recognizedUtterance: speechRecognizer.utterance
         )
     }
 }

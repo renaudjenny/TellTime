@@ -118,7 +118,7 @@ private extension AppState {
         MainView.ViewState(
             date: date,
             time: tellTime,
-            recognizedUtterance: speechRecognition.utterance,
+            recognizedUtterance: speechRecognizer.utterance,
             clockStyle: configuration.clockStyle,
             clockConfiguration: configuration.clock,
             isConfigurationPresented: configuration.isPresented,

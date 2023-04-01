@@ -2,14 +2,24 @@ import ComposableArchitecture
 import Speech
 import SwiftSpeechRecognizerDependency
 
-struct SpeechRecognizer: ReducerProtocol {
-    struct State: Equatable {
-        var status: SpeechRecognitionStatus = .notStarted
-        var authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
-        var utterance: String?
+public struct SpeechRecognizer: ReducerProtocol {
+    public struct State: Equatable {
+        public var status: SpeechRecognitionStatus = .notStarted
+        public var authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined
+        public var utterance: String?
+
+        public init(
+            status: SpeechRecognitionStatus = .notStarted,
+            authorizationStatus: SFSpeechRecognizerAuthorizationStatus = .notDetermined,
+            utterance: String? = nil
+        ) {
+            self.status = status
+            self.authorizationStatus = authorizationStatus
+            self.utterance = utterance
+        }
     }
 
-    enum Action: Equatable {
+    public enum Action: Equatable {
         case buttonTapped
         case startRecording
         case stopRecording
@@ -27,7 +37,9 @@ struct SpeechRecognizer: ReducerProtocol {
 
     @Dependency(\.speechRecognizer) var speechRecognizer
 
-    func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+    public init() {}
+
+    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .buttonTapped:
             switch state.status {
@@ -37,7 +49,7 @@ struct SpeechRecognizer: ReducerProtocol {
                 return startRecording(state: &state)
             }
         case .startRecording:
-return stopRecording(state: &state)
+            return stopRecording(state: &state)
         case .stopRecording:
             speechRecognizer.stopRecording()
             return .cancel(id: RecognizedTimeDebounceId())
@@ -89,7 +101,7 @@ return stopRecording(state: &state)
 
     private func startRecording(state: inout State) -> EffectTask<Action> {
         guard state.authorizationStatus == .authorized
-        else { return .task { .requestAuthorization } }
+        else { return requestAuthorization(state: &state) }
         do {
             try speechRecognizer.startRecording()
             return .merge(

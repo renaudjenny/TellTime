@@ -3,7 +3,7 @@ import Speech
 import SwiftUI
 import SwiftSpeechRecognizerDependency
 
-struct SpeechRecognizerButton: View {
+public struct SpeechRecognizerButton: View {
     struct ViewState: Equatable {
         var isRecording: Bool
         var label: Text
@@ -31,7 +31,11 @@ struct SpeechRecognizerButton: View {
 
     let store: StoreOf<SpeechRecognizer>
 
-    var body: some View {
+    public init(store: StoreOf<SpeechRecognizer>) {
+        self.store = store
+    }
+
+    public var body: some View {
         WithViewStore(store, observe: ViewState.init) { viewStore in
             Button { viewStore.send(.buttonTapped) } label: {
                 viewStore.image
@@ -41,22 +45,31 @@ struct SpeechRecognizerButton: View {
                     .background(Color.red)
                     .cornerRadius(8)
                     .opacity(viewStore.isRecording ? 0.8 : 1)
-                    .animation(viewStore.isRecording ? glowingAnimation : .default, value: viewStore.state)
                     .frame(width: 50, height: 50)
             }
             .accessibilityLabel(viewStore.label)
         }
     }
+}
 
-    private var glowingAnimation: Animation {
-        Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
+#if DEBUG
+public struct SpeechRecognizerButton_Previews: PreviewProvider {
+    public static var previews: some View {
+        WithViewStore(Store<SpeechRecognizer.State, SpeechRecognizer.Action>.preview, observe: { $0 }) { viewStore in
+            VStack {
+                SpeechRecognizerButton(store: .preview)
+                Text(viewStore.utterance ?? "")
+                Text("Speech status: " + "\(viewStore.status)")
+                Text("Authorization status: " + "\(viewStore.authorizationStatus.customDumpDescription)")
+            }
+            .padding()
+        }
     }
 }
-//
-//#if DEBUG
-//struct SpeechRecognitionButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SpeechRecognitionButton(store: .preview)
-//    }
-//}
-//#endif
+
+public extension Store where State == SpeechRecognizer.State, Action == SpeechRecognizer.Action {
+    static var preview: Store<SpeechRecognizer.State, SpeechRecognizer.Action> {
+        Store(initialState: SpeechRecognizer.State(), reducer: SpeechRecognizer())
+    }
+}
+#endif

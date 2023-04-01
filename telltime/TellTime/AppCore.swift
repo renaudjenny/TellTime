@@ -4,13 +4,14 @@ import SwiftSpeechCombine
 import Speech
 import AVFoundation
 import ComposableArchitecture
+import SpeechRecognizerCore
 import TTSCore
 
 struct AppState: Equatable {
     var date: Date = Date()
     var configuration = ConfigurationState()
     var tts = TTS.State()
-    var speechRecognition = SpeechRecognitionState()
+    var speechRecognizer = SpeechRecognizer.State()
     var isAboutPresented = false
     var tellTime: String?
 }
@@ -20,7 +21,7 @@ enum AppAction: Equatable {
     case setRandomDate
     case configuration(ConfigurationAction)
     case tts(TTS.Action)
-    case speechRecognition(SpeechRecognitionAction)
+    case speechRecognizer(SpeechRecognizer.Action)
     case appStarted
     case presentAbout
     case hideAbout
@@ -43,15 +44,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         environment: { _ in ConfigurationEnvironment() }
     ),
     AnyReducer(TTS()).pullback(state: \.tts, action: /AppAction.tts, environment: { $0 }),
-    speechRecognitionReducer.pullback(
-        state: \.speechRecognition,
-        action: /AppAction.speechRecognition,
-        environment: { SpeechRecognitionEnvironment(
-            engine: $0.speechRecognitionEngine,
-            recognizeTime: $0.recognizeTime,
-            calendar: $0.calendar,
-            mainQueue: $0.mainQueue
-        ) }
+    AnyReducer(SpeechRecognizer()).pullback(
+        state: \.speechRecognizer,
+        action: /AppAction.speechRecognizer,
+        environment: { $0 }
     ),
     Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
         switch action {
@@ -74,11 +70,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .hideAbout:
             state.isAboutPresented = false
             return .none
-        case let .speechRecognition(.setRecognizedDate(date)):
+        case let .speechRecognizer(.setRecognizedDate(date)):
             return Effect(value: .setDate(date))
         case .configuration: return .none
         case .tts: return .none
-        case .speechRecognition: return .none
+        case .speechRecognizer: return .none
         }
     }
 )
