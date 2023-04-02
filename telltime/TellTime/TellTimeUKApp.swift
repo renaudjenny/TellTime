@@ -1,6 +1,5 @@
 import SwiftUI
 import ComposableArchitecture
-import SwiftSpeechCombine
 import SwiftClockUI
 import SwiftPastTen
 import SwiftToTen
@@ -23,7 +22,6 @@ struct TellTimeUKApp: SwiftUI.App {
             randomDate: generateRandomDate,
             calendar: Calendar.autoupdatingCurrent,
             tellTime: tellTime,
-            speechRecognitionEngine: SpeechRecognitionSpeechEngine(),
             recognizeTime: SwiftToTen.recognizeTime,
             mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )

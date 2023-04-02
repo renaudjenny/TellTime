@@ -1,6 +1,5 @@
 import SwiftUI
 import Combine
-import SwiftSpeechCombine
 import Speech
 import AVFoundation
 import ComposableArchitecture
@@ -32,7 +31,6 @@ struct AppEnvironment {
     var randomDate: (Calendar) -> Date
     var calendar: Calendar
     var tellTime: (Date, Calendar) -> String
-    var speechRecognitionEngine: SpeechRecognitionEngine
     var recognizeTime: (String, Calendar) -> Date?
     var mainQueue: AnySchedulerOf<DispatchQueue>
 }
@@ -50,12 +48,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         environment: { $0 }
     ),
     Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+        struct RecognizedTimeDebounceId: Hashable { }
+
         switch action {
         case let .setDate(date):
-            state.date = date
-            state.tellTime = environment.tellTime(date, environment.calendar)
-            state.tts.text = state.tellTime ?? ""
-            return .none
+            return setDate(date, state: &state, environment: environment)
         case .setRandomDate:
             let randomDate = environment.randomDate(environment.calendar)
             return Effect(value: .setDate(randomDate))
@@ -70,14 +67,28 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .hideAbout:
             state.isAboutPresented = false
             return .none
-        case let .speechRecognizer(.setRecognizedDate(date)):
-            return Effect(value: .setDate(date))
+        case let .speechRecognizer(.setUtterance(utterance)):
+            guard
+                let utterance = utterance,
+                let date = environment.recognizeTime(utterance, environment.calendar)
+            else { return .none }
+            // TODO: debounce?
+            @Dependency(\.speechRecognizer) var speechRecognizer
+            speechRecognizer.stopRecording()
+            return setDate(date, state: &state, environment: environment)
         case .configuration: return .none
         case .tts: return .none
         case .speechRecognizer: return .none
         }
     }
 )
+
+private func setDate(_ date: Date, state: inout AppState, environment: AppEnvironment) -> EffectTask<AppAction> {
+    state.date = date
+    state.tellTime = environment.tellTime(date, environment.calendar)
+    state.tts.text = state.tellTime ?? ""
+    return .none
+}
 
 #if DEBUG
 extension Store where State == AppState, Action == AppAction {
@@ -115,7 +126,6 @@ extension AppEnvironment {
             randomDate: generateRandomDate,
             calendar: Calendar.autoupdatingCurrent,
             tellTime: mockedTellTime,
-            speechRecognitionEngine: MockedSpeechRecognitionEngine(),
             recognizeTime: { _, _ in nil },
             mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
@@ -124,21 +134,6 @@ extension AppEnvironment {
     }
 
     static var preview: Self { .preview() }
-}
-
-private final class MockedSpeechRecognitionEngine: SpeechRecognitionEngine {
-    var authorizationStatusPublisher: AnyPublisher<SFSpeechRecognizerAuthorizationStatus?, Never> {
-        Just(.notDetermined).eraseToAnyPublisher()
-    }
-    var recognizedUtterancePublisher: AnyPublisher<String?, Never> { Just(nil).eraseToAnyPublisher() }
-    var recognitionStatusPublisher: AnyPublisher<SpeechRecognitionStatus, Never> {
-        Just(.notStarted).eraseToAnyPublisher()
-    }
-    var isRecognitionAvailablePublisher: AnyPublisher<Bool, Never> { Just(false).eraseToAnyPublisher() }
-    var newUtterancePublisher: AnyPublisher<String, Never> { Just("").eraseToAnyPublisher() }
-    func requestAuthorization() { }
-    func startRecording() throws { }
-    func stopRecording() { }
 }
 
 func mockedTellTime(date: Date, calendar: Calendar) -> String { "12:34" }

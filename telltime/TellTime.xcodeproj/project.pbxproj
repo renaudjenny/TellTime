@@ -40,6 +40,7 @@
 		4CD9494527E7BC67003EA782 /* SwiftClockUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4CD9494427E7BC67003EA782 /* SwiftClockUI */; };
 		4CEB6042238ADEAF0085B07C /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6041238ADEAF0085B07C /* AppCore.swift */; };
 		4CEB604A238C82A30085B07C /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEB6049238C82A30085B07C /* Configuration.swift */; };
+		4CEEF27829D92B8C00CD1DC8 /* SpeechRecognizerCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEEF27729D92B8C00CD1DC8 /* SpeechRecognizerCore */; };
 		4CFB1C5C25D5BBC900AA7374 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 4CFB1C5B25D5BBC900AA7374 /* ComposableArchitecture */; };
 		4CFB1C6A25D726BA00AA7374 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB1C6925D726BA00AA7374 /* DateSelector.swift */; };
 		4CFB1C7025D7E0A800AA7374 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB1C6F25D7E0A800AA7374 /* Buttons.swift */; };
@@ -146,6 +147,7 @@
 				4CD9494527E7BC67003EA782 /* SwiftClockUI in Frameworks */,
 				4C86575425531EB20040EA04 /* RenaudJennyAboutView in Frameworks */,
 				4C1496B325DDBB3F00993CF3 /* SwiftToTen in Frameworks */,
+				4CEEF27829D92B8C00CD1DC8 /* SpeechRecognizerCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +338,7 @@
 				4C1496B225DDBB3F00993CF3 /* SwiftToTen */,
 				4CD9494427E7BC67003EA782 /* SwiftClockUI */,
 				4C4A811829CFC03600463169 /* TTSCore */,
+				4CEEF27729D92B8C00CD1DC8 /* SpeechRecognizerCore */,
 			);
 			productName = telltime;
 			productReference = 4CB1D4B822A7293300786385 /* Tell Time UK.app */;
@@ -910,6 +913,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4CD9494327E7BC67003EA782 /* XCRemoteSwiftPackageReference "SwiftClockUi" */;
 			productName = SwiftClockUI;
+		};
+		4CEEF27729D92B8C00CD1DC8 /* SpeechRecognizerCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpeechRecognizerCore;
 		};
 		4CFB1C5B25D5BBC900AA7374 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
