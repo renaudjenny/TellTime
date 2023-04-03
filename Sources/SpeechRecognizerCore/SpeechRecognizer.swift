@@ -29,9 +29,6 @@ public struct SpeechRecognizer: ReducerProtocol {
         case setAuthorizationStatus(SFSpeechRecognizerAuthorizationStatus)
     }
 
-    struct RecognizerStatusId: Hashable { }
-    struct NewUtteranceId: Hashable { }
-
     @Dependency(\.speechRecognizer) var speechRecognizer
 
     public init() {}
@@ -46,18 +43,16 @@ public struct SpeechRecognizer: ReducerProtocol {
                 return startRecording(state: &state)
             }
         case .startRecording:
-            return stopRecording(state: &state)
+            return startRecording(state: &state)
         case .stopRecording:
             return stopRecording(state: &state)
-        case .setStatus(let status):
+        case let .setStatus(status):
             state.status = status
             switch status {
-            case .recording:
+            case .recording, .stopping:
                 state.utterance = nil
-            case .stopped:
-                state.utterance = nil
-                return .cancel(id: NewUtteranceId())
-            default: break
+            case .notStarted, .stopped:
+                break
             }
             return .none
         case let .setUtterance(utterance):
@@ -88,14 +83,12 @@ public struct SpeechRecognizer: ReducerProtocol {
                     for await recognitionStatus in speechRecognizer.recognitionStatus() {
                         await send(.setStatus(recognitionStatus))
                     }
-                })
-                .cancellable(id: RecognizerStatusId()),
+                }),
                 .run(operation: { send in
                     for await newUtterance in speechRecognizer.newUtterance() {
                         await send(.setUtterance(newUtterance))
                     }
                 })
-                .cancellable(id: NewUtteranceId())
             )
         } catch {
             return stopRecording(state: &state)

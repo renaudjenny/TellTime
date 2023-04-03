@@ -55,14 +55,22 @@ public struct SpeechRecognizerButton: View {
 #if DEBUG
 public struct SpeechRecognizerButton_Previews: PreviewProvider {
     public static var previews: some View {
-        WithViewStore(Store<SpeechRecognizer.State, SpeechRecognizer.Action>.preview, observe: { $0 }) { viewStore in
-            VStack {
-                SpeechRecognizerButton(store: .preview)
-                Text(viewStore.utterance ?? "")
-                Text("Speech status: " + "\(viewStore.status)")
-                Text("Authorization status: " + "\(viewStore.authorizationStatus.customDumpDescription)")
+        Preview(store: .preview)
+    }
+
+    private struct Preview: View {
+        let store: StoreOf<SpeechRecognizer>
+
+        var body: some View {
+            WithViewStore(store, observe: { $0 }) { viewStore in
+                VStack {
+                    SpeechRecognizerButton(store: store)
+                    Text(viewStore.utterance ?? "").multilineTextAlignment(.center)
+                    Text("Speech status: \(viewStore.status.description)")
+                    Text("Authorization status: \(viewStore.authorizationStatus.description)")
+                }
+                .padding()
             }
-            .padding()
         }
     }
 }

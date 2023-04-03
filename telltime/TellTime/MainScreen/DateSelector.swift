@@ -73,7 +73,6 @@ struct DateSelector_Previews: PreviewProvider {
                 DateSelector(store: .preview)
                 Buttons(store: .preview)
             }
-            .previewLayout(.iPhoneSe(.landscape))
         }
     }
 }
