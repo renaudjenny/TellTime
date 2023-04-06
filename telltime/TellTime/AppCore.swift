@@ -8,7 +8,7 @@ import TTSCore
 
 struct AppState: Equatable {
     var date: Date = Date()
-    var configuration = ConfigurationState()
+    var configuration = Configuration.State()
     var tts = TTS.State()
     var speechRecognizer = SpeechRecognizer.State()
     var isAboutPresented = false
@@ -18,7 +18,7 @@ struct AppState: Equatable {
 enum AppAction: Equatable {
     case setDate(Date)
     case setRandomDate
-    case configuration(ConfigurationAction)
+    case configuration(Configuration.Action)
     case tts(TTS.Action)
     case speechRecognizer(SpeechRecognizer.Action)
     case appStarted
@@ -36,11 +36,7 @@ struct AppEnvironment {
 }
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
-    configurationReducer.pullback(
-        state: \.configuration,
-        action: /AppAction.configuration,
-        environment: { _ in ConfigurationEnvironment() }
-    ),
+    AnyReducer(Configuration()).pullback(state: \.configuration, action: /AppAction.configuration, environment: { $0 }),
     AnyReducer(TTS()).pullback(state: \.tts, action: /AppAction.tts, environment: { $0 }),
     AnyReducer(SpeechRecognizer()).pullback(
         state: \.speechRecognizer,
