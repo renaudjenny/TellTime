@@ -27,6 +27,7 @@ public struct SpeechRecognizer: ReducerProtocol {
         case setUtterance(String?)
         case requestAuthorization
         case setAuthorizationStatus(SFSpeechRecognizerAuthorizationStatus)
+        case cancel
     }
 
     @Dependency(\.speechRecognizer) var speechRecognizer
@@ -58,7 +59,7 @@ public struct SpeechRecognizer: ReducerProtocol {
         case let .setUtterance(utterance):
             state.utterance = utterance
             return .none
-        case .setAuthorizationStatus(let authorizationStatus):
+        case let .setAuthorizationStatus(authorizationStatus):
             state.authorizationStatus = authorizationStatus
             switch authorizationStatus {
             case .authorized:
@@ -70,6 +71,8 @@ public struct SpeechRecognizer: ReducerProtocol {
             return .none
         case .requestAuthorization:
             return requestAuthorization(state: &state)
+        case .cancel:
+            // TODO: cancel all long living effects such as recognition status, new utterance and authorization for await
         }
     }
 

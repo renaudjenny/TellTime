@@ -24,6 +24,7 @@ let package = Package(
                 .product(name: "SwiftSpeechRecognizerDependency", package: "swift-speech-recognizer"),
             ]
         ),
+        .testTarget(name: "SpeechRecognizerCoreTests", dependencies: ["SpeechRecognizerCore"]),
         .target(
             name: "TTSCore",
             dependencies: [
@@ -31,9 +32,12 @@ let package = Package(
                 .product(name: "SwiftTTSDependency", package: "swift-tts"),
             ]
         ),
-        .testTarget(name: "TTSCoreTests", dependencies: [
-            "TTSCore",
-            .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
-        ]),
+        .testTarget(
+            name: "TTSCoreTests",
+            dependencies: [
+                "TTSCore",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
+        ),
     ]
 )
