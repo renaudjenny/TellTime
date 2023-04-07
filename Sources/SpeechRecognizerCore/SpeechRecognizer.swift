@@ -34,6 +34,10 @@ public struct SpeechRecognizer: ReducerProtocol {
 
     public init() {}
 
+    private enum AuthorizationStatusTaskID {}
+    private enum RecognitionStatusTaskID {}
+    private enum NewUtteranceTaskID {}
+
     public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .buttonTapped:
@@ -72,7 +76,7 @@ public struct SpeechRecognizer: ReducerProtocol {
         case .requestAuthorization:
             return requestAuthorization(state: &state)
         case .cancel:
-            // TODO: cancel all long living effects such as recognition status, new utterance and authorization for await
+            return .cancel(ids: [AuthorizationStatusTaskID.self, RecognitionStatusTaskID.self, NewUtteranceTaskID.self])
         }
     }
 
@@ -86,12 +90,14 @@ public struct SpeechRecognizer: ReducerProtocol {
                     for await recognitionStatus in speechRecognizer.recognitionStatus() {
                         await send(.setStatus(recognitionStatus))
                     }
-                }),
+                })
+                .cancellable(id: RecognitionStatusTaskID.self),
                 .run(operation: { send in
                     for await newUtterance in speechRecognizer.newUtterance() {
                         await send(.setUtterance(newUtterance))
                     }
                 })
+                .cancellable(id: NewUtteranceTaskID.self)
             )
         } catch {
             return stopRecording(state: &state)
@@ -110,5 +116,6 @@ public struct SpeechRecognizer: ReducerProtocol {
                 await send(.setAuthorizationStatus(authorizationStatus))
             }
         }
+        .cancellable(id: AuthorizationStatusTaskID.self)
     }
 }
