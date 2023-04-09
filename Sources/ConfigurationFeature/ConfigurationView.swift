@@ -2,13 +2,17 @@ import ComposableArchitecture
 import SwiftClockUI
 import SwiftUI
 
-struct ConfigurationView: View {
+public struct ConfigurationView: View {
     let store: StoreOf<Configuration>
 
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 
-    var body: some View {
+    public init(store: StoreOf<Configuration>) {
+        self.store = store
+    }
+
+    public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Group {
                 if verticalSizeClass == .regular && horizontalSizeClass == .regular {

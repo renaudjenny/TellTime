@@ -1,3 +1,4 @@
+import ConfigurationFeature
 import SwiftUI
 import ComposableArchitecture
 import Combine
@@ -98,7 +99,10 @@ struct MainView: View {
     private func navigationLinks(viewStore: ViewStore<MainView.ViewState, MainView.ViewAction>) -> some View {
         VStack {
             NavigationLink(
-                destination: ConfigurationView(store: store),
+                destination: ConfigurationView(store: store.scope(
+                    state: \.configuration,
+                    action: { AppAction.configuration($0) }
+                )),
                 isActive: viewStore.binding(get: \.isConfigurationPresented, send: ViewAction.hideConfiguration),
                 label: EmptyView.init
             )

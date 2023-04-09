@@ -67,7 +67,7 @@ private extension AppAction {
         switch localAction {
         case .setDateNow: return .setDate(Date())
         case .tellTime: return .tts(.speak)
-        case .setClockStyle(let clockStyle): return .configuration(.setClockStyle(clockStyle))
+        case .setClockStyle(let clockStyle): return .configuration(.binding(.set(\.$clockStyle, clockStyle)))
         }
     }
 }

@@ -1,3 +1,4 @@
+import ConfigurationFeature
 import SwiftUI
 import Combine
 import Speech
@@ -72,6 +73,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             @Dependency(\.speechRecognizer) var speechRecognizer
             speechRecognizer.stopRecording()
             return setDate(date, state: &state, environment: environment)
+        case .configuration(.binding(\.$speechRateRatio)):
+            @Dependency(\.tts) var tts
+            tts.setRateRatio(state.configuration.speechRateRatio)
+            return .none
         case .configuration: return .none
         case .tts: return .none
         case .speechRecognizer: return .none
