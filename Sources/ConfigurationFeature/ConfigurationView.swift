@@ -136,62 +136,69 @@ private extension Configuration.State {
 }
 
 #if DEBUG
-// TODO: Add previews
-//struct ConfigurationView_Previews: PreviewProvider {
-//    @Environment(\.calendar) static var calendar
-//
-//    static var previews: some View {
-//        Preview()
-//    }
-//
-//    private struct Preview: View {
-//        @Environment(\.calendar) var calendar
-//
-//        var body: some View {
-//            NavigationView {
-//                ConfigurationView(store: .preview)
-//            }
-//            .environment(\.verticalSizeClass, .regular)
-//            .environment(\.horizontalSizeClass, .compact)
-//            .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
-//        }
-//    }
-//}
-//
-//struct ConfigurationViewLandscape_Previews: PreviewProvider {
-//    @Environment(\.calendar) static var calendar
-//
-//    static var previews: some View {
-//        Preview()
-//    }
-//
-//    private struct Preview: View {
-//        @Environment(\.calendar) var calendar
-//
-//        var body: some View {
-//            NavigationView {
-//                ConfigurationView(store: .preview)
-//            }
-//            .environment(\.verticalSizeClass, .compact)
-//            .environment(\.horizontalSizeClass, .compact)
-//            .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
-//            .previewLayout(.iPhoneSe(.landscape))
-//        }
-//    }
-//}
-//
-//struct ConfigurationViewRegular_Previews: PreviewProvider {
-//    @Environment(\.calendar) static var calendar
-//
-//    static var previews: some View {
-//        NavigationView {
-//            ConfigurationView(store: .preview)
-//        }
-//        .navigationViewStyle(StackNavigationViewStyle())
-//        .environment(\.verticalSizeClass, .regular)
-//        .environment(\.horizontalSizeClass, .regular)
-//        .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
-//        .previewLayout(.fixed(width: 1000, height: 900))
-//    }
-//}
+struct ConfigurationView_Previews: PreviewProvider {
+    static var previews: some View {
+        Preview()
+    }
+
+    private struct Preview: View {
+        @Environment(\.calendar) var calendar
+
+        var body: some View {
+            NavigationView {
+                ConfigurationView(store: .preview)
+            }
+            .environment(\.verticalSizeClass, .regular)
+            .environment(\.horizontalSizeClass, .compact)
+            .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
+        }
+    }
+}
+
+extension Store where State == Configuration.State, Action == Configuration.Action {
+    static var preview: StoreOf<Configuration> {
+        Store(initialState: Configuration.State(), reducer: Configuration())
+    }
+}
+
+struct ConfigurationViewLandscape_Previews: PreviewProvider {
+    static var previews: some View {
+        Preview()
+    }
+
+    private struct Preview: View {
+        @Environment(\.calendar) var calendar
+
+        var body: some View {
+            NavigationView {
+                ConfigurationView(store: .preview)
+            }
+            .environment(\.verticalSizeClass, .compact)
+            .environment(\.horizontalSizeClass, .compact)
+            .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
+            .previewLayout(.fixed(width: 568, height: 320))
+        }
+    }
+}
+
+struct ConfigurationViewRegular_Previews: PreviewProvider {
+    static var previews: some View {
+        Preview()
+    }
+
+    private struct Preview: View {
+        @Environment(\.calendar) var calendar
+
+        var body: some View {
+            NavigationView {
+                ConfigurationView(store: .preview)
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .environment(\.verticalSizeClass, .regular)
+            .environment(\.horizontalSizeClass, .regular)
+            .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
+            .previewLayout(.fixed(width: 1000, height: 900))
+        }
+    }
+}
 #endif
