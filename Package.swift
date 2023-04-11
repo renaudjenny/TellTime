@@ -26,13 +26,13 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
         ),
-//        .testTarget(
-//            name: "ConfigurationFeatureTests",
-//            dependencies: [
-//                "ConfigurationFeature",
-//                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
-//            ]
-//        ),
+        .testTarget(
+            name: "ConfigurationFeatureTests",
+            dependencies: [
+                "ConfigurationFeature",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
+        ),
         .target(
             name: "SpeechRecognizerCore",
             dependencies: [

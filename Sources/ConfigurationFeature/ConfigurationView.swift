@@ -136,8 +136,8 @@ private extension Configuration.State {
 }
 
 #if DEBUG
-struct ConfigurationView_Previews: PreviewProvider {
-    static var previews: some View {
+public struct ConfigurationView_Previews: PreviewProvider {
+    public static var previews: some View {
         Preview()
     }
 
@@ -148,8 +148,6 @@ struct ConfigurationView_Previews: PreviewProvider {
             NavigationView {
                 ConfigurationView(store: .preview)
             }
-            .environment(\.verticalSizeClass, .regular)
-            .environment(\.horizontalSizeClass, .compact)
             .environment(\.clockDate, .constant(.init(hour: 10, minute: 10, calendar: calendar)))
         }
     }
