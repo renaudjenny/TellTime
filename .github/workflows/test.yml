@@ -18,3 +18,10 @@ jobs:
 
     - name: Run test
       run: xcodebuild test -scheme telltime -destination "platform=iOS Simulator,name=iPhone 14 Pro"
+
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: failed-screenshots
+        path: '~/Library/Developer/CoreSimulator/Devices/*/data/tmp/*Tests'
+        retention-days: 5
