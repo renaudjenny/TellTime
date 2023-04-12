@@ -100,6 +100,15 @@
       }
     },
     {
+      "identity" : "swiftclockui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/SwiftClockUI",
+      "state" : {
+        "revision" : "b4977887fcfd42201a709357076e3f111ff23c97",
+        "version" : "2.0.0"
+      }
+    },
+    {
       "identity" : "swiftui-navigation",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swiftui-navigation",

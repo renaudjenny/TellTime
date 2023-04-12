@@ -1,6 +1,6 @@
 # Tell Time 🇬🇧⏰
 
-[![Xcode Unit Test](https://github.com/renaudjenny/telltime/actions/workflows/xcodetest.yml/badge.svg)](https://github.com/renaudjenny/telltime/actions/workflows/xcodetest.yml)
+[![Swift Test](https://github.com/renaudjenny/TellTime/actions/workflows/test.yml/badge.svg)](https://github.com/renaudjenny/TellTime/actions/workflows/test.yml)
 
 >As a French guy in London, when people told me the time, I was always lost. Now thanks to this app, I can confirm what I hear and what I should say to tell the time 😄.
 

@@ -1,10 +1,9 @@
 import ComposableArchitecture
 import SpeechRecognizerCore
 import XCTest
-import Speech
 
 @MainActor
-class SpeechRecognitionCoreTests: XCTestCase {
+class SpeechRecognitionTests: XCTestCase {
     func testStartRecordingFirstTimeAsksForAuthorization() async {
         let requestAuthorizationExpectation = expectation(description: "Request authorization")
         let startRecordingExpectation = expectation(description: "Start recording")
