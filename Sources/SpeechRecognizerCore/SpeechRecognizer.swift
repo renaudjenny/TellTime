@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Speech
+import SwiftSpeechRecognizer
 import SwiftSpeechRecognizerDependency
 
 public struct SpeechRecognizer: ReducerProtocol {

@@ -1,7 +1,6 @@
 import ComposableArchitecture
-import Speech
-import SwiftUI
 import SwiftSpeechRecognizerDependency
+import SwiftUI
 
 public struct SpeechRecognizerButton: View {
     struct ViewState: Equatable {
@@ -53,6 +52,9 @@ public struct SpeechRecognizerButton: View {
 }
 
 #if DEBUG
+import Speech
+import SwiftSpeechRecognizer
+
 public struct SpeechRecognizerButton_Previews: PreviewProvider {
     public static var previews: some View {
         Preview(store: .preview)
@@ -64,10 +66,11 @@ public struct SpeechRecognizerButton_Previews: PreviewProvider {
         var body: some View {
             WithViewStore(store, observe: { $0 }) { viewStore in
                 VStack {
+                    Text("Hi")
                     SpeechRecognizerButton(store: store)
                     Text(viewStore.utterance ?? "").multilineTextAlignment(.center)
-                    Text("Speech status: \(viewStore.status.description)")
-                    Text("Authorization status: \(viewStore.authorizationStatus.description)")
+                    Text("Speech status: \(viewStore.status.previewDescription)")
+                    Text("Authorization status: \(viewStore.authorizationStatus.previewDescription)")
                 }
                 .padding()
             }
@@ -78,6 +81,29 @@ public struct SpeechRecognizerButton_Previews: PreviewProvider {
 public extension Store where State == SpeechRecognizer.State, Action == SpeechRecognizer.Action {
     static var preview: Store<SpeechRecognizer.State, SpeechRecognizer.Action> {
         Store(initialState: SpeechRecognizer.State(), reducer: SpeechRecognizer())
+    }
+}
+
+extension SpeechRecognitionStatus {
+    var previewDescription: String {
+        switch self {
+        case .notStarted: return "not started"
+        case .recording: return "recording"
+        case .stopping: return "stopping"
+        case .stopped: return "stopped"
+        }
+    }
+}
+
+extension SFSpeechRecognizerAuthorizationStatus {
+    var previewDescription: String {
+        switch self {
+        case .notDetermined: return "not determined"
+        case .denied: return "denied"
+        case .restricted: return "restricted"
+        case .authorized: return "authorized"
+        @unknown default: return "unknown!"
+        }
     }
 }
 #endif
