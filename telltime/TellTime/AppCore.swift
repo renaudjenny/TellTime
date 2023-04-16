@@ -52,10 +52,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             return setDate(date, state: &state, environment: environment)
         case .setRandomDate:
             let randomDate = environment.randomDate(environment.calendar)
-            return Effect(value: .setDate(randomDate))
+            return setDate(randomDate, state: &state, environment: environment)
         case .appStarted:
             if state.tellTime == nil {
-                return Effect(value: .setDate(state.date))
+                return setDate(state.date, state: &state, environment: environment)
             }
             return .none
         case .presentAbout:
