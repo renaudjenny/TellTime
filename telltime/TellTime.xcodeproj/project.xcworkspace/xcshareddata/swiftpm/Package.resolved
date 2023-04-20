@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-dependencies",
       "state" : {
-        "revision" : "6bb1034e8a1bfbf46dfb766b6c09b7b17e1cba10",
-        "version" : "0.2.0"
+        "revision" : "98650d886ec950b587d671261f06d6b59dec4052",
+        "version" : "0.4.1"
       }
     },
     {
@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/SwiftToTen",
       "state" : {
-        "revision" : "18d8694594b06aee67b0889f0bd9eaaaf16a6d27",
-        "version" : "1.1.0"
+        "branch" : "main",
+        "revision" : "ab3e8fc3e7bd7eaf154563119b3239363588bcbf"
       }
     },
     {
