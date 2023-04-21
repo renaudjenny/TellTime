@@ -82,6 +82,15 @@
       }
     },
     {
+      "identity" : "swift-past-ten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-past-ten",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d5bd80b859811eaf4bf56c98d90dff3339f3f418"
+      }
+    },
+    {
       "identity" : "swift-snapshot-testing",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-snapshot-testing.git",
@@ -97,6 +106,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "f8975b348c5a32e30fee85ba70f09145eede89ce"
+      }
+    },
+    {
+      "identity" : "swift-to-ten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-to-ten",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ab3e8fc3e7bd7eaf154563119b3239363588bcbf"
       }
     },
     {
@@ -118,30 +136,12 @@
       }
     },
     {
-      "identity" : "swiftpastten",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/renaudjenny/SwiftPastTen",
-      "state" : {
-        "revision" : "01af0a4c8bc79ab87843cd3877e391ac1fd049af",
-        "version" : "1.0.1"
-      }
-    },
-    {
       "identity" : "swiftregex5",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/johnno1962/SwiftRegex5",
       "state" : {
         "revision" : "8ecb4a8570757b7f8bce72f82242742e13891f99",
         "version" : "5.2.3"
-      }
-    },
-    {
-      "identity" : "swifttoten",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/renaudjenny/SwiftToTen",
-      "state" : {
-        "branch" : "main",
-        "revision" : "ab3e8fc3e7bd7eaf154563119b3239363588bcbf"
       }
     },
     {

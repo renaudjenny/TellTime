@@ -1,3 +1,5 @@
+import Dependencies
+import SwiftPastTenDependency
 import WidgetKit
 import SwiftUI
 import Intents
@@ -138,7 +140,8 @@ struct TellTimeWidgetView: View {
     }
 
     private var time: String {
-        guard let time = try? SwiftPastTen().tell(time: formattedTime) else {
+        @Dependency(\.tellTime) var tellTime
+        guard let time = try? tellTime(time: formattedTime) else {
             return ""
         }
         return time

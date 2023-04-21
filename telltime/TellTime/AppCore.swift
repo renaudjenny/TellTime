@@ -5,6 +5,7 @@ import Speech
 import AVFoundation
 import ComposableArchitecture
 import SpeechRecognizerCore
+import SwiftPastTenDependency
 import SwiftToTenDependency
 import TTSCore
 
@@ -87,7 +88,8 @@ struct App: ReducerProtocol {
 
     private func setDate(_ date: Date, state: inout App.State) -> EffectTask<App.Action> {
         state.date = date
-        state.tellTime = tellTime(date, calendar)
+        let time = SwiftPastTen.formattedDate(date, calendar: calendar)
+        state.tellTime = (try? tellTime(time: time)) ?? ""
         state.tts.text = state.tellTime ?? ""
         return .none
     }

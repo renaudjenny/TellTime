@@ -6,38 +6,21 @@ import SwiftToTen
 
 @main
 struct TellTimeUKApp: SwiftUI.App {
-    struct ViewState: Equatable { }
 
-    enum ViewAction: Equatable {
-        case setDateNow
-        case setClockStyle(ClockStyle)
-        case tellTime
-    }
-
-    let store: Store<AppState, AppAction> = Store(
-        initialState: AppState(date: Date()),
-        reducer: appReducer,
-        environment: AppEnvironment(
-            currentDate: { Date() },
-            randomDate: generateRandomDate,
-            calendar: Calendar.autoupdatingCurrent,
-            tellTime: tellTime,
-            recognizeTime: SwiftToTen.recognizeTime,
-            mainQueue: DispatchQueue.main.eraseToAnyScheduler()
-        )
-    )
+    let store = Store(initialState: App.State(), reducer: App())
 
     var body: some Scene {
         WindowGroup {
-            WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
+            WithViewStore(store.stateless) { viewStore in
                 MainView(store: store)
                     .onOpenURL(perform: { openURL($0, viewStore: viewStore) })
             }
         }
     }
 
-    private func openURL(_ url: URL, viewStore: ViewStore<ViewState, ViewAction>) {
-        viewStore.send(.setDateNow)
+    private func openURL(_ url: URL, viewStore: ViewStore<Void, App.Action>) {
+        @Dependency(\.date) var date
+        viewStore.send(.setDate(date.now))
         guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         else { return }
 
@@ -48,26 +31,10 @@ struct TellTimeUKApp: SwiftUI.App {
                 .value,
             let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
         else { return }
-        viewStore.send(.setClockStyle(clockStyle))
+        viewStore.send(.configuration(.set(\.$clockStyle, clockStyle)))
 
         if urlComponents.queryItems?.first(where: { $0.name == "speak" })?.value == "true" {
-            viewStore.send(.tellTime)
-        }
-    }
-}
-
-private extension AppState {
-    var view: TellTimeUKApp.ViewState {
-        TellTimeUKApp.ViewState()
-    }
-}
-
-private extension AppAction {
-    static func view(localAction: TellTimeUKApp.ViewAction) -> Self {
-        switch localAction {
-        case .setDateNow: return .setDate(Date())
-        case .tellTime: return .tts(.speak)
-        case .setClockStyle(let clockStyle): return .configuration(.binding(.set(\.$clockStyle, clockStyle)))
+            viewStore.send(.tts(.speak))
         }
     }
 }

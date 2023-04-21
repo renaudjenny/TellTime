@@ -6,28 +6,29 @@ struct DateSelector: View {
     struct ViewState: Equatable {
         var date: Date
         var recognizedUtterance: String?
+
+        init(_ state: App.State) {
+            date = state.date
+            recognizedUtterance = state.speechRecognizer.utterance
+        }
     }
 
-    enum ViewAction: Equatable {
-        case setDate(Date)
-    }
-
-    let store: Store<AppState, AppAction>
+    let store: StoreOf<App>
 
     var body: some View {
-        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
+        WithViewStore(store, observe: ViewState.init) { viewStore in
             VStack {
                 ZStack {
                     HStack {
                         SpeechRecognizerButton(store: store.scope(
                             state: \.speechRecognizer,
-                            action: AppAction.speechRecognizer
+                            action: App.Action.speechRecognizer
                         ))
                         Spacer()
                     }
 
                     DatePicker(
-                        selection: viewStore.binding(get: \.date, send: ViewAction.setDate),
+                        selection: viewStore.binding(get: \.date, send: App.Action.setDate),
                         displayedComponents: [.hourAndMinute]
                     ) {
                         Text("Select a time")
@@ -47,23 +48,6 @@ struct DateSelector: View {
     }
 }
 
-private extension AppState {
-    var view: DateSelector.ViewState {
-        DateSelector.ViewState(
-            date: date,
-            recognizedUtterance: speechRecognizer.utterance
-        )
-    }
-}
-
-private extension AppAction {
-    static func view(localAction: DateSelector.ViewAction) -> Self {
-        switch localAction {
-        case .setDate(let date): return .setDate(date)
-        }
-    }
-}
-
 #if DEBUG
 struct DateSelector_Previews: PreviewProvider {
     static var previews: some View {
@@ -76,5 +60,4 @@ struct DateSelector_Previews: PreviewProvider {
         }
     }
 }
-
 #endif
