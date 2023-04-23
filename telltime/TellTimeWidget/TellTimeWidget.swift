@@ -1,10 +1,6 @@
-import Dependencies
-import SwiftPastTenDependency
 import WidgetKit
 import SwiftUI
 import Intents
-import SwiftPastTen
-import SwiftClockUI
 
 struct Provider: IntentTimelineProvider {
     @Environment(\.calendar) private var calendar

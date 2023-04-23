@@ -5,8 +5,8 @@ import Combine
 import SwiftClockUI
 import RenaudJennyAboutView
 
-struct AppView: View {
-    struct ViewState: Equatable {
+public struct AppView: View {
+    public struct ViewState: Equatable {
         var date: Date
         var time: String?
         var recognizedUtterance: String?
@@ -31,7 +31,11 @@ struct AppView: View {
 
     let store: StoreOf<App>
 
-    var body: some View {
+    public init(store: StoreOf<App>) {
+        self.store = store
+    }
+
+    public var body: some View {
         WithViewStore(store.stateless) { viewStore in
             NavigationView {
                 content
@@ -40,6 +44,7 @@ struct AppView: View {
             }
             .navigationViewStyle(StackNavigationViewStyle())
             .onAppear { viewStore.send(.appStarted) }
+            .onOpenURL(perform: { openURL($0, viewStore: viewStore) })
         }
     }
 
@@ -122,6 +127,27 @@ struct AppView: View {
                     label: EmptyView.init
                 )
             }
+        }
+    }
+
+    // TODO: logic to move in the reducer
+    private func openURL(_ url: URL, viewStore: ViewStore<Void, App.Action>) {
+        @Dependency(\.date) var date
+        viewStore.send(.setDate(date.now))
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        else { return }
+
+        guard
+            let clockStyleValue = urlComponents
+                .queryItems?
+                .first(where: { $0.name == "clockStyle" })?
+                .value,
+            let clockStyle = ClockStyle.allCases.first(where: { String($0.id) == clockStyleValue })
+        else { return }
+        viewStore.send(.configuration(.set(\.$clockStyle, clockStyle)))
+
+        if urlComponents.queryItems?.first(where: { $0.name == "speak" })?.value == "true" {
+            viewStore.send(.tts(.speak))
         }
     }
 }

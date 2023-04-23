@@ -9,8 +9,8 @@ import SwiftPastTenDependency
 import SwiftToTenDependency
 import TTSCore
 
-struct App: ReducerProtocol {
-    struct State: Equatable {
+public struct App: ReducerProtocol {
+    public struct State: Equatable {
         var date: Date = Date()
         var configuration = Configuration.State()
         var tts = TTS.State()
@@ -19,7 +19,7 @@ struct App: ReducerProtocol {
         var tellTime: String?
     }
 
-    enum Action: Equatable {
+    public enum Action: Equatable {
         case setDate(Date)
         case setRandomDate
         case configuration(Configuration.Action)
@@ -38,7 +38,7 @@ struct App: ReducerProtocol {
     @Dependency(\.speechRecognizer) var speechRecognizer
     @Dependency(\.mainQueue) var mainQueue
 
-    var body: some ReducerProtocol<State, Action> {
+    public var body: some ReducerProtocol<State, Action> {
         Scope(state: \.configuration, action: /App.Action.configuration) {
             Configuration()
         }
@@ -95,6 +95,10 @@ struct App: ReducerProtocol {
     }
 }
 
+public extension Store where State == App.State, Action == App.Action {
+    static var live: StoreOf<App> { Store(initialState: App.State(), reducer: App()) }
+}
+
 #if DEBUG
 extension Store where State == App.State, Action == App.Action {
     static func preview(modifyState: (inout App.State) -> Void = { _ in }) -> Self {
@@ -116,6 +120,4 @@ extension App.State {
 
     static var preview: Self { .preview() }
 }
-
-func mockedTellTime(date: Date, calendar: Calendar) -> String { "12:34" }
 #endif
