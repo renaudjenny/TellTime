@@ -17,6 +17,7 @@
 		4C3CCC6F24B39356008F0699 /* TellTimeWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4C4A811929CFC03600463169 /* TTSCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4A811829CFC03600463169 /* TTSCore */; };
 		4C5FD3DC29F4C7F1008EB5C9 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FD3DB29F4C7F1008EB5C9 /* AppFeature */; };
+		4C5FD3DE29F4CCA2008EB5C9 /* WidgetFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FD3DD29F4CCA2008EB5C9 /* WidgetFeature */; };
 		4CB1D4BC22A7293300786385 /* TellTimeUKApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1D4BB22A7293300786385 /* TellTimeUKApp.swift */; };
 		4CB1D4C222A7293500786385 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C122A7293500786385 /* Assets.xcassets */; };
 		4CB1D4C522A7293500786385 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CB1D4C422A7293500786385 /* Preview Assets.xcassets */; };
@@ -82,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C3CCC6324B39353008F0699 /* SwiftUI.framework in Frameworks */,
+				4C5FD3DE29F4CCA2008EB5C9 /* WidgetFeature in Frameworks */,
 				4C3CCC6124B39353008F0699 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +180,7 @@
 			);
 			name = TellTimeWidgetExtension;
 			packageProductDependencies = (
+				4C5FD3DD29F4CCA2008EB5C9 /* WidgetFeature */,
 			);
 			productName = TellTimeWidgetExtension;
 			productReference = 4C3CCC5F24B39353008F0699 /* TellTimeWidgetExtension.appex */;
@@ -578,6 +581,10 @@
 		4C5FD3DB29F4C7F1008EB5C9 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;
+		};
+		4C5FD3DD29F4CCA2008EB5C9 /* WidgetFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WidgetFeature;
 		};
 		4CC951C229E291440022C537 /* ConfigurationFeature */ = {
 			isa = XCSwiftPackageProductDependency;

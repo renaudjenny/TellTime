@@ -11,10 +11,13 @@ let package = Package(
         .library(name: "ConfigurationFeature", targets: ["ConfigurationFeature"]),
         .library(name: "SpeechRecognizerCore", targets: ["SpeechRecognizerCore"]),
         .library(name: "TTSCore", targets: ["TTSCore"]),
+        .library(name: "WidgetFeature", targets: ["WidgetFeature"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/renaudjenny/RenaudJennyAboutView", from: "1.1.0"),
         .package(url: "https://github.com/renaudjenny/SwiftClockUI", from: "2.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.4.1"),
         .package(url: "https://github.com/renaudjenny/swift-past-ten", branch: "main"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.11.0"),
         .package(url: "https://github.com/renaudjenny/swift-speech-recognizer", branch: "main"),
@@ -27,7 +30,9 @@ let package = Package(
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 "ConfigurationFeature",
+                .product(name: "RenaudJennyAboutView", package: "RenaudJennyAboutView"),
                 "SpeechRecognizerCore",
+                .product(name: "SwiftClockUI", package: "SwiftClockUI"),
                 .product(name: "SwiftPastTenDependency", package: "swift-past-ten"),
                 .product(name: "SwiftToTenDependency", package: "swift-to-ten"),
                 "TTSCore",
@@ -70,5 +75,13 @@ let package = Package(
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ]
         ),
+        .target(
+            name: "WidgetFeature",
+            dependencies: [
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "SwiftClockUI", package: "SwiftClockUI"),
+                .product(name: "SwiftPastTenDependency", package: "swift-past-ten"),
+            ]
+        )
     ]
 )

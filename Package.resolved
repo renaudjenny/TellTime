@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "renaudjennyaboutview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/RenaudJennyAboutView",
+      "state" : {
+        "revision" : "88b458bdb1cfed265a025f7d257d4fad4d5a5b24",
+        "version" : "1.1.0"
+      }
+    },
+    {
       "identity" : "swift-case-paths",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
@@ -59,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-dependencies",
       "state" : {
-        "revision" : "6bb1034e8a1bfbf46dfb766b6c09b7b17e1cba10",
-        "version" : "0.2.0"
+        "revision" : "98650d886ec950b587d671261f06d6b59dec4052",
+        "version" : "0.4.1"
       }
     },
     {
@@ -70,6 +79,15 @@
       "state" : {
         "revision" : "ad3932d28c2e0a009a0167089619526709ef6497",
         "version" : "0.7.0"
+      }
+    },
+    {
+      "identity" : "swift-past-ten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-past-ten",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d5bd80b859811eaf4bf56c98d90dff3339f3f418"
       }
     },
     {
@@ -91,6 +109,15 @@
       }
     },
     {
+      "identity" : "swift-to-ten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/renaudjenny/swift-to-ten",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b7379ed384c052df74a08ef5a988c5281eda0aeb"
+      }
+    },
+    {
       "identity" : "swift-tts",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/swift-tts",
@@ -106,6 +133,15 @@
       "state" : {
         "revision" : "b4977887fcfd42201a709357076e3f111ff23c97",
         "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "swiftregex5",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/johnno1962/SwiftRegex5",
+      "state" : {
+        "revision" : "8ecb4a8570757b7f8bce72f82242742e13891f99",
+        "version" : "5.2.3"
       }
     },
     {
