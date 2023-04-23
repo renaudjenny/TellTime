@@ -3,20 +3,12 @@ import ComposableArchitecture
 import TTSCore
 
 struct Buttons: View {
-    struct ViewState: Equatable { }
-
-    enum ViewAction: Equatable {
-        case presentAbout
-        case presentConfiguration
-        case setRandomDate
-    }
-
-    let store: Store<AppState, AppAction>
+    let store: StoreOf<App>
 
     var body: some View {
-        WithViewStore(store.scope(state: { $0.view }, action: AppAction.view)) { viewStore in
+        WithViewStore(store.stateless) { viewStore in
             HStack {
-                SpeakButton(store: store.scope(state: \.tts, action: AppAction.tts))
+                SpeakButton(store: store.scope(state: \.tts, action: App.Action.tts))
                 Spacer()
                 Button { viewStore.send(.setRandomDate) } label: {
                     Image(systemName: "shuffle")
@@ -26,7 +18,7 @@ struct Buttons: View {
                         .cornerRadius(8)
                 }
                 Spacer()
-                Button { viewStore.send(.presentConfiguration) } label: {
+                Button { viewStore.send(.configuration(.present)) } label: {
                     Image(systemName: "gear")
                         .padding()
                         .accentColor(.red)
@@ -40,22 +32,6 @@ struct Buttons: View {
             }
             .frame(maxWidth: 800)
             .padding([.horizontal, .top])
-        }
-    }
-}
-
-private extension AppState {
-    var view: Buttons.ViewState {
-        Buttons.ViewState()
-    }
-}
-
-private extension AppAction {
-    static func view(localAction: Buttons.ViewAction) -> Self {
-        switch localAction {
-        case .presentAbout: return .presentAbout
-        case .presentConfiguration: return .configuration(.present)
-        case .setRandomDate: return .setRandomDate
         }
     }
 }

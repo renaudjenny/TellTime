@@ -44,44 +44,42 @@ struct AppView: View {
     }
 
     private var content: some View {
-        WithViewStore(store, observe: ViewState.init) { viewStore in
-            VStack {
-                if verticalSizeClass == .regular && horizontalSizeClass == .compact {
-                    Spacer()
-                    clockView
-                    Spacer()
-                    timeText
-                    Spacer()
-                    DateSelector(store: store)
-                    Spacer()
-                    Buttons(store: store)
-                } else if verticalSizeClass == .compact {
-                    HStack {
-                        clockView(viewStore: viewStore).padding()
-                        VStack {
-                            timeText(viewStore: viewStore)
-                            Spacer()
-                            DateSelector(store: store)
-                            Spacer()
-                            Buttons(store: store)
-                        }
-                    }
-                } else {
+        VStack {
+            if verticalSizeClass == .regular && horizontalSizeClass == .compact {
+                Spacer()
+                clockView
+                Spacer()
+                timeText
+                Spacer()
+                DateSelector(store: store)
+                Spacer()
+                Buttons(store: store)
+            } else if verticalSizeClass == .compact {
+                HStack {
+                    clockView.padding()
                     VStack {
-                        clockView(viewStore: viewStore).padding()
-                        VStack {
-                            timeText(viewStore: viewStore)
-                            DateSelector(store: store)
-                        }
-                        HStack {
-                            Spacer()
-                            Buttons(store: store)
-                            Spacer()
-                        }
+                        timeText
+                        Spacer()
+                        DateSelector(store: store)
+                        Spacer()
+                        Buttons(store: store)
                     }
                 }
-                navigationLinks(viewStore: viewStore)
+            } else {
+                VStack {
+                    clockView
+                    VStack {
+                        timeText
+                        DateSelector(store: store)
+                    }
+                    HStack {
+                        Spacer()
+                        Buttons(store: store)
+                        Spacer()
+                    }
+                }
             }
+            navigationLinks
         }
     }
 

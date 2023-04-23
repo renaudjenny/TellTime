@@ -12,7 +12,7 @@ struct TellTimeUKApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
             WithViewStore(store.stateless) { viewStore in
-                MainView(store: store)
+                AppView(store: store)
                     .onOpenURL(perform: { openURL($0, viewStore: viewStore) })
             }
         }
