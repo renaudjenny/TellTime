@@ -18,10 +18,10 @@ let package = Package(
         .package(url: "https://github.com/renaudjenny/SwiftClockUI", from: "2.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.4.1"),
-        .package(url: "https://github.com/renaudjenny/swift-past-ten", branch: "main"),
+        .package(url: "https://github.com/renaudjenny/swift-past-ten", from: "1.1.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.11.0"),
-        .package(url: "https://github.com/renaudjenny/swift-speech-recognizer", branch: "main"),
-        .package(url: "https://github.com/renaudjenny/swift-to-ten", branch: "main"),
+        .package(url: "https://github.com/renaudjenny/swift-speech-recognizer", from: "1.0.0"),
+        .package(url: "https://github.com/renaudjenny/swift-to-ten", from: "1.2.0"),
         .package(url: "https://github.com/renaudjenny/swift-tts", from: "2.1.2"),
     ],
     targets: [
@@ -56,7 +56,6 @@ let package = Package(
             name: "SpeechRecognizerCore",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                .product(name: "SwiftSpeechRecognizer", package: "swift-speech-recognizer"),
                 .product(name: "SwiftSpeechRecognizerDependency", package: "swift-speech-recognizer"),
             ]
         ),

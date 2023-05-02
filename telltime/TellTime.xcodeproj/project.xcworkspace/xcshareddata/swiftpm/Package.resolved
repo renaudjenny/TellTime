@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/swift-past-ten",
       "state" : {
-        "branch" : "main",
-        "revision" : "d5bd80b859811eaf4bf56c98d90dff3339f3f418"
+        "revision" : "84066e7940d44929b7d51809d4294073d1006230",
+        "version" : "1.1.0"
       }
     },
     {
@@ -104,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/swift-speech-recognizer",
       "state" : {
-        "branch" : "main",
-        "revision" : "f8975b348c5a32e30fee85ba70f09145eede89ce"
+        "revision" : "7a7947a6f9fb1edaa48ee0e8d1c523f5fd8e9bd8",
+        "version" : "1.0.0"
       }
     },
     {
@@ -113,8 +113,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/renaudjenny/swift-to-ten",
       "state" : {
-        "branch" : "main",
-        "revision" : "ab3e8fc3e7bd7eaf154563119b3239363588bcbf"
+        "revision" : "a5045b95dd581e02e38b56565e3305f54d43e4ed",
+        "version" : "1.2.0"
       }
     },
     {
